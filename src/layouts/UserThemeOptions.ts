@@ -25,6 +25,7 @@ const UserThemeOptions = (): ThemeOptions => {
       fontFamily:
         '"Kufam"',
     },
+
     /*
     palette:{
       primary: {

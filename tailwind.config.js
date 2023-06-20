@@ -26,7 +26,17 @@ module.exports = {
       transparent: 'transparent',
       black: {
         500: '#4F5665',
-        600: '#0B132A'
+        600: '#0B132A',
+        300: '#000000'
+      },
+      cardbg: {
+        300: '#FBFBFD'
+      },
+      glaregreen: {
+        300: '#21978B'
+      },
+      greyloading: {
+        300: '#E4E5E8'
       },
       creatorrulerbg: {
         300: '#502ABBC2'
@@ -64,7 +74,8 @@ module.exports = {
       gray: {
         100: '#EEEFF2',
         400: '#AFB5C0',
-        500: '#DDDDDD'
+        500: '#DDDDDD',
+        600: '#F5F5F5'
       },
       backgroundblue: {
         500: '#7D9CDB'

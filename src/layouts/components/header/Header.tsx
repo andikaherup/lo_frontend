@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+
 // Import react scroll
 import { Link as LinkScroll } from 'react-scroll'
 import ButtonOutline from '../misc/ButtonOutline.'
 
-import Image from 'next/image'
-
-import ButtonPrimary from '../misc/ButtonPrimary'
+// ** Next Import
+import { useRouter } from 'next/router'
 
 const Header: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string | null>(null)
+  const [activeLink, setActiveLink] = useState<string | null>('about')
   const [scrollActive, setScrollActive] = useState(false)
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
+  const router = useRouter()
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  useEffect(() => {
+    console.log('router', router.route)
+    if (router.route == '/personality-types') {
+      setActiveLink('Personality')
+    }
+    if (router.route == '/personality-test') {
+      setActiveLink('about')
+    }
+  }, [router])
+
+  const navChange = (value: string) => {
+    router.replace(value)
   }
 
   useEffect(() => {
@@ -23,16 +37,17 @@ const Header: React.FC = () => {
       setScrollActive(window.scrollY > 20)
     })
   }, [])
+
   return (
     <>
       <header
-        className={'fixed top-0 w-full  z-3 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
+        className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
         <nav className='grid grid-flow-col px-6 py-3 mx-auto sm:px-8 lg:px-16 sm:py-4'>
-          <a href='' className='flex items-center'>
+          <Link href='/home' className='flex items-center'>
             <img src='/images/favicon.png' className='h-8 mr-3' alt='Flowbite Logo' />
             <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>SOFTWARE</span>
-          </a>
+          </Link>
           <div className='flex md:order-2'>
             <button
               data-collapse-toggle='mobile-menu-2'
@@ -78,9 +93,7 @@ const Header: React.FC = () => {
                 spy={true}
                 smooth={true}
                 duration={1000}
-                onSetActive={() => {
-                  setActiveLink('about')
-                }}
+                onClick={() => navChange('/personality-test')}
                 className={
                   'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
                   (activeLink === 'about'
@@ -92,16 +105,14 @@ const Header: React.FC = () => {
               </LinkScroll>
               <LinkScroll
                 activeClass='active'
-                to='feature'
+                to='Personality'
                 spy={true}
                 smooth={true}
                 duration={1000}
-                onSetActive={() => {
-                  setActiveLink('feature')
-                }}
+                onClick={() => navChange('/personality-types')}
                 className={
                   'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
-                  (activeLink === 'feature'
+                  (activeLink === 'Personality'
                     ? ' text-blue-500 animation-active '
                     : ' text-black-500 hover:text-blue-500 ')
                 }
@@ -110,16 +121,13 @@ const Header: React.FC = () => {
               </LinkScroll>
               <LinkScroll
                 activeClass='active'
-                to='pricing'
+                to='specialized'
                 spy={true}
                 smooth={true}
                 duration={1000}
-                onSetActive={() => {
-                  setActiveLink('pricing')
-                }}
                 className={
                   'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
-                  (activeLink === 'pricing'
+                  (activeLink === 'specialized'
                     ? ' text-blue-500 animation-active '
                     : ' text-black-500 hover:text-blue-500 ')
                 }
@@ -128,16 +136,13 @@ const Header: React.FC = () => {
               </LinkScroll>
               <LinkScroll
                 activeClass='active'
-                to='testimoni'
+                to='resources'
                 spy={true}
                 smooth={true}
                 duration={1000}
-                onSetActive={() => {
-                  setActiveLink('testimoni')
-                }}
                 className={
                   'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
-                  (activeLink === 'testimoni'
+                  (activeLink === 'resources'
                     ? ' text-blue-500 animation-active '
                     : ' text-black-500 hover:text-blue-500 ')
                 }
@@ -147,7 +152,7 @@ const Header: React.FC = () => {
             </ul>
           </div>
           <div className='items-center justify-end hidden col-start-10 col-end-12 font-medium md:flex'>
-            <Link href='/'>
+            <Link href='/home'>
               <span className='mx-2 tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
                   Sign In
               </span>

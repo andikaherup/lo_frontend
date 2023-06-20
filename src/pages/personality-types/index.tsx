@@ -1,25 +1,26 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** MUI Imports
-import Button from '@mui/material/Button'
-
-import React, { useMemo } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import ButtonTypes from 'src/layouts/components/misc/ButtonTypes'
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
-import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
+
+// import { motion } from 'framer-motion'
+// import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
+
+// import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 import Icon from 'src/@core/components/icon'
 
 // ** Configs
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
-import Header from 'src/layouts/components/header/Header'
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
+
+// import Header from 'src/layouts/components/header/Header'
+// import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
+
 const PersonalityTypes = () => {
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
+  // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
+
   const heroes = [
     {
       name: '>> HERO <<',
@@ -80,6 +81,7 @@ const PersonalityTypes = () => {
 
     // Add more objects for additional heroes
   ]
+
   return (
     <>
       <div className='pt-10 mx-auto mt-20 bg-purple-500 shadow-md xl:px-16" ' id='about'>
@@ -99,7 +101,7 @@ const PersonalityTypes = () => {
         </div>
       </div>
       {heroes.map((hero, index) => (
-        <div className={`px-8 mx-auto ${hero.bgColor} shadow-md xl:px-16 py-10`} id='about'>
+        <div key={index} className={`px-8 mx-auto ${hero.bgColor} shadow-md xl:px-16 py-10`} id='about'>
           <div className='max-w-screen-xl mx-auto '>
             <div className='flex justify-center mb-5'>
               <h1 className='text-4xl font-knewave lg:text-9xl text-white-300'>{hero.name}</h1>
@@ -121,6 +123,6 @@ const PersonalityTypes = () => {
 
 PersonalityTypes.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
 
-// Home.guestGuard = false
+PersonalityTypes.guestGuard = true
 
 export default PersonalityTypes

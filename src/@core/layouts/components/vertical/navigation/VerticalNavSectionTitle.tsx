@@ -67,7 +67,7 @@ const VerticalNavSectionTitle = (props: Props) => {
   }
 
   return (
-    <CanViewNavSectionTitle navTitle={item}>
+    <CanViewNavSectionTitle>
       <ListSubheader
         className='nav-section-title'
         sx={{

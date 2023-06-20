@@ -14,7 +14,7 @@ import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
-import Header from 'src/layouts/components/header/Header'
+
 const Home = () => {
   const scrollAnimation = useMemo(() => getScrollAnimation(), [])
 
@@ -74,6 +74,6 @@ const Home = () => {
 
 Home.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
 
-// Home.guestGuard = false
+Home.guestGuard = true
 
 export default Home

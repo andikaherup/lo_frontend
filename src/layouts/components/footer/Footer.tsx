@@ -1,28 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import Link from 'next/link'
-// Import react scroll
-import { Link as LinkScroll } from 'react-scroll'
-import ButtonOutline from '../misc/ButtonOutline.'
-
-import Image from 'next/image'
-
-import ButtonPrimary from '../misc/ButtonPrimary'
+import React from 'react'
 
 const Footer: React.FC = () => {
-  const [activeLink, setActiveLink] = useState<string | null>(null)
-  const [scrollActive, setScrollActive] = useState(false)
-
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      setScrollActive(window.scrollY > 20)
-    })
-  }, [])
   return (
     <footer>
       <div className='pt-20 bg-gradient-to-b from-gray-100 to-transparent dark:from-gray-800 dark:to-transparent'>

@@ -180,7 +180,7 @@ const VerticalNavGroup = (props: Props) => {
   const menuGroupCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
 
   return (
-    <CanViewNavGroup navGroup={item}>
+    <CanViewNavGroup>
       <Fragment>
         <ListItem
           disablePadding
