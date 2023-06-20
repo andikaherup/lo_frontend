@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Knewave&family=Kufam:wght@400;500;700;800&family=Share&display=swap');
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+/* purgecss start ignore */
+
+html {
+  font-family: 'Kufam', sans-serif, 'Knewave', cursive;
+}
+body {
+  @apply bg-white-500;
+}
+p {
+  @apply text-black-500;
+}
+.custom-shape-divider-top-1687181954 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1687181954 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 119px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1687181954 .shape-fill {
+  fill: #a1e3fa;
+}
+.animation-hover:after {
+  background: none repeat scroll 0 0 transparent;
+  content: '';
+  height: 2px;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  @apply absolute bottom-0 block w-0 bg-blue-500 left-1/2;
+}
+.animation-active:after {
+  @apply left-0 w-full;
+}
+.animation-hover:hover:after {
+  @apply left-0 w-full;
+}
+
+li.custom-list:before {
+  content: '\2022'; /* bullet point, for screen readers */
+  text-indent: -9999999px; /* move the bullet point out of sight */
+
+  width: 0.4em;
+  height: 1em;
+  background-repeat: no-repeat;
+
+  background-size: 0.4em 0.7em;
+  background-position: 0 0.3em;
+  font-size: 300%;
+  top: -0.35em;
+  @apply absolute block;
+}
+li.circle-check:before {
+  background-image: url('/assets/Icon/checklist.svg');
+  left: -0.7em;
+  top: -0.4em;
+}
+li.check:before {
+  left: -0.5em;
+  background-image: url('/assets/Icon/jam_check.svg');
+  top: -0.5em;
+  font-size: 400%;
+}
+/* Slideshow */
+.slick-dots li {
+  @apply inline-block;
+}
+.slick-dots span {
+  @apply bg-gray-500;
+}
+.slick-dots .slick-active span {
+  @apply w-12 bg-orange-500 rounded-l-full rounded-r-full;
+}
+
+.star-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rotate-0 {
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.rotate-72 {
+  top: 23.4%;
+  left: 85.4%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.rotate-144 {
+  top: 85.4%;
+  left: 85.4%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.rotate-216 {
+  top: 85.4%;
+  left: 14.6%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.rotate-288 {
+  top: 23.4%;
+  left: 14.6%;
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+.background-s {
+  background-image: url('/public/assets/characters/backgroundss.png');
+}
+
+/* purgecss end ignore */
+
+/* purgecss start ignore */
+/* purgecss end ignore */
