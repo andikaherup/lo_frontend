@@ -3,11 +3,8 @@ import { ReactNode } from 'react'
 
 // ** MUI Imports
 
-import React, { useMemo } from 'react'
-import Image from 'next/image'
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
+import React from 'react'
+
 import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Configs
@@ -16,8 +13,6 @@ import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 const PrivacyPolicy = () => {
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
-
   return (
     <>
       <div className='px-8 mx-auto mt-20 xl:px-16 bg-skyblue-500 ' id='about'>

@@ -1,19 +1,12 @@
 // ** React Imports
-import { ReactNode, useState } from 'react'
+// import { ReactNode, useState } from 'react'
 
 // ** MUI Imports
 
-import React, { useMemo } from 'react'
+import React from 'react'
 import Image from 'next/image'
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
+
 import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
-
-// ** Configs
-
-// ** Layout Import
-import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 const Overview: React.FC = () => {
   return (

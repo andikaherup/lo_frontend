@@ -32,8 +32,8 @@ const PersonalityTest = () => {
   return (
     <>
       <div className='w-full mt-20 '>
-        <div className='px-20 pt-20 bg-skyblue-500'>
-          <h2 className='px-20 text-2xl font-extrabold tracking-tight text-black-300 lg:text-4xl dark:text-white'>
+        <div className='flex justify-center pt-20 lg:px-20 bg-skyblue-500'>
+          <h2 className='text-2xl font-extrabold tracking-tight text-left lg:px-20 text-black-300 lg:text-4xl dark:text-white'>
             LO Personality Test
           </h2>
         </div>

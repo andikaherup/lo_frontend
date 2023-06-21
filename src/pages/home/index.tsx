@@ -2,6 +2,7 @@
 import { ReactNode } from 'react'
 
 // ** MUI Imports
+import Link from 'next/link'
 
 import React, { useMemo } from 'react'
 import Image from 'next/image'
@@ -41,7 +42,13 @@ const Home = () => {
                 meticulous ruler who excels at organization? Maybe you embody the protector, guided by empathy and
                 compassion, or the synergist, effortlessly fostering collaboration and harmony.
               </p>
-              <ButtonPrimary>Personality Test</ButtonPrimary>
+              <Link
+                href='/personality-test'
+                className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                aria-current='page'
+              >
+                <ButtonPrimary>Personality Test</ButtonPrimary>
+              </Link>
             </div>
             <div className='flex w-full px-20'>
               <motion.div className='hidden w-full h-full lg:flex' variants={scrollAnimation}>

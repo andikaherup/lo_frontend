@@ -3,21 +3,14 @@ import { ReactNode, useState } from 'react'
 
 // ** MUI Imports
 
-import React, { useMemo } from 'react'
-import Image from 'next/image'
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
-import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
-
 import Overview from 'src/layouts/components/dashboard/overview'
+
 // ** Configs
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 const Dashboard = () => {
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
   const [selectedTab, setSelectedTab] = useState('Overview')
 
   const handleTabChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

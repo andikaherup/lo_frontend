@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // import { motion } from 'framer-motion'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
@@ -91,7 +92,7 @@ const PersonalityTypes = () => {
           </h2>
         </div>
         <div className='flex justify-center'>
-          <a href='/personality-test'>
+          <Link href='/personality-test'>
             <button
               className='flex items-center justify-center px-10 py-3 bg-yellow-500 text-white-300 mb-7 rounded-2xl hover:bg-yellow-500'
               type='submit'
@@ -99,7 +100,7 @@ const PersonalityTypes = () => {
               Find Your Type
               <Icon icon='mdi:arrow-right' />
             </button>
-          </a>
+          </Link>
         </div>
       </div>
       {heroes.map((hero, index) => (

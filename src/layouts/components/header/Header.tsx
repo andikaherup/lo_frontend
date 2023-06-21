@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
+import Image from 'next/image'
 
 // Import react scroll
 import { Link as LinkScroll } from 'react-scroll'
@@ -59,9 +60,11 @@ const Header: React.FC = () => {
         className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
         <nav className='grid grid-flow-col px-6 py-3 mx-auto sm:px-8 lg:px-16 sm:py-4'>
-          <Link href='/home' className='flex items-center'>
-            <img src='/images/favicon.png' className='h-8 mr-3' alt='Flowbite Logo' />
-            <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>SOFTWARE</span>
+          <Link href='/home' className='flex items-center justify-center '>
+            {/* <img src='/images/logo-level0.png' className='h-8 mr-3' alt='Flowbite Logo' /> */}
+            <img src='/images/level0.png' className='h-8 mr-3' alt='Flowbite Logo' />
+
+            {/* <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>LEVEL 0</span> */}
           </Link>
           <div className='flex md:order-2'>
             <button
@@ -167,8 +170,6 @@ const Header: React.FC = () => {
             </ul>
           </div>
           <div className='items-center justify-end hidden col-start-10 col-end-12 font-medium md:flex'>
-            <Link href='/home'></Link>
-
             <button
               type='button'
               onClick={openModal}
@@ -178,13 +179,13 @@ const Header: React.FC = () => {
                   Sign In
               </span>
             </button>
-            <a
+            <Link
               href='/personality-test'
               className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
               aria-current='page'
             >
               <ButtonOutline>Take Test</ButtonOutline>
-            </a>
+            </Link>
           </div>
         </nav>
         <div
