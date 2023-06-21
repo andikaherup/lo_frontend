@@ -91,13 +91,15 @@ const PersonalityTypes = () => {
           </h2>
         </div>
         <div className='flex justify-center'>
-          <button
-            className='flex items-center justify-center px-10 py-3 bg-yellow-500 text-white-300 mb-7 rounded-2xl hover:bg-yellow-500'
-            type='submit'
-          >
-            Find Your Type
-            <Icon icon='mdi:arrow-right' />
-          </button>
+          <a href='/personality-test'>
+            <button
+              className='flex items-center justify-center px-10 py-3 bg-yellow-500 text-white-300 mb-7 rounded-2xl hover:bg-yellow-500'
+              type='submit'
+            >
+              Find Your Type
+              <Icon icon='mdi:arrow-right' />
+            </button>
+          </a>
         </div>
       </div>
       {heroes.map((hero, index) => (

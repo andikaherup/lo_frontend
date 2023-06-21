@@ -22,10 +22,7 @@ const Home = () => {
     <>
       <div className='px-8 mx-auto mt-20 xl:px-16 bg-skyblue-500 ' id='about'>
         <ScrollAnimationWrapper>
-          <motion.div
-            className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'
-            variants={scrollAnimation}
-          >
+          <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
             <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
               <span className='font-medium leading-normal text-blue-500 text-1xl lg:text-2xl xl:text-2xl'>
                 LO Personality Test
@@ -47,7 +44,7 @@ const Home = () => {
               <ButtonPrimary>Personality Test</ButtonPrimary>
             </div>
             <div className='flex w-full px-20'>
-              <motion.div className='w-full h-full' variants={scrollAnimation}>
+              <motion.div className='hidden w-full h-full lg:flex' variants={scrollAnimation}>
                 <Image
                   src='/assets/characters/image.png'
                   alt='Characters'
@@ -58,14 +55,34 @@ const Home = () => {
                 />
               </motion.div>
             </div>
-          </motion.div>
+          </div>
         </ScrollAnimationWrapper>
       </div>
-      <div className='relative mb-20'>
+      <div className='relative z-4'>
         <div className='custom-shape-divider-top-1687181954'>
           <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
             <path d='M1200 0L0 0 892.25 114.72 1200 0z' className='shape-fill'></path>
           </svg>
+        </div>
+      </div>
+
+      <div className='z-9' style={{ position: 'relative', zIndex: 9 }}>
+        <div className='container px-6 m-auto text-gray-500 md:px-12 xl:px-0'>
+          <div className='grid gap-6 mx-auto md:w-3/4 lg:w-1/2 '>
+            <div className='px-8 pt-12 bg-yellow-300 border-8 shadow-2xl border-black-300 rounded-3xl dark:bg-gray-800 shadow-gray-600/10 dark:shadow-none sm:px-12 lg:px-8'>
+              <div className='mb-12 space-y-4'>
+                <p className='mb-6 text-sm lg:text-md text-black-600 dark:text-gray-300'>
+                  Our test analyzes your preferences, beliefs, and aspirations, providing you with a reliable and valid
+                  profile that empowers you to make informed decisions, embrace your natural talents, and harness your
+                  full potential. Your participation contributes to ongoing research, ensuring that our test continues
+                  to provide accurate and insightful results. Please note that all personal information and responses
+                  are strictly used for research purposes, ensuring the reliability and validity of the test results.
+                  Your privacy and confidentiality are of utmost importance to us. Thank you for your participation.
+                  Your contribution to our research is greatly appreciated!
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
