@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
-import Image from 'next/image'
 
 // Import react scroll
 import { Link as LinkScroll } from 'react-scroll'
@@ -59,14 +58,14 @@ const Header: React.FC = () => {
       <header
         className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
-        <nav className='grid grid-flow-col px-6 py-3 mx-auto sm:px-8 lg:px-16 sm:py-4'>
-          <Link href='/home' className='flex items-center justify-center '>
+        <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
+          <Link href='/home' className='flex items-center lg:justify-center '>
             {/* <img src='/images/logo-level0.png' className='h-8 mr-3' alt='Flowbite Logo' /> */}
             <img src='/images/level0.png' className='h-8 mr-3' alt='Flowbite Logo' />
 
             {/* <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>LEVEL 0</span> */}
           </Link>
-          <div className='flex md:order-2'>
+          <div className='flex justify-end md:order-2'>
             <button
               data-collapse-toggle='mobile-menu-2'
               type='button'
@@ -113,10 +112,10 @@ const Header: React.FC = () => {
                 duration={1000}
                 onClick={() => navChange('/personality-test')}
                 className={
-                  'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
+                  'px-4 py-3 mx-2 cursor-pointer text-sm font-semibold  animation-hover inline-block relative' +
                   (activeLink === 'about'
                     ? ' text-blue-500 animation-active '
-                    : ' text-black-500 hover:text-blue-500 a')
+                    : ' text-black-300 hover:text-blue-500 a')
                 }
               >
                 Personality Test
@@ -129,10 +128,10 @@ const Header: React.FC = () => {
                 duration={1000}
                 onClick={() => navChange('/personality-types')}
                 className={
-                  'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
                   (activeLink === 'Personality'
                     ? ' text-blue-500 animation-active '
-                    : ' text-black-500 hover:text-blue-500 ')
+                    : ' text-black-300 hover:text-blue-500 ')
                 }
               >
                 Personality Types
@@ -173,9 +172,9 @@ const Header: React.FC = () => {
             <button
               type='button'
               onClick={openModal}
-              className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'
+              className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none '
             >
-              <span className='mx-2 tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
+              <span className='mx-2 text-sm font-semibold tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
                   Sign In
               </span>
             </button>
@@ -184,7 +183,10 @@ const Header: React.FC = () => {
               className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
               aria-current='page'
             >
-              <ButtonOutline>Take Test</ButtonOutline>
+              <ButtonOutline>
+                {' '}
+                <span className='text-sm font-semibold'>Take Test</span>
+              </ButtonOutline>
             </Link>
           </div>
         </nav>

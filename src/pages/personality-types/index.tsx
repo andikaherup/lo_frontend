@@ -85,7 +85,7 @@ const PersonalityTypes = () => {
 
   return (
     <>
-      <div className='pt-10 mx-auto mt-20 bg-purple-500 shadow-md xl:px-16" ' id='about'>
+      <div className='pt-20 mx-auto bg-purple-500 shadow-md xl:px-16" ' id='about'>
         <div className='max-w-screen-md mx-auto mb-8 text-center lg:mb-12'>
           <h2 className='text-2xl font-extrabold tracking-tight text-gray-900 lg:text-4xl text-white-300 dark:text-white'>
             Personality Types

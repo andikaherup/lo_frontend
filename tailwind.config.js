@@ -45,7 +45,7 @@ module.exports = {
         300: '#1847ED'
       },
       red: {
-        900: '#580010'
+        900: '#FF1325'
       },
       orange: {
         100: '#FFECEC',

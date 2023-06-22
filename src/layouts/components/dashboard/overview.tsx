@@ -18,15 +18,15 @@ const Overview: React.FC = () => {
               Hi James! You are a <span className='text-skyblue-300'>Protector</span>
             </h1>
             <p className='mt-4 mb-6 text-black-500'>
-              Are you ready to uncover the depths of your personality and tap into your innate strengths? Take our
-              engaging and enlightening personality test designed for reliable and valid analysis. Rest assured, your
-              personal information and responses are strictly for research purposes, ensuring confidentiality and
-              privacy. By exploring our carefully crafted personality test, you will gain valuable insights into your
-              true nature, revealing what drives you and what makes you truly exceptional. Discover if you possess the
-              heroic spirit that inspires others, the creative magician spark that ignites innovation, or the rebellious
-              nature that challenges the status quo. Are you a visionary oracle with deep wisdom or a meticulous ruler
-              who excels at organization? Maybe you embody the protector, guided by empathy and compassion, or the
-              synergist, effortlessly fostering collaboration and harmony.
+              You are driven by a strong sense of loyalty, compassion, and a desire to protect others. You are willing
+              to put the needs of others before their own and advocate for the vulnerable. Protectors possess a strong
+              sense of responsibility, empathy, and a natural inclination to care for and protect others. They
+              prioritize the well-being and safety of those around them, and their actions often contribute to creating
+              a supportive and nurturing environment. Protectors are often compassionate, dependable, and have a strong
+              desire to make a positive impact. Protectors may sometimes experience burnout or neglect their own needs
+              in favor of taking care of others. Their strong emotional connection and sense of responsibility may lead
+              to difficulty in setting boundaries. Protectors may also face challenges in navigating conflicts and
+              making tough decisions that balance the needs of individuals and the collective.
             </p>
             <button className='px-12 py-3 mt-5 text-sm font-semibold transition-all bg-blue-500 outline-none lg:py-3 lg:px-13 text-white-500 hover:shadow-blue-md '>
               Download Your Result

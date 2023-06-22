@@ -1,11 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const Footer: React.FC = () => {
   return (
     <footer>
-      <div className='pt-20 bg-gradient-to-b from-gray-100 to-transparent dark:from-gray-800 dark:to-transparent'>
+      <div className='pt-10 bg-gradient-to-b from-gray-100 to-transparent dark:from-gray-800 dark:to-transparent'>
         <div className='container px-6 m-auto space-y-8 text-gray-600 dark:text-gray-400 md:px-12 lg:px-20'>
           <div className='grid grid-cols-8 gap-0 md:gap-0'>
             <div className='col-span-8 border-r border-gray-100 dark:border-gray-800 md:col-span-2 lg:col-span-3'>

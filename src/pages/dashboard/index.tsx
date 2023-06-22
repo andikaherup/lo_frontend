@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className='px-8 mx-auto mt-20 xl:px-16 bg-skyblue-500 ' id='about'>
+      <div className='px-8 pt-20 mx-auto xl:px-16 bg-skyblue-500 ' id='about'>
         <div className='w-full'>
           <div className='flex justify-center w-full pt-5 mt-6 sm:hidden'>
             <select

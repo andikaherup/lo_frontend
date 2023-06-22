@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <>
-      <div className='px-8 mx-auto mt-20 xl:px-16 bg-skyblue-500 ' id='about'>
+      <div className='px-8 pt-20 mx-auto xl:px-16 bg-skyblue-500 ' id='about'>
         <ScrollAnimationWrapper>
           <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
             <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
