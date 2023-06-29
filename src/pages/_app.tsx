@@ -16,7 +16,7 @@ import type { EmotionCache } from '@emotion/cache'
 
 // ** Config Imports
 
-import { defaultACLObj } from 'src/configs/acl'
+// import { defaultACLObj } from 'src/configs/acl'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Third Party Import
@@ -24,13 +24,16 @@ import { Toaster } from 'react-hot-toast'
 
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
-import AclGuard from 'src/@core/components/auth/AclGuard'
+
+// import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
-import AuthGuard from 'src/@core/components/auth/AuthGuard'
-import GuestGuard from 'src/@core/components/auth/GuestGuard'
+
+// import AuthGuard from 'src/@core/components/auth/AuthGuard'
+// import GuestGuard from 'src/@core/components/auth/GuestGuard'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 // ** Spinner Import
-import Spinner from 'src/@core/components/spinner'
+// import Spinner from 'src/@core/components/spinner'
 
 // ** Contexts
 import { AuthProvider } from 'src/context/AuthContext'
@@ -83,14 +86,21 @@ if (themeConfig.routingLoader) {
   })
 }
 
-const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
-  if (guestGuard) {
-    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
-  } else if (!guestGuard && !authGuard) {
-    return <>{children}</>
-  } else {
-    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
-  }
+const Guard = ({ children }: GuardProps) => {
+  // if (guestGuard) {
+  //   console.log('hereeee21')
+
+  //   return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+  // } else if (!guestGuard && !authGuard) {
+  //   console.log('hereeee22')
+
+  //   return <>{children}</>
+  // } else {
+  //   console.log('hereeee23')
+
+  //   return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
+  // }
+  return <>{children}</>
 }
 
 // ** Configure JSS & ClassName
@@ -108,7 +118,7 @@ const App = (props: ExtendedAppProps) => {
 
   const guestGuard = Component.guestGuard ?? false
 
-  const aclAbilities = Component.acl ?? defaultACLObj
+  // const aclAbilities = Component.acl ?? defaultACLObj
 
   return (
     <CacheProvider value={emotionCache}>
@@ -121,22 +131,22 @@ const App = (props: ExtendedAppProps) => {
 
       <AuthProvider>
         <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-          <SettingsConsumer>
-            {({ settings }) => {
-              return (
-                <ThemeComponent settings={settings}>
-                  <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                    <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+          <GoogleOAuthProvider clientId={'1035210079248-7m12p0lsoplcees3o5o0qioph1krrs90.apps.googleusercontent.com'}>
+            <SettingsConsumer>
+              {({ settings }) => {
+                return (
+                  <ThemeComponent settings={settings}>
+                    <Guard authGuard={authGuard} guestGuard={guestGuard}>
                       {getLayout(<Component {...pageProps} />)}
-                    </AclGuard>
-                  </Guard>
-                  <ReactHotToast>
-                    <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
-                  </ReactHotToast>
-                </ThemeComponent>
-              )
-            }}
-          </SettingsConsumer>
+                    </Guard>
+                    <ReactHotToast>
+                      <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
+                    </ReactHotToast>
+                  </ThemeComponent>
+                )
+              }}
+            </SettingsConsumer>
+          </GoogleOAuthProvider>
         </SettingsProvider>
       </AuthProvider>
     </CacheProvider>

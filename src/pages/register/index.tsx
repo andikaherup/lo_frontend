@@ -15,6 +15,9 @@ import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 import Icon from 'src/@core/components/icon'
 import Grid from '@mui/material/Grid'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
+
 // ** Third Party Imports
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
@@ -33,10 +36,20 @@ import FormControl from '@mui/material/FormControl'
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 
+// import { RegisterParams } from 'src/context/types'
+
 interface State {
   password: string
 
   showPassword: boolean
+}
+
+interface FormData {
+  email: string
+  username: string
+  password: string
+  age: number
+  gender: string
 }
 
 const accountSchema = yup.object().shape({
@@ -51,10 +64,11 @@ const defaultAccountValues = {
   email: '',
   username: '',
   password: '',
-  age: '',
+  age: 0,
   gender: ''
 }
 const Register = () => {
+  const { register } = useAuth()
   const scrollAnimation = useMemo(() => getScrollAnimation(), [])
 
   // ** States
@@ -80,8 +94,46 @@ const Register = () => {
     setState({ ...state, showPassword: !state.showPassword })
   }
 
-  const onSubmit = (value: any) => {
-    console.log(value)
+  const onSubmit = (data: FormData) => {
+    console.log(data)
+
+    register(data, (err: any) => {
+      console.log(err)
+
+      // console.log('ini errornya',err.response?.data.password1)
+      // if (err.response?.data.password1) {
+      //   for (const element of err.response?.data.password1) {
+      //     toast.error(element)
+      //   }
+      //   setError('password1', {
+      //     type: 'manual',
+      //     message: 'wrong password format'
+      //   })
+      // }
+      // if (err.response?.data.password2) {
+      //   for (const element of err.response?.data.password2) {
+      //     toast.error(element)
+      //   }
+      //   setError('password2', {
+      //     type: 'manual',
+      //     message: 'wrong password format'
+      //   })
+      // }
+      // if (err.response?.data.email) {
+      //   for (const element of err.response?.data.email) {
+      //     toast.error(element)
+      //   }
+      //   setError('email', {
+      //     type: 'manual',
+      //     message: 'wrong email format'
+      //   })
+      // }
+      // if (err.response?.data.non_field_errors) {
+      //   for (const element of err.response?.data.non_field_errors) {
+      //     toast.error(element)
+      //   }
+      // }
+    })
   }
 
   return (
@@ -178,7 +230,9 @@ const Register = () => {
                                 value={value}
                                 className='block w-full px-4 py-2 pr-8 leading-tight border border-gray-200 rounded appearance-none text-black-500 bg-white-300 focus:outline-none focus:bg-white focus:border-gray-500'
                               >
-                                <option value='man'>Male</option>
+                                <option value=''></option>
+
+                                <option value='male'>Male</option>
                                 <option value='female'>Female</option>
                                 <option value='others'>Others</option>
                               </select>

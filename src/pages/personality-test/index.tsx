@@ -1,11 +1,12 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState, useRef, ChangeEvent } from 'react'
 
 // ** MUI Imports
 
 import React from 'react'
 
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
+// import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
+import axios from 'axios'
 
 // import { motion } from 'framer-motion'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
@@ -13,21 +14,135 @@ import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 // import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Configs
+import contentConfig from 'src/configs/content'
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 import RadioGroup from 'src/layouts/components/misc/RadioGroupTest'
 
-const PersonalityTest = () => {
-  // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
-  // const [selectedValue, setSelectedValue] = useState('')
+interface Questions {
+  category: string
+  code: null
+  created_at: string
+  id: number
+  question: string
+  updated_at: string
+}
 
-  // const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setSelectedValue(event.target.value)
+const PersonalityTest = () => {
+  useEffect(() => {
+    const initAuth = async () => {
+      await axios.get(contentConfig.getQuestion).then(async res => {
+        setQuestions(res.data.data)
+        setInitialLoad(true)
+      })
+    }
+
+    initAuth()
+  }, [])
+
+  const [initialLoad, setInitialLoad] = useState(false)
+  const [questionIndex, setQuestionIndex] = useState(1)
+  const [questionIndexForAnswer, setQuestionIndexForAnswer] = useState(1)
+  const [questions, setQuestions] = useState<Questions[]>([])
+  const questionsPerPage = 6
+
+  const currentQuestionRef = useRef<HTMLDivElement>(null)
+  const currentPage = Math.floor(questionIndex / questionsPerPage) + 1
+  const currentPagePercentage = ((currentPage * questionsPerPage) / questions.length) * 100
+  const [answers, setAnswers] = useState<{ id: number; answer: string; answer_str: string; question: string }[]>([])
+
+  // const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''))
+  const [selectedValue, setSelectedValue] = useState('')
+
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedValue(event.target.value)
+    console.log(selectedValue)
+  }
+  useEffect(() => {
+    if (currentQuestionRef.current) {
+      currentQuestionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [questionIndexForAnswer])
+
+  const handleNext = () => {
+    if (questionIndexForAnswer + questionsPerPage - 1 <= questions.length) {
+      setQuestionIndex(questionIndexForAnswer)
+    }
+    setTimeout(() => {
+      if (currentQuestionRef.current) {
+        currentQuestionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        currentQuestionRef.current.focus()
+      }
+    }, 300)
+  }
+
+  const SubmitAnswer = () => {
+    const payload = {
+      response: answers,
+      gender: selectedValue
+    }
+    axios
+      .post(contentConfig.getResult, payload)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error, 'errorr')
+      })
+  }
+
+  // const handleAnswerSelection = (index: number, value: string, question: Questions) => {
+  //   console.log('index', index, 'value', value, 'questionIndexForAnswer', question)
+  //   const updatedAnswers = [...answers]
+  //   updatedAnswers[index] = value
+  //   setAnswers(updatedAnswers)
+  //   setQuestionIndexForAnswer(questionIndexForAnswer + 1)
   // }
 
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const determineString = (number: string): string => {
+    const mapping: { [key: string]: string } = {
+      '1': 'strongly_disagree',
+      '2': 'disagree',
+      '3': 'neutral',
+      '4': 'agree',
+      '5': 'strongly_agree'
+    }
+
+    if (number in mapping) {
+      return mapping[number]
+    }
+
+    // Return an empty string or handle the case when the number is not found in the mapping
+    return ''
+  }
+
+  const handleAnswerSelection = (value: string, question: Questions) => {
+    console.log('questionIndnexAnswer', questionIndexForAnswer, questionIndex, currentPage)
+    const updatedAnswers = [...answers]
+    const existingAnswer = updatedAnswers.find(a => a.id === question.id)
+
+    if (existingAnswer) {
+      existingAnswer.answer = value
+      existingAnswer.answer_str = determineString(value)
+    } else {
+      console.log('here push')
+      updatedAnswers.push({
+        id: question.id,
+        answer: value,
+        answer_str: determineString(value),
+        question: question.question
+      })
+      if (questionIndexForAnswer != questions.length) {
+        setQuestionIndexForAnswer(questionIndexForAnswer + 1)
+      }
+    }
+
+    setAnswers(updatedAnswers)
+  }
+
+  if (!initialLoad) return <>Loading....</>
 
   return (
     <>
@@ -39,7 +154,7 @@ const PersonalityTest = () => {
         </div>
         <div className='relative px-10 lg:px-20'>
           <div className='absolute inset-0 w-full bg-skyblue-500' style={{ height: '50%' }}></div>
-          <div className='absolute inset-0 bg-red-500 top-1/2' style={{ height: '50%' }}></div>
+          <div className='absolute inset-0 bg-white-500 top-1/2' style={{ height: '50%' }}></div>
           <div className='relative flex items-center justify-center py-20'>
             {/* Content */}
             <section className='text-center '>
@@ -67,7 +182,7 @@ const PersonalityTest = () => {
                     <div className='p-6'>
                       <div className='flex justify-center mb-5'>
                         <svg width='95' height='95' viewBox='0 0 95 95' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                          <g clip-path='url(#clip0_182_11749)'>
+                          <g clipPath='url(#clip0_182_11749)'>
                             <path
                               d='M14.1087 16.8501H48.5429C50.0758 16.8501 51.3188 15.6071 51.3188 14.0734C51.3188 12.5398 50.0758 11.2967 48.5429 11.2967H14.1087C12.5751 11.2967 11.332 12.5398 11.332 14.0734C11.332 15.6071 12.5751 16.8501 14.1087 16.8501Z'
                               fill='#21978B'
@@ -108,7 +223,7 @@ const PersonalityTest = () => {
                     <div className='p-6'>
                       <div className='flex justify-center mb-5'>
                         <svg width='96' height='96' viewBox='0 0 96 96' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                          <g clip-path='url(#clip0_182_11746)'>
+                          <g clipPath='url(#clip0_182_11746)'>
                             <path
                               d='M93.3834 52.5099L85.5139 27.3274C87.5447 26.3728 89.1351 24.6322 89.8916 22.5002H93.1875C94.7408 22.5002 96 21.2409 96 19.6877C96 18.1344 94.7408 16.8752 93.1875 16.8752H89.8913C88.7303 13.6016 85.6041 11.2502 81.9375 11.2502C78.2709 11.2502 75.1447 13.6016 73.9837 16.8752H67.9905C67.0639 14.9299 65.2078 13.5103 63 13.1931V6.5625C63 2.94394 60.0561 0 56.4375 0H35.8125C32.1939 0 29.25 2.94394 29.25 6.5625V16.875H22.0163C20.8552 13.6014 17.7291 11.25 14.0625 11.25C10.3959 11.25 7.26975 13.6014 6.10875 16.875H2.8125C1.25925 16.875 0 18.1343 0 19.6875C0 21.2407 1.25925 22.5 2.8125 22.5H6.10875C6.86513 24.6324 8.45531 26.3726 10.4861 27.3272L2.61656 52.5099C1.15519 52.6108 0 53.8252 0 55.3125V59.0625C0 66.8166 6.30844 73.125 14.0625 73.125C21.8166 73.125 28.125 66.8166 28.125 59.0625V55.3125C28.125 53.8252 26.9698 52.6108 25.5084 52.5099L17.6387 27.3272C19.6695 26.3726 21.2597 24.6324 22.0161 22.5H29.25V30.4826C29.25 35.9631 31.2386 41.1377 34.875 45.1826V50.7885C33.7834 51.1749 33 52.2135 33 53.4375V93.1875C33 94.7408 34.2593 96 35.8125 96H60.1875C61.7407 96 63 94.7408 63 93.1875V53.4375C63 52.2135 62.2166 51.1749 61.125 50.7885V45.0491L68.0087 36.4446C68.4077 35.9458 68.625 35.3263 68.625 34.6875V22.5H73.9836C74.7401 24.6321 76.3305 26.3728 78.3613 27.3272L70.4917 52.5098C69.0302 52.6108 67.875 53.8252 67.875 55.3125V59.0625C67.875 66.8166 74.1834 73.125 81.9375 73.125C89.6916 73.125 96 66.8166 96 59.0625V55.3125C96 53.8252 94.8448 52.6108 93.3834 52.5099ZM14.0625 16.875C15.6133 16.875 16.875 18.1367 16.875 19.6875C16.875 21.2383 15.6133 22.5 14.0625 22.5C12.5117 22.5 11.25 21.2383 11.25 19.6875C11.25 18.1367 12.5117 16.875 14.0625 16.875ZM22.5 59.0625C22.5 63.7149 18.7149 67.5 14.0625 67.5C9.41006 67.5 5.625 63.7149 5.625 59.0625V58.125H22.5V59.0625ZM8.51306 52.5L14.0625 34.7417L19.6119 52.5H8.51306ZM81.9375 16.875C83.4883 16.875 84.75 18.1367 84.75 19.6875C84.75 21.2383 83.4883 22.5 81.9375 22.5C80.3867 22.5 79.125 21.2383 79.125 19.6875C79.125 18.1367 80.3867 16.875 81.9375 16.875ZM34.875 6.5625C34.875 6.04556 35.2956 5.625 35.8125 5.625H56.4375C56.9544 5.625 57.375 6.04556 57.375 6.5625V13.125H49.875C46.7338 13.125 44.0392 15.0669 42.9242 17.8125H37.6875C36.1367 17.8125 34.875 16.5508 34.875 15V6.5625ZM57.375 90.375H38.625V56.25H57.375V90.375ZM63 33.7009L56.1163 42.3054C55.7173 42.8042 55.5 43.4237 55.5 44.0625V50.625H40.5V44.0625C40.5 43.3166 40.2036 42.6013 39.6761 42.0739C36.5801 38.9777 34.875 34.8611 34.875 30.4826V22.9538C35.7553 23.2659 36.7016 23.4375 37.6875 23.4375H42.9242C43.9063 25.8557 46.1136 27.6506 48.7725 28.0442C47.0751 30.492 46.125 33.4406 46.125 36.5625C46.125 38.1157 47.3843 39.375 48.9375 39.375C50.4907 39.375 51.75 38.1157 51.75 36.5625C51.75 33.0084 53.7247 29.8132 56.9034 28.224L57.6953 27.8282C58.8621 27.2449 59.4744 25.9359 59.1748 24.6664C58.8752 23.3968 57.7419 22.5 56.4375 22.5H49.875C48.8411 22.5 48 21.6589 48 20.625C48 19.5911 48.8411 18.75 49.875 18.75H62.0625C62.5794 18.75 63 19.1706 63 19.6875V33.7009ZM81.9375 34.7417L87.4869 52.5H76.3882L81.9375 34.7417ZM90.375 59.0625C90.375 63.7149 86.5899 67.5 81.9375 67.5C77.2851 67.5 73.5 63.7149 73.5 59.0625V58.125H90.375V59.0625Z'
                               fill='#21978B'
@@ -129,34 +244,81 @@ const PersonalityTest = () => {
             </section>
           </div>
         </div>
-        <div className='flex justify-center mb-10 align-middle'>
+        <div className='flex justify-center align-middle bg-white-500'>
           <div className='w-full rounded-lg bg-greyloading-300 dark:bg-greyloading-300' style={{ width: '75%' }}>
             <div
               className='flex items-center justify-end h-4 text-sm font-medium leading-none text-right rounded-lg bg-glaregreen-300 lg:h-7 lg:text-md text-white-500'
-              style={{ width: '25%' }}
+              style={{ width: `${currentPagePercentage}%` }}
             >
-              25%
+              {currentPagePercentage}%
             </div>
           </div>
         </div>
-        {data.map(index => (
-          <div key={index} className='flex flex-col justify-center w-full'>
-            <div className='flex justify-center w-full'>
-              <hr className='my-12 h-0.5 border-t-0 bg-black-300 opacity-10' style={{ width: '75%' }} />
+        {questions
+          .slice((currentPage - 1) * questionsPerPage, (currentPage - 1) * questionsPerPage + questionsPerPage)
+          .map(question => (
+            <div
+              key={question.id}
+              className={`flex flex-col justify-center w-full bg-white-500`}
+              ref={question.id === questions[questionIndexForAnswer - 1].id ? currentQuestionRef : null}
+            >
+              <div className='flex justify-center w-full bg-white-500'>
+                <hr className='my-12 h-0.5 border-t-0 bg-black-300 opacity-10' style={{ width: '75%' }} />
+              </div>
+              <div
+                className={`flex flex-col justify-center w-full ${
+                  questions[questionIndexForAnswer - 1].id === question.id ? 'bg-white-500 ' : 'opacity-25'
+                }`}
+              >
+                <div className='w-full '>
+                  <p className='px-10 font-extrabold text-center'>{question.question}</p>
+                </div>
+                <div className='w-full px-5 mt-10'>
+                  <RadioGroup
+                    disable={questions[questionIndexForAnswer - 1].id < question.id}
+                    value={
+                      answers && answers[question.id - 1] && answers[question.id - 1].answer
+                        ? answers[question.id - 1].answer
+                        : ''
+                    } // Pass the value of the corresponding question's answer
+                    onChange={value => handleAnswerSelection(value, question)} // Pass the index and value of the selected answer
+                  />
+                </div>
+              </div>
             </div>
-
-            <div className='w-full '>
-              <p className='px-10 font-extrabold text-center'>
-                I find fulfillment in the process of bringing something new and unique into existence.
+          ))}
+        {questionIndexForAnswer == questions.length && (
+          <div className='w-full py-10 bg-white-500'>
+            <div className='flex justify-center w-full py-10'>
+              <p className='text-center text-gray-400'>
+                <h1 className='text-2xl text-black-300'>Your Gender</h1>
+                This will determine your avatar in the results screen.
               </p>
             </div>
-            <div className='w-full px-5 mt-10'>
-              <RadioGroup />
+            <div className='flex justify-center w-full bg-white-500'>
+              <select
+                value={selectedValue}
+                onChange={handleSelectChange}
+                className='w-full max-w-xs px-4 py-2 pr-8 leading-tight border border-gray-200 rounded appearance-none lg:max-w-md text-black-500 bg-white-300 focus:outline-none focus:bg-white focus:border-gray-500'
+              >
+                <option value='male'>Male</option>
+                <option value='female'>Female</option>
+              </select>
             </div>
           </div>
-        ))}
-        <div className='flex justify-center w-full mt-20'>
-          <ButtonPrimary>Next</ButtonPrimary>
+        )}
+        <div className='flex justify-center w-full py-20 bg-white-500'>
+          <button
+            className={`py-3 lg:py-4 px-12 lg:px-16 text-white-500 font-semibold rounded-full ${
+              answers.length != currentPage * questionsPerPage
+                ? 'bg-gray-500 '
+                : 'bg-blue-500 hover:shadow-blue-md transition-all outline-none active'
+            }   `}
+            onClick={questionIndexForAnswer != questions.length ? handleNext : SubmitAnswer}
+            disabled={answers.length != currentPage * questionsPerPage}
+          >
+            {questionIndexForAnswer == questions.length ? 'Submit' : 'Next'}
+          </button>
         </div>
       </div>
     </>

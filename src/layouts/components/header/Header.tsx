@@ -6,11 +6,45 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Link as LinkScroll } from 'react-scroll'
 import ButtonOutline from '../misc/ButtonOutline.'
 
+// ** Type Import
+import { useGoogleLogin } from '@react-oauth/google'
+import { GoogleLoginButton } from 'react-social-login-buttons'
+
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { yupResolver } = require('@hookform/resolvers/yup')
+
+// ** Third Party Imports
+import * as yup from 'yup'
+import { useForm, Controller } from 'react-hook-form'
+import FormControl from '@mui/material/FormControl'
+
 // ** Next Import
 import { useRouter } from 'next/router'
 import ButtonPrimary from '../misc/ButtonPrimary'
 
+import Dropdown from './dropdown'
+
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(5).required()
+})
+
+const defaultValues = {
+  email: '',
+  password: ''
+}
+
+interface FormData {
+  email: string
+  password: string
+}
+
 const Header: React.FC = () => {
+  const auth = useAuth()
+
   const [activeLink, setActiveLink] = useState<string | null>(null)
   const [scrollActive, setScrollActive] = useState(false)
 
@@ -29,6 +63,19 @@ const Header: React.FC = () => {
   function openModal() {
     setIsOpen(true)
   }
+
+  const {
+    control: accountControl,
+
+    // setError,
+    handleSubmit
+
+    // formState: { errors }
+  } = useForm({
+    defaultValues,
+
+    resolver: yupResolver(schema)
+  })
 
   useEffect(() => {
     console.log('router', router.route)
@@ -52,6 +99,26 @@ const Header: React.FC = () => {
       setScrollActive(window.scrollY > 20)
     })
   }, [])
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: (codeResponse: any) => googleLogin(codeResponse)
+  })
+
+  const googleLogin = async (response: any) => {
+    await auth.googleLogin(response)
+    closeModal()
+  }
+
+  const onSubmit = async (data: FormData) => {
+    const { email, password } = data
+    auth.login({ email, password }, (err: any) => {
+      if (err.response?.data.non_field_errors) {
+        for (const element of err.response?.data.non_field_errors) {
+          console.log(element)
+        }
+      }
+    })
+  }
 
   return (
     <>
@@ -136,6 +203,38 @@ const Header: React.FC = () => {
               >
                 Personality Types
               </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Personality'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/home')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
+                  (activeLink === 'Personality'
+                    ? ' text-blue-500 animation-active '
+                    : ' text-black-300 hover:text-blue-500 ')
+                }
+              >
+                Quest
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Personality'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/faq')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
+                  (activeLink === 'Personality'
+                    ? ' text-blue-500 animation-active '
+                    : ' text-black-300 hover:text-blue-500 ')
+                }
+              >
+                FAQ
+              </LinkScroll>
               {/* <LinkScroll
                 activeClass='active'
                 to='specialized'
@@ -169,15 +268,17 @@ const Header: React.FC = () => {
             </ul>
           </div>
           <div className='items-center justify-end hidden col-start-10 col-end-12 font-medium md:flex'>
-            <button
-              type='button'
-              onClick={openModal}
-              className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none '
-            >
-              <span className='mx-2 text-sm font-semibold tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
-                  Sign In
-              </span>
-            </button>
+            {!auth.user && (
+              <button
+                type='button'
+                onClick={openModal}
+                className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none '
+              >
+                <span className='mx-2 text-sm font-semibold tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
+                    Sign In
+                </span>
+              </button>
+            )}
             <Link
               href='/personality-test'
               className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
@@ -188,6 +289,7 @@ const Header: React.FC = () => {
                 <span className='text-sm font-semibold'>Take Test</span>
               </ButtonOutline>
             </Link>
+            {auth.user && <Dropdown></Dropdown>}
           </div>
         </nav>
         <div
@@ -289,7 +391,7 @@ const Header: React.FC = () => {
                     </p>
                   </div>
                   <div className='flex justify-center mt-5'>
-                    <button className='flex gap-2 px-4 py-2 transition duration-150 border rounded-lg border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow'>
+                    {/* <button className='flex gap-2 px-4 py-2 transition duration-150 border rounded-lg border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow'>
                       <img
                         className='w-6 h-6'
                         src='https://www.svgrepo.com/show/475656/google-color.svg'
@@ -297,7 +399,8 @@ const Header: React.FC = () => {
                         alt='google logo'
                       />
                       <span>Sign Up with Google</span>
-                    </button>
+                    </button> */}
+                    <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle} />
                   </div>
                   <div className='flex justify-center w-full mt-10'>
                     <p className='text-sm text-center text-textcolorblack-300 dark:text-neutral-300'>
@@ -308,36 +411,61 @@ const Header: React.FC = () => {
                   <div className='w-full max-w-xl mx-auto'>
                     <div className='mt-8'>
                       <div className='my-6'>
-                        <form action='#' method='POST' className='space-y-6'>
+                        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
                           <div>
-                            <label className='block text-sm font-medium text-textcolorblack-300'> Email address </label>
-                            <div className='mt-1'>
-                              <input
-                                id='email'
-                                name='email'
-                                type='email'
-                                autoComplete='email'
-                                placeholder='Your Email'
-                                className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
-                              />
-                            </div>
+                            <FormControl fullWidth>
+                              <label className='block text-sm font-medium text-textcolorblack-300'>
+                                {' '}
+                                Email address{' '}
+                              </label>
+                              <div className='mt-1'>
+                                <Controller
+                                  name='email'
+                                  control={accountControl}
+                                  rules={{ required: true }}
+                                  render={({ field: { value, onChange } }) => (
+                                    <input
+                                      id='email'
+                                      name='email'
+                                      type='email'
+                                      value={value}
+                                      onChange={onChange}
+                                      autoComplete='email'
+                                      placeholder='Your Email'
+                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                    />
+                                  )}
+                                />
+                              </div>
+                            </FormControl>
                           </div>
 
                           <div className='space-y-1'>
-                            <label htmlFor='password' className='block text-sm font-medium text-textcolorblack-300'>
-                              {' '}
-                              Password{' '}
-                            </label>
-                            <div className='mt-1'>
-                              <input
-                                id='password'
-                                name='password'
-                                type='password'
-                                autoComplete='current-password'
-                                placeholder='Your Password'
-                                className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
-                              />
-                            </div>
+                            <FormControl fullWidth>
+                              <label htmlFor='password' className='block text-sm font-medium text-textcolorblack-300'>
+                                {' '}
+                                Password{' '}
+                              </label>
+                              <div className='mt-1'>
+                                <Controller
+                                  name='password'
+                                  control={accountControl}
+                                  rules={{ required: true }}
+                                  render={({ field: { value, onChange } }) => (
+                                    <input
+                                      id='password'
+                                      value={value}
+                                      onChange={onChange}
+                                      name='password'
+                                      type='password'
+                                      autoComplete='current-password'
+                                      placeholder='Your Password'
+                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                    />
+                                  )}
+                                />
+                              </div>
+                            </FormControl>
                           </div>
 
                           <div className='flex items-center justify-between'>

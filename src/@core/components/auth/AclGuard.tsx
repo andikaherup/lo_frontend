@@ -44,16 +44,20 @@ const AclGuard = (props: AclGuardProps) => {
 
   useEffect(() => {
     if (auth.user && auth.user.role && !guestGuard && router.route === '/') {
-      const homeRoute = getHomeRoute(auth.user.role)
+      const homeRoute = getHomeRoute('admin')
       router.replace(homeRoute)
     }
   }, [auth.user, guestGuard, router])
 
   // User is logged in, build ability for the user based on his role
   if (auth.user && !ability) {
-    ability = buildAbilityFor(auth.user.role, aclAbilities.subject)
+    console.log('hereeee3')
+
+    ability = buildAbilityFor('admin', aclAbilities.subject)
     if (router.route === '/') {
-      return <Spinner />
+      console.log('hereeee4')
+
+      return <Spinner></Spinner>
     }
   }
 
@@ -61,8 +65,12 @@ const AclGuard = (props: AclGuardProps) => {
   if (guestGuard || router.route === '/404' || router.route === '/500' || !authGuard) {
     // If user is logged in and his ability is built
     if (auth.user && ability) {
+      console.log('hereeee1')
+
       return <AbilityContext.Provider value={ability}>{children}</AbilityContext.Provider>
     } else {
+      console.log('hereeee2')
+
       // If user is not logged in (render pages like login, register etc..)
       return <>{children}</>
     }
@@ -70,7 +78,11 @@ const AclGuard = (props: AclGuardProps) => {
 
   // Check the access of current user and render pages
   if (ability && auth.user && ability.can(aclAbilities.action, aclAbilities.subject)) {
+    console.log('hereeee5')
+
     if (router.route === '/') {
+      console.log('hereeee7')
+
       return <Spinner />
     }
 

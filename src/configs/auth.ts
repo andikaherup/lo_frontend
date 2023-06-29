@@ -1,7 +1,11 @@
+const base_url = process.env.NEXT_PUBLIC_BASE_URL
 export default {
-  meEndpoint: '/auth/me',
-  loginEndpoint: '/jwt/login',
-  registerEndpoint: '/jwt/register',
+  meEndpoint: `${base_url}/api/v1/account/`,
+  convertToken: `${base_url}/api-auth/convert-token/`,
+  googleLogin: `${base_url}/api/v1/social_account_signup/`,
+  loginEndpoint: `${base_url}/api/token/`,
+  registerEndpoint: `${base_url}/api/v1/signup/`,
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }
+

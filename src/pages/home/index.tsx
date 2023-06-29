@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import Link from 'next/link'
 
 import React, { useMemo } from 'react'
-import Image from 'next/image'
+
 import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 import { motion } from 'framer-motion'
 import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
@@ -51,15 +51,8 @@ const Home = () => {
               </Link>
             </div>
             <div className='flex w-full px-20'>
-              <motion.div className='hidden w-full h-full lg:flex' variants={scrollAnimation}>
-                <Image
-                  src='/assets/characters/image.png'
-                  alt='Characters'
-                  quality={100}
-                  width={200}
-                  height={200}
-                  layout='responsive'
-                />
+              <motion.div className='flex w-full h-full ' variants={scrollAnimation}>
+                <img src='/assets/characters/image.png' alt='Characters' className='object-scale-down' />
               </motion.div>
             </div>
           </div>

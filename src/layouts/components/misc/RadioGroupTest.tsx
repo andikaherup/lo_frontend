@@ -1,21 +1,27 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import RadioButton from './radioButton'
 
-const RadioGroup: React.FC = () => {
-  const [selectedValue, setSelectedValue] = useState<string>('')
+interface RadioGroupProps {
+  disable: boolean
+  value: string
+  onChange: (value: string) => void
+}
 
+const RadioGroup: React.FC<RadioGroupProps> = ({ value, onChange, disable }) => {
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value)
+    if (!disable) {
+      onChange(event.target.value)
+    }
   }
 
   return (
-    <div className='flex items-center justify-center px-5 '>
+    <div className='flex items-center justify-center px-5'>
       <h1 className='hidden font-extrabold lg:flex'>Strongly Disagree</h1>
-      <RadioButton value='1' selectedValue={selectedValue} onChange={handleRadioChange} />
-      <RadioButton value='2' selectedValue={selectedValue} onChange={handleRadioChange} />
-      <RadioButton value='3' selectedValue={selectedValue} onChange={handleRadioChange} />
-      <RadioButton value='4' selectedValue={selectedValue} onChange={handleRadioChange} />
-      <RadioButton value='5' selectedValue={selectedValue} onChange={handleRadioChange} />
+      <RadioButton value='1' selectedValue={value} onChange={handleRadioChange} />
+      <RadioButton value='2' selectedValue={value} onChange={handleRadioChange} />
+      <RadioButton value='3' selectedValue={value} onChange={handleRadioChange} />
+      <RadioButton value='4' selectedValue={value} onChange={handleRadioChange} />
+      <RadioButton value='5' selectedValue={value} onChange={handleRadioChange} />
       <h1 className='hidden font-extrabold lg:flex'>Strongly Agree</h1>
     </div>
   )

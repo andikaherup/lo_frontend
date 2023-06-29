@@ -11,7 +11,7 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, RegisterParams } from './types'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -19,8 +19,10 @@ const defaultProvider: AuthValuesType = {
   loading: true,
   setUser: () => null,
   setLoading: () => Boolean,
+  googleLogin: () => Promise.resolve(),
   login: () => Promise.resolve(),
-  logout: () => Promise.resolve()
+  logout: () => Promise.resolve(),
+  register: () => Promise.resolve()
 }
 
 const AuthContext = createContext(defaultProvider)
@@ -40,17 +42,19 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+      console.log('here', storedToken)
       if (storedToken) {
         setLoading(true)
         await axios
           .get(authConfig.meEndpoint, {
             headers: {
-              Authorization: storedToken
+              Authorization: `Bearer ${storedToken}`
             }
           })
           .then(async response => {
+            console.log(response)
             setLoading(false)
-            setUser({ ...response.data.userData })
+            setUser({ ...response.data.data })
           })
           .catch(() => {
             localStorage.removeItem('userData')
@@ -58,8 +62,8 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('accessToken')
             setUser(null)
             setLoading(false)
-            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
-              router.replace('/login')
+            if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('home')) {
+              router.replace('/home')
             }
           })
       } else {
@@ -75,15 +79,20 @@ const AuthProvider = ({ children }: Props) => {
     axios
       .post(authConfig.loginEndpoint, params)
       .then(async response => {
-        params.rememberMe
-          ? window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
-          : null
+        console.log(response)
+        if (params.rememberMe) {
+          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access)
+          window.localStorage.setItem(authConfig.onTokenExpiration, response.data.refresh)
+        } else {
+          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access)
+        }
+
         const returnUrl = router.query.returnUrl
 
-        setUser({ ...response.data.userData })
+        // setUser({ ...response.data.access })
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
 
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+        const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
 
         router.replace(redirectURL as string)
       })
@@ -93,11 +102,70 @@ const AuthProvider = ({ children }: Props) => {
       })
   }
 
+  const handleGoogleLogin = (params: any, errorCallback?: ErrCallbackType) => {
+    const payload = {
+      token: params.access_token,
+      backend: 'google-oauth2',
+      grant_type: 'convert_token',
+      client_id: '2Q73Gn8hklrDclaPy8iSkYmbgTr0jAkPNRjP2uq6',
+      client_secret:
+        '8JfOyZJedz4KBSAxdgVh00bxb3Md9SKeSXvuSQBEH48lwtZ9MN04WP16MsUfPyYAcyIIILT6PRSO0pD669QqCH0sMhacXyBa7NVom3jK1SKD3SVepF6FbvtOa2ozgpli'
+    }
+
+    axios
+      .post(authConfig.convertToken, payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(async res => {
+        window.localStorage.setItem(authConfig.storageTokenKeyName, res.data.access_token)
+        window.localStorage.setItem(authConfig.onTokenExpiration, res.data.refresh_token)
+      })
+      .then(() => {
+        console.log()
+        axios
+          .get(authConfig.meEndpoint, {
+            headers: {
+              Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)!
+            }
+          })
+          .then(async response => {
+            console.log('response', response)
+            const returnUrl = router.query.returnUrl
+            setUser({ ...response.data.data })
+            await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
+
+            const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
+
+            window.localStorage.setItem('refreshSocailAccounts', 'true')
+
+            router.replace(redirectURL as string)
+          })
+      })
+      .catch(err => {
+        if (errorCallback) errorCallback(err)
+      })
+  }
+
+  const handleRegister = (params: RegisterParams, errorCallback?: ErrCallbackType) => {
+    axios
+      .post(authConfig.registerEndpoint, params)
+      .then(res => {
+        if (res.data.error) {
+          if (errorCallback) errorCallback(res.data.error)
+        } else {
+          handleLogin({ email: params.email, password: params.password })
+        }
+      })
+      .catch((err: { [key: string]: string }) => (errorCallback ? errorCallback(err) : null))
+  }
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('userData')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
-    router.push('/login')
+
+    // router.push('/login')
   }
 
   const values = {
@@ -106,7 +174,9 @@ const AuthProvider = ({ children }: Props) => {
     setUser,
     setLoading,
     login: handleLogin,
-    logout: handleLogout
+    googleLogin: handleGoogleLogin,
+    logout: handleLogout,
+    register: handleRegister
   }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>

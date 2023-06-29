@@ -8,14 +8,19 @@ import Image from 'next/image'
 
 import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
+// ** Context
+import { useAuth } from 'src/hooks/useAuth'
+
 const Overview: React.FC = () => {
+  const auth = useAuth()
+
   return (
     <div>
       <ScrollAnimationWrapper>
         <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
           <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
             <h1 className='text-3xl font-medium leading-normal lg:text-4xl xl:text-5xl text-black-600'>
-              Hi James! You are a <span className='text-skyblue-300'>Protector</span>
+              Hi {auth.user?.name || 'null'}! You are a <span className='text-skyblue-300'>Protector</span>
             </h1>
             <p className='mt-4 mb-6 text-black-500'>
               You are driven by a strong sense of loyalty, compassion, and a desire to protect others. You are willing

@@ -8,6 +8,8 @@ const Home = () => {
   const router = useRouter()
 
   useEffect(() => {
+    console.log('hereeee11')
+
     if (auth.user && router.route === '/') {
       router.replace('/home')
     }
