@@ -76,16 +76,27 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    const payload = {
+      username: params.email,
+      password: params.password,
+
+      grant_type: 'password',
+      client_id: 'B1IT4OGO6YAgL7SL1xSLy50wirIHEdtBj1YpehNg',
+      client_secret:
+        'yJOuBa7oKvEuIiH2TqXSf2ufk55oo7P8RwFDdegg3IJ7jqwoRFE2HRCfYrId8X30PSLzTFf6QHE9lYtIwayE7ierqltG8d3TvskctcWMi7JALqlV8auitRHoMK8wGN3V'
+    }
     axios
-      .post(authConfig.loginEndpoint, params)
+      .post(authConfig.credentialToken, payload)
       .then(async response => {
         console.log(response)
         if (params.rememberMe) {
-          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access)
-          window.localStorage.setItem(authConfig.onTokenExpiration, response.data.refresh)
+          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
+          window.localStorage.setItem(authConfig.onTokenExpiration, response.data.refresh_token)
         } else {
-          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access)
+          window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
         }
+
+        getUserData()
 
         const returnUrl = router.query.returnUrl
 
@@ -99,6 +110,27 @@ const AuthProvider = ({ children }: Props) => {
 
       .catch(err => {
         if (errorCallback) errorCallback(err)
+      })
+  }
+
+  const getUserData = () => {
+    axios
+      .get(authConfig.meEndpoint, {
+        headers: {
+          Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)!
+        }
+      })
+      .then(async response => {
+        console.log('response', response)
+        const returnUrl = router.query.returnUrl
+        setUser({ ...response.data.data })
+        await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
+
+        const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
+
+        window.localStorage.setItem('refreshSocailAccounts', 'true')
+
+        router.replace(redirectURL as string)
       })
   }
 
@@ -123,25 +155,7 @@ const AuthProvider = ({ children }: Props) => {
         window.localStorage.setItem(authConfig.onTokenExpiration, res.data.refresh_token)
       })
       .then(() => {
-        console.log()
-        axios
-          .get(authConfig.meEndpoint, {
-            headers: {
-              Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)!
-            }
-          })
-          .then(async response => {
-            console.log('response', response)
-            const returnUrl = router.query.returnUrl
-            setUser({ ...response.data.data })
-            await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
-
-            const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
-
-            window.localStorage.setItem('refreshSocailAccounts', 'true')
-
-            router.replace(redirectURL as string)
-          })
+        getUserData()
       })
       .catch(err => {
         if (errorCallback) errorCallback(err)

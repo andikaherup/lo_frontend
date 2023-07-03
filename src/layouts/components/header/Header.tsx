@@ -118,6 +118,7 @@ const Header: React.FC = () => {
         }
       }
     })
+    closeModal()
   }
 
   return (

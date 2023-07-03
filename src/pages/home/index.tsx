@@ -1,31 +1,123 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 // ** MUI Imports
 import Link from 'next/link'
 
-import React, { useMemo } from 'react'
+import React from 'react'
 
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
-import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
+// import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
+
+// import { motion } from 'framer-motion'
+// import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
+// import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Configs
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
+const images = [
+  {
+    background: 'h-screen bg-gradient-to-r from-darkHero from-10% via-darkHero via-10% to-lightHero',
+    image: 'Hero_LVL_1_(F).png',
+    name: 'Hero'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkHero from-10% via-darkHero via-10% to-lightHero',
+    image: 'HERO_LVL_1.png',
+    name: 'Hero'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkMagician from-10% via-darkMagician via-10% to-lightMagician',
+    image: 'Magician_LVL_1_(F).png',
+    name: 'Magician'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkMagician from-10% via-darkMagician via-10% to-lightMagician',
+    image: 'magician_LVL_1.png',
+    name: 'Magician'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkRebel from-10% via-darkRebel  via-10% to-lightRebel',
+    image: 'Rebel_LVL_1_(F).png',
+    name: 'Rebel'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkRebel from-10% via-darkRebel  via-10% to-lightRebel',
+    image: 'rebel_LVL_0_(2).png',
+    name: 'Rebel'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkCreator from-10% via-darkCreator  via-10% to-lightCreator',
+    image: 'Creator_LVL_1_(F).png',
+    name: 'Creator'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkCreator from-10% via-darkCreator  via-10% to-lightCreator',
+    image: 'CREATOR_LVL_0_(2).png',
+    name: 'Creator'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkGreen from-10% via-darkGreen via-10% to-lightGreen',
+    image: 'Synergist_LVL_1_(F).png',
+    name: 'Synergist'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkGreen from-10% via-darkGreen via-10% to-lightGreen',
+    image: 'synergist_LVL_0_(2).png',
+    name: 'Synergist'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkOracle from-10% via-darkOracle  via-10% to-lightOracle',
+    image: 'Oracle_LVL_1_(F).png',
+    name: 'Oracle'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkOracle from-10% via-darkOracle  via-10% to-lightOracle',
+    image: 'oracle_LVL_1.png',
+    name: 'Oracle'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkProtector from-10% via-darkProtector  via-10% to-lightProtector',
+    image: 'Protector_LVL_1_(F).png',
+    name: 'Protector'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkProtector from-10% via-darkProtector  via-10% to-lightProtector',
+    image: 'protector_lvl_1.png',
+    name: 'Protector'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkBlue from-10% via-darkBlue  via-10% to-lightBlue',
+    image: 'Ruler_LVL_1_(F).png',
+    name: 'Ruler'
+  },
+  {
+    background: 'h-screen bg-gradient-to-r from-darkBlue from-10% via-darkBlue  via-10% to-lightBlue',
+    image: 'RULER_LVL_1.png',
+    name: 'Ruler'
+  }
+]
+
 const Home = () => {
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
+  // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <>
-      <div className='px-8 pt-20 mx-auto xl:px-16 bg-skyblue-500 ' id='about'>
-        <ScrollAnimationWrapper>
-          <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
-            <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
-              <span className='font-medium leading-normal text-blue-500 text-1xl lg:text-2xl xl:text-2xl'>
+      <div className={`px-8 pt-20 mx-auto xl:px-16 ${images[currentImageIndex].background}`} id='about'>
+        <div className='grid h-full grid-flow-row px-20 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
+          <div className='flex flex-col items-center justify-center row-start-2 lg:items-start lg:px-10 sm:row-start-1'>
+            {/* <span className='font-medium leading-normal text-blue-500 text-1xl lg:text-2xl xl:text-2xl'>
                 LO Personality Test
               </span>
               <h1 className='text-3xl font-medium leading-normal lg:text-4xl xl:text-5xl text-black-600'>
@@ -41,22 +133,38 @@ const Home = () => {
                 rebellious nature that challenges the status quo. Are you a visionary oracle with deep wisdom or a
                 meticulous ruler who excels at organization? Maybe you embody the protector, guided by empathy and
                 compassion, or the synergist, effortlessly fostering collaboration and harmony.
-              </p>
-              <Link
-                href='/personality-test'
-                className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
-                aria-current='page'
-              >
-                <ButtonPrimary>Personality Test</ButtonPrimary>
-              </Link>
-            </div>
-            <div className='flex w-full px-20'>
-              <motion.div className='flex w-full h-full ' variants={scrollAnimation}>
-                <img src='/assets/characters/image.png' alt='Characters' className='object-scale-down' />
-              </motion.div>
+              </p> */}
+
+            <h1
+              key={images[currentImageIndex].image}
+              className={`text-3xl font-extrabold lg:text-left text-center uppercase transition duration-300 animate-focus-in-expand lg:text-8xl text-white-300`}
+            >
+              {images[currentImageIndex].name}
+            </h1>
+            <Link className='pt-5' href='/personality-test' aria-current='page'>
+              <button className='px-3 py-2 transition duration-300 ease-in-out lg:px-10 text-md lg:text-2xl delay-50 hover:-translate-y-1 hover:scale-110 outline outline-offset-3 outline-white-500 text-white-300'>
+                Start Quest
+              </button>
+              {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
+            </Link>
+          </div>
+          <div className='flex w-full'>
+            <div className='relative flex w-full '>
+              {images.map((image, index) => (
+                <>
+                  <img
+                    key={index}
+                    src={`/assets/characters/${image.image}`}
+                    alt={`Image ${index + 1}`}
+                    className={`${
+                      index === currentImageIndex ? 'opacity-100 flex' : 'opacity-0 hidden'
+                    } transition-opacity object-scale-down animate-fade-in-bottom duration-3000 delay-150 drop-shadow-md`}
+                  />
+                </>
+              ))}
             </div>
           </div>
-        </ScrollAnimationWrapper>
+        </div>
       </div>
       <div className='relative z-4'>
         <div className='custom-shape-divider-top-1687181954'>
@@ -84,6 +192,92 @@ const Home = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className='container mx-auto my-24 md:px-6'>
+        <section className='mb-32 text-center'>
+          <h2 className='pb-4 mb-12 text-3xl font-bold text-center'>Testimonials</h2>
+
+          <div className='grid gap-6 md:grid-cols-3 xl:gap-x-12'>
+            <div className='mb-6 lg:mb-0'>
+              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                <div className='flex'>
+                  <div
+                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
+                    data-te-ripple-init
+                    data-te-ripple-color='light'
+                  >
+                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/8.jpg' className='w-full' />
+                    <a href='#!'>
+                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
+                    </a>
+                  </div>
+                </div>
+                <div className='p-6'>
+                  <h5 className='mb-2 text-lg font-bold'>John Doe</h5>
+                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Web Developer</h6>
+
+                  <p>
+                    Ut pretium ultricies dignissim. Sed sit amet mi eget urna placerat vulputate. Ut vulputate est non
+                    quam dignissim elementum. Donec a ullamcorper diam.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className='mb-6 lg:mb-0'>
+              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                <div className='flex'>
+                  <div
+                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
+                    data-te-ripple-init
+                    data-te-ripple-color='light'
+                  >
+                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/6.jpg' className='w-full' />
+                    <a href='#!'>
+                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
+                    </a>
+                  </div>
+                </div>
+                <div className='p-6'>
+                  <h5 className='mb-2 text-lg font-bold'>Halley Frank</h5>
+                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Marketing Specialist</h6>
+
+                  <p>
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium accusamus
+                    contestatur voluptatum deleniti atque corrupti.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className='mb-0'>
+              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                <div className='flex'>
+                  <div
+                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
+                    data-te-ripple-init
+                    data-te-ripple-color='light'
+                  >
+                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/18.jpg' className='w-full' />
+                    <a href='#!'>
+                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
+                    </a>
+                  </div>
+                </div>
+                <div className='p-6'>
+                  <h5 className='mb-2 text-lg font-bold'>Lisa Trey</h5>
+                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Public Relations</h6>
+
+                  <p>
+                    Enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+                    aliquid commodi quis nostrum minima.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   )

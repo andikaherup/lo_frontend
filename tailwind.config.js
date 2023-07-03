@@ -91,12 +91,68 @@ module.exports = {
       },
       greybackground: {
         300: '#F9F8FC'
-      }
+      },
+      darkGreen: '#11564a',
+      lightGreen: '#258f78',
+      darkBlue: '#4E60BE',
+      lightBlue: '#939EDD',
+      darkRebel: '#962021',
+      lightRebel: '#FC1701',
+      darkHero: '#ffbb02',
+      lightHero: '#FFE500',
+      darkMagician: '#F69F2A',
+      lightMagician: '#FFC446',
+      darkCreator: '#5E03AE',
+      lightCreator: '#C96AE5',
+      darkOracle: '#651527',
+      lightOracle: '#D23B5E',
+      darkProtector: '#5A8B24',
+      lightProtector: '#A5D775'
     },
     extend: {
       fontFamily: {
         kufam: ['Kufam', 'sans-serif'],
         knewave: ['Knewave', 'cursive']
+      },
+      animation: {
+        'fade-in-bottom': 'fade-in-bottom 1.5s cubic-bezier(0.680, -0.550, 0.265, 1.550)   both',
+        'fade-out-top': 'fade-out-top 1.5s cubic-bezier(0.175, 0.885, 0.320, 1.275)   both',
+        'focus-in-expand': 'focus-in-expand 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both'
+      },
+      keyframes: {
+        'focus-in-expand': {
+          '0%': {
+            'letter-spacing': '-0.5em',
+            '-webkit-filter': 'blur(12px)',
+            filter: 'blur(12px)',
+            opacity: '0'
+          },
+          '100%': {
+            '-webkit-filter': 'blur(0px)',
+            filter: 'blur(0px)',
+            opacity: '1'
+          }
+        },
+        'fade-in-bottom': {
+          '0%': {
+            transform: 'translateY(50px)',
+            opacity: '0'
+          },
+          to: {
+            transform: 'translateY(0)',
+            opacity: '1'
+          }
+        },
+        'fade-out-top': {
+          '0%': {
+            transform: 'translateY(0)',
+            opacity: '1'
+          },
+          to: {
+            transform: 'translateY(-50px)',
+            opacity: '0'
+          }
+        }
       }
     }
   },

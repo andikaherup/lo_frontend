@@ -12,6 +12,8 @@ import axios from 'axios'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
 
 // import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** Configs
 import contentConfig from 'src/configs/content'
@@ -31,6 +33,8 @@ interface Questions {
 }
 
 const PersonalityTest = () => {
+  const auth = useAuth()
+
   useEffect(() => {
     const initAuth = async () => {
       await axios.get(contentConfig.getQuestion).then(async res => {
@@ -83,14 +87,27 @@ const PersonalityTest = () => {
       response: answers,
       gender: selectedValue
     }
-    axios
-      .post(contentConfig.getResult, payload)
-      .then(res => {
-        console.log(res)
-      })
-      .catch(error => {
-        console.log(error, 'errorr')
-      })
+    if (auth.user) {
+      axios
+        .post(contentConfig.getResultWithLogin, payload, {
+          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+        })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error, 'errorr')
+        })
+    } else {
+      axios
+        .post(contentConfig.getResultWithoutLogin, payload)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(error => {
+          console.log(error, 'errorr')
+        })
+    }
   }
 
   // const handleAnswerSelection = (index: number, value: string, question: Questions) => {
