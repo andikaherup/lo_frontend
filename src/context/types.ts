@@ -25,16 +25,20 @@ export type RegisterParams = {
 
 
 export type UserDataType = {
-  id: number
-  role: string
-  email: string
-  name: string
-  age: number
-  referral_code: string
-  timezone: string
-  is_active: boolean
-  is_admin: boolean
-  avatar?: string | null
+  age: number | null;
+  character: string;
+  character_level: number | null;
+  date_created: string;
+  email: string;
+  gender: string;
+  id: number;
+  is_active: boolean;
+  is_admin: boolean;
+  name: string | null;
+  points: number | null;
+  referral_code: string;
+  timezone: string;
+  used_points: number | null;
 }
 
 export type AuthValuesType = {

@@ -5,12 +5,13 @@ import { useEffect, useRef } from 'react'
 import { LayoutProps } from 'src/@core/layouts/types'
 
 // ** Layout Components
-import VerticalLayout from './VerticalLayout'
-import HorizontalLayout from './HorizontalLayout'
+// import VerticalLayout from './VerticalLayout'
+// import HorizontalLayout from './HorizontalLayout'
 
 const Layout = (props: LayoutProps) => {
   // ** Props
-  const { hidden, children, settings, saveSettings } = props
+  // const { hidden, children, settings, saveSettings } = props
+  const { hidden, settings, saveSettings } = props
 
   // ** Ref
   const isCollapsed = useRef(settings.navCollapsed)
@@ -36,10 +37,11 @@ const Layout = (props: LayoutProps) => {
   }, [hidden])
 
   if (settings.layout === 'horizontal') {
-    return <HorizontalLayout {...props}>{children}</HorizontalLayout>
+    // return <HorizontalLayout {...props}>{children}</HorizontalLayout>
   }
 
-  return <VerticalLayout {...props}>{children}</VerticalLayout>
+  // return <VerticalLayout {...props}>{children}</VerticalLayout>
+  return <></>
 }
 
 export default Layout

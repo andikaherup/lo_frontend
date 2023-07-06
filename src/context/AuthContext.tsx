@@ -10,8 +10,12 @@ import axios from 'axios'
 // ** Config
 import authConfig from 'src/configs/auth'
 
+// ** Configs
+import contentConfig from 'src/configs/content'
+
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, RegisterParams } from './types'
+import { ResponseData } from './characterType'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -42,7 +46,7 @@ const AuthProvider = ({ children }: Props) => {
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      console.log('here', storedToken)
+
       if (storedToken) {
         setLoading(true)
         await axios
@@ -88,22 +92,21 @@ const AuthProvider = ({ children }: Props) => {
     axios
       .post(authConfig.credentialToken, payload)
       .then(async response => {
-        console.log(response)
         if (params.rememberMe) {
           window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
           window.localStorage.setItem(authConfig.onTokenExpiration, response.data.refresh_token)
         } else {
           window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.access_token)
         }
-
-        getUserData()
+        await submitWhenLogin()
+        await getUserData()
 
         const returnUrl = router.query.returnUrl
 
         // setUser({ ...response.data.access })
         params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response.data.userData)) : null
 
-        const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
+        const redirectURL = returnUrl && returnUrl !== '/dashboard' ? returnUrl : '/dashboard'
 
         router.replace(redirectURL as string)
       })
@@ -111,6 +114,44 @@ const AuthProvider = ({ children }: Props) => {
       .catch(err => {
         if (errorCallback) errorCallback(err)
       })
+  }
+
+  const submitWhenLogin = async () => {
+    const characterStringNoLogin = await localStorage.getItem('resultNoLogin')
+    console.log('sini')
+
+    //if user login but there was a result from previous test , tell user if they want to add this test to their profile or not
+    const showConfirmationDialog = () => {
+      return new Promise(resolve => {
+        const confirmed = window.confirm('Do you want to add previous test to your account ?')
+        resolve(confirmed)
+      })
+    }
+    if (characterStringNoLogin) {
+      const confirmAction = async () => {
+        const confirmed = await showConfirmationDialog()
+        if (confirmed) {
+          const formData = new FormData()
+          formData.append('response', JSON.stringify(character?.response))
+          formData.append('gender', JSON.stringify(character?.gender))
+          axios
+            .post(contentConfig.getResultWithLogin, formData, {
+              headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+            })
+            .then(async response => {
+              await localStorage.removeItem('resultNoLogin')
+              await window.localStorage.setItem('resultLogin', JSON.stringify(response.data.data))
+            })
+            .catch(error => {
+              console.log(error, 'errorr')
+            })
+        } else {
+        }
+      }
+      const character: ResponseData | null = JSON.parse(characterStringNoLogin)
+
+      confirmAction()
+    }
   }
 
   const getUserData = () => {
@@ -121,16 +162,10 @@ const AuthProvider = ({ children }: Props) => {
         }
       })
       .then(async response => {
-        console.log('response', response)
-        const returnUrl = router.query.returnUrl
         setUser({ ...response.data.data })
         await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
 
-        const redirectURL = returnUrl && returnUrl !== '/home' ? returnUrl : '/home'
-
         window.localStorage.setItem('refreshSocailAccounts', 'true')
-
-        router.replace(redirectURL as string)
       })
   }
 
@@ -154,8 +189,10 @@ const AuthProvider = ({ children }: Props) => {
         window.localStorage.setItem(authConfig.storageTokenKeyName, res.data.access_token)
         window.localStorage.setItem(authConfig.onTokenExpiration, res.data.refresh_token)
       })
-      .then(() => {
-        getUserData()
+      .then(async () => {
+        await submitWhenLogin()
+        await getUserData()
+        router.replace('/dashboard')
       })
       .catch(err => {
         if (errorCallback) errorCallback(err)
@@ -177,9 +214,10 @@ const AuthProvider = ({ children }: Props) => {
   const handleLogout = () => {
     setUser(null)
     window.localStorage.removeItem('userData')
+    window.localStorage.removeItem('resultNoLogin')
+    window.localStorage.removeItem('resultLogin')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
-
-    // router.push('/login')
+    window.localStorage.removeItem(authConfig.onTokenExpiration)
   }
 
   const values = {

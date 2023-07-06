@@ -1,5 +1,7 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** Next Imports
 import Head from 'next/head'
@@ -105,6 +107,13 @@ const Guard = ({ children }: GuardProps) => {
 
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
+  const auth = useAuth()
+  const router = useRouter()
+  useEffect(() => {
+    if (router.route === '/') {
+      router.replace('/home')
+    }
+  }, [auth.user, router])
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   // Variables

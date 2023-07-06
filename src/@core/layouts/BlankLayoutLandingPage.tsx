@@ -7,6 +7,10 @@ import { BlankLayoutProps } from './types'
 import Header from 'src/layouts/components/header/Header'
 import Footer from 'src/layouts/components/footer/Footer'
 
+// ** Hooks Import
+import { useAuth } from 'src/hooks/useAuth'
+import Spinner from '../components/spinner'
+
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   height: '100vh',
@@ -30,6 +34,12 @@ const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
+  const auth = useAuth()
+
+  if (auth.loading) {
+    return <Spinner></Spinner>
+  }
+
   return (
     <BlankLayoutWrapper className='layout-wrapper'>
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>

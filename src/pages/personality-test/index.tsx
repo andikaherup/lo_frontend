@@ -8,6 +8,9 @@ import React from 'react'
 // import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 import axios from 'axios'
 
+// ** Next Import
+import { useRouter } from 'next/router'
+
 // import { motion } from 'framer-motion'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
 
@@ -33,6 +36,8 @@ interface Questions {
 }
 
 const PersonalityTest = () => {
+  // ** Hooks
+  const router = useRouter()
   const auth = useAuth()
 
   useEffect(() => {
@@ -55,15 +60,15 @@ const PersonalityTest = () => {
   const currentQuestionRef = useRef<HTMLDivElement>(null)
   const currentPage = Math.floor(questionIndex / questionsPerPage) + 1
   const currentPagePercentage = ((currentPage * questionsPerPage) / questions.length) * 100
-  const [answers, setAnswers] = useState<{ id: number; answer: string; answer_str: string; question: string }[]>([])
+  const [answers, setAnswers] = useState<{ id: number; answer: number; answer_str: string; question: string }[]>([])
 
   // const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''))
-  const [selectedValue, setSelectedValue] = useState('')
+  const [selectedValue, setSelectedValue] = useState('male')
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedValue(event.target.value)
-    console.log(selectedValue)
   }
+
   useEffect(() => {
     if (currentQuestionRef.current) {
       currentQuestionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -83,26 +88,30 @@ const PersonalityTest = () => {
   }
 
   const SubmitAnswer = () => {
-    const payload = {
-      response: answers,
-      gender: selectedValue
-    }
+    const formData = new FormData()
+    formData.append('response', JSON.stringify(answers))
+    formData.append('gender', selectedValue)
+
     if (auth.user) {
       axios
-        .post(contentConfig.getResultWithLogin, payload, {
+        .post(contentConfig.getResultWithLogin, formData, {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
         })
-        .then(res => {
-          console.log(res)
+        .then(response => {
+          localStorage.removeItem('resultNoLogin')
+          window.localStorage.setItem('resultLogin', JSON.stringify(response.data.data))
+          router.replace('/dashboard')
         })
         .catch(error => {
           console.log(error, 'errorr')
         })
     } else {
       axios
-        .post(contentConfig.getResultWithoutLogin, payload)
-        .then(res => {
-          console.log(res)
+        .post(contentConfig.getResultWithoutLogin, formData)
+        .then(response => {
+          localStorage.removeItem('resultLogin')
+          window.localStorage.setItem('resultNoLogin', JSON.stringify(response.data.data))
+          router.replace('/result')
         })
         .catch(error => {
           console.log(error, 'errorr')
@@ -118,13 +127,13 @@ const PersonalityTest = () => {
   //   setQuestionIndexForAnswer(questionIndexForAnswer + 1)
   // }
 
-  const determineString = (number: string): string => {
+  const determineString = (number: number): string => {
     const mapping: { [key: string]: string } = {
-      '1': 'strongly_disagree',
-      '2': 'disagree',
-      '3': 'neutral',
-      '4': 'agree',
-      '5': 'strongly_agree'
+      1: 'strongly_disagree',
+      2: 'disagree',
+      3: 'neutral',
+      4: 'agree',
+      5: 'strongly_agree'
     }
 
     if (number in mapping) {
@@ -135,7 +144,7 @@ const PersonalityTest = () => {
     return ''
   }
 
-  const handleAnswerSelection = (value: string, question: Questions) => {
+  const handleAnswerSelection = (value: number, question: Questions) => {
     console.log('questionIndnexAnswer', questionIndexForAnswer, questionIndex, currentPage)
     const updatedAnswers = [...answers]
     const existingAnswer = updatedAnswers.find(a => a.id === question.id)
@@ -293,11 +302,7 @@ const PersonalityTest = () => {
                 <div className='w-full px-5 mt-10'>
                   <RadioGroup
                     disable={questions[questionIndexForAnswer - 1].id < question.id}
-                    value={
-                      answers && answers[question.id - 1] && answers[question.id - 1].answer
-                        ? answers[question.id - 1].answer
-                        : ''
-                    } // Pass the value of the corresponding question's answer
+                    value={answers.find(answer => answer.id === question.id)?.answer || 0} // Pass the value of the corresponding question's answer
                     onChange={value => handleAnswerSelection(value, question)} // Pass the index and value of the selected answer
                   />
                 </div>

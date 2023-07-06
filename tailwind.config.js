@@ -92,22 +92,22 @@ module.exports = {
       greybackground: {
         300: '#F9F8FC'
       },
-      darkGreen: '#11564a',
-      lightGreen: '#258f78',
-      darkBlue: '#4E60BE',
-      lightBlue: '#939EDD',
-      darkRebel: '#962021',
-      lightRebel: '#FC1701',
-      darkHero: '#ffbb02',
-      lightHero: '#FFE500',
-      darkMagician: '#F69F2A',
-      lightMagician: '#FFC446',
-      darkCreator: '#5E03AE',
-      lightCreator: '#C96AE5',
-      darkOracle: '#651527',
-      lightOracle: '#D23B5E',
-      darkProtector: '#5A8B24',
-      lightProtector: '#A5D775'
+      darkGreen: '#11554a',
+      lightGreen: '#26917a',
+      darkBlue: '#4d5fbe',
+      lightBlue: '#97a1de',
+      darkRebel: '#9b1010',
+      lightRebel: '#ff1600',
+      darkHero: '#ffcc00',
+      lightHero: '#fff500',
+      darkMagician: '#f79e2a',
+      lightMagician: '#ffc646',
+      darkCreator: '#5c00ad',
+      lightCreator: '#cb6ce6',
+      darkOracle: '#631426',
+      lightOracle: '#d63d60',
+      darkProtector: '#598a23',
+      lightProtector: '#a7d978'
     },
     extend: {
       fontFamily: {
@@ -117,42 +117,90 @@ module.exports = {
       animation: {
         'fade-in-bottom': 'fade-in-bottom 1.5s cubic-bezier(0.680, -0.550, 0.265, 1.550)   both',
         'fade-out-top': 'fade-out-top 1.5s cubic-bezier(0.175, 0.885, 0.320, 1.275)   both',
-        'focus-in-expand': 'focus-in-expand 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both'
-      },
-      keyframes: {
-        'focus-in-expand': {
-          '0%': {
-            'letter-spacing': '-0.5em',
-            '-webkit-filter': 'blur(12px)',
-            filter: 'blur(12px)',
-            opacity: '0'
-          },
-          '100%': {
-            '-webkit-filter': 'blur(0px)',
-            filter: 'blur(0px)',
-            opacity: '1'
-          }
+        'focus-in-expand': 'focus-in-expand 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both',
+        'tracking-out-contract': 'tracking-out-contract 0.7s cubic-bezier(0.550, 0.085, 0.680, 0.530) both',
+        'tracking-in-expand': 'tracking-in-expand 0.3s cubic-bezier(0.445, 0.050, 0.550, 0.950) both',
+        clip: 'clip 3s',
+        reveal: 'reveal 0.5s ',
+        hide: 'hide 2.5s '
+      }
+    },
+    keyframes: {
+      'tracking-in-expand': {
+        '0%': {
+          'letter-spacing': '-0.5em',
+          opacity: '0'
         },
-        'fade-in-bottom': {
-          '0%': {
-            transform: 'translateY(50px)',
-            opacity: '0'
-          },
-          to: {
-            transform: 'translateY(0)',
-            opacity: '1'
-          }
+        '40%': {
+          opacity: '0.6'
         },
-        'fade-out-top': {
-          '0%': {
-            transform: 'translateY(0)',
-            opacity: '1'
-          },
-          to: {
-            transform: 'translateY(-50px)',
-            opacity: '0'
-          }
+        '100%': {
+          opacity: '1'
         }
+      },
+      'focus-in-expand': {
+        '0%': {
+          'letter-spacing': '-0.5em',
+          '-webkit-filter': 'blur(12px)',
+          filter: 'blur(12px)',
+          opacity: '0'
+        },
+        '100%': {
+          '-webkit-filter': 'blur(0px)',
+          filter: 'blur(0px)',
+          opacity: '1'
+        }
+      },
+      'fade-in-bottom': {
+        '0%': {
+          transform: 'translateY(50px)',
+          opacity: '0'
+        },
+        to: {
+          transform: 'translateY(0)',
+          opacity: '1'
+        }
+      },
+      'fade-out-top': {
+        '0%': {
+          transform: 'translateY(0)',
+          opacity: '1'
+        },
+        to: {
+          transform: 'translateY(-50px)',
+          opacity: '0'
+        }
+      },
+      'tracking-out-contract': {
+        '0%': {
+          opacity: '1'
+        },
+        '50%': {
+          opacity: '1'
+        },
+        '100%': {
+          'letter-spacing': '-0.5em',
+          opacity: '0'
+        }
+      },
+      clip: {
+        '0%, 5%': { clipPath: 'inset(0 100% 0 0)' },
+        '30%': { clipPath: 'inset(0 0 0 0)' },
+        '40%, 60%': { clipPath: 'inset(0 0 0 0)' },
+        '70%': { clipPath: 'inset(0 0 0 0)' },
+        '80%, 100%': { clipPath: 'inset(0 0% 0 0)' }
+      },
+      reveal: {
+        '0%, 20%': { width: '0', left: '0' },
+        '30%': { width: '0', left: '0' },
+        '80%, 82%': { width: '100%', left: '0' },
+        '83%, 100%': { width: '0', left: '0' }
+      },
+      hide: {
+        '0%': { width: '0', left: '0' },
+        '5%': { width: '100%', left: '0' },
+        '7%, 45%': { width: '0', left: '100%' },
+        '45%,100%': { width: '0', left: '0' }
       }
     }
   },

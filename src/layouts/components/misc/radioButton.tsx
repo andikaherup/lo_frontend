@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react'
 
 interface RadioButtonProps {
-  value: string
-  selectedValue: string
+  value: number
+  selectedValue: number
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
