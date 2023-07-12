@@ -25,57 +25,57 @@ const PersonalityTypes = () => {
   const heroes = [
     {
       name: '>> HERO <<',
-      image1: '/assets/characters/female/hero.png',
-      image2: '/assets/characters/male/hero_lvl_2.png',
+      image1: '/assets/characters/HERO_LVL_1.png',
+      image2: '/assets/characters/HERO_LVL_1_(F).png',
       bgColor: 'bg-purple-500',
       desc: 'A heroic personality is characterized by a strong sense of duty, bravery, and a desire to make a difference. Heroes are often associated with acts of selflessness and valor and are driven by a sense of purpose or mission.      '
     },
     {
       name: '>> Magician <<',
-      image1: '/assets/characters/male/MAGICIAN_LVL_2.png',
-      image2: '/assets/characters/female/magician.png',
+      image1: '/assets/characters/Magician_LVL_1.png',
+      image2: '/assets/characters/Magician_LVL_1_(F).png',
       bgColor: 'bg-purple-500',
       desc: 'A magician personality is characterized by a deep imagination of wonders of the world and a talent for harnessing the mysteries of the universe to create change. Magicians are often associated with creativity, innovation, and transformation.      '
     },
     {
       name: '>> Rebel <<',
-      image1: '/assets/characters/male/rebel_lvl_2.png',
-      image2: '/assets/characters/female/rebel_2.png',
+      image1: '/assets/characters/rebel_LVL_0_(2).png',
+      image2: '/assets/characters/Rebel_LVL_1_(F).png',
       bgColor: 'bg-red-900',
       desc: 'A rebel personality is characterized by a strong desire to change and a need for freedom. Rebels are often associated with nonconformity, individualism, and a willingness to take risks.'
     },
     {
       name: '>> Oracle <<',
-      image1: '/assets/characters/male/oracle_lvl_2.png',
-      image2: '/assets/characters/female/oracle_2.png',
+      image1: '/assets/characters/oracle_LVL_1.png',
+      image2: '/assets/characters/Oracle_LVL_1_(F).png',
       bgColor: 'bg-red-900',
       desc: 'An oracle personality is characterized by wisdom, insight, and a deep understanding of the world. Oracles are often associated with knowledge, introspection, and a desire to understand the nature of existence, and guide others to success.'
     },
     {
       name: '>> Creator <<',
-      image1: '/assets/characters/male/creator_lvl_2.png',
-      image2: '/assets/characters/female/creator.png',
+      image1: '/assets/characters/Creator_LVL_1.png',
+      image2: '/assets/characters/Creator_LVL_1_(F).png',
       bgColor: 'bg-creatorrulerbg-300',
       desc: 'A creator personality is characterized by a strong sense of creativity, originality, and innovation. Creators are often associated with artistic expression, imagination, and a desire to bring something new and unique into the world.'
     },
     {
       name: '>> Ruler <<',
-      image1: '/assets/characters/male/RULER_LVL_2.png',
-      image2: '/assets/characters/female/ruler_2.png',
+      image1: '/assets/characters/Ruler_LVL_1.png',
+      image2: '/assets/characters/Ruler_LVL_1_(F).png',
       bgColor: 'bg-creatorrulerbg-300',
       desc: 'A ruler personality is characterized by a high level of organization, responsibility, and attention to detail. Rulers are often associated with dependability, consistency, and a strong work ethic.'
     },
     {
       name: '>> Protector <<',
-      image1: '/assets/characters/male/protector_lvl_2.png',
-      image2: '/assets/characters/female/protector_2.png',
+      image1: '/assets/characters/Protector_LVL_1.png',
+      image2: '/assets/characters/Protector_LVL_1_(F).png',
       bgColor: 'bg-protectorsynergistbg-300',
       desc: 'A protector is characterized by a strong sense of loyalty and compassion, and protective of those they care about, using their strength and courage to defend the vulnerable and uphold justice. Protectors are often associated with empathy, kindness, and a willingness to put the needs of others before their own.'
     },
     {
       name: '>> Synergist <<',
-      image1: '/assets/characters/male/SYNERGIST_LVL_2.png',
-      image2: '/assets/characters/female/synergist.png',
+      image1: '/assets/characters/synergist_LVL_0_(2).png',
+      image2: '/assets/characters/synergist_LVL_1_(F).png',
       bgColor: 'bg-protectorsynergistbg-300',
       desc: 'A synergist personality is characterized by a deep sense of harmony and collaboration, making them an essential asset in any team. Synergists are often associated with someone who enhances the effectiveness or efficiency of a group or system by contributing to a common goal or objective.'
     }
