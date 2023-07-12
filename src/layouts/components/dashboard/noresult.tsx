@@ -11,12 +11,14 @@ const Noresult = () => {
     <div className='flex items-center justify-center h-screen max-h-fit'>
       <div className='flex flex-col items-center '>
         <h1 className={`text-center text-lg font-bold lg:mb-4 lg:text-md text-black-300`}>Level Zero</h1>
-        <h1 className='mb-4 text-3xl font-bold text-center text-black-300'>You don't have any Character Yet</h1>
+        <h1 className='mb-4 text-3xl font-bold text-center text-black-300'>
+          Unlock Your Unique Character - Discover Your Personality!
+        </h1>
         <Link href='/personality-test' aria-current='page'>
           <button
             className={`px-5 lg:px-10 py-2 text-black-300  outline outline-black-300 transition hover:-translate-y-1 hover:scale-110 lg:text-xl font-semibold flex rounded-full`}
           >
-            Find Your Character
+            Unleash Character
             <svg
               aria-hidden='true'
               className='w-5 h-5 ml-2 -mr-1'

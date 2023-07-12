@@ -60,6 +60,7 @@ export type AuthValuesType = {
   logout: () => void
   user: UserDataType | null
   setLoading: (value: boolean) => void
+  refreshUser: () => void
   googleLogin: (paramsL: GoogleLoginParams, errorCallback?: ErrCallbackType) => void
   facebookLogin: (paramsL: FacebookLoginParams, errorCallback?: ErrCallbackType) => void
   setUser: (value: UserDataType | null) => void

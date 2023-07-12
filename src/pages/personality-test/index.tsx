@@ -102,9 +102,10 @@ const PersonalityTest = () => {
         .post(contentConfig.getResultWithLogin, formData, {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
         })
-        .then(response => {
+        .then(async response => {
           localStorage.removeItem('resultNoLogin')
           window.localStorage.setItem('resultLogin', JSON.stringify(response.data.data))
+          await auth.refreshUser()
           router.replace('/dashboard')
         })
         .catch(error => {
@@ -116,7 +117,7 @@ const PersonalityTest = () => {
         .then(response => {
           localStorage.removeItem('resultLogin')
           window.localStorage.setItem('resultNoLogin', JSON.stringify(response.data.data))
-          router.replace('/result')
+          router.replace('/home')
         })
         .catch(error => {
           console.log(error, 'errorr')

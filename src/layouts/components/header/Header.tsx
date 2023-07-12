@@ -90,6 +90,15 @@ const Header: React.FC = () => {
     if (router.route == '/personality-test') {
       setActiveLink('about')
     }
+    if (router.route == '/quest') {
+      setActiveLink('Quest')
+    }
+    if (router.route == '/dashboard') {
+      setActiveLink('Dashboard')
+    }
+    if (router.route == '/faq') {
+      setActiveLink('Faq')
+    }
   }, [router])
 
   const navChange = (value: string) => {
@@ -136,10 +145,7 @@ const Header: React.FC = () => {
       >
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
           <Link href='/home' className='flex items-center lg:justify-center '>
-            {/* <img src='/images/logo-level0.png' className='h-8 mr-3' alt='Flowbite Logo' /> */}
             <img src='/images/level0.png' className='h-8 mr-3' alt='Flowbite Logo' />
-
-            {/* <span className='self-center text-2xl font-semibold whitespace-nowrap dark:text-white'>LEVEL 0</span> */}
           </Link>
           <div className='flex justify-end md:order-2'>
             <button
@@ -180,22 +186,45 @@ const Header: React.FC = () => {
 
           <div className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1' id='navbar-sticky'>
             <ul className='items-center hidden col-start-4 col-end-8 lg:flex text-black-500'>
-              <LinkScroll
-                activeClass='active'
-                to='about'
-                spy={true}
-                smooth={true}
-                duration={1000}
-                onClick={() => navChange('/personality-test')}
-                className={
-                  'px-4 py-3 mx-2 cursor-pointer text-sm font-semibold  animation-hover inline-block relative' +
-                  (activeLink === 'about'
-                    ? ' text-blue-500 animation-active '
-                    : ' text-black-300 hover:text-blue-500 a')
-                }
-              >
-                Personality Test
-              </LinkScroll>
+              {(auth.user && !auth.user.character) ||
+                (!auth.user && (
+                  <LinkScroll
+                    activeClass='active'
+                    to='about'
+                    spy={true}
+                    smooth={true}
+                    duration={1000}
+                    onClick={() => navChange('/personality-test')}
+                    className={
+                      'px-4 py-3 mx-2 cursor-pointer text-sm font-semibold  animation-hover inline-block relative' +
+                      (activeLink === 'about'
+                        ? ' text-blue-500 animation-active '
+                        : ' text-black-300 hover:text-blue-500 a')
+                    }
+                  >
+                    Personality Test
+                  </LinkScroll>
+                ))}
+
+              {auth.user && (
+                <LinkScroll
+                  activeClass='active'
+                  to='Dashboard'
+                  spy={true}
+                  smooth={true}
+                  duration={1000}
+                  onClick={() => navChange('/dashboard')}
+                  className={
+                    'px-4 py-3 mx-2 cursor-pointer text-sm font-semibold  animation-hover inline-block relative' +
+                    (activeLink === 'Dashboard'
+                      ? ' text-blue-500 animation-active '
+                      : ' text-black-300 hover:text-blue-500 a')
+                  }
+                >
+                  Dashboard
+                </LinkScroll>
+              )}
+
               <LinkScroll
                 activeClass='active'
                 to='Personality'
@@ -212,68 +241,34 @@ const Header: React.FC = () => {
               >
                 Personality Types
               </LinkScroll>
-              <LinkScroll
+              {/* <LinkScroll
                 activeClass='active'
-                to='Personality'
+                to='Quest'
                 spy={true}
                 smooth={true}
                 duration={1000}
                 onClick={() => navChange('/quest')}
                 className={
                   'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
-                  (activeLink === 'Personality'
-                    ? ' text-blue-500 animation-active '
-                    : ' text-black-300 hover:text-blue-500 ')
+                  (activeLink === 'Quest' ? ' text-blue-500 animation-active ' : ' text-black-300 hover:text-blue-500 ')
                 }
               >
                 Quest
-              </LinkScroll>
+              </LinkScroll> */}
               <LinkScroll
                 activeClass='active'
-                to='Personality'
+                to='Faq'
                 spy={true}
                 smooth={true}
                 duration={1000}
                 onClick={() => navChange('/faq')}
                 className={
                   'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
-                  (activeLink === 'Personality'
-                    ? ' text-blue-500 animation-active '
-                    : ' text-black-300 hover:text-blue-500 ')
+                  (activeLink === 'Faq' ? ' text-blue-500 animation-active ' : ' text-black-300 hover:text-blue-500 ')
                 }
               >
                 FAQ
               </LinkScroll>
-              {/* <LinkScroll
-                activeClass='active'
-                to='specialized'
-                spy={true}
-                smooth={true}
-                duration={1000}
-                className={
-                  'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
-                  (activeLink === 'specialized'
-                    ? ' text-blue-500 animation-active '
-                    : ' text-black-500 hover:text-blue-500 ')
-                }
-              >
-                Specialized Test
-              </LinkScroll>
-              <LinkScroll
-                activeClass='active'
-                to='resources'
-                spy={true}
-                smooth={true}
-                duration={1000}
-                className={
-                  'px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative' +
-                  (activeLink === 'resources'
-                    ? ' text-blue-500 animation-active '
-                    : ' text-black-500 hover:text-blue-500 ')
-                }
-              >
-                Resources
-              </LinkScroll> */}
             </ul>
           </div>
           <div className='items-center justify-end hidden col-start-6 col-end-12 font-medium md:flex'>
@@ -327,14 +322,14 @@ const Header: React.FC = () => {
                 Personality Type
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 href='/quest'
                 className='block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700'
               >
                 Quest
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 href='/faq'

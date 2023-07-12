@@ -22,7 +22,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ value, onChange, disable }) => 
       <RadioButton value={3} selectedValue={value} onChange={handleRadioChange} />
       <RadioButton value={4} selectedValue={value} onChange={handleRadioChange} />
       <RadioButton value={5} selectedValue={value} onChange={handleRadioChange} />
-      <h1 className='hidden font-extrabold lg:flex'>Strongly Agree</h1>
+      <h1 className='hidden ml-2 font-extrabold lg:flex'>Strongly Agree</h1>
     </div>
   )
 }

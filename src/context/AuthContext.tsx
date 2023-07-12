@@ -25,6 +25,7 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   googleLogin: () => Promise.resolve(),
+  refreshUser: () => Promise.resolve(),
   facebookLogin: () => Promise.resolve(),
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
@@ -58,7 +59,6 @@ const AuthProvider = ({ children }: Props) => {
             }
           })
           .then(async response => {
-            console.log(response)
             setLoading(false)
             setUser({ ...response.data.data })
           })
@@ -166,8 +166,8 @@ const AuthProvider = ({ children }: Props) => {
       .then(async response => {
         setUser({ ...response.data.data })
         await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
-
-        window.localStorage.setItem('refreshSocailAccounts', 'true')
+        window.localStorage.setItem('refreshSocialAccounts', 'true')
+        console.log('refresh', user)
       })
   }
 
@@ -264,6 +264,7 @@ const AuthProvider = ({ children }: Props) => {
     login: handleLogin,
     googleLogin: handleGoogleLogin,
     facebookLogin: handleFacebookLogin,
+    refreshUser: getUserData,
     logout: handleLogout,
     register: handleRegister
   }

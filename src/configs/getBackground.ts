@@ -124,7 +124,7 @@ export const getBaseTextColor = (hero: string) => {
 }
 
 export const getTextColor = (hero: string) => {
-  console.log('hero', hero)
+
 
   switch (hero) {
     case 'Hero':

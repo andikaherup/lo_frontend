@@ -137,7 +137,7 @@ const SubQuest = (props: subQuestProps) => {
               } -left-10`}
             ></div>
 
-            <div className='z-10 w-full'>
+            <div className='z-10 flex w-full'>
               <AccordionItem
                 character={character}
                 header={detail.name}
@@ -149,6 +149,10 @@ const SubQuest = (props: subQuestProps) => {
                 id={detail.id}
                 onFinishVideo={initAuth}
               ></AccordionItem>
+              <div className='flex items-center justify-center pl-3'>
+                <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+              </div>
             </div>
           </div>
         </div>

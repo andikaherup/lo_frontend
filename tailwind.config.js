@@ -112,7 +112,11 @@ module.exports = {
       badgeGreen: '#E1FCEF',
       textBadgeGreen: '#14804A',
       badgeBlue: '#E1F4FC',
-      textBadgeBlue: '#0066FF'
+      textBadgeBlue: '#0066FF',
+      referralYellow: '#F7A400',
+      referralGray: '#D5D9E7',
+      referralSemiBlack: '#122460',
+      progressGray: '#515151'
     },
     extend: {
       fontFamily: {

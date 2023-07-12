@@ -167,10 +167,11 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='container mx-auto my-24 md:px-6'>
+      <div className='container py-24 mx-auto md:px-6'>
         <Testimonials></Testimonials>
       </div>
-      <div className={`w-full ${images[currentImageIndex].background}`}>
+
+      {/* <div className={`w-full ${images[currentImageIndex].background}`}>
         <div className='container py-20 mx-auto md:px-6'>
           <section className='mb-32 text-center'>
             <h2 className='mb-16 text-3xl font-bold text-white-300'>FEATURE</h2>
@@ -226,7 +227,7 @@ const Home = () => {
             </div>
           </section>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }
