@@ -25,7 +25,7 @@ const PersonalityTypes = () => {
   const heroes = [
     {
       name: '>> HERO <<',
-      image1: '/assets/characters/HERO_LVL_1.png',
+      image1: '/assets/characters/HERO_LVL_1(NEW).png',
       image2: '/assets/characters/HERO_LVL_1_(F).png',
       bgColor: 'bg-purple-500',
       desc: 'A heroic personality is characterized by a strong sense of duty, bravery, and a desire to make a difference. Heroes are often associated with acts of selflessness and valor and are driven by a sense of purpose or mission.      '
