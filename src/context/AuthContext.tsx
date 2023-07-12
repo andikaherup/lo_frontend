@@ -16,6 +16,7 @@ import contentConfig from 'src/configs/content'
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, RegisterParams } from './types'
 import { ResponseData } from './characterType'
+import toast from 'react-hot-toast'
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -24,6 +25,7 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   googleLogin: () => Promise.resolve(),
+  facebookLogin: () => Promise.resolve(),
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve()
@@ -195,6 +197,39 @@ const AuthProvider = ({ children }: Props) => {
         router.replace('/dashboard')
       })
       .catch(err => {
+        toast.error('Server error, please contact admin')
+
+        if (errorCallback) errorCallback(err)
+      })
+  }
+
+  const handleFacebookLogin = (params: any, errorCallback?: ErrCallbackType) => {
+    const payload = {
+      token: params.accessToken,
+      backend: 'facebook',
+      grant_type: 'convert_token',
+      client_id: 'EHHl1AUyH0dvb5LCxYnNNbe5CNblF8s8nw6EjPO4',
+      client_secret:
+        '4HCQODLWm3GeCjTFQdYEz996yGWWTgTsGsBtUwW1pRg592Jf7YUZVrvZ9804UCSjQN8LFafDOW87Jjlc0pPBrABFM4svuTRcVnt0WWs44P0SZYUVwmMv3saHXeMs7PuK'
+    }
+
+    axios
+      .post(authConfig.convertToken, payload, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(async res => {
+        window.localStorage.setItem(authConfig.storageTokenKeyName, res.data.access_token)
+        window.localStorage.setItem(authConfig.onTokenExpiration, res.data.refresh_token)
+      })
+      .then(async () => {
+        await submitWhenLogin()
+        await getUserData()
+        router.replace('/dashboard')
+      })
+      .catch(err => {
+        toast.error('Server error, please contact admin')
         if (errorCallback) errorCallback(err)
       })
   }
@@ -218,6 +253,7 @@ const AuthProvider = ({ children }: Props) => {
     window.localStorage.removeItem('resultLogin')
     window.localStorage.removeItem(authConfig.storageTokenKeyName)
     window.localStorage.removeItem(authConfig.onTokenExpiration)
+    router.replace('/home')
   }
 
   const values = {
@@ -227,6 +263,7 @@ const AuthProvider = ({ children }: Props) => {
     setLoading,
     login: handleLogin,
     googleLogin: handleGoogleLogin,
+    facebookLogin: handleFacebookLogin,
     logout: handleLogout,
     register: handleRegister
   }

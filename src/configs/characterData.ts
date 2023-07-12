@@ -87,7 +87,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are thrilled to offer you a complimentary Foundation Class! This transformative class will provide you with practical strategies and guidance to enhance your leadership skills, overcome obstacles, and achieve even greater impact in your chosen endeavors',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Hero archetype. Your dedication to making a positive impact is truly inspiring. Embrace your strengths, lead with courage, and continue to shine your light in the world.'
@@ -176,7 +176,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are thrilled to offer you a complimentary Foundation Class! This immersive experience will provide you with practical tools, strategies, and guidance to further unleash your creative brilliance, overcome obstacles, and bring your magical ideas to life.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Magician archetype. Your ability to envision and manifest the extraordinary is truly awe-inspiring. Embrace your strengths, ignite your imagination, and continue to weave your magical impact on the world.'
@@ -265,7 +265,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are delighted to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to harness your rebellious nature effectively, overcome obstacles, and create meaningful change.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Rebel archetype. Your determination to challenge the norm and inspire others to do the same is truly remarkable. Embrace your strengths, harness your rebellious spirit, and continue to lead the way towards a more authentic and liberated world.'
@@ -353,7 +353,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are delighted to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to further nurture your creative genius, overcome creative blocks, and achieve even greater artistic mastery.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Creator archetype. Your ability to bring beauty and innovation into the world is truly remarkable. Embrace your strengths, continue to unleash your creative spirit, and let your imagination soar to new heights.'
@@ -442,7 +442,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are delighted to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to further enhance your ability to foster collaboration, navigate diverse dynamics, and create synergy among teams.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Synergist archetype. Your ability to bring people together and create unity is truly remarkable. Embrace your strengths, continue to foster collaboration, and be the catalyst for positive change in the world.'
@@ -531,7 +531,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are thrilled to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to further enhance your ability to share your wisdom, communicate effectively, and empower others on their journey of self-discovery.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Oracle archetype. Your profound wisdom and visionary perspective are truly remarkable. Embrace your strengths, continue to inspire transformation, and be the guiding light for those seeking clarity and guidance.'
@@ -620,7 +620,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are thrilled to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to further enhance your ability to share your wisdom, communicate effectively, and empower others on their journey of self-discovery.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Protector archetype. Your profound empathy, compassion, and nurturing nature are truly remarkable. Embrace your strengths, continue to create a safe haven for others, and be the guiding light in their lives.'
@@ -709,7 +709,7 @@ export const characters: Archetype[] = [
       title: 'Bonus: Complimentary Foundation Class',
       content:
         'As a token of our appreciation, we are thrilled to offer you a complimentary Foundation Class! This transformative experience will provide you with tools, strategies, and guidance to further enhance your leadership skills, inspire your team, and achieve even greater success in your endeavors.',
-      instructions: 'To access your Foundation Class, please follow the instructions provided in a separate email.'
+      instructions: 'To access your Foundation Class, click the button below'
     },
     conclusion:
       'Thank you for embracing your Ruler archetype. Your natural leadership abilities and organizational prowess are truly remarkable. Embrace your strengths, continue to empower others, and leave a lasting legacy of positive change.'

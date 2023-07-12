@@ -1,3 +1,5 @@
+/* purgecss start ignore */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +8,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Knewave&family=Kufam:wght@400;500;700;800&family=Share&display=swap');
 
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-/* purgecss start ignore */
 
 html {
   font-family: 'Kufam', sans-serif, 'Knewave', cursive;
@@ -128,7 +128,4 @@ li.check:before {
   background-image: url('/public/assets/characters/backgroundss.png');
 }
 
-/* purgecss end ignore */
-
-/* purgecss start ignore */
 /* purgecss end ignore */

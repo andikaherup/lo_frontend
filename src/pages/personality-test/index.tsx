@@ -28,6 +28,7 @@ import RadioGroup from 'src/layouts/components/misc/RadioGroupTest'
 
 interface Questions {
   category: string
+  sorting_number: number
   code: null
   created_at: string
   id: number
@@ -43,7 +44,9 @@ const PersonalityTest = () => {
   useEffect(() => {
     const initAuth = async () => {
       await axios.get(contentConfig.getQuestion).then(async res => {
-        setQuestions(res.data.data)
+        const data: Questions[] = res.data.data
+
+        setQuestions(data.sort((a, b) => a.sorting_number - b.sorting_number))
         setInitialLoad(true)
       })
     }
@@ -60,7 +63,9 @@ const PersonalityTest = () => {
   const currentQuestionRef = useRef<HTMLDivElement>(null)
   const currentPage = Math.floor(questionIndex / questionsPerPage) + 1
   const currentPagePercentage = ((currentPage * questionsPerPage) / questions.length) * 100
-  const [answers, setAnswers] = useState<{ id: number; answer: number; answer_str: string; question: string }[]>([])
+  const [answers, setAnswers] = useState<
+    { id: number; answer: number; answer_str: string; question: string; sorting_number: number }[]
+  >([])
 
   // const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''))
   const [selectedValue, setSelectedValue] = useState('male')
@@ -147,7 +152,7 @@ const PersonalityTest = () => {
   const handleAnswerSelection = (value: number, question: Questions) => {
     console.log('questionIndnexAnswer', questionIndexForAnswer, questionIndex, currentPage)
     const updatedAnswers = [...answers]
-    const existingAnswer = updatedAnswers.find(a => a.id === question.id)
+    const existingAnswer = updatedAnswers.find(a => a.sorting_number === question.sorting_number)
 
     if (existingAnswer) {
       existingAnswer.answer = value
@@ -158,7 +163,8 @@ const PersonalityTest = () => {
         id: question.id,
         answer: value,
         answer_str: determineString(value),
-        question: question.question
+        question: question.question,
+        sorting_number: question.sorting_number
       })
       if (questionIndexForAnswer != questions.length) {
         setQuestionIndexForAnswer(questionIndexForAnswer + 1)
@@ -284,16 +290,22 @@ const PersonalityTest = () => {
           .slice((currentPage - 1) * questionsPerPage, (currentPage - 1) * questionsPerPage + questionsPerPage)
           .map(question => (
             <div
-              key={question.id}
+              key={question.sorting_number}
               className={`flex flex-col justify-center w-full bg-white-500`}
-              ref={question.id === questions[questionIndexForAnswer - 1].id ? currentQuestionRef : null}
+              ref={
+                question.sorting_number === questions[questionIndexForAnswer - 1].sorting_number
+                  ? currentQuestionRef
+                  : null
+              }
             >
               <div className='flex justify-center w-full bg-white-500'>
                 <hr className='my-12 h-0.5 border-t-0 bg-black-300 opacity-10' style={{ width: '75%' }} />
               </div>
               <div
                 className={`flex flex-col justify-center w-full ${
-                  questions[questionIndexForAnswer - 1].id === question.id ? 'bg-white-500 ' : 'opacity-25'
+                  questions[questionIndexForAnswer - 1].sorting_number === question.sorting_number
+                    ? 'bg-white-500 '
+                    : 'opacity-25'
                 }`}
               >
                 <div className='w-full '>
@@ -301,8 +313,8 @@ const PersonalityTest = () => {
                 </div>
                 <div className='w-full px-5 mt-10'>
                   <RadioGroup
-                    disable={questions[questionIndexForAnswer - 1].id < question.id}
-                    value={answers.find(answer => answer.id === question.id)?.answer || 0} // Pass the value of the corresponding question's answer
+                    disable={questions[questionIndexForAnswer - 1].sorting_number < question.sorting_number}
+                    value={answers.find(answer => answer.sorting_number === question.sorting_number)?.answer || 0} // Pass the value of the corresponding question's answer
                     onChange={value => handleAnswerSelection(value, question)} // Pass the index and value of the selected answer
                   />
                 </div>

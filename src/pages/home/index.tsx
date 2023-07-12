@@ -16,6 +16,7 @@ import React from 'react'
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
+import Testimonials from 'src/layouts/components/home/testimonials'
 
 const images = [
   {
@@ -155,14 +156,10 @@ const Home = () => {
           <div className='grid gap-6 mx-auto md:w-3/4 lg:w-1/2 '>
             <div className='px-8 pt-12 bg-yellow-300 border-8 shadow-2xl border-black-300 rounded-3xl dark:bg-gray-800 shadow-gray-600/10 dark:shadow-none sm:px-12 lg:px-8'>
               <div className='mb-12 space-y-4'>
-                <p className='mb-6 text-sm lg:text-md text-black-600 dark:text-gray-300'>
+                <p className='mb-6 text-sm lg:text-lg text-black-600 dark:text-gray-300'>
                   Our test analyzes your preferences, beliefs, and aspirations, providing you with a reliable and valid
                   profile that empowers you to make informed decisions, embrace your natural talents, and harness your
-                  full potential. Your participation contributes to ongoing research, ensuring that our test continues
-                  to provide accurate and insightful results. Please note that all personal information and responses
-                  are strictly used for research purposes, ensuring the reliability and validity of the test results.
-                  Your privacy and confidentiality are of utmost importance to us. Thank you for your participation.
-                  Your contribution to our research is greatly appreciated!
+                  full potential.
                 </p>
               </div>
             </div>
@@ -171,89 +168,7 @@ const Home = () => {
       </div>
 
       <div className='container mx-auto my-24 md:px-6'>
-        <section className='mb-32 text-center'>
-          <h2 className='pb-4 mb-12 text-3xl font-bold text-center'>Testimonials</h2>
-
-          <div className='grid gap-6 md:grid-cols-3 xl:gap-x-12'>
-            <div className='mb-6 lg:mb-0'>
-              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                <div className='flex'>
-                  <div
-                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
-                    data-te-ripple-init
-                    data-te-ripple-color='light'
-                  >
-                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/8.jpg' className='w-full' />
-                    <a href='#!'>
-                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
-                    </a>
-                  </div>
-                </div>
-                <div className='p-6'>
-                  <h5 className='mb-2 text-lg font-bold'>John Doe</h5>
-                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Web Developer</h6>
-
-                  <p>
-                    Ut pretium ultricies dignissim. Sed sit amet mi eget urna placerat vulputate. Ut vulputate est non
-                    quam dignissim elementum. Donec a ullamcorper diam.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className='mb-6 lg:mb-0'>
-              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                <div className='flex'>
-                  <div
-                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
-                    data-te-ripple-init
-                    data-te-ripple-color='light'
-                  >
-                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/6.jpg' className='w-full' />
-                    <a href='#!'>
-                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
-                    </a>
-                  </div>
-                </div>
-                <div className='p-6'>
-                  <h5 className='mb-2 text-lg font-bold'>Halley Frank</h5>
-                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Marketing Specialist</h6>
-
-                  <p>
-                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium accusamus
-                    contestatur voluptatum deleniti atque corrupti.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className='mb-0'>
-              <div className='relative block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                <div className='flex'>
-                  <div
-                    className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
-                    data-te-ripple-init
-                    data-te-ripple-color='light'
-                  >
-                    <img alt='image' src='https://mdbcdn.b-cdn.net/img/new/avatars/18.jpg' className='w-full' />
-                    <a href='#!'>
-                      <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
-                    </a>
-                  </div>
-                </div>
-                <div className='p-6'>
-                  <h5 className='mb-2 text-lg font-bold'>Lisa Trey</h5>
-                  <h6 className='mb-4 font-medium text-primary dark:text-primary-400'>Public Relations</h6>
-
-                  <p>
-                    Enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
-                    aliquid commodi quis nostrum minima.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Testimonials></Testimonials>
       </div>
       <div className={`w-full ${images[currentImageIndex].background}`}>
         <div className='container py-20 mx-auto md:px-6'>

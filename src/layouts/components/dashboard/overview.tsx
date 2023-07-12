@@ -78,7 +78,15 @@ const Overview = ({ character, gender }: Props) => {
             <div className='relative flex w-full min-w-fit '>
               <>
                 <img
-                  src={`/assets/characters/${gender == 'male' ? character.lvl1_image_M : character.lvl1_image_F}`}
+                  src={`/assets/characters/${
+                    auth.user?.character_level == 0
+                      ? gender == 'male'
+                        ? character.lvl0_image_M
+                        : character.lvl0_image_F
+                      : gender == 'male'
+                      ? character.lvl1_image_M
+                      : character.lvl1_image_F
+                  }`}
                   alt={`Image`}
                   className={`object-scale-down `}
                 />
@@ -98,7 +106,15 @@ const Overview = ({ character, gender }: Props) => {
                 <div className='relative flex w-full min-w-fit '>
                   <>
                     <img
-                      src={`/assets/characters/${gender == 'male' ? character.lvl0_image_M : character.lvl0_image_F}`}
+                      src={`/assets/characters/${
+                        auth.user?.character_level == 0
+                          ? gender == 'male'
+                            ? character.lvl0_image_M
+                            : character.lvl0_image_F
+                          : gender == 'male'
+                          ? character.lvl1_image_M
+                          : character.lvl1_image_F
+                      }`}
                       alt={`Image`}
                       className={`object-scale-down `}
                     />
@@ -116,7 +132,7 @@ const Overview = ({ character, gender }: Props) => {
                   </h1>
 
                   <p className={`${checkHeroBrightness(character.name)}`}>{character.char_description}</p>
-                  <div className='flex mt-10'>
+                  {/* <div className='flex mt-10'>
                     <button
                       className={`px-5 lg:px-10 py-2 ${
                         character.background
@@ -139,7 +155,7 @@ const Overview = ({ character, gender }: Props) => {
                         ></path>
                       </svg>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

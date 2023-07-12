@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -97,7 +98,7 @@ module.exports = {
       darkBlue: '#4d5fbe',
       lightBlue: '#97a1de',
       darkRebel: '#9b1010',
-      lightRebel: '#ff1600',
+      lightRebel: '#FF1600',
       darkHero: '#ffcc00',
       lightHero: '#fff500',
       darkMagician: '#f79e2a',
@@ -107,7 +108,11 @@ module.exports = {
       darkOracle: '#631426',
       lightOracle: '#d63d60',
       darkProtector: '#598a23',
-      lightProtector: '#a7d978'
+      lightProtector: '#a7d978',
+      badgeGreen: '#E1FCEF',
+      textBadgeGreen: '#14804A',
+      badgeBlue: '#E1F4FC',
+      textBadgeBlue: '#0066FF'
     },
     extend: {
       fontFamily: {

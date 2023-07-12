@@ -8,7 +8,8 @@ import ButtonOutline from '../misc/ButtonOutline.'
 
 // ** Type Import
 import { useGoogleLogin } from '@react-oauth/google'
-import { GoogleLoginButton } from 'react-social-login-buttons'
+import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons'
+import FacebookLogin from '@greatsumini/react-facebook-login'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
@@ -107,6 +108,12 @@ const Header: React.FC = () => {
 
   const googleLogin = async (response: any) => {
     await auth.googleLogin(response)
+    closeModal()
+  }
+
+  const facebookLogin = async (response: any) => {
+    console.log('here', response)
+    await auth.facebookLogin(response)
     closeModal()
   }
 
@@ -211,7 +218,7 @@ const Header: React.FC = () => {
                 spy={true}
                 smooth={true}
                 duration={1000}
-                onClick={() => navChange('/home')}
+                onClick={() => navChange('/quest')}
                 className={
                   'px-4 py-3 mx-2 cursor-pointer  text-sm font-semibold  animation-hover inline-block relative' +
                   (activeLink === 'Personality'
@@ -269,7 +276,7 @@ const Header: React.FC = () => {
               </LinkScroll> */}
             </ul>
           </div>
-          <div className='items-center justify-end hidden col-start-8 col-end-12 font-medium md:flex'>
+          <div className='items-center justify-end hidden col-start-6 col-end-12 font-medium md:flex'>
             {!auth.user && (
               <>
                 <button
@@ -287,14 +294,13 @@ const Header: React.FC = () => {
                   aria-current='page'
                 >
                   <ButtonOutline>
-                    {' '}
                     <span className='text-sm font-semibold'>Take Test</span>
                   </ButtonOutline>
                 </Link>
               </>
             )}
 
-            {auth.user && <ProgressQuest></ProgressQuest>}
+            {auth.user && <ProgressQuest user={auth.user}></ProgressQuest>}
 
             {auth.user && <Dropdown></Dropdown>}
           </div>
@@ -305,21 +311,37 @@ const Header: React.FC = () => {
         >
           <ul className='flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0'>
             <li>
-              <a
-                href='#'
+              <Link
+                href='/personality-test'
                 className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
                 aria-current='page'
               >
                 Personality Test
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#'
+              <Link
+                href='/personality-types'
                 className='block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700'
               >
                 Personality Type
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='/quest'
+                className='block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700'
+              >
+                Quest
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='/faq'
+                className='block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700'
+              >
+                FaQ
+              </Link>
             </li>
             {/* <li>
               <a
@@ -407,12 +429,36 @@ const Header: React.FC = () => {
                       />
                       <span>Sign Up with Google</span>
                     </button> */}
-                    <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle} />
+                    <div className='flex w-full justify-evenly'>
+                      <div className='w-full'>
+                        <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
+                          <span className='text-sm'>Login with Google</span>
+                        </GoogleLoginButton>
+                      </div>
+                      <div className='w-full'>
+                        <FacebookLogin
+                          appId='120705577700367'
+                          onSuccess={response => {
+                            facebookLogin(response)
+                          }}
+                          onFail={error => {
+                            console.log('Login Failed!', error)
+                          }}
+                          onProfileSuccess={response => {
+                            console.log('Get Profile Success!', response)
+                          }}
+                          render={({ onClick }) => (
+                            <FacebookLoginButton onClick={onClick}>
+                              <span className='text-sm'>Login with Facebook</span>
+                            </FacebookLoginButton>
+                          )}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className='flex justify-center w-full mt-10'>
                     <p className='text-sm text-center text-textcolorblack-300 dark:text-neutral-300'>
-                      If you have an account, log in below and your detailed report will be sent to the registered
-                      email.
+                      If you have an account, log in below and view your detailed report on the Level 0 dashboard.
                     </p>
                   </div>
                   <div className='w-full max-w-xl mx-auto'>
@@ -421,9 +467,8 @@ const Header: React.FC = () => {
                         <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
                           <div>
                             <FormControl fullWidth>
-                              <label className='block text-sm font-medium text-textcolorblack-300'>
-                                {' '}
-                                Email address{' '}
+                              <label className='block mb-2 text-sm font-medium text-textcolorblack-300'>
+                                Email address
                               </label>
                               <div className='mt-1'>
                                 <Controller
@@ -439,7 +484,7 @@ const Header: React.FC = () => {
                                       onChange={onChange}
                                       autoComplete='email'
                                       placeholder='Your Email'
-                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
                                     />
                                   )}
                                 />
@@ -449,8 +494,10 @@ const Header: React.FC = () => {
 
                           <div className='space-y-1'>
                             <FormControl fullWidth>
-                              <label htmlFor='password' className='block text-sm font-medium text-textcolorblack-300'>
-                                {' '}
+                              <label
+                                htmlFor='password'
+                                className='block mt-3 mb-2 text-sm font-medium text-textcolorblack-300'
+                              >
                                 Password{' '}
                               </label>
                               <div className='mt-1'>
@@ -467,7 +514,7 @@ const Header: React.FC = () => {
                                       type='password'
                                       autoComplete='current-password'
                                       placeholder='Your Password'
-                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
                                     />
                                   )}
                                 />
@@ -475,7 +522,7 @@ const Header: React.FC = () => {
                             </FormControl>
                           </div>
 
-                          <div className='flex items-center justify-between'>
+                          <div className='flex items-center justify-between pt-2 mt-2'>
                             <div className='flex items-center'>
                               <input
                                 id='remember-me'
@@ -485,20 +532,18 @@ const Header: React.FC = () => {
                                 className='w-4 h-4 text-blue-600 border-gray-200 rounded focus:ring-blue-500'
                               />
                               <label htmlFor='remember-me' className='block ml-2 text-sm text-neutral-600'>
-                                {' '}
-                                Remember me{' '}
+                                Remember me
                               </label>
                             </div>
 
                             <div className='text-sm'>
                               <a href='#' className='font-medium text-blue-600 hover:text-blue-500'>
-                                {' '}
-                                Forgot your password?{' '}
+                                Forgot your password?
                               </a>
                             </div>
                           </div>
 
-                          <div className='flex justify-center'>
+                          <div className='flex justify-center pt-3'>
                             <ButtonPrimary>Sign In</ButtonPrimary>
                           </div>
                         </form>

@@ -44,7 +44,7 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
     <BlankLayoutWrapper className='layout-wrapper'>
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
         <Header />
-        {children}
+        <div className='h-full min-h-screen'>{children}</div>
         <Footer />
       </Box>
     </BlankLayoutWrapper>

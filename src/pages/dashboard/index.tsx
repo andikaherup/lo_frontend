@@ -18,13 +18,6 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 import { useRouter } from 'next/router'
 import Noresult from 'src/layouts/components/dashboard/noresult'
 
-// interface Answer {
-//   id: number
-//   answer: number
-//   answer_str: string
-//   question: string
-// }
-
 const Dashboard = () => {
   const auth = useAuth()
   const router = useRouter()
@@ -108,7 +101,7 @@ const Dashboard = () => {
                     Overview
                   </button>
                 </li>
-                <li className={`w-full  ${selectedTab === 'Overview' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
+                <li className={`w-full  ${selectedTab === 'Friends' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
                   <button
                     className='inline-block w-full p-4 outline-none text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 hover:ring-skyblue-500 focus:ring-2 focus:ring-blue-500 active focus:bg-blue-500 focus:text-white-500 focus:outline-none dark:bg-gray-700 dark:text-white'
                     onClick={() => setSelectedTab('Friends')}
@@ -117,7 +110,7 @@ const Dashboard = () => {
                     Friends
                   </button>
                 </li>{' '}
-                <li className={`w-full  ${selectedTab === 'Overview' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
+                <li className={`w-full  ${selectedTab === 'Reward' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
                   <button
                     className='inline-block w-full p-4 outline-none text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 hover:ring-skyblue-500 focus:ring-2 focus:ring-blue-500 active focus:bg-blue-500 focus:text-white-500 focus:outline-none dark:bg-gray-700 dark:text-white'
                     onClick={() => setSelectedTab('Reward')}
@@ -128,7 +121,7 @@ const Dashboard = () => {
                 </li>{' '}
                 <li
                   className={`w-full rounded-lg rounded-l-none ${
-                    selectedTab === 'Overview' ? 'bg-blue-500' : 'bg-greybackground-300'
+                    selectedTab === 'Settings' ? 'bg-blue-500' : 'bg-greybackground-300'
                   }`}
                 >
                   <button
