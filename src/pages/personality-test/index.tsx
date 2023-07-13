@@ -245,7 +245,7 @@ const PersonalityTest = () => {
                         </svg>
                       </div>
                       <p className='text-neutral-500 dark:text-neutral-300'>
-                        Be as honest as possible, even if you don’t like the answer.
+                        Be as honest as possible, there is no right or wrong.
                       </p>
                     </div>
                   </div>
