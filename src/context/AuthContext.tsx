@@ -151,8 +151,8 @@ const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  const getUserData = () => {
-    axios
+  const getUserData = async () => {
+    await axios
       .get(authConfig.meEndpoint, {
         headers: {
           Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)!

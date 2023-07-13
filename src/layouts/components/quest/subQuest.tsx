@@ -42,7 +42,6 @@ const SubQuest = (props: subQuestProps) => {
         })
         .then(async res => {
           setDetailQuest(res.data.data)
-          auth.refreshUser()
         })
         .catch(() => {
           toast.error('Something went wrong, contact Admin22')
@@ -59,6 +58,7 @@ const SubQuest = (props: subQuestProps) => {
       })
       .then(async res => {
         setDetailQuest(res.data.data)
+        auth.refreshUser()
       })
       .catch(() => {
         toast.error('Something went wrong, contact Admin11')

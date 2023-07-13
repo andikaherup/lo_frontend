@@ -59,6 +59,19 @@ const Friends = () => {
     resolver: yupResolver(schema)
   })
 
+  const handleCopyUrl = () => {
+    navigator.clipboard.writeText(personalLink)
+    toast.success('Copied to clipboard')
+  }
+
+  const handleCopyCode = () => {
+    if (auth.user?.referral_code) {
+      navigator.clipboard.writeText(auth.user?.referral_code)
+      toast.success('Copied to clipboard')
+
+      // Reset the "Copied" state after 2 seconds
+    }
+  }
   function closeModal() {
     setIsOpen(false)
   }
@@ -89,16 +102,16 @@ const Friends = () => {
   }
 
   return (
-    <div className='h-screen lg:px-20'>
+    <div className='h-full lg:h-screen lg:px-20'>
       <div>
-        <div className='flex flex-col items-start px-10 mt-10'>
-          <h1 className={`text-center text-5xl font-bold lg:mb-4 lg:text-md text-white-300`}>Friends</h1>
-          <h1 className='mb-4 text-lg font-bold text-center text-white-300'>
+        <div className='flex flex-col items-center px-10 mt-10 lg:items-start'>
+          <h1 className={`text-center lg:text-5xl text-3xl font-bold lg:mb-4 lg:text-md text-white-300`}>Friends</h1>
+          <h1 className='mb-4 font-bold text-center lg:text-lg text-md text-white-300'>
             You don’t have any friends here yet. Why not invite a few?
           </h1>
         </div>
         {auth.user && (
-          <div className='grid grid-cols-1 gap-4 px-3 mt-5 sm:grid-cols-12'>
+          <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
             <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
               <div className='px-3 py-2 bg-referralYellow'>
                 <span className='text-lg font-bold text-white-300'>
@@ -106,113 +119,119 @@ const Friends = () => {
                 </span>
               </div>
               <div className='flex justify-between w-full mt-10 sm:flex-row '>
-                <div className='flex items-center justify-start mr-4'>
+                <div className='items-center justify-start hidden mr-4 lg:flex'>
                   <span className='text-xl font-bold text-black-300'>Rewards</span>
                 </div>
                 <div className='flex items-center justify-start mr-4'>
-                  {auth.user?.friend_sign_ups >= 1 && (
-                    <span
-                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
-                    >
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 20 20'
+                  <div className='hidden lg:flex'>
+                    {auth.user?.friend_sign_ups >= 1 && (
+                      <span
+                        className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
                       >
-                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
-                      </svg>
-                    </span>
-                  )}
-                  {auth.user?.friend_sign_ups < 1 && (
-                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 16 20'
-                      >
-                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                      </svg>
-                    </span>
-                  )}
-                  <div className='flex items-center justify-center pl-3'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                        >
+                          <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
+                        </svg>
+                      </span>
+                    )}
+                    {auth.user?.friend_sign_ups < 1 && (
+                      <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 16 20'
+                        >
+                          <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                  <div className='flex flex-col items-center justify-center pl-3 lg:flex-row'>
                     <img alt='img' src='/assets/icon/medal.png'></img>
                     <span className='pt-2 text-black-300'>+50</span>
                   </div>
                 </div>
                 <div className='flex items-center justify-start mr-4'>
-                  {auth.user?.friend_sign_ups >= 2 && (
-                    <span
-                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
-                    >
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 20 20'
+                  <div className='hidden lg:flex'>
+                    {auth.user?.friend_sign_ups >= 2 && (
+                      <span
+                        className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
                       >
-                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
-                      </svg>
-                    </span>
-                  )}
-                  {auth.user?.friend_sign_ups < 2 && (
-                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 16 20'
-                      >
-                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                      </svg>
-                    </span>
-                  )}
-                  <div className='flex items-center justify-center pl-3'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                        >
+                          <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
+                        </svg>
+                      </span>
+                    )}
+                    {auth.user?.friend_sign_ups < 2 && (
+                      <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 16 20'
+                        >
+                          <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                  <div className='flex flex-col items-center justify-center pl-3 lg:flex-row'>
                     <img alt='img' src='/assets/icon/medal.png'></img>
                     <span className='pt-2 text-black-300'>+50</span>
                   </div>
                 </div>
                 <div className='flex items-center justify-start'>
-                  {auth.user?.friend_sign_ups >= 3 && (
-                    <span
-                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
-                    >
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 20 20'
+                  <div className='hidden lg:flex'>
+                    {auth.user?.friend_sign_ups >= 3 && (
+                      <span
+                        className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
                       >
-                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
-                      </svg>
-                    </span>
-                  )}
-                  {auth.user?.friend_sign_ups < 3 && (
-                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                      <svg
-                        className='w-4 h-4 text-gray-800 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='currentColor'
-                        viewBox='0 0 16 20'
-                      >
-                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                      </svg>
-                    </span>
-                  )}
-                  <div className='flex items-center justify-center pl-3'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                        >
+                          <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
+                        </svg>
+                      </span>
+                    )}
+                    {auth.user?.friend_sign_ups < 3 && (
+                      <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                        <svg
+                          className='w-4 h-4 text-gray-800 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='currentColor'
+                          viewBox='0 0 16 20'
+                        >
+                          <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                  <div className='flex flex-col items-center justify-center pl-3 lg:flex-row'>
                     <img alt='img' src='/assets/icon/medal.png'></img>
                     <span className='pt-2 text-black-300'>+50</span>
                   </div>
                 </div>
               </div>
-              <div className='grid w-full grid-cols-12 mt-10'>
+              <div className='grid w-full grid-cols-12 mt-2 lg:mt-10'>
                 <span className='col-start-1 col-end-3'>0</span>
                 <span className='col-start-4 text-right'>1</span>
                 <span className='col-start-9'>2</span>
@@ -265,6 +284,7 @@ const Friends = () => {
                         className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
                       />
                       <button
+                        onClick={handleCopyUrl}
                         type='submit'
                         className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
                       >
@@ -299,6 +319,7 @@ const Friends = () => {
                         className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
                       />
                       <button
+                        onClick={handleCopyCode}
                         type='submit'
                         className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
                       >
