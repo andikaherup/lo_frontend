@@ -26,16 +26,20 @@ const Dashboard = () => {
   const router = useRouter()
 
   useEffect(() => {
-    auth.setLoading(true)
+    const initAuth = async (): Promise<void> => {
+      auth.setLoading(true)
 
-    if (!auth.user) {
-      router.replace('/home')
-      auth.setLoading(false)
-    } else {
-      auth.refreshUser()
-      auth.setLoading(false)
+      if (!auth.user) {
+        router.replace('/home')
+        auth.setLoading(false)
+      } else {
+        auth.refreshUser()
+        auth.setLoading(false)
+      }
     }
-  }, [auth, router]) // Include auth and router in the dependency array
+    initAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Include auth and router in the dependency array
 
   const [selectedTab, setSelectedTab] = useState('Overview')
 

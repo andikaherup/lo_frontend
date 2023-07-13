@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
@@ -10,6 +12,7 @@ import Footer from 'src/layouts/components/footer/Footer'
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import Spinner from '../components/spinner'
+import PopupRef from 'src/layouts/components/header/referralPopup'
 
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -35,6 +38,17 @@ const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 
 const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
   const auth = useAuth()
+  const [openRef, setOpenRef] = useState<boolean>(false)
+
+  useEffect(() => {
+    console.log(auth.user)
+    if (auth.user?.is_new_user) {
+      setOpenRef(true)
+    }
+  }, [auth])
+  const closeRef = () => {
+    setOpenRef(false)
+  }
 
   if (auth.loading) {
     return <Spinner></Spinner>
@@ -43,6 +57,7 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
   return (
     <BlankLayoutWrapper className='layout-wrapper'>
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+        <PopupRef open={openRef} close={closeRef}></PopupRef>
         <Header />
         <div className='h-full min-h-screen'>{children}</div>
         <Footer />

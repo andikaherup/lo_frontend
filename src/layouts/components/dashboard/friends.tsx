@@ -6,6 +6,7 @@ import { useState, Fragment, useEffect } from 'react'
 
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { getBaseDarkColor } from 'src/configs/getBackground'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
@@ -67,10 +68,9 @@ const Friends = () => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { email, message } = data
+    const { email } = data
     const payload = {
-      email_to_invite: email,
-      message: message
+      email_to_invite: email
     }
 
     axios
@@ -97,124 +97,234 @@ const Friends = () => {
             You don’t have any friends here yet. Why not invite a few?
           </h1>
         </div>
-        <div className='grid grid-cols-1 gap-4 px-3 mt-5 sm:grid-cols-12'>
-          <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
-            <div className='px-3 py-2 bg-referralYellow'>
-              <span className='text-lg font-bold text-white-300'>Invite 3 Friends to take the LO Personality Test</span>
-            </div>
-            <div className='flex justify-start w-full mt-10 sm:flex-row '>
-              <div className='flex items-center justify-start mr-4'>
-                <span className='text-xl font-bold text-black-300'>Rewards</span>
-              </div>
-              <div className='flex items-center justify-start mr-4'>
-                <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                  <svg
-                    className='w-4 h-4 text-gray-800 dark:text-white'
-                    aria-hidden='true'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='currentColor'
-                    viewBox='0 0 16 20'
-                  >
-                    <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                  </svg>
+        {auth.user && (
+          <div className='grid grid-cols-1 gap-4 px-3 mt-5 sm:grid-cols-12'>
+            <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
+              <div className='px-3 py-2 bg-referralYellow'>
+                <span className='text-lg font-bold text-white-300'>
+                  Invite 3 Friends to take the LO Personality Test
                 </span>
-                <span className='text-lg text-black-300'>Surprise Gift</span>
-              </div>{' '}
-              <div className='flex items-center justify-start mr-4'>
-                <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                  <svg
-                    className='w-4 h-4 text-gray-800 dark:text-white'
-                    aria-hidden='true'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='currentColor'
-                    viewBox='0 0 16 20'
-                  >
-                    <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                  </svg>
-                </span>
-                <span className='text-lg text-black-300'>Surprise Gift</span>
               </div>
-              <div className='flex items-center justify-start'>
-                <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
-                  <svg
-                    className='w-4 h-4 text-gray-800 dark:text-white'
-                    aria-hidden='true'
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='currentColor'
-                    viewBox='0 0 16 20'
-                  >
-                    <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
-                  </svg>
-                </span>
-                <span className='text-lg text-black-300'>Surprise Gift</span>
-              </div>
-            </div>
-            <div className='grid w-full grid-cols-12 mt-10'>
-              <span className='col-start-1 col-end-3'>0</span>
-              <span className='col-start-4 text-right'>1</span>
-              <span className='col-start-9'>2</span>
-              <span className='col-start-12 text-right'>3</span>
-            </div>
-            <div className='grid w-full grid-cols-3 gap-3'>
-              <div className='w-full h-5 rounded-xs bg-referralGray'></div>
-              <div className='w-full h-5 rounded-xs bg-referralGray'></div>
-              <div className='w-full h-5 rounded-xs bg-referralGray'></div>
-            </div>
-          </div>
-          <div className='sm:col-start-8 sm:col-end-12'>
-            <div className='p-8 rounded-md bg-white-300'>
-              <div>
-                <h1 className='text-4xl font-bold text-black-300'>0</h1>
-              </div>
-              <div>
-                <h1 className='text-xl font-semibold text-black-300'>Friends Invited</h1>
-              </div>
-
-              <div className='w-full mt-5'>
-                <button
-                  onClick={openModal}
-                  className='w-full px-3 py-4 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
-                >
-                  Invite a Friend
-                </button>
-              </div>
-              <div>
-                <div className='flex justify-center mt-5'>
-                  <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your personal link</span>
+              <div className='flex justify-between w-full mt-10 sm:flex-row '>
+                <div className='flex items-center justify-start mr-4'>
+                  <span className='text-xl font-bold text-black-300'>Rewards</span>
                 </div>
-                <div className='flex'>
-                  <div className='relative w-full'>
-                    <input
-                      value={personalLink}
-                      readOnly
-                      className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
-                    />
-                    <button
-                      type='submit'
-                      className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                <div className='flex items-center justify-start mr-4'>
+                  {auth.user?.friend_sign_ups >= 1 && (
+                    <span
+                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
                     >
                       <svg
-                        className='w-6 h-6 text-white-300 dark:text-white'
+                        className='w-4 h-4 text-gray-800 dark:text-white'
                         aria-hidden='true'
                         xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 18 20'
+                        fill='currentColor'
+                        viewBox='0 0 20 20'
                       >
-                        <path
-                          stroke='currentColor'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
-                        />
+                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
                       </svg>
-                    </button>
+                    </span>
+                  )}
+                  {auth.user?.friend_sign_ups < 1 && (
+                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                      <svg
+                        className='w-4 h-4 text-gray-800 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 16 20'
+                      >
+                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                      </svg>
+                    </span>
+                  )}
+                  <div className='flex items-center justify-center pl-3'>
+                    <img alt='img' src='/assets/icon/medal.png'></img>
+                    <span className='pt-2 text-black-300'>+50</span>
+                  </div>
+                </div>
+                <div className='flex items-center justify-start mr-4'>
+                  {auth.user?.friend_sign_ups >= 2 && (
+                    <span
+                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
+                    >
+                      <svg
+                        className='w-4 h-4 text-gray-800 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 20 20'
+                      >
+                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
+                      </svg>
+                    </span>
+                  )}
+                  {auth.user?.friend_sign_ups < 2 && (
+                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                      <svg
+                        className='w-4 h-4 text-gray-800 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 16 20'
+                      >
+                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                      </svg>
+                    </span>
+                  )}
+                  <div className='flex items-center justify-center pl-3'>
+                    <img alt='img' src='/assets/icon/medal.png'></img>
+                    <span className='pt-2 text-black-300'>+50</span>
+                  </div>
+                </div>
+                <div className='flex items-center justify-start'>
+                  {auth.user?.friend_sign_ups >= 3 && (
+                    <span
+                      className={`inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800  rounded-full ring-1 ring-black-300 `}
+                    >
+                      <svg
+                        className='w-4 h-4 text-gray-800 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 20 20'
+                      >
+                        <path d='M15.077.019a4.658 4.658 0 0 0-4.083 4.714V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-1.006V4.68a2.624 2.624 0 0 1 2.271-2.67 2.5 2.5 0 0 1 2.729 2.49V8a1 1 0 0 0 2 0V4.5A4.505 4.505 0 0 0 15.077.019ZM9 15.167a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Z' />
+                      </svg>
+                    </span>
+                  )}
+                  {auth.user?.friend_sign_ups < 3 && (
+                    <span className='inline-flex items-center justify-center w-8 h-8 mr-2 text-sm font-semibold text-gray-800 bg-gray-100 rounded-full ring-1 ring-black-300 dark:bg-gray-700 dark:text-gray-300'>
+                      <svg
+                        className='w-4 h-4 text-gray-800 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='currentColor'
+                        viewBox='0 0 16 20'
+                      >
+                        <path d='M14 7h-1.5V4.5a4.5 4.5 0 1 0-9 0V7H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-5 8a1 1 0 1 1-2 0v-3a1 1 0 1 1 2 0v3Zm1.5-8h-5V4.5a2.5 2.5 0 1 1 5 0V7Z' />
+                      </svg>
+                    </span>
+                  )}
+                  <div className='flex items-center justify-center pl-3'>
+                    <img alt='img' src='/assets/icon/medal.png'></img>
+                    <span className='pt-2 text-black-300'>+50</span>
+                  </div>
+                </div>
+              </div>
+              <div className='grid w-full grid-cols-12 mt-10'>
+                <span className='col-start-1 col-end-3'>0</span>
+                <span className='col-start-4 text-right'>1</span>
+                <span className='col-start-9'>2</span>
+                <span className='col-start-12 text-right'>3</span>
+              </div>
+              <div className='grid w-full grid-cols-3 gap-3'>
+                <div
+                  className={`w-full h-5 rounded-xs   ${
+                    auth.user?.friend_sign_ups >= 1 ? getBaseDarkColor(auth.user?.character) : 'bg-referralGray'
+                  }`}
+                ></div>
+                <div
+                  className={`w-full h-5 rounded-xs  ${
+                    auth.user?.friend_sign_ups >= 2 ? getBaseDarkColor(auth.user?.character) : 'bg-referralGray'
+                  }`}
+                ></div>
+                <div
+                  className={`w-full h-5 rounded-xs   ${
+                    auth.user?.friend_sign_ups >= 3 ? getBaseDarkColor(auth.user?.character) : 'bg-referralGray'
+                  }`}
+                ></div>
+              </div>
+            </div>
+            <div className='sm:col-start-8 sm:col-end-12'>
+              <div className='p-8 rounded-md bg-white-300'>
+                <div>
+                  <h1 className='text-4xl font-bold text-black-300'>{auth.user?.friend_sign_ups}</h1>
+                </div>
+                <div>
+                  <h1 className='text-xl font-semibold text-black-300'>Friends Invited</h1>
+                </div>
+
+                <div className='w-full mt-5'>
+                  <button
+                    onClick={openModal}
+                    className='w-full px-3 py-4 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
+                  >
+                    Invite a Friend
+                  </button>
+                </div>
+                <div>
+                  <div className='flex justify-center mt-5'>
+                    <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your personal link</span>
+                  </div>
+                  <div className='flex'>
+                    <div className='relative w-full'>
+                      <input
+                        value={personalLink}
+                        readOnly
+                        className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
+                      />
+                      <button
+                        type='submit'
+                        className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                      >
+                        <svg
+                          className='w-6 h-6 text-white-300 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 18 20'
+                        >
+                          <path
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-center mt-5'>
+                    <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your code</span>
+                  </div>
+                  <div className='flex'>
+                    <div className='relative w-full'>
+                      <input
+                        value={auth.user?.referral_code}
+                        readOnly
+                        className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
+                      />
+                      <button
+                        type='submit'
+                        className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                      >
+                        <svg
+                          className='w-6 h-6 text-white-300 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 18 20'
+                        >
+                          <path
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as='div' className='relative z-50' onClose={closeModal}>
@@ -280,7 +390,7 @@ const Friends = () => {
                             </FormControl>
                           </div>
                           <div className='mt-5'>
-                            <FormControl fullWidth>
+                            {/* <FormControl fullWidth>
                               <label className='block mb-2 text-sm font-medium text-textcolorblack-300'>Message</label>
                               <div className='mt-1'>
                                 <Controller
@@ -291,7 +401,7 @@ const Friends = () => {
                                     <textarea
                                       name='message'
                                       value={value}
-                                      onChange={onChange}
+                                      readOnly
                                       className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
                                       id='grid-password'
                                       rows={6}
@@ -299,12 +409,14 @@ const Friends = () => {
                                   )}
                                 />
                               </div>
-                            </FormControl>
+                            </FormControl> */}
+                          </div>
+                          <div className='flex justify-end w-full'>
                             <button
-                              className='w-full px-3 py-4 mt-5 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
+                              className='w-[40%] p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none  text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500'
                               type='submit'
                             >
-                              submit
+                              Send
                             </button>
                           </div>
                         </form>
