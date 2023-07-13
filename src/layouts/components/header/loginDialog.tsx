@@ -135,7 +135,7 @@ const LoginDialog = (props: LoginProps) => {
                   />
                   <span>Sign Up with Google</span>
                 </button> */}
-                  <div className='grid lg:grid-cols-2 grid-col-1'>
+                  <div className='grid w-full lg:grid-cols-2 grid-col-1'>
                     <div className='w-full'>
                       <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
                         <span className='text-sm'>Login with Google</span>
