@@ -280,7 +280,7 @@ const PersonalityTest = () => {
         <div className='flex justify-center align-middle bg-white-500'>
           <div className='w-full rounded-lg bg-greyloading-300 dark:bg-greyloading-300' style={{ width: '75%' }}>
             <div
-              className='flex items-center justify-end h-4 text-sm font-medium leading-none text-right rounded-lg bg-glaregreen-300 lg:h-7 lg:text-md text-white-500'
+              className='flex items-center justify-end text-sm font-medium leading-none text-right rounded-lg bg-glaregreen-300 h-7 lg:text-md text-white-500'
               style={{ width: `${currentPagePercentage}%` }}
             >
               {currentPagePercentage}%
