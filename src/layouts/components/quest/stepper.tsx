@@ -12,7 +12,6 @@ import SubQuest from './subQuest'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
-import { getBaseBorderColor, getBaseDarkColor } from 'src/configs/getBackground'
 import toast from 'react-hot-toast'
 
 const NewStepper = () => {
@@ -102,7 +101,6 @@ const NewStepper = () => {
       {sortedQuest.map((quest, index) => (
         <div key={index} className='relative w-full mb-10'>
           {auth.user && (
-            // <div className={`lg:border-l-2 ${getBaseBorderColor(auth.user?.character)} `}>
             <div>
               <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 md:flex-row md:space-y-0'>
                 {/* <div

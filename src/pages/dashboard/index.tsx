@@ -43,9 +43,10 @@ const Dashboard = () => {
 
   const [selectedTab, setSelectedTab] = useState('Overview')
 
-  const handleTabChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTab(event.target.value)
-  }
+  // const handleTabChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedTab(event.target.value)
+  // }
+
   const renderTabContent = () => {
     switch (selectedTab) {
       case 'Overview':

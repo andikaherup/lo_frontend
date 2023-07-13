@@ -14,9 +14,9 @@ const Quest = () => {
   const auth = useAuth()
   const [selectedTab, setSelectedTab] = useState('journey')
 
-  const handleTabChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTab(event.target.value)
-  }
+  // const handleTabChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedTab(event.target.value)
+  // }
 
   const renderTabContent = () => {
     switch (selectedTab) {

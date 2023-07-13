@@ -1,5 +1,3 @@
-import Carousel from './carrousel'
-
 const Testimonials = () => {
   const data = [
     {
@@ -24,6 +22,7 @@ const Testimonials = () => {
       image: '/assets/testi/cloe1.png'
     }
   ]
+
   return (
     <>
       {/* <section className='mb-32 text-center'>
@@ -152,7 +151,7 @@ const Testimonials = () => {
             <div key={index} className='mb-6 lg:mb-0'>
               <div className='block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
                 <div className='relative overflow-hidden bg-no-repeat bg-cover'>
-                  <img src={datas.image} className='w-full rounded-t-lg' />
+                  <img src={datas.image} className='w-full rounded-t-lg' alt='boss' />
                   <a href='#!'>
                     <div className='absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed'></div>
                   </a>

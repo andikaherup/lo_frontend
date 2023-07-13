@@ -102,7 +102,6 @@ const NewStepper = () => {
       {sortedQuest.map((quest, index) => (
         <div key={index} className='relative w-full mb-10'>
           {auth.user && (
-            // <div className={`lg:border-l-2 ${getBaseBorderColor(auth.user?.character)} `}>
             <div>
               <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 lg:ml-10 md:flex-row md:space-y-0'>
                 <div
