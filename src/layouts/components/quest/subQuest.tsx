@@ -30,7 +30,6 @@ interface QuestDetails {
 
 const SubQuest = (props: subQuestProps) => {
   const { id, character } = props
-
   useEffect(() => {
     const initAuth = async () => {
       await axios
@@ -149,9 +148,9 @@ const SubQuest = (props: subQuestProps) => {
                 id={detail.id}
                 onFinishVideo={initAuth}
               ></AccordionItem>
-              <div className='flex items-center justify-center pl-3'>
-                <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
+              <div className='flex flex-col items-center justify-center pl-3'>
                 <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
               </div>
             </div>
           </div>
