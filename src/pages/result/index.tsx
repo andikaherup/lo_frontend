@@ -67,7 +67,7 @@ const Result = () => {
   return (
     <>
       <div
-        className={`pt-20 ${
+        className={`pt-20 h-screen ${
           characters.find(character => character.name === selectedCharacter?.calculated_result)?.background
         }`}
         id='about'

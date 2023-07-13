@@ -166,11 +166,11 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      <div className='container py-24 mx-auto md:px-6'>
-        <Testimonials></Testimonials>
+      <div className={`w-full  ${images[currentImageIndex].background}`}>
+        <div className='container py-24 mx-auto md:px-6'>
+          <Testimonials></Testimonials>
+        </div>
       </div>
-
       {/* <div className={`w-full ${images[currentImageIndex].background}`}>
         <div className='container py-20 mx-auto md:px-6'>
           <section className='mb-32 text-center'>

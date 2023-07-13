@@ -55,6 +55,7 @@
     "jsonwebtoken": "8.5.1",
     "keen-slider": "6.8.5",
     "next": "13.2.4",
+    "next-share": "^0.23.0",
     "nprogress": "0.2.0",
     "payment": "2.4.6",
     "postcss": "^8.4.24",

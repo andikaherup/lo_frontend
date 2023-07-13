@@ -7,6 +7,7 @@ import axios from 'axios'
 
 // ** Configs
 import questConfig from 'src/configs/quest'
+import { FacebookShareButton, FacebookIcon } from 'next-share'
 
 interface Props {
   header: string
@@ -23,8 +24,23 @@ interface Props {
 const AccordionItem = ({ header, text, status, video_url, character, type, image, id, onFinishVideo }: Props) => {
   const [active, setActive] = useState(false)
 
+  const checkHeroBrightness = (name: string): string => {
+    let nams = 'text-white-300'
+
+    if (name == 'Hero' || name == 'Magician') {
+      nams = 'text-black-300'
+    }
+
+    return nams
+  }
+
   const handleToggle = () => {
     setActive(!active)
+  }
+
+  const shareButton = () => {
+    console.log('share')
+    handleVideoEnd()
   }
   const getBackground = (hero: string) => {
     switch (hero) {
@@ -55,8 +71,6 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
   }
 
   const getTextColor = (hero: string) => {
-    console.log('hero', hero)
-
     switch (hero) {
       case 'Hero':
       case 'Magician':
@@ -128,6 +142,22 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
           <div className='flex justify-center w-full h-full'>
             <ReactPlayer playing url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
           </div>
+        )}
+
+        {!type && !video_url && (
+          <>
+            <FacebookShareButton
+              url={'https://thel0.com'}
+              onClick={shareButton}
+              quote={`I’m a ${character}! What’s yours?`}
+              hashtag={'#personality-test'}
+            >
+              <div className='flex flex-row items-center justify-center'>
+                <FacebookIcon size={32} round />
+                <span className={`pl-2 ${checkHeroBrightness(character)}`}>Share Your Character on Facebook</span>
+              </div>
+            </FacebookShareButton>
+          </>
         )}
       </div>
     </div>

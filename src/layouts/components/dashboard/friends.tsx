@@ -46,12 +46,12 @@ const Friends = () => {
 
   useEffect(() => {
     if (auth.user?.referral_code) {
-      setPersonalLink('https://thel0.com/referral/' + auth.user.referral_code)
+      setPersonalLink('https://thel0.com/invitation/' + auth.user.referral_code)
     }
-  }, [])
+  }, [auth])
 
   const [isOpen, setIsOpen] = useState(false)
-  const [personalLink, setPersonalLink] = useState('https://thel0.com/referral/')
+  const [personalLink, setPersonalLink] = useState('https://thel0.com/invitation/')
 
   const { control: accountControl, handleSubmit } = useForm({
     defaultValues,
@@ -102,7 +102,7 @@ const Friends = () => {
             <div className='px-3 py-2 bg-referralYellow'>
               <span className='text-lg font-bold text-white-300'>Invite 3 Friends to take the LO Personality Test</span>
             </div>
-            <div className='flex justify-start w-full mt-10 '>
+            <div className='flex justify-start w-full mt-10 sm:flex-row '>
               <div className='flex items-center justify-start mr-4'>
                 <span className='text-xl font-bold text-black-300'>Rewards</span>
               </div>

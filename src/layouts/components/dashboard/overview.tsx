@@ -1,16 +1,15 @@
-// ** React Imports
-// import { ReactNode, useState } from 'react'
-
-// ** MUI Imports
 // ** MUI Imports
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type
 import { Archetype } from 'src/context/characterType'
+
+import { FacebookShareButton, FacebookIcon } from 'next-share'
+import LoginDialog from '../header/loginDialog'
 
 interface Props {
   character: Archetype
@@ -28,6 +27,17 @@ const Overview = ({ character, gender }: Props) => {
     }
 
     return nams
+  }
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  function openModal() {
+    console.log('here')
+    setIsOpen(true)
   }
 
   return (
@@ -76,7 +86,7 @@ const Overview = ({ character, gender }: Props) => {
           </div>
           <div className='flex w-full sm:col-start-4 sm:col-end-7'>
             <div className='relative flex w-full min-w-fit '>
-              <>
+              <div className='flex flex-col items-center'>
                 <img
                   src={`/assets/characters/${
                     auth.user?.character_level == 0
@@ -90,7 +100,20 @@ const Overview = ({ character, gender }: Props) => {
                   alt={`Image`}
                   className={`object-scale-down `}
                 />
-              </>
+
+                <FacebookShareButton
+                  url={'https://thel0.com'}
+                  quote={`I’m a ${character.name}! What’s yours?`}
+                  hashtag={'#personality-test'}
+                >
+                  <div className='flex flex-row items-center justify-center'>
+                    <FacebookIcon size={32} round />
+                    <span className={`pl-2 ${checkHeroBrightness(character.name)}`}>
+                      Share Your Character on Facebook
+                    </span>
+                  </div>
+                </FacebookShareButton>
+              </div>
             </div>
           </div>
         </div>
@@ -379,9 +402,11 @@ const Overview = ({ character, gender }: Props) => {
                 </div>
               </div>
             </div>
+            x
           </div>
         </>
       )}
+      <LoginDialog open={isOpen} close={closeModal}></LoginDialog>
     </div>
   )
 }

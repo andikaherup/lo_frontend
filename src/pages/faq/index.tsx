@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 
 const FaQ = () => {
   return (
-    <section className='relative z-5 overflow-hidden bg-skyblue-500 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]'>
+    <section className='relative z-5 overflow-hidden h-screen bg-skyblue-500 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]'>
       <div className='container mx-auto'>
         <div className='flex flex-wrap -mx-4'>
           <div className='w-full px-4'>

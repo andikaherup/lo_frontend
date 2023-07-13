@@ -91,7 +91,6 @@ const Quest = () => {
               </div>
             </div>
           )}
-
           <div className='w-full'>{renderTabContent()}</div>
         </div>
       </div>

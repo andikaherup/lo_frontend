@@ -117,7 +117,7 @@ const PersonalityTest = () => {
         .then(response => {
           localStorage.removeItem('resultLogin')
           window.localStorage.setItem('resultNoLogin', JSON.stringify(response.data.data))
-          router.replace('/home')
+          router.replace('/result')
         })
         .catch(error => {
           console.log(error, 'errorr')

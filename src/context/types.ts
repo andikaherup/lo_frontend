@@ -50,9 +50,13 @@ export type UserDataType = {
   used_points: number | null;
   next_character_level: number;
   user_points: number;
+  referral_points: number;
+  friend_sign_ups: number;
+  is_new_user: boolean;
   current_level_points: number;
   next_level_required_points: number;
   username: string;
+
 }
 
 export type AuthValuesType = {

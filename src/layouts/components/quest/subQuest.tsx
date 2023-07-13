@@ -6,7 +6,7 @@ import axios from 'axios'
 
 // ** Configs
 import questConfig from 'src/configs/quest'
-import { getBaseColor } from 'src/configs/getBackground'
+import { getBaseColor, getBaseDarkColor } from 'src/configs/getBackground'
 import toast from 'react-hot-toast'
 
 interface subQuestProps {
@@ -114,7 +114,7 @@ const SubQuest = (props: subQuestProps) => {
           <div className='relative flex flex-col items-center w-full px-6 py-4 ml-10 space-y-4 text-white transition transform bg-blue-600 rounded cursor-pointer hover:-translate-y-2 md:flex-row md:space-y-0'>
             <div
               className={`absolute z-10 mt-2 transform ${
-                detail.is_completed ? getBaseColor(character) : 'bg-gray-400 '
+                detail.is_completed ? getBaseDarkColor(character) : 'bg-gray-400 '
               } rounded-full w-7 h-7 -left-10 flex justify-center items-center -translate-x-2/4 md:mt-0`}
             >
               {detail.is_completed && (

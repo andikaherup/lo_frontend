@@ -64,28 +64,59 @@ export const getBaseBorderColor = (hero: string) => {
 
   switch (hero) {
     case 'Hero':
-      return 'border-lightHero'
+      return 'border-darkHero'
 
     case 'Magician':
-      return 'border-lightMagician'
+      return 'border-darkMagician'
 
     case 'Rebel':
-      return 'border-lightRebel'
+      return 'border-darkRebel'
 
     case 'Creator':
-      return 'border-lightCreator'
+      return 'border-darkCreator'
 
     case 'Synergist':
-      return 'border-lightGreen'
+      return 'border-darkGreen'
 
     case 'Oracle':
-      return 'border-lightOracle'
+      return 'border-darkOracle'
 
     case 'Protector':
-      return 'border-lightProtector'
+      return 'border-darkProtector'
 
     case 'Ruler':
-      return 'border-lightBlue'
+      return 'border-darkBlue'
+
+  }
+
+}
+export const getBaseDarkColor = (hero: string) => {
+
+
+  switch (hero) {
+    case 'Hero':
+      return 'bg-darkHero'
+
+    case 'Magician':
+      return 'bg-darkMagician'
+
+    case 'Rebel':
+      return 'bg-darkRebel'
+
+    case 'Creator':
+      return 'bg-darkCreator'
+
+    case 'Synergist':
+      return 'bg-darkGreen'
+
+    case 'Oracle':
+      return 'bg-darkOracle'
+
+    case 'Protector':
+      return 'bg-darkProtector'
+
+    case 'Ruler':
+      return 'bg-darkBlue'
 
   }
 
@@ -96,28 +127,28 @@ export const getBaseTextColor = (hero: string) => {
 
   switch (hero) {
     case 'Hero':
-      return 'text-lightHero'
+      return 'text-darkHero'
 
     case 'Magician':
-      return 'text-lightMagician'
+      return 'text-darkMagician'
 
     case 'Rebel':
-      return 'text-lightRebel'
+      return 'text-darkRebel'
 
     case 'Creator':
-      return 'text-lightCreator'
+      return 'text-darkCreator'
 
     case 'Synergist':
-      return 'text-lightGreen'
+      return 'text-darkGreen'
 
     case 'Oracle':
-      return 'text-lightOracle'
+      return 'text-darkOracle'
 
     case 'Protector':
-      return 'text-lightProtector'
+      return 'text-darkProtector'
 
     case 'Ruler':
-      return 'text-lightBlue'
+      return 'text-darkBlue'
 
   }
 

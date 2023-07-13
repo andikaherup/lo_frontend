@@ -12,7 +12,7 @@ import SubQuest from './subQuest'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
-import { getBaseColor, getBaseBorderColor } from 'src/configs/getBackground'
+import { getBaseBorderColor, getBaseDarkColor } from 'src/configs/getBackground'
 import toast from 'react-hot-toast'
 
 const NewStepper = () => {
@@ -105,7 +105,7 @@ const NewStepper = () => {
             <div className={`border-l-2 ${getBaseBorderColor(auth.user?.character)}`}>
               <div className='relative flex flex-col items-center px-6 py-4 ml-10 space-y-4 text-white transition transform bg-blue-600 rounded md:flex-row md:space-y-0'>
                 <div
-                  className={`absolute z-10 w-7 h-7 mt-2 transform ${getBaseColor(
+                  className={`absolute z-10 w-7 h-7 mt-2 transform ${getBaseDarkColor(
                     auth.user?.character
                   )} rounded-full -left-10 -translate-x-2/4 md:mt-0`}
                 ></div>

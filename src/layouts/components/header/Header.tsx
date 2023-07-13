@@ -28,6 +28,7 @@ import ButtonPrimary from '../misc/ButtonPrimary'
 
 import Dropdown from './dropdown'
 import ProgressQuest from './progressQuest'
+import LoginDialog from './loginDialog'
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -63,6 +64,7 @@ const Header: React.FC = () => {
   }
 
   function openModal() {
+    console.log('here')
     setIsOpen(true)
   }
 
@@ -305,15 +307,18 @@ const Header: React.FC = () => {
           id='mobile-menu-2'
         >
           <ul className='flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0'>
-            <li>
-              <Link
-                href='/personality-test'
-                className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
-                aria-current='page'
-              >
-                Personality Test
-              </Link>
-            </li>
+            {(auth.user && !auth.user.character) ||
+              (!auth.user && (
+                <li>
+                  <Link
+                    href='/personality-test'
+                    className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                    aria-current='page'
+                  >
+                    Personality Test
+                  </Link>
+                </li>
+              ))}
             <li>
               <Link
                 href='/personality-types'
@@ -373,8 +378,8 @@ const Header: React.FC = () => {
           </ul>
         </div>
       </header>
-
-      <Transition appear show={isOpen} as={Fragment}>
+      <LoginDialog open={isOpen} close={closeModal}></LoginDialog>
+      {/* <Transition appear show={isOpen} as={Fragment}>
         <Dialog as='div' className='relative z-50' onClose={closeModal}>
           <div className='fixed inset-0 bg-gray-500 opacity-50' aria-hidden='true' />
           <Transition.Child
@@ -415,15 +420,6 @@ const Header: React.FC = () => {
                     </p>
                   </div>
                   <div className='flex justify-center mt-5'>
-                    {/* <button className='flex gap-2 px-4 py-2 transition duration-150 border rounded-lg border-slate-200 text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow'>
-                      <img
-                        className='w-6 h-6'
-                        src='https://www.svgrepo.com/show/475656/google-color.svg'
-                        loading='lazy'
-                        alt='google logo'
-                      />
-                      <span>Sign Up with Google</span>
-                    </button> */}
                     <div className='flex w-full justify-evenly'>
                       <div className='w-full'>
                         <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
@@ -550,7 +546,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Dialog>
-      </Transition>
+      </Transition> */}
     </>
   )
 }
