@@ -67,7 +67,7 @@ const PersonalityTypes = () => {
     },
     {
       name: '>> Protector <<',
-      image1: '/assets/characters/protector_LVL_1.png',
+      image1: '/assets/characters/protector_lvl_1.png',
       image2: '/assets/characters/Protector_LVL_1_(F).png',
       bgColor: 'bg-protectorsynergistbg-300',
       desc: 'A protector is characterized by a strong sense of loyalty and compassion, and protective of those they care about, using their strength and courage to defend the vulnerable and uphold justice. Protectors are often associated with empathy, kindness, and a willingness to put the needs of others before their own.'
