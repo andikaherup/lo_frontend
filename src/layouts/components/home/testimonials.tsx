@@ -1,10 +1,12 @@
+import Carousel from './carrousel'
+
 const Testimonials = () => {
   const data = [
     {
       name: 'Jia Qin',
       title: 'Content Lead',
       quote:
-        'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
+        'It was like opening a treasure chest of self-discovery and unleashing my true potential. This test made personal growth fun and exciting. Highly recommended for anyone looking to learn more about themselves and grow personally!',
       image: '/assets/testi/Jia_Qin_web_optimized.webp'
     },
     {
@@ -13,23 +15,55 @@ const Testimonials = () => {
       quote:
         'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
       image: '/assets/testi/Chloe_Lin_web_optimized.webp'
-    },
-    {
-      name: 'Chloe',
-      title: 'Arigato Investor',
-      quote: 'sd',
-      image: '/assets/testi/Jia_Qin_web_optimized.webp'
     }
   ]
   return (
     <>
       <section className='mb-32 text-center'>
         <h2 className='pb-4 mb-12 text-3xl font-bold text-center text-black-300'>Testimonials</h2>
-
-        <div className='grid gap-6 md:grid-cols-3 xl:gap-x-12'>
+        <Carousel loop>
+          {data.map((datas, index) => {
+            return (
+              // 👇 style each individual slide.
+              // relative - needed since we use the fill prop from next/image component
+              // h-64 - arbitrary height
+              // flex[0_0_100%]
+              //   - shorthand for flex-grow:0; flex-shrink:0; flex-basis:100%
+              //   - we want this slide to not be able to grow or shrink and take up 100% width of the viewport.
+              <div className='relative  flex-[0_0_100%]' key={index}>
+                {/* use object-cover + fill since we don't know the height and width of the parent */}
+                <section key={index} className='mb-5 text-center lg:text-left'>
+                  <div className='py-12 md:px-12'>
+                    <div className='container mx-auto xl:px-32'>
+                      <div className={` flex items-center lg:grid lg:grid-cols-2`}>
+                        <div className='mb-12 md:mt-12 lg:mt-0 lg:mb-0'>
+                          <div className='relative z-[1] block rounded-lg bg-[hsla(0,0%,100%,0.55)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] backdrop-blur-[25px] dark:bg-[hsla(0,0%,5%,0.7)] dark:shadow-black/20 md:px-12 lg:-mr-14'>
+                            <h2 className='mb-2 text-3xl font-bold text-white-300 dark:text-primary-400'>
+                              {datas.name}
+                            </h2>
+                            <p className='mb-4 font-semibold text-white-300'>{datas.title}</p>
+                            <p className='mb-6 text-white-500 dark:text-neutral-300'>{datas.quote}</p>
+                          </div>
+                        </div>
+                        <div className='w-1/2 md:mb-12 lg:mb-0'>
+                          <img
+                            src={datas.image}
+                            className='lg:rotate-[6deg] w-full rounded-lg shadow-lg dark:shadow-black/20'
+                            alt='image'
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )
+          })}
+        </Carousel>
+        {/* <div className='grid gap-6 md:grid-cols-3 xl:gap-x-12'>
           <div className='flex flex-col mb-6 lg:mb-0'>
             <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-              {/* <div className='flex'>
+              <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
                 data-te-ripple-init
@@ -40,7 +74,7 @@ const Testimonials = () => {
                   <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
                 </a>
               </div>
-            </div> */}
+            </div>
               <div className='p-6'>
                 <h5 className='mb-2 text-lg font-bold text-black-300'>Chloe,</h5>
                 <h6 className='mb-4 font-medium text-black-300 dark:text-primary-400'>
@@ -57,7 +91,7 @@ const Testimonials = () => {
 
           <div className='flex flex-col mb-6 lg:mb-0'>
             <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-              {/* <div className='flex'>
+              <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
                 data-te-ripple-init
@@ -68,7 +102,7 @@ const Testimonials = () => {
                   <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
                 </a>
               </div>
-            </div> */}
+            </div>
               <div className='p-6'>
                 <h5 className='mb-2 text-lg font-bold text-black-300'>Jia Qin,</h5>
                 <h6 className='mb-4 font-medium text-black-300 text-primary dark:text-primary-400'>Content Lead</h6>
@@ -84,7 +118,7 @@ const Testimonials = () => {
 
           <div className='flex flex-col mb-6 lg:mb-0'>
             <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-              {/* <div className='flex'>
+              <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
                 data-te-ripple-init
@@ -95,7 +129,7 @@ const Testimonials = () => {
                   <div className='absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsl(0,0%,98.4%,0.15)] bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100'></div>
                 </a>
               </div>
-            </div> */}
+            </div>
               <div className='p-6'>
                 <h5 className='mb-2 text-lg font-bold text-black-300'>Lisa Trey</h5>
                 <h6 className='mb-4 font-medium text-black-300 text-primary dark:text-primary-400'>Public Relations</h6>
@@ -107,32 +141,8 @@ const Testimonials = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
-      {data.map((datas, index) => (
-        <section key={index} className='mb-5 text-center lg:text-left'>
-          <div className='py-12 md:px-12'>
-            <div className='container mx-auto xl:px-32'>
-              <div className={` flex items-center lg:grid lg:grid-cols-2`}>
-                <div className='mb-12 md:mt-12 lg:mt-0 lg:mb-0'>
-                  <div className='relative z-[1] block rounded-lg bg-[hsla(0,0%,100%,0.55)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] backdrop-blur-[25px] dark:bg-[hsla(0,0%,5%,0.7)] dark:shadow-black/20 md:px-12 lg:-mr-14'>
-                    <h2 className='mb-2 text-3xl font-bold text-white-300 dark:text-primary-400'>{datas.name}</h2>
-                    <p className='mb-4 font-semibold text-white-300'>{datas.title}</p>
-                    <p className='mb-6 text-white-500 dark:text-neutral-300'>{datas.quote}</p>
-                  </div>
-                </div>
-                <div className='w-1/2 md:mb-12 lg:mb-0'>
-                  <img
-                    src={datas.image}
-                    className='lg:rotate-[6deg] w-full rounded-lg shadow-lg dark:shadow-black/20'
-                    alt='image'
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      ))}
 
       {/* <div id='carouselExampleIndicators' className='relative' data-te-carousel-init data-te-carousel-slide>
         <div
