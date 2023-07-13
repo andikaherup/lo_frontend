@@ -4,8 +4,8 @@ const Testimonials = () => {
       <h2 className='pb-4 mb-12 text-3xl font-bold text-center text-black-300'>Testimonials</h2>
 
       <div className='grid gap-6 md:grid-cols-3 xl:gap-x-12'>
-        <div className='mb-6 lg:mb-0'>
-          <div className='relative block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+        <div className='flex flex-col mb-6 lg:mb-0'>
+          <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
             {/* <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
@@ -30,8 +30,8 @@ const Testimonials = () => {
           </div>
         </div>
 
-        <div className='mb-6 lg:mb-0'>
-          <div className='relative block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+        <div className='flex flex-col mb-6 lg:mb-0'>
+          <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
             {/* <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
@@ -58,8 +58,8 @@ const Testimonials = () => {
           </div>
         </div>
 
-        <div className='mb-0'>
-          <div className='relative block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+        <div className='flex flex-col mb-6 lg:mb-0'>
+          <div className='relative flex-grow block rounded-lg bg-white-300 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
             {/* <div className='flex'>
               <div
                 className='relative mx-4 -mt-4 w-full overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]'
