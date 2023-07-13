@@ -12,7 +12,7 @@ import SubQuest from './subQuest'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
-import { getBaseBorderColor, getBaseDarkColor } from 'src/configs/getBackground'
+import { getBaseDarkColor } from 'src/configs/getBackground'
 import toast from 'react-hot-toast'
 
 const NewStepper = () => {

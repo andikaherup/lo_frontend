@@ -405,7 +405,6 @@ const Overview = ({ character, gender }: Props) => {
                 </div>
               </div>
             </div>
-            x
           </div>
         </>
       )}

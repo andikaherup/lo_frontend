@@ -6,9 +6,11 @@ import axios from 'axios'
 
 // ** Configs
 import questConfig from 'src/configs/quest'
-import { getBaseColor, getBaseDarkColor } from 'src/configs/getBackground'
+
 import toast from 'react-hot-toast'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
 interface subQuestProps {
   id: number
   character: string
@@ -29,6 +31,8 @@ interface QuestDetails {
 }
 
 const SubQuest = (props: subQuestProps) => {
+  const auth = useAuth()
+
   const { id, character } = props
   useEffect(() => {
     const initAuth = async () => {
@@ -38,6 +42,7 @@ const SubQuest = (props: subQuestProps) => {
         })
         .then(async res => {
           setDetailQuest(res.data.data)
+          auth.refreshUser()
         })
         .catch(() => {
           toast.error('Something went wrong, contact Admin22')
