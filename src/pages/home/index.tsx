@@ -6,6 +6,8 @@ import Link from 'next/link'
 
 import React from 'react'
 
+// ** Hooks
+import { useAuth } from 'src/hooks/useAuth'
 // import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 
 // import { motion } from 'framer-motion'
@@ -102,6 +104,8 @@ const images = [
 ]
 
 const Home = () => {
+  const auth = useAuth()
+
   // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
@@ -127,7 +131,11 @@ const Home = () => {
               <div className='absolute left-0 h-full transition delay-1000 -translate-y-1/2 duration-50 top-1/2 bg-white-300 z-2 animate-hide'></div>
             </div>
 
-            <Link className='pt-5 lg:pl-2' href='/personality-test' aria-current='page'>
+            <Link
+              className='pt-5 lg:pl-2'
+              href={auth.user?.character ? '/dashboard' : '/personality-test'}
+              aria-current='page'
+            >
               <button className='px-3 py-2 font-semibold transition duration-300 ease-in-out lg:px-10 text-md lg:text-2xl delay-50 hover:-translate-y-1 hover:scale-110 outline outline-2 outline-offset-3 outline-white-500 text-white-300'>
                 Start Quest
               </button>

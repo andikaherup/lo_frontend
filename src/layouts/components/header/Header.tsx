@@ -1,15 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Dialog, Transition } from '@headlessui/react'
 
 // Import react scroll
 import { Link as LinkScroll } from 'react-scroll'
 import ButtonOutline from '../misc/ButtonOutline.'
-
-// ** Type Import
-import { useGoogleLogin } from '@react-oauth/google'
-import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons'
-import FacebookLogin from '@greatsumini/react-facebook-login'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
@@ -19,12 +13,10 @@ const { yupResolver } = require('@hookform/resolvers/yup')
 
 // ** Third Party Imports
 import * as yup from 'yup'
-import { useForm, Controller } from 'react-hook-form'
-import FormControl from '@mui/material/FormControl'
+import { useForm } from 'react-hook-form'
 
 // ** Next Import
 import { useRouter } from 'next/router'
-import ButtonPrimary from '../misc/ButtonPrimary'
 
 import Dropdown from './dropdown'
 import ProgressQuest from './progressQuest'
@@ -38,11 +30,6 @@ const schema = yup.object().shape({
 const defaultValues = {
   email: '',
   password: ''
-}
-
-interface FormData {
-  email: string
-  password: string
 }
 
 const Header: React.FC = () => {
@@ -68,14 +55,7 @@ const Header: React.FC = () => {
     setIsOpen(true)
   }
 
-  const {
-    control: accountControl,
-
-    // setError,
-    handleSubmit
-
-    // formState: { errors }
-  } = useForm({
+  const {} = useForm({
     defaultValues,
 
     resolver: yupResolver(schema)
@@ -112,33 +92,6 @@ const Header: React.FC = () => {
       setScrollActive(window.scrollY > 20)
     })
   }, [])
-
-  const loginGoogle = useGoogleLogin({
-    onSuccess: (codeResponse: any) => googleLogin(codeResponse)
-  })
-
-  const googleLogin = async (response: any) => {
-    await auth.googleLogin(response)
-    closeModal()
-  }
-
-  const facebookLogin = async (response: any) => {
-    console.log('here', response)
-    await auth.facebookLogin(response)
-    closeModal()
-  }
-
-  const onSubmit = async (data: FormData) => {
-    const { email, password } = data
-    auth.login({ email, password }, (err: any) => {
-      if (err.response?.data.non_field_errors) {
-        for (const element of err.response?.data.non_field_errors) {
-          console.log(element)
-        }
-      }
-    })
-    closeModal()
-  }
 
   return (
     <>

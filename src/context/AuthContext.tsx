@@ -120,35 +120,29 @@ const AuthProvider = ({ children }: Props) => {
 
   const submitWhenLogin = async () => {
     const characterStringNoLogin = await localStorage.getItem('resultNoLogin')
-    console.log('sini')
-
     //if user login but there was a result from previous test , tell user if they want to add this test to their profile or not
-    const showConfirmationDialog = () => {
-      return new Promise(resolve => {
-        const confirmed = window.confirm('Do you want to add previous test to your account ?')
-        resolve(confirmed)
-      })
-    }
+    // const showConfirmationDialog = () => {
+    //   return new Promise(resolve => {
+    //     const confirmed = window.confirm('Do you want to add previous test to your account ?')
+    //     resolve(confirmed)
+    //   })
+    // }
     if (characterStringNoLogin) {
       const confirmAction = async () => {
-        const confirmed = await showConfirmationDialog()
-        if (confirmed) {
-          const formData = new FormData()
-          formData.append('response', JSON.stringify(character?.response))
-          formData.append('gender', JSON.stringify(character?.gender))
-          axios
-            .post(contentConfig.getResultWithLogin, formData, {
-              headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
-            })
-            .then(async response => {
-              await localStorage.removeItem('resultNoLogin')
-              await window.localStorage.setItem('resultLogin', JSON.stringify(response.data.data))
-            })
-            .catch(error => {
-              console.log(error, 'errorr')
-            })
-        } else {
-        }
+        const formData = new FormData()
+        formData.append('response', JSON.stringify(character?.response))
+        formData.append('gender', JSON.stringify(character?.gender))
+        axios
+          .post(contentConfig.getResultWithLogin, formData, {
+            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+          })
+          .then(async response => {
+            await localStorage.removeItem('resultNoLogin')
+            await window.localStorage.setItem('resultLogin', JSON.stringify(response.data.data))
+          })
+          .catch(error => {
+            console.log(error, 'errorr')
+          })
       }
       const character: ResponseData | null = JSON.parse(characterStringNoLogin)
 

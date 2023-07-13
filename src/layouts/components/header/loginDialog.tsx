@@ -1,10 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import Link from 'next/link'
+import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-
-// Import react scroll
-import { Link as LinkScroll } from 'react-scroll'
-import ButtonOutline from '../misc/ButtonOutline.'
 
 // ** Type Import
 import { useGoogleLogin } from '@react-oauth/google'
@@ -23,11 +18,7 @@ import { useForm, Controller } from 'react-hook-form'
 import FormControl from '@mui/material/FormControl'
 
 // ** Next Import
-import { useRouter } from 'next/router'
 import ButtonPrimary from '../misc/ButtonPrimary'
-
-import Dropdown from './dropdown'
-import ProgressQuest from './progressQuest'
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -52,17 +43,15 @@ const LoginDialog = (props: LoginProps) => {
   const { open, close } = props
   const auth = useAuth()
 
-  const [isOpen, setIsOpen] = useState(open)
+  // const [isOpen, setIsOpen] = useState(open)
 
   function closeModal() {
-    console.log('here')
     close()
-    setIsOpen(false)
   }
 
-  function openModal() {
-    setIsOpen(true)
-  }
+  // function openModal() {
+  //   setIsOpen(true)
+  // }
 
   const { control: accountControl, handleSubmit } = useForm({
     defaultValues,
@@ -94,6 +83,7 @@ const LoginDialog = (props: LoginProps) => {
     })
     closeModal()
   }
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as='div' className='relative z-50' onClose={closeModal}>
