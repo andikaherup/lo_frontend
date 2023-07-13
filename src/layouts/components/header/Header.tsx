@@ -115,7 +115,7 @@ const Header: React.FC = () => {
           </Link>
 
           <div className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1' id='navbar-sticky'>
-            <ul className='items-center hidden col-start-4 col-end-8 lg:flex text-black-500'>
+            <ul className='mt-1 items-center hidden col-start-4 col-end-8 lg:flex text-black-500'>
               {(auth.user && !auth.user.character) ||
                 (!auth.user && (
                   <LinkScroll
