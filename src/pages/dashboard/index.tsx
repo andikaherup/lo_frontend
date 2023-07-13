@@ -32,6 +32,7 @@ const Dashboard = () => {
       router.replace('/home')
       auth.setLoading(false)
     } else {
+      auth.refreshUser()
       auth.setLoading(false)
     }
   }, [auth, router]) // Include auth and router in the dependency array

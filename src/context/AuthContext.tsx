@@ -120,6 +120,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const submitWhenLogin = async () => {
     const characterStringNoLogin = await localStorage.getItem('resultNoLogin')
+
     //if user login but there was a result from previous test , tell user if they want to add this test to their profile or not
     // const showConfirmationDialog = () => {
     //   return new Promise(resolve => {
