@@ -79,7 +79,7 @@ const Dashboard = () => {
         id='about'
       >
         <div className='w-full'>
-          <div className='flex justify-center w-full pt-5 mt-6 sm:hidden'>
+          {/* <div className='flex justify-center w-full pt-5 mt-6 sm:hidden'>
             <select
               id='tabs'
               className='w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -92,10 +92,10 @@ const Dashboard = () => {
               <option value='Friends'>Friends</option>
               <option value='Reward'>Reward</option>
             </select>
-          </div>
-          <div className='flex justify-center w-full lg:pt-10'>
+          </div> */}
+          <div className='flex justify-center w-full px-4 pt-10 lg:px-1'>
             <div className='w-full max-w-md rounded-lg'>
-              <ul className='hidden text-sm font-medium text-center divide-x divide-gray-200 rounded-lg shadow sm:flex dark:divide-gray-200 dark:text-gray-400'>
+              <ul className='flex text-sm font-medium text-center divide-x divide-gray-200 rounded-lg shadow dark:divide-gray-200 dark:text-gray-400'>
                 <li
                   className={`w-full rounded-lg rounded-r-none  ${
                     selectedTab === 'Overview' ? 'bg-blue-500' : 'bg-greybackground-300'
@@ -104,7 +104,7 @@ const Dashboard = () => {
                   <button
                     className={` ${
                       selectedTab === 'Overview' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-4 rounded-lg rounded-r-none outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                    } inline-block w-full p-3 rounded-lg rounded-r-none outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
                     onClick={() => setSelectedTab('Overview')}
                     aria-current={selectedTab === 'Overview' ? 'page' : undefined}
                   >
@@ -115,7 +115,7 @@ const Dashboard = () => {
                   <button
                     className={` ${
                       selectedTab === 'Quest' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-4 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                    } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
                     onClick={() => setSelectedTab('Quest')}
                     aria-current={selectedTab === 'Quest' ? 'page' : undefined}
                   >
@@ -126,7 +126,7 @@ const Dashboard = () => {
                   <button
                     className={` ${
                       selectedTab === 'Friends' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-4 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                    } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
                     onClick={() => setSelectedTab('Friends')}
                     aria-current={selectedTab === 'Friends' ? 'page' : undefined}
                   >
@@ -141,7 +141,7 @@ const Dashboard = () => {
                   <button
                     className={` ${
                       selectedTab === 'Reward' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-4 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                    } inline-block w-full p-3 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
                     onClick={() => setSelectedTab('Reward')}
                     aria-current={selectedTab === 'Reward' ? 'page' : undefined}
                   >

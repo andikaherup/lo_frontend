@@ -41,7 +41,6 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
   const [openRef, setOpenRef] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log(auth.user)
     if (auth.user?.is_new_user) {
       setOpenRef(true)
     }

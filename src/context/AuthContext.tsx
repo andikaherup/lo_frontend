@@ -162,7 +162,6 @@ const AuthProvider = ({ children }: Props) => {
         setUser({ ...response.data.data })
         await window.localStorage.setItem('userData', JSON.stringify(response.data.data))
         window.localStorage.setItem('refreshSocialAccounts', 'true')
-        console.log('refresh', user)
       })
   }
 

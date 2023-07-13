@@ -23,6 +23,7 @@ class CustomDocument extends Document {
             href='https://fonts.googleapis.com/css2?family=Knewave&family=Kufam:wght@400;500;700;800&family=Share&display=swap'
             rel='stylesheet'
           />
+          <link href='https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css' rel='stylesheet' />
 
           <link rel='apple-touch-icon' sizes='180x180' href='/images/logo-level0.png' />
           <link rel='shortcut icon' href='/images/favicon.png' />

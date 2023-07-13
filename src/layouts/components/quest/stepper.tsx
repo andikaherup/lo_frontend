@@ -102,8 +102,8 @@ const NewStepper = () => {
       {sortedQuest.map((quest, index) => (
         <div key={index} className='relative w-full mb-10'>
           {auth.user && (
-            <div className={`border-l-2 ${getBaseBorderColor(auth.user?.character)}`}>
-              <div className='relative flex flex-col items-center px-6 py-4 ml-10 space-y-4 text-white transition transform bg-blue-600 rounded md:flex-row md:space-y-0'>
+            <div className={`border-l-2 ${getBaseBorderColor(auth.user?.character)} `}>
+              <div className='relative flex flex-col items-center px-6 py-4 ml-10 space-y-4 text-white transition transform rounded md:flex-row md:space-y-0'>
                 <div
                   className={`absolute z-10 w-7 h-7 mt-2 transform ${getBaseDarkColor(
                     auth.user?.character

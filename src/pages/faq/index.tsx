@@ -12,9 +12,15 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 import React, { useState } from 'react'
 
+// const faqData = [
+//   {
+//     question: '',
+//     answer: ''
+//   }
+// ]
 const FaQ = () => {
   return (
-    <section className='relative z-5 overflow-hidden h-screen bg-skyblue-500 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]'>
+    <section className='relative z-5 h-full bg-skyblue-500 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]'>
       <div className='container mx-auto'>
         <div className='flex flex-wrap -mx-4'>
           <div className='w-full px-4'>
@@ -28,8 +34,8 @@ const FaQ = () => {
             </div>
           </div>
         </div>
-        <div className='flex flex-wrap -mx-4'>
-          <div className='w-full px-4 lg:w-1/2'>
+        <div className='flex flex-wrap '>
+          <div className='w-full px-4 '>
             <AccordionItem
               header='Do I need to register to take the Level 0 personality test?'
               text='No. Simply click here {https://thel0.com/personality-test/} to take the test.'
@@ -42,8 +48,6 @@ const FaQ = () => {
               header='How long we deliver your first blog post?'
               text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
             />
-          </div>
-          <div className='w-full px-4 lg:w-1/2'>
             <AccordionItem
               header='How long we deliver your first blog post?'
               text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
@@ -58,30 +62,6 @@ const FaQ = () => {
             />
           </div>
         </div>
-      </div>
-
-      <div className='absolute bottom-0 right-0 z-[-1]'>
-        <svg width='1440' height='886' viewBox='0 0 1440 886' fill='none' xmlns='http://www.w3.org/2000/svg'>
-          <path
-            opacity='0.5'
-            d='M193.307 -273.321L1480.87 1014.24L1121.85 1373.26C1121.85 1373.26 731.745 983.231 478.513 729.927C225.976 477.317 -165.714 85.6993 -165.714 85.6993L193.307 -273.321Z'
-            fill='url(#paint0_linear)'
-          />
-          <defs>
-            <linearGradient
-              id='paint0_linear'
-              x1='1308.65'
-              y1='1142.58'
-              x2='602.827'
-              y2='-418.681'
-              gradientUnits='userSpaceOnUse'
-            >
-              <stop stop-color='#3056D3' stop-opacity='0.36' />
-              <stop offset='1' stop-color='#F5F2FD' stop-opacity='0' />
-              <stop offset='1' stop-color='#F5F2FD' stop-opacity='0.096144' />
-            </linearGradient>
-          </defs>
-        </svg>
       </div>
     </section>
   )
@@ -96,7 +76,7 @@ const AccordionItem = ({ header, text }: any) => {
 
   return (
     <div className='single-faq mb-8 w-full rounded-lg border border-[#F3F4FE] bg-white-300 p-4 sm:p-8 lg:px-6 xl:px-8'>
-      <button className={`faq-btn flex w-full text-left`} onClick={() => handleToggle()}>
+      <button className={`faq-btn flex w-full justify-center items-center text-left`} onClick={() => handleToggle()}>
         <div className='mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg bg-blue-500 bg-opacity-10 text-primary'>
           <svg
             className={`duration-200 ease-in-out fill-primary stroke-primary ${active ? 'rotate-180' : ''}`}

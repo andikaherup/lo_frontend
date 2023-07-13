@@ -110,7 +110,7 @@ const SubQuest = (props: subQuestProps) => {
             </div>
           </li> */}
 
-          <div className='relative flex flex-col items-center w-full px-6 py-4 ml-10 space-y-4 text-white transition transform bg-blue-600 rounded cursor-pointer hover:-translate-y-2 md:flex-row md:space-y-0'>
+          <div className='relative flex flex-col items-center w-full px-6 py-4 ml-10 space-y-4 text-white transition transform rounded cursor-pointer hover:-translate-y-2 md:flex-row md:space-y-0'>
             <div
               className={`absolute z-10 mt-2 transform ${
                 detail.is_completed ? getBaseDarkColor(character) : 'bg-gray-400 '
