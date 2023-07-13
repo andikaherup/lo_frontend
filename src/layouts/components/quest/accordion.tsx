@@ -108,7 +108,10 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
 
   return (
     <div className={`single-faq w-full rounded-lg border border-[#F3F4FE] ${getBackground(character)}   px-5 py-3 `}>
-      <button className={`faq-btn flex flex-row-reverse items-center w-full text-left`} onClick={() => handleToggle()}>
+      <button
+        className={`faq-btn flex lg:flex-row-reverse flex-col-reverse items-center w-full text-left`}
+        onClick={() => handleToggle()}
+      >
         <div className='flex items-center justify-end w-full '>
           <span className={`text-left lg:text-md font-bold text-xs ${getTextColor(character)}`}>
             {status ? 'COMPLETED' : 'GET STARTED'}
@@ -137,7 +140,7 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
         </div>
       </button>
 
-      <div className={` duration-2000 my-10 ease-in-out ${active ? 'block' : 'hidden'}`}>
+      <div className={` duration-2000 my-10 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
         {video_url && type == 'video' && (
           <div className='flex justify-center w-full h-full'>
             <ReactPlayer playing url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />

@@ -42,26 +42,16 @@ const Quest = () => {
   ]
 
   return (
-    <section className='relative  h-full min-h-screen z-5 overflow-hidden pb-12 lg:pt-10  lg:pb-[90px]'>
-      <div className='container mx-auto rounded-xl bg-white-300 lg:px-10'>
+    <section className='relative  h-full min-h-screen z-5 overflow-hidden pb-12 px-3 lg:pt-10 pt-5  lg:pb-[90px]'>
+      <div className='container px-2 pb-5 mx-auto rounded-xl bg-white-300 lg:px-10'>
         <div className='w-full'>
-          <div className='pt-20'>
-            <h1 className='text-5xl font-bold'>Quests</h1>
+          <div className='px-2 pt-5 lg:pt-20'>
+            <h1 className='mb-3 text-2xl font-bold lg:text-5xl'>Quests</h1>
           </div>
-          <div className='flex justify-center w-full pt-5 mt-6 sm:hidden'>
-            <select
-              id='tabs'
-              className='w-full max-w-sm  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-              value={selectedTab}
-              onChange={handleTabChange}
-            >
-              <option value='journey'>Your Journey</option>
-              <option value='daily'>Daily Quest</option>
-            </select>
-          </div>
+
           {auth.user && (
             <div
-              className={`justify-start hidden w-full lg:flex lg:pt-10 border-b-2 border-${getBaseColor(
+              className={`justify-start px-2  w-full lg:flex lg:pt-10 border-b-2 border-${getBaseColor(
                 auth.user?.character
               )}`}
             >

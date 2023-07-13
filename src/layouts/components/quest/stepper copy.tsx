@@ -104,12 +104,12 @@ const NewStepper = () => {
           {auth.user && (
             // <div className={`lg:border-l-2 ${getBaseBorderColor(auth.user?.character)} `}>
             <div>
-              <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 md:flex-row md:space-y-0'>
-                {/* <div
+              <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 lg:ml-10 md:flex-row md:space-y-0'>
+                <div
                   className={`lg:flex hidden absolute z-10 w-7 h-7 mt-2 transform ${getBaseDarkColor(
                     auth.user?.character
                   )} rounded-full -left-10 -translate-x-2/4 md:mt-0`}
-                ></div> */}
+                ></div>
 
                 {/* <div className={`absolute z-0 w-10 h-1 bg-${getBaseColor('Rebel')} -left-10`}></div> */}
 

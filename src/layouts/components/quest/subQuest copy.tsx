@@ -110,8 +110,8 @@ const SubQuest = (props: subQuestProps) => {
             </div>
           </li> */}
 
-          <div className='relative flex flex-col items-center w-full px-3 space-y-4 text-white transition transform rounded cursor-pointer lg:py-4 lg:px-6 hover:-translate-y-2 md:flex-row md:space-y-0'>
-            {/* <div
+          <div className='relative flex flex-col items-center w-full px-3 space-y-4 text-white transition transform rounded cursor-pointer lg:py-4 lg:px-6 lg:ml-10 hover:-translate-y-2 md:flex-row md:space-y-0'>
+            <div
               className={`absolute lg:flex hidden z-10 mt-2 transform ${
                 detail.is_completed ? getBaseDarkColor(character) : 'bg-gray-400 '
               } rounded-full w-7 h-7 -left-10 flex justify-center items-center -translate-x-2/4 md:mt-0`}
@@ -128,35 +128,29 @@ const SubQuest = (props: subQuestProps) => {
                   <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 12.75l6 6 9-13.5' />
                 </svg>
               )}
-            </div> */}
+            </div>
 
-            {/* <div
+            <div
               className={`lg:flex hidden absolute z-0 w-20 h-1 ${
                 detail.is_completed ? 'bg-' + getBaseColor(character) : 'bg-gray-400 '
               } -left-10`}
-            ></div> */}
+            ></div>
 
             <div className='z-10 flex w-full'>
-              <div className='w-full lg:max-w-[90%]'>
-                <AccordionItem
-                  character={character}
-                  header={detail.name}
-                  text={detail.description}
-                  type={detail.link_type}
-                  status={detail.is_completed}
-                  video_url={detail.file}
-                  image={detail.quest_image}
-                  id={detail.id}
-                  onFinishVideo={initAuth}
-                ></AccordionItem>
-              </div>
-              <div className='w-full lg:max-w-[10%] lg:flex hidden'>
-                {!detail.is_completed && (
-                  <div className='flex flex-col items-center justify-center pl-3'>
-                    <img alt='img' src='/assets/icon/medal.png'></img>
-                    <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
-                  </div>
-                )}
+              <AccordionItem
+                character={character}
+                header={detail.name}
+                text={detail.description}
+                type={detail.link_type}
+                status={detail.is_completed}
+                video_url={detail.file}
+                image={detail.quest_image}
+                id={detail.id}
+                onFinishVideo={initAuth}
+              ></AccordionItem>
+              <div className='flex flex-col items-center justify-center pl-3'>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
               </div>
             </div>
           </div>
