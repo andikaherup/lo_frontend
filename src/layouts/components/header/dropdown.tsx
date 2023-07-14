@@ -88,7 +88,6 @@ const Dropdown = () => {
           overlap='circular'
           onClick={handleDropdownOpen}
           sx={{ ml: 2, cursor: 'pointer' }}
-          badgeContent={<BadgeContentSpan />}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'right'
@@ -121,7 +120,6 @@ const Dropdown = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Badge
                 overlap='circular'
-                badgeContent={<BadgeContentSpan />}
                 anchorOrigin={{
                   vertical: 'bottom',
                   horizontal: 'right'
