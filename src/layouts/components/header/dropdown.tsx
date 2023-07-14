@@ -95,7 +95,7 @@ const Dropdown = () => {
           }}
         >
           <Avatar
-            alt='John Doe'
+            alt={user?.name || 'null'}
             onClick={handleDropdownOpen}
             sx={{ width: 40, height: 40 }}
             src={`/assets/characters/${
@@ -128,7 +128,7 @@ const Dropdown = () => {
                 }}
               >
                 <Avatar
-                  alt='John Doe'
+                  alt={user?.name || 'null'}
                   src={`/assets/characters/${
                     user?.character_level == 0
                       ? user?.gender == 'male'
