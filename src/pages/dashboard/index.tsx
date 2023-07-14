@@ -63,9 +63,27 @@ const Dashboard = () => {
       case 'Friends':
         return <Friends></Friends>
       case 'Reward':
-        return <Reward></Reward>
+        if (auth.user?.character === '') {
+          return <Noresult></Noresult>
+        } else {
+          const character = characters.find(character => character.name === auth.user?.character)
+          if (!character) {
+            return <Noresult></Noresult>
+          }
+
+          return <Reward></Reward>
+        }
       case 'Quest':
-        return <Quest></Quest>
+        if (auth.user?.character === '') {
+          return <Noresult></Noresult>
+        } else {
+          const character = characters.find(character => character.name === auth.user?.character)
+          if (!character) {
+            return <Noresult></Noresult>
+          }
+
+          return <Quest></Quest>
+        }
       default:
         return null
     }

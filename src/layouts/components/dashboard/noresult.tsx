@@ -8,7 +8,7 @@ import React from 'react'
 
 const Noresult = () => {
   return (
-    <div className='flex items-center justify-center h-screen max-h-fit'>
+    <div className='flex items-center justify-center h-full min-h-screen max-h-fit'>
       <div className='flex flex-col items-center '>
         <h1 className={`text-center text-lg font-bold lg:mb-4 lg:text-md text-black-300`}>Level Zero</h1>
         <h1 className='mb-4 text-3xl font-bold text-center text-black-300'>

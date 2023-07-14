@@ -122,7 +122,7 @@ const Home = () => {
     <>
       <div className={`px-8 pt-20 mx-auto xl:px-16 h-screen ${images[currentImageIndex].background} w-full`} id='about'>
         <div className='grid w-full h-full grid-flow-row py-6 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
-          <div className='flex flex-col items-center justify-center w-full row-start-2 lg:items-start lg:px-10 sm:row-start-1'>
+          <div className='flex flex-col items-center w-full row-start-2 lg:justify-center lg:items-start lg:px-10 sm:row-start-1'>
             <div key={images[currentImageIndex].image} className='relative'>
               <h1
                 className={`text-3xl font-extrabold lg:text-left text-center uppercase z-10 transition duration-2000 animate-clip lg:text-8xl text-white-300`}
