@@ -97,7 +97,7 @@ const Dropdown = () => {
           <Avatar
             alt={user?.name || 'null'}
             onClick={handleDropdownOpen}
-            sx={{ width: 40, height: 40 }}
+            sx={{ width: 40, height: 40, textTransform: 'uppercase' }}
             src={`/assets/characters/${
               user?.character_level == 0
                 ? user?.gender == 'male'
@@ -138,7 +138,7 @@ const Dropdown = () => {
                       ? char?.lvl1_image_M
                       : char?.lvl1_image_F
                   }`}
-                  sx={{ width: '2.5rem', height: '2.5rem' }}
+                  sx={{ width: '2.5rem', height: '2.5rem', textTransform: 'uppercase' }}
                 />
               </Badge>
               <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
