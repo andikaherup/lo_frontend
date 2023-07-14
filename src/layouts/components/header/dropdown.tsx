@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment } from 'react'
+import { useState, SyntheticEvent, Fragment, useEffect } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
@@ -16,12 +16,17 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
+// ** Type
+import { characters } from 'src/configs/characterData'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
+
+// ** Type
+import { Archetype } from 'src/context/characterType'
 
 // ** Styled Components
 const BadgeContentSpan = styled('span')(({ theme }) => ({
@@ -35,10 +40,15 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 const Dropdown = () => {
   // ** States
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-
+  const [char, setChar] = useState<Archetype>()
   // ** Hooks
   const router = useRouter()
+
   const { logout, user } = useAuth()
+  useEffect(() => {
+    const character = characters.find(character => character.name === user?.character)
+    setChar(character)
+  }, [])
 
   const handleDropdownOpen = (event: SyntheticEvent) => {
     setAnchorEl(event.currentTarget)
@@ -88,7 +98,15 @@ const Dropdown = () => {
             alt='John Doe'
             onClick={handleDropdownOpen}
             sx={{ width: 40, height: 40 }}
-            src='/images/avatars/1.png'
+            src={`/assets/characters/${
+              user?.character_level == 0
+                ? user?.gender == 'male'
+                  ? char?.lvl0_image_M
+                  : char?.lvl0_image_F
+                : user?.gender == 'male'
+                ? char?.lvl1_image_M
+                : char?.lvl1_image_F
+            }`}
           />
         </Badge>
         <Menu
@@ -109,7 +127,19 @@ const Dropdown = () => {
                   horizontal: 'right'
                 }}
               >
-                <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
+                <Avatar
+                  alt='John Doe'
+                  src={`/assets/characters/${
+                    user?.character_level == 0
+                      ? user?.gender == 'male'
+                        ? char?.lvl0_image_M
+                        : char?.lvl0_image_F
+                      : user?.gender == 'male'
+                      ? char?.lvl1_image_M
+                      : char?.lvl1_image_F
+                  }`}
+                  sx={{ width: '2.5rem', height: '2.5rem' }}
+                />
               </Badge>
               <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
                 <Typography sx={{ fontWeight: 600 }}>{user?.name || 'null'}</Typography>
