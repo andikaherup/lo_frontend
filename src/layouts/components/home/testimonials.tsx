@@ -1,21 +1,21 @@
 const Testimonials = () => {
   const data = [
     {
-      name: 'Jia Qin',
+      name: 'Jia Qin - The Creator',
       title: 'Content Lead',
       quote:
         'It was like opening a treasure chest of self-discovery and unleashing my true potential. This test made personal growth fun and exciting. Highly recommended for anyone looking to learn more about themselves and grow personally!',
       image: '/assets/testi/jia.png'
     },
     {
-      name: 'Sean Seah',
-      title: 'Founder & Group CEO of Next Level Ventures',
+      name: 'Sean Seah - The Magician',
+      title: 'Best Selling Author, International Speaker',
       quote:
-        'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
+        'I used to think I am not going to do well in life as I did badly in school. Then I realised that each of us are gifted in different areas in life. The L0 test is one of the most advanced and comprehensive tests that helped me understand myself better and taught me how to excel in different areas of my life by being fully me!',
       image: '/assets/testi/sean.png'
     },
     {
-      name: 'Chloe',
+      name: 'Chloe - The Magician',
       title: ' Arigato Investor, President of Buffett Online School',
       quote:
         'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
