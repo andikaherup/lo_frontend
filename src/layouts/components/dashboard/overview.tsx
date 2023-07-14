@@ -63,13 +63,13 @@ const Overview = ({ character, gender }: Props) => {
               {!auth.user && (
                 <button
                   onClick={openModal}
-                  className={`px-5 lg:px-10 py-2 ${
+                  className={`px-5 lg:px-10 py-2 flex justify-center items-center ${
                     character.background
                   }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
                     character.name
                   )} lg:text-xl font-semibold flex rounded-full`}
                 >
-                  Know More
+                  Login to view your full report
                   <svg
                     aria-hidden='true'
                     className='w-5 h-5 ml-2 -mr-1'
