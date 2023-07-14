@@ -205,7 +205,7 @@ const Header: React.FC = () => {
                 </button>
                 <Link
                   href='/personality-test'
-                  className='block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                  className='block py-2 pl-3 pr-4 text-white rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
                   aria-current='page'
                 >
                   <ButtonOutline>
@@ -225,7 +225,7 @@ const Header: React.FC = () => {
               data-collapse-toggle='mobile-menu-2'
               type='button'
               onClick={openSideMenu}
-              className='inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
+              className='inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600'
               aria-controls='mobile-menu-2'
               aria-expanded='false'
             >
