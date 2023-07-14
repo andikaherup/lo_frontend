@@ -27,7 +27,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({ value, onChange, disable }) => 
       </div>
       <div className='flex items-center justify-between w-full mt-2 lg:hidden'>
         <div className='flex justify-start w-full'>
-          <h1 className='flex ml-2 font-extrabold '>Disgree</h1>
+          <h1 className='flex ml-2 font-extrabold '>Disagree</h1>
         </div>
         <div className='flex justify-end w-full'>
           <h1 className='flex ml-2 font-extrabold '>Agree</h1>
