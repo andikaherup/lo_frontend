@@ -14,8 +14,9 @@ import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
-import { styled } from '@mui/material/styles'
+
 import Typography from '@mui/material/Typography'
+
 // ** Type
 import { characters } from 'src/configs/characterData'
 
@@ -29,19 +30,18 @@ import { useAuth } from 'src/hooks/useAuth'
 import { Archetype } from 'src/context/characterType'
 
 // ** Styled Components
-const BadgeContentSpan = styled('span')(({ theme }) => ({
-  width: 8,
-  height: 8,
-  borderRadius: '50%',
-  backgroundColor: theme.palette.success.main,
-  boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
-}))
+// const BadgeContentSpan = styled('span')(({ theme }) => ({
+//   width: 8,
+//   height: 8,
+//   borderRadius: '50%',
+//   backgroundColor: theme.palette.success.main,
+//   boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
+// }))
 
 const Dropdown = () => {
-  // ** States
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const [char, setChar] = useState<Archetype>()
-  // ** Hooks
+
   const router = useRouter()
 
   const { logout, user } = useAuth()
