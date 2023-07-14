@@ -94,8 +94,12 @@ const Friends = () => {
         defaultValues
         toast.success('Mail sent!')
       })
-      .catch(() => {
-        toast.error('Error occured, please contact Admin')
+      .catch(err => {
+        if (err.response.data) {
+          if (err.response.data.data) {
+            toast.error(err.response.data.data)
+          }
+        }
       })
 
     closeModal()

@@ -8,6 +8,8 @@ import axios from 'axios'
 // ** Configs
 import questConfig from 'src/configs/quest'
 import { FacebookShareButton, FacebookIcon } from 'next-share'
+// ** Context
+import { useAuth } from 'src/hooks/useAuth'
 
 interface Props {
   header: string
@@ -22,6 +24,8 @@ interface Props {
 }
 
 const AccordionItem = ({ header, text, status, video_url, character, type, image, id, onFinishVideo }: Props) => {
+  const auth = useAuth()
+
   const [active, setActive] = useState(false)
 
   const checkHeroBrightness = (name: string): string => {
@@ -150,7 +154,7 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
         {!type && !video_url && (
           <>
             <FacebookShareButton
-              url={'https://thel0.com'}
+              url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
               onClick={shareButton}
               quote={`I’m a ${character}! What’s yours?`}
               hashtag={'#personality-test'}
