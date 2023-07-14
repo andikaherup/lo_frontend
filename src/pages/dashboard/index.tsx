@@ -47,6 +47,10 @@ const Dashboard = () => {
   //   setSelectedTab(event.target.value)
   // }
 
+  const changeTabs = (val: string) => {
+    setSelectedTab(val)
+  }
+
   const renderTabContent = () => {
     switch (selectedTab) {
       case 'Overview':
@@ -58,7 +62,13 @@ const Dashboard = () => {
             return <Noresult></Noresult>
           }
 
-          return <Overview character={character} gender={auth.user?.gender || 'male'} />
+          return (
+            <Overview
+              character={character}
+              gender={auth.user?.gender || 'male'}
+              changeTab={(val: string) => changeTabs(val)}
+            />
+          )
         }
       case 'Friends':
         return <Friends></Friends>

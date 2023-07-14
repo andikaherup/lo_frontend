@@ -59,6 +59,10 @@ const Result = () => {
     getData()
   }, [auth])
 
+  const changeTab = () => {
+    console.log(' ')
+  }
+
   const character = characters.find(character => character.name === selectedCharacter?.calculated_result)
   if (!gotResult) {
     return <Noresult></Noresult>
@@ -74,7 +78,9 @@ const Result = () => {
       >
         <div className='w-full'>
           <div className='w-full'>
-            {character && <Overview character={character} gender={selectedCharacter?.gender || 'male'} />}
+            {character && (
+              <Overview character={character} gender={selectedCharacter?.gender || 'male'} changeTab={changeTab} />
+            )}
             {!character && <Noresult></Noresult>}
           </div>
         </div>

@@ -151,7 +151,6 @@ const PersonalityTest = () => {
   }
 
   const handleAnswerSelection = (value: number, question: Questions) => {
-    console.log('questionIndnexAnswer', questionIndexForAnswer, questionIndex, currentPage)
     const updatedAnswers = [...answers]
     const existingAnswer = updatedAnswers.find(a => a.sorting_number === question.sorting_number)
 
@@ -159,7 +158,6 @@ const PersonalityTest = () => {
       existingAnswer.answer = value
       existingAnswer.answer_str = determineString(value)
     } else {
-      console.log('here push')
       updatedAnswers.push({
         id: question.id,
         answer: value,
@@ -326,7 +324,7 @@ const PersonalityTest = () => {
           <div className='w-full py-10 bg-white-500'>
             <div className='flex justify-center w-full py-10'>
               <p className='text-center text-gray-400'>
-                <h1 className='text-2xl text-black-300'>Your Gender</h1>
+                <span className='text-2xl text-black-300'>Your Gender</span>
                 This will determine your avatar in the results screen.
               </p>
             </div>

@@ -132,7 +132,7 @@ const AuthProvider = ({ children }: Props) => {
       const confirmAction = async () => {
         const formData = new FormData()
         formData.append('response', JSON.stringify(character?.response))
-        formData.append('gender', JSON.stringify(character?.gender))
+        formData.append('gender', character?.gender ?? 'male')
         axios
           .post(contentConfig.getResultWithLogin, formData, {
             headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }

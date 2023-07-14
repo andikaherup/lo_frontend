@@ -14,9 +14,10 @@ import LoginDialog from '../header/loginDialog'
 interface Props {
   character: Archetype
   gender: string
+  changeTab: (val: string) => void
 }
 
-const Overview = ({ character, gender }: Props) => {
+const Overview = ({ character, gender, changeTab }: Props) => {
   const auth = useAuth()
 
   const checkHeroBrightness = (name: string): string => {
@@ -33,6 +34,9 @@ const Overview = ({ character, gender }: Props) => {
 
   function closeModal() {
     setIsOpen(false)
+  }
+  const toQuest = () => {
+    changeTab('Quest')
   }
 
   function openModal() {
@@ -331,6 +335,7 @@ const Overview = ({ character, gender }: Props) => {
                 <p className={`${checkHeroBrightness(character.name)}`}>3. Watch the personality level-up video</p>
                 <div className='flex justify-end mt-10'>
                   <button
+                    onClick={toQuest}
                     className={`px-5 lg:px-10 py-2 ${
                       character.background
                     }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
