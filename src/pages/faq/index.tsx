@@ -12,12 +12,35 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 import React, { useState } from 'react'
 
-// const faqData = [
-//   {
-//     question: '',
-//     answer: ''
-//   }
-// ]
+const faqData = [
+  {
+    question: 'Do I need to register to take the Level 0 personality test?',
+    answer: 'No. Simply click here {https://thel0.com/personality-test/} to take the test.'
+  },
+  {
+    question: 'What should I do if I have not received an e-mail to verify my registration?',
+    answer:
+      'It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ..'
+  },
+  {
+    question: 'How do I access the report after completing the personality test?',
+    answer: 'Register an account with us and login {link to login} to view your personalised report.'
+  },
+  {
+    question: 'What happens if I close the browser or navigate away without completing the personality test?',
+    answer:
+      "We encourage you to complete the test to avoid resetting the questions. An intriguing character awaits you at the end of the test, and you'll have the opportunity to unlock exciting rewards."
+  },
+  {
+    question: 'Is it possible for me to retake the personality test?',
+    answer:
+      "Certainly! By retaking the personality test, you'll be able to see how your answers have evolved over time in your result history."
+  },
+  {
+    question: 'Am I able to purchase a physical report?',
+    answer: 'You will have the opportunity to purchase a physical report in the future.'
+  }
+]
 const FaQ = () => {
   return (
     <section className='relative z-5 h-full bg-skyblue-500 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]'>
@@ -36,30 +59,9 @@ const FaQ = () => {
         </div>
         <div className='flex flex-wrap '>
           <div className='w-full px-4 '>
-            <AccordionItem
-              header='Do I need to register to take the Level 0 personality test?'
-              text='No. Simply click here {https://thel0.com/personality-test/} to take the test.'
-            />
-            <AccordionItem
-              header='What should I do if I have not received an e-mail to verify my registration?'
-              text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
-            />
-            <AccordionItem
-              header='How long we deliver your first blog post?'
-              text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
-            />
-            <AccordionItem
-              header='How long we deliver your first blog post?'
-              text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
-            />
-            <AccordionItem
-              header='How long we deliver your first blog post?'
-              text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
-            />
-            <AccordionItem
-              header='How long we deliver your first blog post?'
-              text='It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available .'
-            />
+            {faqData.map((data, index) => (
+              <AccordionItem key={index} header={data.question} text={data.answer} />
+            ))}
           </div>
         </div>
       </div>

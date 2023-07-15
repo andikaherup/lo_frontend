@@ -46,14 +46,14 @@ interface State {
 
 interface FormData {
   email: string
-  username: string
+  name: string
   password: string
   age: number
   gender: string
 }
 
 const accountSchema = yup.object().shape({
-  username: yup.string().required(),
+  name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(6).required(),
   age: yup.number().required(),
@@ -62,7 +62,7 @@ const accountSchema = yup.object().shape({
 
 const defaultAccountValues = {
   email: '',
-  username: '',
+  name: '',
   password: '',
   age: 0,
   gender: ''
@@ -157,13 +157,11 @@ const Register = () => {
                           >
                             Username
                           </label>
-                          {accountErrors.username && (
-                            <span className='text-sm text-red-900 '> This field is required</span>
-                          )}
+                          {accountErrors.name && <span className='text-sm text-red-900 '> This field is required</span>}
                         </div>
 
                         <Controller
-                          name='username'
+                          name='name'
                           control={accountControl}
                           rules={{ required: true }}
                           render={({ field: { value, onChange } }) => (

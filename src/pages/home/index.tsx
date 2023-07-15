@@ -106,10 +106,18 @@ const images = [
 
 const Home = () => {
   const auth = useAuth()
+  useEffect(() => {
+    const getData = async () => {
+      const characterString = await localStorage.getItem('resultNoLogin')
+      if (characterString) {
+        setHaveResult(true)
+      }
+    }
+    getData()
+  }, [auth])
 
-  // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-
+  const [haveResult, setHaveResult] = useState(false)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length)
@@ -131,17 +139,50 @@ const Home = () => {
               </h1>
               <div className='absolute left-0 h-full transition delay-1000 -translate-y-1/2 duration-50 top-1/2 bg-white-300 z-2 animate-hide'></div>
             </div>
+            {haveResult && (
+              <>
+                <Link className='pt-5 lg:pl-2' href={'result'} aria-current='page'>
+                  <h1 className='mb-3 text-lg font-bold text-white-300'>
+                    Glad to see you again! <br />
+                    <span className='mt-2 text-sm font-bold text-white-300 '>
+                      Kindly press the button below to view your result.
+                    </span>
+                  </h1>
 
-            <Link
-              className='pt-5 lg:pl-2'
-              href={auth.user?.character ? '/dashboard' : '/personality-test'}
-              aria-current='page'
-            >
-              <button className='px-3 py-2 font-semibold transition duration-300 ease-in-out lg:px-10 text-md lg:text-2xl delay-50 hover:-translate-y-1 hover:scale-110 outline outline-2 outline-offset-3 outline-white-500 text-white-300'>
-                Start Quest
-              </button>
-              {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
-            </Link>
+                  <button
+                    className={`px-5 lg:px-10 py-2  text-white-300  justify-center items-center  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110  lg:text-xl font-semibold flex rounded-full`}
+                  >
+                    View Your Result
+                    <svg
+                      aria-hidden='true'
+                      className='w-5 h-5 ml-2 -mr-1'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                        clipRule='evenodd'
+                      ></path>
+                    </svg>
+                  </button>
+                  {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
+                </Link>
+              </>
+            )}
+            {!haveResult && (
+              <Link
+                className='pt-5 lg:pl-2'
+                href={auth.user?.character ? '/dashboard' : '/personality-test'}
+                aria-current='page'
+              >
+                <button className='px-3 py-2 font-semibold transition duration-300 ease-in-out lg:px-10 text-md lg:text-2xl delay-50 hover:-translate-y-1 hover:scale-110 outline outline-2 outline-offset-3 outline-white-500 text-white-300'>
+                  {haveResult ? 'View your result' : 'Start Quest'}
+                </button>
+                {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
+              </Link>
+            )}
           </div>
           <div className='flex w-full'>
             <div className='relative flex w-full min-w-fit '>

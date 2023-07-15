@@ -28,7 +28,7 @@ export type RegisterParams = {
   email: string
   password: string
   age: number
-  username: string
+  name: string
   gender: string
 }
 

@@ -9,6 +9,9 @@ import FacebookLogin from '@greatsumini/react-facebook-login'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
+// ** MUI Imports
+import Link from 'next/link'
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
 
@@ -120,8 +123,11 @@ const LoginDialog = (props: LoginProps) => {
                 </Dialog.Title>
                 <div className='flex justify-center w-full mt-5'>
                   <p className='text-sm text-center text-textcolorblack-300 dark:text-textcolorblack-300'>
-                    Not a member yet?<span className='text-skyblue-300'> Create a free profile</span> and get your
-                    detailed report by
+                    Not a member yet?{' '}
+                    <Link href='/register'>
+                      <span className='text-skyblue-300'> Create a free profile</span>
+                    </Link>{' '}
+                    and get your detailed report by
                     <span className='text-skyblue-300'> signing up using your social media accounts</span>.
                   </p>
                 </div>
