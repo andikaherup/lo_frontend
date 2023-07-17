@@ -58,7 +58,7 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
         <PopupRef open={openRef} close={closeRef}></PopupRef>
         <Header />
-        <div className='h-full min-h-screen'>{children}</div>
+        <div className='h-full min-h-screen '>{children}</div>
         <Footer />
       </Box>
     </BlankLayoutWrapper>

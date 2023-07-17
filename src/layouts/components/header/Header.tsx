@@ -194,15 +194,21 @@ const Header: React.FC = () => {
           <div className='items-center justify-end hidden col-start-6 col-end-12 font-medium md:flex'>
             {!auth.user && (
               <>
-                <button
-                  type='button'
-                  onClick={openModal}
-                  className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none '
+                <Link
+                  href='/login'
+                  className='block py-2 pl-3 pr-4 text-white rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                  aria-current='page'
                 >
-                  <span className='mx-2 text-sm font-semibold tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
-                      Sign In
-                  </span>
-                </button>
+                  <button
+                    type='button'
+                    className='px-4 py-2 rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none '
+                  >
+                    <span className='mx-2 text-sm font-semibold tracking-wide capitalize transition-all text-black-600 sm:mx-4 hover:text-blue-500'>
+                        Sign In
+                    </span>
+                  </button>
+                </Link>
+
                 <Link
                   href='/personality-test'
                   className='block py-2 pl-3 pr-4 text-white rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
