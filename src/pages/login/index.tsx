@@ -1,37 +1,21 @@
-'use client'
-
 // ** React Imports
-import { useState, ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 
-import { Dialog, Transition } from '@headlessui/react'
 // ** Type Import
 import { useGoogleLogin } from '@react-oauth/google'
 import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons'
 import FacebookLogin from '@greatsumini/react-facebook-login'
+
 // ** Next Imports
 import Link from 'next/link'
-import Image from 'next/image'
 
 // ** MUI Components
-import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import Checkbox from '@mui/material/Checkbox'
-import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import Box, { BoxProps } from '@mui/material/Box'
+
+import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import { styled, useTheme } from '@mui/material/styles'
-import FormHelperText from '@mui/material/FormHelperText'
-import InputAdornment from '@mui/material/InputAdornment'
-import Typography, { TypographyProps } from '@mui/material/Typography'
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+import { useTheme } from '@mui/material/styles'
 
 // ** Next Import
 import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
@@ -45,67 +29,11 @@ import { useForm, Controller } from 'react-hook-form'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
-import useBgColor from 'src/@core/hooks/useBgColor'
-import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+// import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
-
-// ** Styled Components
-const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  paddingRight: '0 !important',
-  [theme.breakpoints.down('lg')]: {
-    padding: theme.spacing(10)
-  }
-}))
-
-const LoginIllustration = styled('img')(({ theme }) => ({
-  maxWidth: '48rem',
-  [theme.breakpoints.down('xl')]: {
-    maxWidth: '38rem'
-  },
-  [theme.breakpoints.down('lg')]: {
-    maxWidth: '30rem'
-  }
-}))
-
-const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.up('md')]: {
-    maxWidth: 600
-  },
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: 650
-  }
-}))
-
-const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    maxWidth: 400
-  }
-}))
-
-const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
-}))
-
-const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
-  '& .MuiFormControlLabel-label': {
-    fontSize: '0.875rem',
-    color: theme.palette.text.secondary
-  }
-}))
 
 interface FormData {
   email: string
@@ -126,14 +54,13 @@ interface FormData {
   email: string
   password: string
 }
-interface LoginProps {
-  open: boolean
-  close: () => void
-}
+
+// interface LoginProps {
+//   open: boolean
+//   close: () => void
+// }
 
 const LoginPage = () => {
-  useEffect(() => {}, [])
-
   const loginGoogle = useGoogleLogin({
     onSuccess: (codeResponse: any) => googleLogin(codeResponse)
   })
@@ -161,12 +88,9 @@ const LoginPage = () => {
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
-  const bgColors = useBgColor()
-  const { settings } = useSettings()
-  const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
-  // ** Vars
-  const { skin } = settings
+  // const { settings } = useSettings()
+  const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
   const { control: accountControl, handleSubmit } = useForm({
     defaultValues,
@@ -324,7 +248,7 @@ const LoginPage = () => {
                             <ButtonPrimary>Sign In</ButtonPrimary>
                           </div>
 
-                          <span className='text-sm  text-black-300'>
+                          <span className='text-sm text-black-300'>
                             Don't have account ?{' '}
                             <Link href='/register' className='text-skyblue-300'>
                               Sign up

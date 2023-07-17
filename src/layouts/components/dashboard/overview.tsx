@@ -39,10 +39,10 @@ const Overview = ({ character, gender, changeTab }: Props) => {
     changeTab('Quest')
   }
 
-  function openModal() {
-    console.log('here')
-    setIsOpen(true)
-  }
+  // function openModal() {
+  //   console.log('here')
+  //   setIsOpen(true)
+  // }
 
   return (
     <div className={` ${character.background}`}>
