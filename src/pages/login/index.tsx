@@ -182,7 +182,7 @@ const LoginPage = () => {
           <img src='/assets/characters/image.png' alt='Characters' className=' w-[80%]' />
         </div>
       ) : null}
-      <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
+      <div>
         <Box
           sx={{
             p: 7,
@@ -193,7 +193,7 @@ const LoginPage = () => {
           }}
           className='bg'
         >
-          <BoxWrapper>
+          <div>
             <div className='relative inset-0 w-full '>
               <div className='flex flex-col items-center justify-center min-h-full p-2 text-center'>
                 <h1 className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'>
@@ -342,9 +342,9 @@ const LoginPage = () => {
                 </div>
               </div>
             </div>
-          </BoxWrapper>
+          </div>
         </Box>
-      </RightWrapper>
+      </div>
     </Box>
   )
 }
