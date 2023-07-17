@@ -10,6 +10,7 @@ import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-butto
 import FacebookLogin from '@greatsumini/react-facebook-login'
 // ** Next Imports
 import Link from 'next/link'
+import Image from 'next/image'
 
 // ** MUI Components
 import Alert from '@mui/material/Alert'
@@ -59,7 +60,6 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 // ** Styled Components
 const LoginIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  padding: theme.spacing(20),
   paddingRight: '0 !important',
   [theme.breakpoints.down('lg')]: {
     padding: theme.spacing(10)
@@ -79,10 +79,10 @@ const LoginIllustration = styled('img')(({ theme }) => ({
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('md')]: {
-    maxWidth: 500
+    maxWidth: 600
   },
   [theme.breakpoints.up('lg')]: {
-    maxWidth: 550
+    maxWidth: 650
   }
 }))
 
@@ -176,14 +176,11 @@ const LoginPage = () => {
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
 
   return (
-    <Box className='h-full pt-10 content-right bg-skyblue-500'>
+    <Box className='h-full pt-10 lg:px-20 content-right bg-skyblue-500'>
       {!hidden ? (
-        <Box sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
-          <LoginIllustrationWrapper>
-            <LoginIllustration alt='login-illustration' src={`/assets/characters/image.png`} />
-          </LoginIllustrationWrapper>
-          <FooterIllustrationsV2 />
-        </Box>
+        <div className='flex items-center justify-center'>
+          <img src='/assets/characters/image.png' alt='Characters' className=' w-[80%]' />
+        </div>
       ) : null}
       <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
         <Box
@@ -194,9 +191,10 @@ const LoginPage = () => {
             alignItems: 'center',
             justifyContent: 'center'
           }}
+          className='bg'
         >
           <BoxWrapper>
-            <div className='relative inset-0 w-full overflow-y-auto '>
+            <div className='relative inset-0 w-full '>
               <div className='flex flex-col items-center justify-center min-h-full p-2 text-center'>
                 <h1 className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'>
                   Get Your Results
