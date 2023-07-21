@@ -1,38 +1,92 @@
-// ** MUI Imports
-// ** React Imports
 import { ReactNode, useEffect } from 'react'
 import React from 'react'
 import Head from 'next/head'
-
-// ** Configs
-
-// ** Layout Import
+import Link from 'next/link'
 
 import { useRouter } from 'next/router'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
+import axios from 'axios'
+import authConfig from 'src/configs/auth'
 
-const Referral = () => {
+interface PageProps {
+  url: string | null
+  reffCode: string
+}
+
+const Referral = ({ url, reffCode }: PageProps) => {
+  // const [url, setUrl] = useState<string>()
   const router = useRouter()
-  const { referralCode } = router.query // 'ref' is the name of the query parameter
+
+  // // const fallbackImageUrl = 'https://thel0.com/api/char=Hero&gender=male'
 
   useEffect(() => {
-    if (referralCode) {
-      localStorage.setItem('referralCode', referralCode.toString())
+    if (url) {
+      localStorage.setItem('referralCode', reffCode.toString())
+    } else {
+      router.replace('/home')
     }
-    router.replace('/home')
-  }, [referralCode, router])
+  }, [url])
 
-  return (
-    <>
-      <Head>
-        <title>My Character is Rebel , what is your character?</title>
-        <meta name='description' content='Checkout our cool page' key='desc' />
-        <meta property='og:title' content='Social Title for Cool Page' />
-        <meta property='og:description' content='And a social description for our cool page' />
-        <meta property='og:image' content='/assets/characters/Rebel_LVL_1_(F).png' />
-      </Head>
-    </>
-  )
+  if (url) {
+    return (
+      <>
+        <Head>
+          <title>Level 0 Personality Test</title>
+          <meta name='description' content='Checkout our cool page' key='desc' />
+          <meta property='og:title' content='Get your character' />
+          <meta property='og:description' content='Personality test' />
+          <meta property='og:image' content={url} />
+        </Head>
+
+        <div className='flex items-center justify-center w-full h-screen'>
+          <Link href='/home'>
+            <button className='p-10 text-2xl font-bold text-white transition bg-blue-500 rounded-xl animate-pulse hover:-translate-y-1 hover:scale-110'>
+              Go to Level 0
+            </button>
+          </Link>
+        </div>
+      </>
+    )
+  }
+}
+
+export async function getServerSideProps(context: any) {
+  const { referralCode } = context.query
+  if (!referralCode) {
+    // Handle case when referral code is not available
+    return {
+      props: {
+        url: null,
+        reffCode: null
+      }
+    }
+  }
+
+  const params = {
+    referral_code: referralCode.toString()
+  }
+
+  try {
+    const response = await axios.post(authConfig.getCharbyRef, params)
+
+    const imageUrl = `https://thel0.com/api/char=${response.data.data.character}&gender=${response.data.data.gender}`
+
+    return {
+      props: {
+        url: imageUrl,
+        reffCode: referralCode
+      }
+    }
+  } catch (error: any) {
+    // console.log(error.response.data.message)
+
+    return {
+      props: {
+        url: null,
+        reffCode: null
+      }
+    }
+  }
 }
 
 Referral.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>

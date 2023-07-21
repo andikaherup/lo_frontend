@@ -111,7 +111,6 @@ const Overview = ({ character, gender, changeTab }: Props) => {
 
                 <FacebookShareButton
                   url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
-                  quote={`I’m a ${character.name}! What’s yours?`}
                   hashtag={'#personality-test'}
                 >
                   <div className='flex flex-row items-center justify-center'>

@@ -29,6 +29,7 @@ interface QuestDetails {
   quest_points: number
   sorting_number: number
   tips: string
+  action_type: string
 }
 
 const SubQuest = (props: subQuestProps) => {
@@ -148,7 +149,7 @@ const SubQuest = (props: subQuestProps) => {
                   character={character}
                   header={detail.name}
                   text={detail.description}
-                  type={detail.link_type}
+                  type={detail.action_type}
                   status={detail.is_completed}
                   video_url={detail.file}
                   image={detail.quest_image}

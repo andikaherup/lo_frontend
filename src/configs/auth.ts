@@ -3,6 +3,8 @@ export default {
   meEndpoint: `${base_url}/api/v1/account/`,
   editUserEndpoint: `${base_url}/api/v1/account_update/`,
   registReferralEndpoint: `${base_url}/api/v1/referral_register/`,
+  getCharbyRef: `${base_url}/api/v1/char/`,
+
 
 
   convertToken: `${base_url}/api-auth/convert-token/`,

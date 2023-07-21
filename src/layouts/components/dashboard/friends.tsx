@@ -110,9 +110,11 @@ const Friends = () => {
       <div>
         <div className='flex flex-col items-center px-10 mt-10 lg:items-start'>
           <h1 className={`text-center lg:text-5xl text-3xl font-bold lg:mb-4 lg:text-md text-white-300`}>Friends</h1>
-          <h1 className='mb-4 font-bold text-center lg:text-lg text-md text-white-300'>
-            You don’t have any friends here yet. Why not invite a few?
-          </h1>
+          {auth.user?.friend_sign_ups == 0 && (
+            <h1 className='mb-4 font-bold text-center lg:text-lg text-md text-white-300'>
+              You don’t have any friends here yet. Why not invite a few?
+            </h1>
+          )}
         </div>
         {auth.user && (
           <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>

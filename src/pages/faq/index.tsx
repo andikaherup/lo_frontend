@@ -15,16 +15,15 @@ import React, { useState } from 'react'
 const faqData = [
   {
     question: 'Do I need to register to take the Level 0 personality test?',
-    answer: 'No. Simply click here {https://thel0.com/personality-test/} to take the test.'
+    answer: `No. Simply click <a href='/personality-test' style='color:blue'>here</a> to take the test.`
   },
   {
     question: 'What should I do if I have not received an e-mail to verify my registration?',
-    answer:
-      'It takes 2-3 weeks to get your first blog post ready. That includes the in-depth research & creation of your monthly content marketing strategy that we do before writing your first blog post, Ipsum available ..'
+    answer: 'Please check your Spam folder.  The e-mail provider may have placed our email there.'
   },
   {
     question: 'How do I access the report after completing the personality test?',
-    answer: 'Register an account with us and login {link to login} to view your personalised report.'
+    answer: `Register an account with us and <a href='/login' style='color:blue/>login</a> to view your personalised report.`
   },
   {
     question: 'What happens if I close the browser or navigate away without completing the personality test?',
@@ -33,12 +32,41 @@ const faqData = [
   },
   {
     question: 'Is it possible for me to retake the personality test?',
-    answer:
-      "Certainly! By retaking the personality test, you'll be able to see how your answers have evolved over time in your result history."
+    answer: 'Yes, you can retake L0 soon. Be excited to see more analysis in your report.'
   },
   {
     question: 'Am I able to purchase a physical report?',
     answer: 'You will have the opportunity to purchase a physical report in the future.'
+  },
+  {
+    question:
+      'Why does the personality type I received from your test differ from the one I obtained on another website?',
+    answer:
+      "There are several reasons why the personality type you obtained after completing Level 0 personality test differs from the one you received on a different website. Here are a few explanations:<ol class='list-decimal'><li> Test Variations: Different personality tests may use different methodologies, question formats, or scoring systems, which can lead to variations in results. Each test has its own unique approach to assessing personality traits, and slight differences in these approaches can yield different outcomes.</li><li> Sample Bias: Personality tests rely on a sample of questions or scenarios to assess various traits. The specific questions or scenarios included in a test can influence the results. If the test you took on a different website had a different set of questions or scenarios, it could generate different results.</li><li>Individual Differences: Personality is a complex and multifaceted construct. Different tests may emphasize different aspects or dimensions of personality, leading to variations in results. Additionally, individual differences and fluctuations in mood, mindset, or circumstances at the time of taking the tests can influence the outcomes.</li><li> Test Interpretation: Even if two tests provide the same personality type label, the interpretations and descriptions associated with that type might differ. The way the test results are explained and presented can vary, leading to differences in how individuals perceive and relate to their personality types.</li></ol> <br/>It's important to note that no single test can perfectly capture the entirety of an individual's personality. Personality is a rich and dynamic phenomenon that goes beyond the boundaries of a single assessment tool. Therefore, it is not uncommon to encounter variations in results when taking different personality tests."
+  },
+  {
+    question: 'Why did I receive a different result when retaking the Level 0 personality test after some time?',
+    answer:
+      "Receiving a different result when retaking the Level 0 personality test after some time can be attributed to several factors. Here are the reasons: <ol class='list-decimal'><li>  <b><i>Mood and Mindset</i></b> : Your mood, mindset, and overall state of mind can influence your responses on a personality test. Different emotional states or mental perspectives at the time of taking the test can lead to variations in how you answer the questions, potentially resulting in a different outcome.</li><li><b><i>Self-Reflection and Growth</i></b>: Personalities are not fixed entities and can evolve over time. As you gain new experiences, insights, and self-awareness, your perspectives and behaviors may change. If you took the test after a significant period, personal growth or shifts in your self-perception could account for the different result.</li><li><b><i>Test Familiarity</i></b>:If you have taken the same personality test before, you might remember some of the questions or be more familiar with the test format. This prior exposure can influence your responses, consciously or subconsciously, potentially leading to a different outcome compared to your initial attempt.</li><li><b><i>Test Variability</i></b>:Personality tests often consist of a set of questions or scenarios designed to assess different traits. In some cases, the test may include alternative questions or variations in the question order, which can impact the outcome. If you encountered different questions or a different test version when retaking it, the result could differ.</li><li><b><i>Random Factors</i></b>: Personality tests are subject to inherent variability and measurement error. Even with consistent conditions and honest responses, there can be slight fluctuations in results due to random factors, such as minor changes in your mood or mindset on the day of testing.</li></ol> <br/> It's important to remember that personality tests provide an approximation of your traits and preferences based on your responses within a specific context. They do not capture the entirety of your personality and should be considered as one tool among many for self-reflection and understanding."
+  },
+  {
+    question: 'Is the Level 0 personality test reliable and valid?',
+    answer:
+      'Yes. Statistical analysis has proven that the measurement instruments (statements) are reliable and effective in assessing the constructs (profile).'
+  },
+  {
+    question: 'How can my character move to the next level?',
+    answer: 'Your character can level up by completing the quests.'
+  },
+  {
+    question: 'Why do I need to register?',
+    answer:
+      'By registering, you unlock access to a range of rewards and benefits as you engage with our Level 0 website.  These rewards can include exclusive content, personalized recommendations, participation in special events or promotions, and the ability to track your progress and achievements.<br/> Registration is completely free of charge.  '
+  },
+  {
+    question: 'Is the merchandise for the character available for purchase?',
+    answer:
+      'We are delighted to share that the merchandise related to the character will be made available for purchase in the near future. <br/>Keep engaging with Level 0 for captivating announcements!'
   }
 ]
 const FaQ = () => {
@@ -50,10 +78,6 @@ const FaQ = () => {
             <div className='mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20'>
               <span className='block mb-2 text-lg font-semibold text-primary'>FAQ</span>
               <h2 className='mb-4 text-3xl font-bold text-dark sm:text-4xl md:text-[40px]'>Any Questions? Look Here</h2>
-              <p className='text-base text-body-color'>
-                There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration
-                in some form.
-              </p>
             </div>
           </div>
         </div>
@@ -71,6 +95,14 @@ const FaQ = () => {
 
 const AccordionItem = ({ header, text }: any) => {
   const [active, setActive] = useState(false)
+  const returnText = (textInsert: string) => {
+    return (
+      <p
+        className='py-3 text-base leading-relaxed text-body-color'
+        dangerouslySetInnerHTML={{ __html: textInsert }}
+      ></p>
+    )
+  }
 
   const handleToggle = () => {
     setActive(!active)
@@ -100,9 +132,7 @@ const AccordionItem = ({ header, text }: any) => {
         </div>
       </button>
 
-      <div className={`pl-[62px] duration-200 ease-in-out ${active ? 'block' : 'hidden'}`}>
-        <p className='py-3 text-base leading-relaxed text-body-color'>{text}</p>
-      </div>
+      <div className={`pl-[62px] duration-200 ease-in-out ${active ? 'block' : 'hidden'}`}>{returnText(text)}</div>
     </div>
   )
 }
