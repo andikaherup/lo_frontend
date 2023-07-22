@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
               className='mr-4 hover:text-cyan-600'
             >
               <svg
-                fill='#000000'
+                fill='#636579'
                 className='w-6 h-6'
                 viewBox='0 0 24 24'
                 xmlns='http://www.w3.org/2000/svg'
