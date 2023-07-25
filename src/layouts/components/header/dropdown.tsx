@@ -48,6 +48,7 @@ const Dropdown = () => {
   useEffect(() => {
     const character = characters.find(character => character.name === user?.character)
     setChar(character)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleDropdownOpen = (event: SyntheticEvent) => {

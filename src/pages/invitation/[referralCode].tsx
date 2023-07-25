@@ -29,6 +29,7 @@ const Referral = ({ url, reffCode }: PageProps) => {
       }
     }
     initAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
 
   if (url) {
