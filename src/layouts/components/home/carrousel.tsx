@@ -1,11 +1,11 @@
 import useEmblaCarousel, { EmblaOptionsType } from 'embla-carousel-react'
 import { PropsWithChildren } from 'react'
-
+import Autoplay from 'embla-carousel-autoplay'
 // Define the props
 type Props = PropsWithChildren & EmblaOptionsType
 
 const Carousel = ({ children, ...options }: Props) => {
-  const [emblaRef] = useEmblaCarousel(options)
+  const [emblaRef] = useEmblaCarousel(options, [Autoplay()])
 
   return (
     <div className='overflow-hidden' ref={emblaRef}>

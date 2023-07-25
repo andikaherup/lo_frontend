@@ -23,7 +23,7 @@ const faqData = [
   },
   {
     question: 'How do I access the report after completing the personality test?',
-    answer: `Register an account with us and <a href='/login' style='color:blue/>login</a> to view your personalised report.`
+    answer: `Register an account with us and <a href='/login' style='color:blue'>login</a> to view your personalised report.`
   },
   {
     question: 'What happens if I close the browser or navigate away without completing the personality test?',

@@ -1,27 +1,50 @@
+import Carousel from './carrousel'
+
 const Testimonials = () => {
   const data = [
-    {
-      name: 'Jia Qin - The Creator',
-      title: 'Content Lead',
-      quote:
-        'It was like opening a treasure chest of self-discovery and unleashing my true potential. This test made personal growth fun and exciting. Highly recommended for anyone looking to learn more about themselves and grow personally!',
-      image: '/assets/testi/jia.png'
-    },
-    {
-      name: 'Sean Seah - The Magician',
-      title: 'Best Selling Author, International Speaker',
-      quote:
-        'I used to think I am not going to do well in life as I did badly in school. Then I realised that each of us are gifted in different areas in life. The L0 test is one of the most advanced and comprehensive tests that helped me understand myself better and taught me how to excel in different areas of my life by being fully me!',
-      image: '/assets/testi/sean.png'
-    },
-    {
-      name: 'Chloe - The Magician',
-      title: ' Arigato Investor, President of Buffett Online School',
-      quote:
-        'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
-      image: '/assets/testi/cloe1.png'
-    }
+    [
+      {
+        name: 'Jia Qin - The Oracle',
+        title: 'Content Lead',
+        quote:
+          'It was like opening a treasure chest of self-discovery and unleashing my true potential. This test made personal growth fun and exciting. Highly recommended for anyone looking to learn more about themselves and grow personally!',
+        image: '/assets/testi/jia.png'
+      },
+      {
+        name: 'Sean Seah - The Magician',
+        title: 'Best Selling Author, International Speaker',
+        quote:
+          'I used to think I am not going to do well in life as I did badly in school. Then I realised that each of us are gifted in different areas in life. The L0 test is one of the most advanced and comprehensive tests that helped me understand myself better and taught me how to excel in different areas of my life by being fully me!',
+        image: '/assets/testi/sean.jpg'
+      },
+      {
+        name: 'Jacintha - The Synergist',
+        title: ' Entrepreneur',
+        quote:
+          'Had so much fun doing the L0 personality test! Pretty amazed at how accurate the description of a synergist matches how I have been interacting with people around me over the years. More importantly, the area of growth helped me to understand more about myself and what I need to improve on. What I love most about this test is that it provides me with bite size information on next steps recommendation which I can already start working on to excel in life and become a better version of myself!',
+        image: '/assets/testi/Jacintha.jpg'
+      }
+    ],
+    [
+      {
+        name: 'Chloe - The Magician',
+        title: ' Arigato Investor, President of Buffett Online School',
+        quote:
+          'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
+        image: '/assets/testi/cloe1.png'
+      },
+      {
+        name: 'Sally – The Oracle',
+        title: ' Entrepreneur',
+        quote:
+          "The discovery of my Oracle archetype through the L0 personality test has been truly empowering, as I never saw myself that way before. Embracing my innate wisdom and intuition has boosted my confidence in decision-making. Understanding both my strengths and weaknesses, I am able to offer guidance more readily and nurture stronger relationships as a leader. To grow further, I'll practise mindfulness to inspire positive change, fostering authenticity and empathy. The in-depth analysis provided by the personality test has given me great insights on the areas for improvement. I'm excited for the ongoing journey of self-improvement and levelling up everyday.",
+        image: '/assets/testi/Sally.png'
+      }
+    ]
   ]
+
+  const SLIDE_COUNT = 2
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
   return (
     <>
@@ -145,37 +168,76 @@ const Testimonials = () => {
 
       <section className='px-5 mb-32 text-center lg:px-20'>
         <h2 className='mb-12 text-3xl font-bold text-white-300'>Testimonials</h2>
+        <div className='px-20'>
+          <Carousel>
+            {data.map((testiItem, index) => {
+              return (
+                <div className='grid gap-x-6 grid-cols-3 xl:gap-x-15 flex-[0_0_100%] mr-6' key={index}>
+                  {testiItem.map((datas, index) => (
+                    <div key={index} className='relative mb-6 '>
+                      <div className='block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
+                        <div className='relative overflow-hidden bg-no-repeat bg-cover'>
+                          <img src={datas.image} className='w-full rounded-t-lg' alt='boss' />
+                          <a href='#!'>
+                            <div className='absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed'></div>
+                          </a>
+                          <svg
+                            className='absolute bottom-0 left-0 text-white dark:text-neutral-700'
+                            xmlns='http://www.w3.org/2000/svg'
+                            viewBox='0 0 1440 320'
+                          >
+                            <path
+                              fill='currentColor'
+                              d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
+                            ></path>
+                          </svg>
+                        </div>
+                        <div className='p-6'>
+                          <h5 className='mb-2 text-lg font-bold'>{datas.name}</h5>
+                          <h6 className='mb-4 font-medium text-skyblue-300 dark:text-primary-400'>{datas.title}</h6>
 
-        <div className='grid lg:px-20 gap-x-6 md:grid-cols-3 xl:gap-x-15'>
-          {data.map((datas, index) => (
-            <div key={index} className='mb-6 lg:mb-0'>
-              <div className='block h-full rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700'>
-                <div className='relative overflow-hidden bg-no-repeat bg-cover'>
-                  <img src={datas.image} className='w-full rounded-t-lg' alt='boss' />
-                  <a href='#!'>
-                    <div className='absolute top-0 bottom-0 left-0 right-0 w-full h-full overflow-hidden bg-fixed'></div>
-                  </a>
-                  <svg
-                    className='absolute bottom-0 left-0 text-white dark:text-neutral-700'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 1440 320'
-                  >
-                    <path
-                      fill='currentColor'
-                      d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
-                    ></path>
-                  </svg>
+                          <p className='text-sm'>{datas.quote}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className='p-6'>
-                  <h5 className='mb-2 text-lg font-bold'>{datas.name}</h5>
-                  <h6 className='mb-4 font-medium text-skyblue-300 dark:text-primary-400'>{datas.title}</h6>
-
-                  <p className='text-sm'>{datas.quote}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+              )
+            })}
+          </Carousel>
         </div>
+        {/* <Carousel loop>
+          {data.map((datas, index) => {
+            return (
+              <div className='relative  flex-[0_0_100%]' key={index}>
+                <section key={index} className='mb-5 text-center lg:text-left'>
+                  <div className='py-12 md:px-12'>
+                    <div className='container mx-auto xl:px-32'>
+                      <div className={` sm:flex sm:items-center lg:grid lg:grid-cols-2`}>
+                        <div className=' md:mt-12 lg:mt-0 lg:mb-0'>
+                          <div className='relative z-[1] block rounded-lg bg-[hsla(0,0%,100%,0.55)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] backdrop-blur-[25px] dark:bg-[hsla(0,0%,5%,0.7)] dark:shadow-black/20 md:px-12 lg:-mr-14'>
+                            <h2 className='mb-2 text-3xl font-bold text-white-300 dark:text-primary-400'>
+                              {datas.name}
+                            </h2>
+                            <p className='mb-4 font-semibold text-white-300'>{datas.title}</p>
+                            <p className='mb-6 text-white-500 dark:text-neutral-300'>{datas.quote}</p>
+                          </div>
+                        </div>
+                        <div className='w-full md:mb-12 lg:mb-0 '>
+                          <img
+                            src={datas.image}
+                            className='lg:rotate-[6deg] lg:w-1/2 w-full rounded-lg shadow-lg dark:shadow-black/20'
+                            alt='image'
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )
+          })}
+        </Carousel> */}
       </section>
     </>
   )

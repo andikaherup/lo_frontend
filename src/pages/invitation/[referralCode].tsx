@@ -20,11 +20,15 @@ const Referral = ({ url, reffCode }: PageProps) => {
   // // const fallbackImageUrl = 'https://thel0.com/api/char=Hero&gender=male'
 
   useEffect(() => {
-    if (url) {
-      localStorage.setItem('referralCode', reffCode.toString())
-    } else {
-      router.replace('/home')
+    const initAuth = async () => {
+      if (url) {
+        await localStorage.setItem('referralCode', reffCode.toString())
+        router.replace('/home')
+      } else {
+        router.replace('/home')
+      }
     }
+    initAuth()
   }, [url])
 
   if (url) {
@@ -41,7 +45,7 @@ const Referral = ({ url, reffCode }: PageProps) => {
         <div className='flex items-center justify-center w-full h-screen'>
           <Link href='/home'>
             <button className='p-10 text-2xl font-bold text-white transition bg-blue-500 rounded-xl animate-pulse hover:-translate-y-1 hover:scale-110'>
-              Go to Level 0
+              You're being redirected to Level Zero page
             </button>
           </Link>
         </div>
