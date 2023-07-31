@@ -103,7 +103,9 @@ const Dashboard = () => {
     <>
       <div
         className={`lg:pt-20 pt-10 ${
-          characters.find(character => character.name === auth.user?.character)?.background
+          selectedTab == 'Reward'
+            ? 'bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'
+            : characters.find(character => character.name === auth.user?.character)?.background
         }`}
         id='about'
       >

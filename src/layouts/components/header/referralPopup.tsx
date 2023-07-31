@@ -5,6 +5,8 @@ import { Dialog, Transition } from '@headlessui/react'
 // ** Hooks
 
 // ** MUI Imports
+// ** Hooks Import
+import { useAuth } from 'src/hooks/useAuth'
 
 // ** Axios
 import axios from 'axios'
@@ -18,6 +20,8 @@ interface RefProps {
 }
 
 const PopupRef = (props: RefProps) => {
+  const auth = useAuth()
+
   const { open, close } = props
   const [error, setError] = useState<string>('')
 
@@ -107,7 +111,10 @@ const PopupRef = (props: RefProps) => {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
         }
       )
-      .then(() => close())
+      .then(() => {
+        auth.refreshUser()
+        close()
+      })
       .catch(err => {
         if (err.response.data) {
           if (err.response.data.data) {

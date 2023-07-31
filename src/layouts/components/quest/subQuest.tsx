@@ -28,6 +28,7 @@ interface QuestDetails {
   description: string
   quest_points: number
   sorting_number: number
+  link: string
   tips: string
   action_type: string
 }
@@ -154,6 +155,7 @@ const SubQuest = (props: subQuestProps) => {
                   video_url={detail.file}
                   image={detail.quest_image}
                   id={detail.id}
+                  link={detail.link}
                   onFinishVideo={initAuth}
                 ></AccordionItem>
               </div>

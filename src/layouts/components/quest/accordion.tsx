@@ -5,6 +5,9 @@ import ReactPlayer from 'react-player/lazy'
 // ** Axios
 import axios from 'axios'
 
+// ** MUI Imports
+import Link from 'next/link'
+
 // ** Configs
 import questConfig from 'src/configs/quest'
 import { FacebookShareButton, FacebookIcon } from 'next-share'
@@ -20,11 +23,12 @@ interface Props {
   type: string | null
   character: string
   image: string
+  link: string
   id: number
   onFinishVideo: () => void
 }
 
-const AccordionItem = ({ header, text, status, video_url, character, type, image, id, onFinishVideo }: Props) => {
+const AccordionItem = ({ header, text, status, video_url, character, type, image, link, id, onFinishVideo }: Props) => {
   const auth = useAuth()
 
   const [active, setActive] = useState(false)
@@ -121,24 +125,25 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
       >
         <div className='flex items-center justify-end w-full '>
           <span className={`text-left lg:text-md font-bold text-xs ${getTextColor(character)}`}>
-            {status ? 'COMPLETED' : 'GET STARTED'}
+            {status ? 'COMPLETED' : type == 'no_action' ? '' : 'GET STARTED'}
           </span>
-
-          <div className=' flex h-10 w-full max-w-[40px] items-center justify-end rounded-lg bg-opacity-10 text-primary'>
-            <svg
-              className={`duration-200 ease-in-out fill-primary stroke-primary ${active ? 'rotate-180' : ''}`}
-              width='17'
-              height='10'
-              viewBox='0 0 17 10'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                d='M7.28687 8.43257L7.28679 8.43265L7.29496 8.43985C7.62576 8.73124 8.02464 8.86001 8.41472 8.86001C8.83092 8.86001 9.22376 8.69083 9.53447 8.41713L9.53454 8.41721L9.54184 8.41052L15.7631 2.70784L15.7691 2.70231L15.7749 2.69659C16.0981 2.38028 16.1985 1.80579 15.7981 1.41393C15.4803 1.1028 14.9167 1.00854 14.5249 1.38489L8.41472 7.00806L2.29995 1.38063L2.29151 1.37286L2.28271 1.36548C1.93092 1.07036 1.38469 1.06804 1.03129 1.41393L1.01755 1.42738L1.00488 1.44184C0.69687 1.79355 0.695778 2.34549 1.0545 2.69659L1.05999 2.70196L1.06565 2.70717L7.28687 8.43257Z'
-                fill=''
-                stroke=''
-              />
-            </svg>
-          </div>
+          {type != 'no_action' && (
+            <div className=' flex h-10 w-full max-w-[40px] items-center justify-end rounded-lg bg-opacity-10 text-primary'>
+              <svg
+                className={`duration-200 ease-in-out fill-primary stroke-primary ${active ? 'rotate-180' : ''}`}
+                width='17'
+                height='10'
+                viewBox='0 0 17 10'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M7.28687 8.43257L7.28679 8.43265L7.29496 8.43985C7.62576 8.73124 8.02464 8.86001 8.41472 8.86001C8.83092 8.86001 9.22376 8.69083 9.53447 8.41713L9.53454 8.41721L9.54184 8.41052L15.7631 2.70784L15.7691 2.70231L15.7749 2.69659C16.0981 2.38028 16.1985 1.80579 15.7981 1.41393C15.4803 1.1028 14.9167 1.00854 14.5249 1.38489L8.41472 7.00806L2.29995 1.38063L2.29151 1.37286L2.28271 1.36548C1.93092 1.07036 1.38469 1.06804 1.03129 1.41393L1.01755 1.42738L1.00488 1.44184C0.69687 1.79355 0.695778 2.34549 1.0545 2.69659L1.05999 2.70196L1.06565 2.70717L7.28687 8.43257Z'
+                  fill=''
+                  stroke=''
+                />
+              </svg>
+            </div>
+          )}
         </div>
 
         <div className='w-full'>
@@ -147,7 +152,7 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
         </div>
       </button>
 
-      <div className={` duration-2000 my-10 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
+      <div className={` duration-2000 my-5 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
         {video_url && type == 'watch_video' && (
           <div className='flex justify-center w-full h-full'>
             <ReactPlayer playing url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
@@ -167,6 +172,15 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
                 <span className={`pl-2 ${checkHeroBrightness(character)}`}>Share Your Character on Facebook</span>
               </div>
             </FacebookShareButton>
+          </>
+        )}
+        {type == 'click_link' && (
+          <>
+            <Link href={link} aria-current='page' target='_blank'>
+              <button className='px-5 py-3 bg-blue-500 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'>
+                Go To Link
+              </button>
+            </Link>
           </>
         )}
       </div>

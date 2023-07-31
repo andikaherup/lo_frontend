@@ -27,6 +27,11 @@ class CustomDocument extends Document {
 
           <link rel='apple-touch-icon' sizes='180x180' href='/images/favicon-32x32.png' />
           <link rel='shortcut icon' href='/images/favicon-32x32.png' />
+          <script
+            type='text/javascript'
+            src='https://d2ieqaiwehnqqp.cloudfront.net/t0cda0b479c1a0a9cd46a87563eed6864.js'
+            async
+          ></script>
         </Head>
         <body>
           <Main />

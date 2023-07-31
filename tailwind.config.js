@@ -116,7 +116,9 @@ module.exports = {
       referralYellow: '#F7A400',
       referralGray: '#D5D9E7',
       referralSemiBlack: '#122460',
-      progressGray: '#515151'
+      progressGray: '#515151',
+      rewardLightBlue: '#0cc0df',
+      rewardLightYellow: '#ffde59'
     },
     extend: {
       fontFamily: {
@@ -131,7 +133,8 @@ module.exports = {
         'tracking-in-expand': 'tracking-in-expand 0.3s cubic-bezier(0.445, 0.050, 0.550, 0.950) both',
         clip: 'clip 3s',
         reveal: 'reveal 0.5s ',
-        hide: 'hide 2.5s '
+        hide: 'hide 2.5s ',
+        'sparkle-star': 'sparkle 1.9s infinite '
       }
     },
     keyframes: {
@@ -191,6 +194,11 @@ module.exports = {
           'letter-spacing': '-0.5em',
           opacity: '0'
         }
+      },
+      sparkle: {
+        '0%, 50%': { transform: 'scale(0)' },
+        '70%': { transform: 'scale(-1, 0)' },
+        '80%, 100%': { transform: 'scale(1)' }
       },
       clip: {
         '0%, 5%': { clipPath: 'inset(0 100% 0 0)' },

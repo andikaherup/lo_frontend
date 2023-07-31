@@ -114,6 +114,17 @@ const App = (props: ExtendedAppProps) => {
       router.replace('/home')
     }
   }, [auth.user, router])
+  useEffect(() => {
+    import('react-facebook-pixel')
+      .then(x => x.default)
+      .then(ReactPixel => {
+        ReactPixel.init('741251821138037') // facebookPixelId
+        ReactPixel.pageView()
+        router.events.on('routeChangeComplete', () => {
+          ReactPixel.pageView()
+        })
+      })
+  }, [router.events])
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   // Variables
@@ -136,6 +147,7 @@ const App = (props: ExtendedAppProps) => {
         <meta name='description' content={`L0 Personality Test `} />
         <meta name='keywords' content='Personality Test' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
+        <meta name='facebook-domain-verification' content='z1k751wen6q754z5qasx66i3cjed0j' />
       </Head>
 
       <AuthProvider>
