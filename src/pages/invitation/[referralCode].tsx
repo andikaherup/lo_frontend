@@ -23,9 +23,9 @@ const Referral = ({ url, reffCode }: PageProps) => {
     const initAuth = async () => {
       if (url) {
         await localStorage.setItem('referralCode', reffCode.toString())
-        router.replace('/home')
+        router.replace('/')
       } else {
-        router.replace('/home')
+        router.replace('/')
       }
     }
     initAuth()
@@ -44,7 +44,7 @@ const Referral = ({ url, reffCode }: PageProps) => {
         </Head>
 
         <div className='flex items-center justify-center w-full h-screen'>
-          <Link href='/home'>
+          <Link href='/'>
             <button className='p-10 text-2xl font-bold text-white transition bg-blue-500 rounded-xl animate-pulse hover:-translate-y-1 hover:scale-110'>
               You're being redirected to Level Zero page
             </button>

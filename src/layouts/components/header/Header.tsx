@@ -74,7 +74,7 @@ const Header: React.FC = () => {
     if (router.route == '/personality-types') {
       setActiveLink('Personality')
     }
-    if (router.route == '/home') {
+    if (router.route == '/') {
       setActiveLink(null)
     }
     if (router.route == '/personality-test') {
@@ -111,7 +111,7 @@ const Header: React.FC = () => {
         className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
-          <Link href='/home' className='flex items-center lg:justify-center '>
+          <Link href='/' className='flex items-center lg:justify-center '>
             <img src='/images/level0tr.png' className='h-8 mr-3' alt='Flowbite Logo' />
           </Link>
 
