@@ -30,7 +30,7 @@ const Dashboard = () => {
       auth.setLoading(true)
 
       if (!auth.user) {
-        router.replace('/home')
+        router.replace('/')
         auth.setLoading(false)
       } else {
         auth.refreshUser()

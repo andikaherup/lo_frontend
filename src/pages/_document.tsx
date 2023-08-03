@@ -16,22 +16,14 @@ class CustomDocument extends Document {
       <Html lang='en'>
         <Head>
           <link rel='preconnect' href='https://fonts.gstatic.com' />
-
           <link rel='preconnect' href='https://fonts.googleapis.com' />
-
           <link
             href='https://fonts.googleapis.com/css2?family=Knewave&family=Kufam:wght@400;500;700;800&family=Share&display=swap'
             rel='stylesheet'
           />
           <link href='https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css' rel='stylesheet' />
-
           <link rel='apple-touch-icon' sizes='180x180' href='/images/favicon-32x32.png' />
-          <link rel='shortcut icon' href='/images/favicon-32x32.png' />
-          <script
-            type='text/javascript'
-            src='https://d2ieqaiwehnqqp.cloudfront.net/t0cda0b479c1a0a9cd46a87563eed6864.js'
-            async
-          ></script>
+          <link rel='shortcut icon' href='/images/favicon-32x32.png' />]
         </Head>
         <body>
           <Main />
