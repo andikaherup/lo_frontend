@@ -118,7 +118,8 @@ module.exports = {
       referralSemiBlack: '#122460',
       progressGray: '#515151',
       rewardLightBlue: '#0cc0df',
-      rewardLightYellow: '#ffde59'
+      rewardLightYellow: '#ffde59',
+      rewardLightYellowItem: '#ff914d'
     },
     extend: {
       fontFamily: {

@@ -278,18 +278,16 @@ const LeaderBoard = () => {
   }, [])
 
   return (
-    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 mt-20 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
+    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
       <div className='mb-10'>
         <div>
-          <h1 className='mb-5 text-6xl font-bold text-center text-white-300'>
-            LEADER <br /> BOARD{' '}
-          </h1>
-          <span className='text-3xl font-bold text-center text-white'>
+          <h1 className='mb-5 text-6xl font-bold text-center text-black-300'>LEADERBOARD</h1>
+          <span className='text-3xl font-bold text-center text-black-300'>
             Sign up and invite friends to join the Quest
           </span>
         </div>
         <div className='flex justify-center'>
-          <span className='text-xl font-bold text-center text-white-300'>
+          <span className='text-xl font-bold text-center text-black-300'>
             Share Level 0 and earn{' '}
             <Link href={auth.user ? 'rewards' : '/login'} aria-current='page' className='underline'>
               Rewards
@@ -311,11 +309,11 @@ const LeaderBoard = () => {
               sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
             >
               <div>
-                <span className='mr-10 text-xl font-bold text-white-300'>Rank</span>
-                <span className='text-xl font-bold text-white-300'>Name</span>
+                <span className='mr-10 text-xl font-bold text-black-300'>Rank</span>
+                <span className='text-xl font-bold text-black-300'>Name</span>
               </div>
-              <span className='text-xl font-bold text-white-300'>Level</span>
-              <span className='text-xl font-bold text-white-300'>Points</span>
+              <span className='text-xl font-bold text-black-300'>Level</span>
+              <span className='text-xl font-bold text-black-300'>Points</span>
             </Box>
             {userList?.map((data: UserData, index: number) => {
               return (
