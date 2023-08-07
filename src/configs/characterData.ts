@@ -283,19 +283,19 @@ export const characters: Archetype[] = [
       'As a Creator, you possess an innate ability to bring beauty, innovation, and originality into the world. You are fueled by a deep passion for self-expression and possess a remarkable talent for turning ideas into reality. Your creative spirit inspires others and leaves a lasting impact on everything you create.',
     strengths: [
       {
-        title: 'Independent Thinking:',
+        title: 'Imagination and Vision:',
         content:
-          'Your ability to think outside the box and challenge established beliefs sets you apart. You question assumptions, opening new pathways for innovation and transformation.'
+          'Your mind is a treasure trove of imaginative ideas and boundless possibilities. Your ability to envision new concepts and think outside the box fuels your creative pursuits.'
       },
       {
-        title: 'Fearless Expression:',
+        title: 'Artistic Expression:',
         content:
-          'You have the courage to stand up for your convictions and speak your truth. Your authentic expression empowers others to do the same, fostering an environment of authenticity and freedom.'
+          'Whether through art, design, writing, or any other form of creative expression, you have a unique gift for translating your ideas into tangible creations that resonate with others.'
       },
       {
-        title: 'Embracing Change:',
+        title: 'Innovation and Adaptability:',
         content:
-          'You thrive in dynamic environments and adapt quickly to shifting circumstances. Your resilience and ability to embrace change make you a trailblazer in times of uncertainty.'
+          'Your openness to new experiences and your willingness to embrace change allow you to continually evolve and stay at the forefront of innovation.'
       }
     ],
     area_of_growth: [
