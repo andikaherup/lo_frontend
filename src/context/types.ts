@@ -56,7 +56,13 @@ export type UserDataType = {
   current_level_points: number;
   next_level_required_points: number;
   username: string;
-
+  bank_account_number: null;
+  bank_name: null;
+  campaign_source: null;
+  has_just_leveled_up: boolean;
+  hidden_points: number;
+  phone_number: null;
+  point_updated_at: string;
 }
 
 export type AuthValuesType = {
