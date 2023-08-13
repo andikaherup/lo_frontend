@@ -1,11 +1,6 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-// ** MUI Imports
-// ** Hooks
-
-// ** MUI Imports
-// ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import Link from 'next/link'
 
@@ -16,10 +11,10 @@ import contentConfig from 'src/configs/content'
 import axios from 'axios'
 
 // ** Config
-import authConfig from 'src/configs/auth'
 import { RewardData } from 'src/context/types'
 
 import toast from 'react-hot-toast'
+
 interface RefProps {
   open: boolean
   close: () => void
@@ -61,6 +56,7 @@ const RedeemPopup = (props: RefProps) => {
       .catch(error => {
         setError(error.response.data.data)
         setLoading(false)
+
         // toast.error(error.response.data.data)
       })
   }

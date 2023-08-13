@@ -10,11 +10,13 @@ import Grid from '@mui/material/Grid'
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import ProgressQuest from 'src/layouts/components/header/progressQuest'
+
 // ** Axios
 import axios from 'axios'
 
 // ** Config
 import authConfig from 'src/configs/auth'
+
 // ** Type
 import { Archetype } from 'src/context/characterType'
 
@@ -31,8 +33,9 @@ import { useForm, Controller } from 'react-hook-form'
 // import IconButton from '@mui/material/IconButton'
 
 import FormControl from '@mui/material/FormControl'
-import auth from 'src/configs/auth'
+
 import toast from 'react-hot-toast'
+
 interface FormData {
   email: string
   name: string
@@ -59,11 +62,11 @@ const Setting = () => {
   useEffect(() => {
     const character = characters.find(character => character.name === auth.user?.character)
     setChar(character)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const auth = useAuth()
   const [char, setChar] = useState<Archetype>()
-  // ** Hooks
 
   const defaultAccountValues = {
     email: auth.user?.email || '',

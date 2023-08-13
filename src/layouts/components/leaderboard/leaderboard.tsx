@@ -1,12 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
-
-import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-
-import Typography from '@mui/material/Typography'
+import { useEffect, useState } from 'react'
 
 import Link from 'next/link'
 
@@ -18,9 +10,6 @@ import { characters } from 'src/configs/characterData'
 
 // ** Configs
 import contentConfig from 'src/configs/content'
-
-// ** Config
-import authConfig from 'src/configs/auth'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
@@ -81,6 +70,8 @@ const Leaderboard = () => {
     }
 
     initData()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getCharacter = (level: number, gender: string, name: string): string => {

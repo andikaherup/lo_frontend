@@ -33,12 +33,15 @@ const Dashboard = () => {
         switch (urlParams.get('tab')) {
           case 'friends':
             setSelectedTab('Friends')
+
             return
           case 'reward':
             setSelectedTab('Rewards')
+
             return
           case 'quest':
             setSelectedTab('Quest')
+
             return
         }
       }
@@ -52,8 +55,9 @@ const Dashboard = () => {
       }
     }
     initAuth()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // Include auth and router in the dependency array
+  }, [])
 
   const [selectedTab, setSelectedTab] = useState('Overview')
 

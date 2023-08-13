@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ** Configs
 import contentConfig from 'src/configs/content'
@@ -10,45 +10,6 @@ import axios from 'axios'
 import { useAuth } from 'src/hooks/useAuth'
 import RedeemPopup from '../reward/redeemPopup'
 import { RewardData } from 'src/context/types'
-
-const data = [
-  {
-    image: '/assets/rewards/CAP.png',
-    price: 'SG$10',
-    point: '500',
-    buy: false
-  },
-  {
-    image: '/assets/rewards/KEYCHAIN.png',
-    price: 'SG$10',
-    point: '500',
-    buy: false
-  },
-  {
-    image: '/assets/rewards/L0REPORT.png',
-    price: 'SG$10',
-    point: '500',
-    buy: true
-  },
-  {
-    image: '/assets/rewards/MUG.png',
-    price: 'SG$10',
-    point: '500',
-    buy: true
-  },
-  {
-    image: '/assets/rewards/PHONECASE.png',
-    price: 'SG$10',
-    point: '500',
-    buy: false
-  },
-  {
-    image: '/assets/rewards/SHIRT.png',
-    price: 'SG$10',
-    point: '500',
-    buy: false
-  }
-]
 
 const Reward = () => {
   const auth = useAuth()
@@ -97,6 +58,8 @@ const Reward = () => {
     }
 
     initData()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import Leaderboard from 'src/layouts/components/leaderboard/leaderboard'
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
