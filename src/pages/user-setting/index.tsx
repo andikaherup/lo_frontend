@@ -5,13 +5,55 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 // ** Type
 import { characters } from 'src/configs/characterData'
 import Badge from '@mui/material/Badge'
+import Grid from '@mui/material/Grid'
 
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import ProgressQuest from 'src/layouts/components/header/progressQuest'
+// ** Axios
+import axios from 'axios'
 
+// ** Config
+import authConfig from 'src/configs/auth'
 // ** Type
 import { Archetype } from 'src/context/characterType'
+
+// ** Third Party Imports
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { yupResolver } = require('@hookform/resolvers/yup')
+
+import * as yup from 'yup'
+
+import { useForm, Controller } from 'react-hook-form'
+
+// ** MUI Components
+
+// import IconButton from '@mui/material/IconButton'
+
+import FormControl from '@mui/material/FormControl'
+import auth from 'src/configs/auth'
+import toast from 'react-hot-toast'
+interface FormData {
+  email: string
+  name: string
+
+  age: number
+  gender: string
+  bank_account_number: string
+  bank_name: string
+  phone_number: string
+}
+
+const accountSchema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+
+  age: yup.number(),
+  gender: yup.string(),
+  bank_account_number: yup.string().required(),
+  bank_name: yup.string().required(),
+  phone_number: yup.string().required()
+})
 
 const Setting = () => {
   useEffect(() => {
@@ -21,6 +63,46 @@ const Setting = () => {
   }, [])
   const auth = useAuth()
   const [char, setChar] = useState<Archetype>()
+  // ** Hooks
+
+  const defaultAccountValues = {
+    email: auth.user?.email || '',
+    name: auth.user?.name || '',
+
+    age: auth.user?.age || 0,
+    gender: auth.user?.gender || '',
+    bank_account_number: auth.user?.bank_account_number || '',
+    bank_name: auth.user?.bank_name || '',
+    phone_number: auth.user?.phone_number || ''
+  }
+
+  const {
+    control: accountControl,
+    handleSubmit: handleAccountSubmit,
+    formState: { errors: accountErrors }
+  } = useForm({
+    defaultValues: defaultAccountValues,
+    resolver: yupResolver(accountSchema)
+  })
+
+  const onSubmit = (data: FormData) => {
+    const payload = {
+      bank_account_number: data.bank_account_number,
+      bank_name: data.bank_name,
+      phone_number: data.phone_number,
+      name: data.name
+    }
+    axios
+      .put(authConfig.editUserEndpoint, payload, {
+        headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
+      })
+      .then(async () => {
+        toast.success('User data has been updated')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   return (
     <section
@@ -67,8 +149,101 @@ const Setting = () => {
         </div>
 
         <div className='mt-5'>
-          <form action='#'>
-            <div className='grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
+          <form onSubmit={handleAccountSubmit(onSubmit)}>
+            <Grid container spacing={5}>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <div className='flex justify-between '>
+                    <label
+                      htmlFor='bank_name'
+                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                    >
+                      Bank Name
+                    </label>
+                    {accountErrors.bank_name && <span className='text-sm text-red-900 '> This field is required</span>}
+                  </div>
+
+                  <Controller
+                    name='bank_name'
+                    control={accountControl}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <input
+                        value={value}
+                        onChange={onChange}
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                        id='grid-password'
+                        type='text'
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <div className='flex justify-between '>
+                    <label
+                      htmlFor='bank_account_number'
+                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                    >
+                      Bank Account Number
+                    </label>
+                    {accountErrors.bank_account_number && (
+                      <span className='text-sm text-red-900 '> This field is required</span>
+                    )}
+                  </div>
+
+                  <Controller
+                    name='bank_account_number'
+                    control={accountControl}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <input
+                        value={value}
+                        onChange={onChange}
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                        id='grid-password'
+                        type='text'
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <div className='flex justify-between'>
+                    <label
+                      htmlFor='phone_number'
+                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                    >
+                      Phone Number
+                    </label>
+                    {accountErrors.phone_number && (
+                      <span className='text-sm text-red-900 '> This field is required</span>
+                    )}
+                  </div>
+
+                  <Controller
+                    name='phone_number'
+                    control={accountControl}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <input
+                        value={value}
+                        onChange={onChange}
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                        id='grid-password'
+                        type='text'
+                      />
+                    )}
+                  />
+                </FormControl>
+              </Grid>
+            </Grid>
+            <div className='grid gap-4 mt-10 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
+              <div className='w-full border-b-2 border-white-300'>
+                <h1 className='py-1 text-xl font-bold text-white-300'>Personal Data</h1>
+              </div>
               <div className='sm:col-span-2'>
                 <label htmlFor='name' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
                   Name
@@ -76,8 +251,9 @@ const Setting = () => {
                 <input
                   type='text'
                   name='name'
+                  disabled
                   id='name'
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                   value={auth.user?.name || ''}
                   placeholder='Type product name'
                   required
@@ -91,7 +267,8 @@ const Setting = () => {
                   type='text'
                   name='brand'
                   id='brand'
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                  disabled
+                  className='bg-gray-50 border hover:cursor-not-allowed  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                   value={auth.user?.email}
                   placeholder='Product brand'
                   required
@@ -102,28 +279,29 @@ const Setting = () => {
                 <label htmlFor='category' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
                   Age
                 </label>
-                <select
-                  id='category'
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                >
-                  <option selected>Child: 0 to 12 years</option>
-                  <option value='TV'>Teenager: 13 to 19 years</option>
-                  <option value='PC'>Young Adult: 20 to 39 years</option>
-                  <option value='GA'>Middle-Aged Adult: 40 to 59 years</option>
-                  <option value='senior'>Senior: 60 years and above</option>
-                </select>
+                <input
+                  type='text'
+                  name='age'
+                  disabled
+                  id='age'
+                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                  value={auth.user?.age || ''}
+                  required
+                />
               </div>
               <div>
                 <label htmlFor='item-weight' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
                   Gender
                 </label>
-                <select
+                <input
+                  type='text'
+                  name='gender'
+                  disabled
                   id='gender'
-                  className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                >
-                  <option selected>Male</option>
-                  <option value='TV'>Female</option>
-                </select>
+                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                  value={auth.user?.gender || ''}
+                  required
+                />
               </div>
             </div>
             <div className='flex items-center space-x-4'>

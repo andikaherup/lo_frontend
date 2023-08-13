@@ -106,7 +106,7 @@ const Reward = () => {
         {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
         {auth.user && (
           <h1 className='text-xl font-bold text-center lg:text-2xl text-black-300'>
-            My Points : {auth.user?.user_points}
+            My Points : {auth.user?.available_points}
           </h1>
         )}
 

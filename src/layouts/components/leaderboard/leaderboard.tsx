@@ -232,7 +232,13 @@ const Leaderboard = () => {
         <div className='w-full pt-10 lg:pt-20'>
           {userList && userList.length > 0 && (
             <div className='flex justify-between'>
-              <div>
+              <div
+                className={`${
+                  myRank == 2
+                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
+                    : ''
+                }`}
+              >
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 2</div>
 
                 <div className='flex justify-center'>
@@ -249,13 +255,21 @@ const Leaderboard = () => {
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
                     <span> {userList[1].name}</span>
                     <br />
-                    <span>Level {userList[1].character_level}</span>
+                    <Link href={`/reward?level=${userList[1].character_level}`}>
+                      <span>Level {userList[1].character_level}</span>
+                    </Link>
                     <br />
                     <span>Points : {userList[1].user_points}</span>
                   </p>
                 </div>
               </div>
-              <div className='-translate-y-1/4'>
+              <div
+                className={`-translate-y-1/4 ${
+                  myRank == 1
+                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
+                    : ''
+                }`}
+              >
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 1</div>
                 <div className='flex flex-col justify-center'>
                   <img
@@ -271,13 +285,21 @@ const Leaderboard = () => {
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
                     <span> {userList[0].name}</span>
                     <br />
-                    <span>Level {userList[0].character_level}</span>
+                    <Link href={`/reward?level=${userList[0].character_level}`}>
+                      <span>Level {userList[0].character_level}</span>
+                    </Link>
                     <br />
                     <span>Points : {userList[0].user_points}</span>
                   </p>
                 </div>
               </div>
-              <div>
+              <div
+                className={`${
+                  myRank == 3
+                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
+                    : ''
+                }`}
+              >
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 3</div>
 
                 <div className='flex justify-center'>
@@ -294,7 +316,9 @@ const Leaderboard = () => {
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
                     <span>{userList[2].name}</span>
                     <br />
-                    <span>Level {userList[2].character_level}</span>
+                    <Link href={`/reward?level=${userList[2].character_level}`}>
+                      <span>Level {userList[2].character_level}</span>
+                    </Link>
                     <br />
                     <span>Points : {userList[2].user_points}</span>
                   </p>

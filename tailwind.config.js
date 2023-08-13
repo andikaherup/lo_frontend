@@ -121,7 +121,9 @@ module.exports = {
       rewardLightYellow: '#ffde59',
       rewardLightYellowItem: '#ff914d',
       leaderboardTopBlue: '#59CDDC',
-      leaderboardBotBlue: '#51CDDD'
+      leaderboardBotBlue: '#51CDDD',
+      meBackground: '#C026D3',
+      meOrange: '#EA580C'
     },
     extend: {
       fontFamily: {

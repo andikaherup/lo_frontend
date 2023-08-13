@@ -10,7 +10,7 @@ export default {
   //reward
   getReward: `${base_url}/api/v1/public_reward/`,
   getAuthReward: `${base_url}/api/v1/reward_list/`,
-
+  redeemReward: `${base_url}/api/v1/reward_claim/`,
 
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
