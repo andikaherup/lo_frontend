@@ -32,6 +32,19 @@ export type RegisterParams = {
   gender: string
 }
 
+export type RewardData = {
+  created_at: string
+  description: string
+  id: number
+  image: string
+  is_active: boolean
+  level_required_to_unlock: number
+  name: string
+  points: number
+  shown_on_public_page: boolean
+  stock: number
+  updated_at: string
+}
 
 export type UserDataType = {
   age: number | null;

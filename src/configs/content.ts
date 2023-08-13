@@ -6,6 +6,12 @@ export default {
   submitEmail: `${base_url}/api/v1/referral/`,
   getLeaderBoardData: `${base_url}/api/v1/leaderboard/`,
   getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
+
+  //reward
+  getReward: `${base_url}/api/v1/public_reward/`,
+  getAuthReward: `${base_url}/api/v1/reward_list/`,
+
+
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }
