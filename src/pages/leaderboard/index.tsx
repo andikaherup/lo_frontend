@@ -277,31 +277,50 @@ const LeaderBoard = () => {
     initData()
   }, [])
 
+  const getCharacter = (level: number, gender: string, name: string): string => {
+    let char = ''
+    if (level == 0) {
+      if (gender == 'male') {
+        return characters.find(character => character.name === name)?.lvl0_image_M || ''
+      } else {
+        return characters.find(character => character.name === name)?.lvl0_image_F || ''
+      }
+    } else {
+      if (gender == 'male') {
+        return characters.find(character => character.name === name)?.lvl1_image_M || ''
+      } else {
+        return characters.find(character => character.name === name)?.lvl1_image_F || ''
+      }
+    }
+  }
+
   return (
-    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
+    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
       <div className='mb-10'>
         <div>
-          <h1 className='mb-5 text-6xl font-bold text-center text-black-300'>LEADERBOARD</h1>
-          <span className='text-3xl font-bold text-center text-black-300'>
+          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>LEADERBOARD</h1>
+          <p className='font-bold text-center text-md lg:text-3xl text-white-300'>
             Sign up and invite friends to join the Quest
-          </span>
+          </p>
         </div>
         <div className='flex justify-center'>
-          <span className='text-xl font-bold text-center text-black-300'>
+          <span className='text-xs font-bold text-center lg:text-xl text-white-300'>
             Share Level 0 and earn{' '}
-            <Link href={auth.user ? 'rewards' : '/login'} aria-current='page' className='underline'>
+            <Link href={auth.user ? '/rewards' : '/login'} aria-current='page' className='underline'>
               Rewards
             </Link>{' '}
             for your referrals
           </span>
         </div>
-        <div className='flex justify-center mt-10'>
-          <button className='px-10 py-2 text-lg font-extrabold transition hover:-translate-y-1 hover:scale-110 text-white-300 rounded-3xl ring-2 ring-white-300'>
-            INVITE
-          </button>
+        <div className='flex justify-center mt-5 lg:mt-10'>
+          <Link href={auth.user ? '/dashboard' : '/login'} aria-current='page' className='underline'>
+            <button className='px-5 py-2 text-sm font-extrabold transition lg:px-10 lg:text-lg hover:-translate-y-1 hover:scale-110 text-white-300 rounded-3xl ring-2 ring-white-300'>
+              INVITE
+            </button>
+          </Link>
         </div>
       </div>
-      <div className='w-1/2'>
+      <div className='px-2 lg:w-1/2'>
         {/* <Card className='animate-bounce'>
           <Box className='bg-white-300'>
             <Box
@@ -399,9 +418,78 @@ const LeaderBoard = () => {
             </Box>
           </div>
         )} */}
-        <div className='w-full'>
-          <div className='w-full p-3 border rounded-2xl bg-white-300 '>
-            <table className='w-full '>
+
+        <div className='w-full pt-10 lg:pt-20'>
+          {userList && userList.length > 0 && (
+            <div className='flex justify-between'>
+              <div>
+                <div className='flex justify-center'>
+                  <img
+                    alt='avatar'
+                    src={`/assets/characters/${getCharacter(
+                      userList[1].character_level,
+                      userList[1].gender,
+                      userList[1].character
+                    )}`}
+                  />
+                </div>
+                <div className='flex flex-col items-center'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                    <span> {userList[1].name}</span>
+                    <br />
+                    <span>Level {userList[1].character_level}</span>
+                    <br />
+                    <span>Points : {userList[1].user_points}</span>
+                  </p>
+                </div>
+              </div>
+              <div className='-translate-y-1/4'>
+                <div className='flex flex-col justify-center'>
+                  <img
+                    alt='avatar'
+                    src={`/assets/characters/${getCharacter(
+                      userList[0].character_level,
+                      userList[0].gender,
+                      userList[1].character
+                    )}`}
+                  />
+                </div>
+                <div className='flex flex-col items-center'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                    <span> {userList[0].name}</span>
+                    <br />
+                    <span>Level {userList[0].character_level}</span>
+                    <br />
+                    <span>Points : {userList[0].user_points}</span>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div className='flex justify-center'>
+                  <img
+                    alt='avatar'
+                    src={`/assets/characters/${getCharacter(
+                      userList[2].character_level,
+                      userList[2].gender,
+                      userList[2].character
+                    )}`}
+                  />
+                </div>
+                <div className='flex flex-col items-center'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                    <span>{userList[2].name}</span>
+                    <br />
+                    <span>Level {userList[2].character_level}</span>
+                    <br />
+                    <span>Points : {userList[2].user_points}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className='w-full p-3 mt-5 border rounded-2xl bg-white-300 '>
+            <table className='w-full'>
               <thead className='text-xs font-semibold text-gray-400 uppercase '>
                 <tr>
                   <th className='p-2 whitespace-nowrap'>
@@ -419,11 +507,11 @@ const LeaderBoard = () => {
                 </tr>
               </thead>
               <tbody className='text-lg divide-gray-100'>
-                {userList?.map((data: UserData, index: number) => {
+                {userList?.slice(2).map((data: UserData, index: number) => {
                   return (
-                    <tr className={`${myRank == data.rank ? 'bg-yellow-300' : ''}`}>
+                    <tr key={index} className={`${myRank == data.rank ? 'bg-yellow-300' : ''}`}>
                       <td className='p-2 whitespace-nowrap'>
-                        <div className='text-lg text-center'>{data.rank}</div>
+                        <div className='text-sm text-center lg:text-lg'>{data.rank}</div>
                       </td>
                       <td className='p-2 whitespace-nowrap'>
                         <div className='flex items-center'>
@@ -449,15 +537,17 @@ const LeaderBoard = () => {
                               <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
                             )}
                           </div>
-                          <div className='font-bold text-gray-800 '>{data.name}</div>
+                          <div className='text-xs font-bold text-gray-800 lg:text-lg '>{data.name}</div>
                         </div>
                       </td>
 
                       <td className='p-2 whitespace-nowrap'>
-                        <div className='font-medium text-left text-green-500'>{data.character_level}</div>
+                        <div className='text-sm font-medium text-left text-green-500 lg:text-lg'>
+                          {data.character_level}
+                        </div>
                       </td>
                       <td className='p-2 whitespace-nowrap'>
-                        <div className='text-lg text-left'>{data.user_points}</div>
+                        <div className='text-sm text-left lg:text-lg'>{data.user_points}</div>
                       </td>
                     </tr>
                   )
@@ -465,7 +555,7 @@ const LeaderBoard = () => {
                 {auth.user && myRank > 20 && (
                   <tr className='bg-yellow-300'>
                     <td className='p-2 whitespace-nowrap'>
-                      <div className='text-lg text-center'>{myRank}</div>
+                      <div className='text-xs text-center lg:text-lg'>{myRank}</div>
                     </td>
                     <td className='p-2 whitespace-nowrap'>
                       <div className='flex items-center'>
@@ -493,15 +583,17 @@ const LeaderBoard = () => {
                             <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
                           )}
                         </div>
-                        <div className='font-bold text-gray-800 '>{auth.user?.name}</div>
+                        <div className='text-xs font-bold text-gray-800 lg:text-lg '>{auth.user?.name}</div>
                       </div>
                     </td>
 
                     <td className='p-2 whitespace-nowrap'>
-                      <div className='font-medium text-left text-green-500'>{auth.user?.character_level}</div>
+                      <div className='text-xs font-medium text-left text-green-500 lg:text-lg'>
+                        {auth.user?.character_level}
+                      </div>
                     </td>
                     <td className='p-2 whitespace-nowrap'>
-                      <div className='text-lg text-left'>{myData?.user_points}</div>
+                      <div className='text-xs text-left lg:text-lg'>{myData?.user_points}</div>
                     </td>
                   </tr>
                 )}

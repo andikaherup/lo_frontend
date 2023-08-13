@@ -119,7 +119,9 @@ module.exports = {
       progressGray: '#515151',
       rewardLightBlue: '#0cc0df',
       rewardLightYellow: '#ffde59',
-      rewardLightYellowItem: '#ff914d'
+      rewardLightYellowItem: '#ff914d',
+      leaderboardTopBlue: '#59CDDC',
+      leaderboardBotBlue: '#51CDDD'
     },
     extend: {
       fontFamily: {
