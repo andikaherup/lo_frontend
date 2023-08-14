@@ -89,6 +89,9 @@ const Header: React.FC = () => {
     if (router.route == '/faq') {
       setActiveLink('Faq')
     }
+    if (router.route == '/leaderboard') {
+      setActiveLink('leaderboard')
+    }
   }, [router])
 
   const navChange = (value: string) => {
@@ -188,6 +191,22 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Leaderboard'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/leaderboard')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
+                  (activeLink === 'LeaderBoard'
+                    ? ' text-blue-500 animation-active  font-semibold  '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                LeaderBoard
               </LinkScroll>
             </ul>
           </div>
@@ -372,6 +391,22 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Leaderboard'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/leaderboard')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                  (activeLink === 'Leaderboard'
+                    ? ' text-blue-500 animation-active font-semibold '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Leaderboard
               </LinkScroll>
             </div>
 
