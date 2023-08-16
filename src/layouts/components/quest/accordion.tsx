@@ -51,6 +51,10 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
     console.log('share')
     handleVideoEnd()
   }
+
+  const goToLinkClick = () => {
+    handleVideoEnd()
+  }
   const getBackground = (hero: string) => {
     switch (hero) {
       case 'Hero':
@@ -177,7 +181,10 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
         {type == 'click_link' && (
           <>
             <Link href={link} aria-current='page' target='_blank'>
-              <button className='px-5 py-3 bg-blue-500 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'>
+              <button
+                onClick={goToLinkClick}
+                className='px-5 py-3 bg-blue-500 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+              >
                 Go To Link
               </button>
             </Link>

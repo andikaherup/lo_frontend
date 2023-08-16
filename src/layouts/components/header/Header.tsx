@@ -90,7 +90,10 @@ const Header: React.FC = () => {
       setActiveLink('Faq')
     }
     if (router.route == '/leaderboard') {
-      setActiveLink('leaderboard')
+      setActiveLink('Leaderboard')
+    }
+    if (router.route == '/reward') {
+      setActiveLink('Reward')
     }
   }, [router])
 
@@ -176,7 +179,7 @@ const Header: React.FC = () => {
                 Personality Types
               </LinkScroll>
 
-              <LinkScroll
+              {/* <LinkScroll
                 activeClass='active'
                 to='Faq'
                 spy={true}
@@ -191,7 +194,7 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
-              </LinkScroll>
+              </LinkScroll> */}
               <LinkScroll
                 activeClass='active'
                 to='Leaderboard'
@@ -201,12 +204,28 @@ const Header: React.FC = () => {
                 onClick={() => navChange('/leaderboard')}
                 className={
                   'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
-                  (activeLink === 'LeaderBoard'
+                  (activeLink === 'Leaderboard'
                     ? ' text-blue-500 animation-active  font-semibold  '
                     : ' text-black-300 hover:text-blue-500 font-normal')
                 }
               >
-                LeaderBoard
+                Leaderboard
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Reward'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/reward')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
+                  (activeLink === 'Reward'
+                    ? ' text-blue-500 animation-active  font-semibold  '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Reward
               </LinkScroll>
             </ul>
           </div>
@@ -376,7 +395,7 @@ const Header: React.FC = () => {
                 Personality Types
               </LinkScroll>
 
-              <LinkScroll
+              {/* <LinkScroll
                 activeClass='active'
                 to='Faq'
                 spy={true}
@@ -391,7 +410,7 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
-              </LinkScroll>
+              </LinkScroll> */}
               <LinkScroll
                 activeClass='active'
                 to='Leaderboard'
@@ -407,6 +426,22 @@ const Header: React.FC = () => {
                 }
               >
                 Leaderboard
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Reward'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/reward')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                  (activeLink === 'Reward'
+                    ? ' text-blue-500 animation-active font-semibold '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Reward
               </LinkScroll>
             </div>
 

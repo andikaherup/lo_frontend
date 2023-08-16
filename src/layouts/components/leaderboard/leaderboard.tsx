@@ -99,7 +99,7 @@ const Leaderboard = () => {
     <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
       <div className='mb-10'>
         <div>
-          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>LEADERBOARD</h1>
+          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>TOP 100 LEADERBOARD</h1>
           <p className='font-bold text-center text-md lg:text-3xl text-white-300'>
             Sign up and invite friends to join the Quest
           </p>
@@ -113,7 +113,7 @@ const Leaderboard = () => {
             for your referrals
           </span>
         </div>
-        <div className='flex justify-center mt-5 lg:mt-10'>
+        <div className='flex justify-center mt-5 lg:pb-10 lg:mt-10'>
           <Link href={auth.user ? '/dashboard?tab=friends' : '/login'} aria-current='page' className='underline'>
             <button className='px-5 py-2 text-sm font-extrabold transition lg:px-10 lg:text-lg hover:-translate-y-1 hover:scale-110 text-white-300 rounded-3xl ring-2 ring-white-300'>
               INVITE
@@ -232,8 +232,9 @@ const Leaderboard = () => {
               >
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 2</div>
 
-                <div className='flex justify-center'>
+                <div className='flex flex-col justify-center'>
                   <img
+                    className='z-10'
                     alt='avatar'
                     src={`/assets/characters/${getCharacter(
                       userList[1].character_level,
@@ -241,6 +242,7 @@ const Leaderboard = () => {
                       userList[1].character
                     )}`}
                   />
+                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
@@ -264,6 +266,7 @@ const Leaderboard = () => {
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 1</div>
                 <div className='flex flex-col justify-center'>
                   <img
+                    className='z-10'
                     alt='avatar'
                     src={`/assets/characters/${getCharacter(
                       userList[0].character_level,
@@ -271,6 +274,7 @@ const Leaderboard = () => {
                       userList[0].character
                     )}`}
                   />
+                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
@@ -293,8 +297,9 @@ const Leaderboard = () => {
               >
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 3</div>
 
-                <div className='flex justify-center'>
+                <div className='flex flex-col justify-center'>
                   <img
+                    className='z-10'
                     alt='avatar'
                     src={`/assets/characters/${getCharacter(
                       userList[2].character_level,
@@ -302,6 +307,7 @@ const Leaderboard = () => {
                       userList[2].character
                     )}`}
                   />
+                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>

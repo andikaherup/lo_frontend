@@ -178,13 +178,16 @@ const PersonalityTest = () => {
   return (
     <>
       <div className='w-full '>
-        <div className='flex justify-center pt-20 lg:px-20 bg-skyblue-500'>
+        <div className='flex justify-center pt-20 lg:px-20 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
           <h2 className='mt-10 text-2xl font-extrabold tracking-tight text-left lg:px-20 text-black-300 lg:text-4xl dark:text-white'>
             LO Personality Test
           </h2>
         </div>
         <div className='relative px-10 lg:px-20'>
-          <div className='absolute inset-0 w-full bg-skyblue-500' style={{ height: '50%' }}></div>
+          <div
+            className='absolute inset-0 w-full bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'
+            style={{ height: '50%' }}
+          ></div>
           <div className='absolute inset-0 bg-white-500 top-1/2' style={{ height: '50%' }}></div>
           <div className='relative flex items-center justify-center py-20'>
             {/* Content */}

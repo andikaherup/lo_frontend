@@ -77,6 +77,8 @@ export type UserDataType = {
   phone_number: string;
   point_updated_at: string;
   available_points: number;
+  coin: number;
+  used_coin: number;
 }
 
 export type AuthValuesType = {

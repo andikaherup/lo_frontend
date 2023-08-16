@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 import { useAuth } from 'src/hooks/useAuth'
@@ -35,6 +35,36 @@ const RedeemPopup = (props: RefProps) => {
       close()
     }
   }
+
+  useEffect(() => {
+    const redeem = () => {
+      setLoading(true)
+      axios
+        .post(
+          contentConfig.redeemReward,
+          { reward_id: item.id },
+          {
+            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+          }
+        )
+        .then(async response => {
+          console.log(response)
+          toast.success('Redeem Success')
+          await auth.refreshUser()
+          setLoading(false)
+          close()
+        })
+        .catch(error => {
+          setError(error.response.data.data)
+          setLoading(false)
+
+          // toast.error(error.response.data.data)
+        })
+    }
+    redeem()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const redeem = () => {
     setLoading(true)
