@@ -5,6 +5,7 @@ import contentConfig from 'src/configs/content'
 
 // ** MUI Imports
 import axios from 'axios'
+import Link from 'next/link'
 
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
@@ -25,6 +26,7 @@ const Reward = () => {
   const closeRef = () => {
     setOpenRef(false)
   }
+
   useEffect(() => {
     const initData = async () => {
       const urlParams = new URLSearchParams(window.location.search)
@@ -66,30 +68,51 @@ const Reward = () => {
   return (
     <div className='w-full h-full min-h-screen pt-10 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
       <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:px-20'>
-        <h1 className='text-3xl font-bold text-center lg:text-6xl text-black-300'>UNLOCK YOUR REWARD</h1>
-        {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
+        <h1 className='text-3xl font-medium text-center lg:text-6xl text-black-300'>UNLOCK YOUR REWARD</h1>
+
+        <Link target='_blank' className='flex items-center justify-center' href='https://t.me/+zl_I2784TugzMjll'>
+          <img src='/assets/icon/telegram.svg' alt='telegramicon' className='w-10 h-10' />
+          <span className='text-lg text-black-300'>Join Our Telegram</span>
+        </Link>
         {auth.user && (
-          <h1 className='text-xl font-bold text-center lg:text-2xl text-black-300'>My Points : {auth.user?.coin}</h1>
+          <div className='flex items-center justify-center text-black-300'>
+            <span className='pt-2 '>Owned Coins </span>
+            <img alt='img' src='/assets/icon/medal.png'></img>
+            <span className='pt-2'>{auth.user.coin}</span>
+          </div>
         )}
+
+        {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
 
         <div className='pt-10 pb-20 lg:pt-20 lg:px-20 lg:mx-20'>
           <div className='grid w-full grid-cols-2 gap-5 lg:gap-20 lg:px-20 lg:grid-cols-3'>
             {rewardData?.map((items: RewardData, index: number) => {
-              if (urlParam && items.level_required_to_unlock > parseInt(urlParam)) {
+              //return null if level is not enough
+              // if (urlParam && items.level_required_to_unlock > parseInt(urlParam)) {
+              //   return null
+              // }
+              // return null if not active, but if it's public API , just return all the data
+              if (auth.user && !items.is_active) {
                 return null
               }
 
               return (
-                <div key={index}>
-                  <div className='px-2 rounded-3xl bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem has-tooltip'>
-                    <span className='p-5 -mt-8 transition rounded shadow-lg bg-black-500 text-white-300 tooltip'>
-                      {items.description}
-                    </span>
-                    <img alt='img' src={items.image} className='p-5 transition hover:-translate-y-1 hover:scale-105' />
-                  </div>
+                <div className='h-full has-tooltip' key={index}>
+                  <span className='p-5 -mt-8 transition rounded shadow-lg bg-black-500 text-white-300 tooltip'>
+                    {items.description}
+                  </span>
+                  <Link href={!auth.user ? '/login' : '#'}>
+                    <div className='flex justify-center px-2 rounded-3xl bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
+                      <img
+                        alt='img'
+                        src={items.image}
+                        className='lg:p-5 p-3 transition lg:max-h-[250px] max-h-[150px] hover:-translate-y-1 hover:scale-105'
+                      />
+                    </div>
+                  </Link>
 
                   <div className='flex flex-col items-center justify-center mt-2 lg:mt-5'>
-                    <span className='text-2xl font-bold lg:text-3xl text-black-300'>{items.name}</span>
+                    <span className='text-2xl lg:text-3xl text-black-300'>{items.name}</span>
                     <span className='text-lg lg:text-xl text-black-300'>{items.points} POINTS</span>
                     {/* <button
                       className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110
@@ -98,25 +121,28 @@ const Reward = () => {
                     >
                       Detail
                     </button> */}
-                    <button
-                      disabled={items.points > (auth.user?.coin ?? 0) ? true : false}
-                      className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full ${
-                        items.points > (auth.user?.coin ?? 0)
-                          ? 'bg-gray-400'
-                          : 'bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110'
-                      }  lg:py-2 lg:text-2xl  ring-2 ring-white-300 text-black-300 `}
-                      onClick={() => openDialog(items)}
-                    >
-                      Redeem
-                    </button>
-                    {items.level_required_to_unlock >= 0 && (
+                    {auth.user && (
+                      <button
+                        disabled={items.points > (auth.user?.coin ?? 0) ? true : false}
+                        className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full ${
+                          items.points > (auth.user?.coin ?? 0)
+                            ? 'bg-gray-400'
+                            : 'bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110'
+                        }  lg:py-2 lg:text-2xl  ring-2 ring-white-300 text-black-300 `}
+                        onClick={() => openDialog(items)}
+                      >
+                        Redeem
+                      </button>
+                    )}
+
+                    {/* {items.level_required_to_unlock >= 0 && (
                       <button className='w-full py-1 mt-2 text-lg font-bold transition rounded-full lg:py-2 lg:text-2xl hover:-translate-y-1 hover:scale-110 ring-2 ring-white-300 text-black-300 bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
                         <div className='flex items-center justify-center'>
                           Buy
                           <img className='pb-1 ml-2' src='/assets/Icon/credit-card.png' alt='creditcard' width={30} />
                         </div>
                       </button>
-                    )}
+                    )} */}
                   </div>
                 </div>
               )

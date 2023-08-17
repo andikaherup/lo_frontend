@@ -102,7 +102,7 @@ const LoginPage = () => {
       <div className='flex w-full max-w-8xl '>
         {!hidden ? (
           <div className='flex items-center justify-center w-full'>
-            <img src='/assets/characters/image.png' alt='Characters' className=' w-[80%] max-w-[500px]' />
+            <img src='/assets/characters/image.webp' alt='Characters' className=' w-[80%] max-w-[500px]' />
           </div>
         ) : null}
         <div className='justify-start w-full'>

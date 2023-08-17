@@ -260,6 +260,12 @@ const Header: React.FC = () => {
             )}
 
             {auth.user && <ProgressQuest user={auth.user}></ProgressQuest>}
+            {auth.user && (
+              <div className='flex flex-row items-center justify-center ml-2'>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='pt-2'>{auth.user.coin}</span>
+              </div>
+            )}
 
             {auth.user && <Dropdown></Dropdown>}
           </div>

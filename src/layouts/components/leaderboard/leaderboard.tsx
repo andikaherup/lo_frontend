@@ -99,7 +99,9 @@ const Leaderboard = () => {
     <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
       <div className='mb-10'>
         <div>
-          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>TOP 100 LEADERBOARD</h1>
+          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>
+            TOP {userList?.length} LEADERBOARD
+          </h1>
           <p className='font-bold text-center text-md lg:text-3xl text-white-300'>
             Sign up and invite friends to join the Quest
           </p>
@@ -107,7 +109,7 @@ const Leaderboard = () => {
         <div className='flex justify-center'>
           <span className='text-xs font-bold text-center lg:text-xl text-white-300'>
             Share Level 0 and earn{' '}
-            <Link href={auth.user ? '/rewards' : '/login'} aria-current='page' className='underline'>
+            <Link href={auth.user ? '/reward' : '/login'} aria-current='page' className='underline'>
               Rewards
             </Link>{' '}
             for your referrals
@@ -242,6 +244,14 @@ const Leaderboard = () => {
                       userList[1].character
                     )}`}
                   />
+
+                  <img
+                    className='absolute z-20 translate-x-20 translate-y-12'
+                    src={'/assets/3.png'}
+                    alt='rank'
+                    width={150}
+                  />
+
                   <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
                 <div className='flex flex-col items-center'>
@@ -273,6 +283,12 @@ const Leaderboard = () => {
                       userList[0].gender,
                       userList[0].character
                     )}`}
+                  />
+                  <img
+                    className='absolute z-20 translate-x-20 translate-y-12'
+                    src={'/assets/2.png'}
+                    alt='rank'
+                    width={150}
                   />
                   <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
@@ -306,6 +322,12 @@ const Leaderboard = () => {
                       userList[2].gender,
                       userList[2].character
                     )}`}
+                  />
+                  <img
+                    className='absolute z-20 translate-x-20 translate-y-12'
+                    src={'/assets/4.png'}
+                    alt='rank'
+                    width={150}
                   />
                   <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
                 </div>
@@ -343,7 +365,7 @@ const Leaderboard = () => {
                 </tr>
               </thead>
               <tbody className='text-lg bg-white divide-gray-100'>
-                {userList?.slice(2).map((data: UserData, index: number) => {
+                {userList?.map((data: UserData, index: number) => {
                   return (
                     <tr key={index} className={`${myRank == data.rank ? 'bg-yellow-300' : ''}`}>
                       <td className='p-2 whitespace-nowrap'>

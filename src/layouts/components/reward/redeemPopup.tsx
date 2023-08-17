@@ -66,30 +66,30 @@ const RedeemPopup = (props: RefProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const redeem = () => {
-    setLoading(true)
-    axios
-      .post(
-        contentConfig.redeemReward,
-        { reward_id: item.id },
-        {
-          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
-        }
-      )
-      .then(async response => {
-        console.log(response)
-        toast.success('Redeem Success')
-        await auth.refreshUser()
-        setLoading(false)
-        close()
-      })
-      .catch(error => {
-        setError(error.response.data.data)
-        setLoading(false)
+  // const redeem = () => {
+  //   setLoading(true)
+  //   axios
+  //     .post(
+  //       contentConfig.redeemReward,
+  //       { reward_id: item.id },
+  //       {
+  //         headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+  //       }
+  //     )
+  //     .then(async response => {
+  //       console.log(response)
+  //       toast.success('Redeem Success')
+  //       await auth.refreshUser()
+  //       setLoading(false)
+  //       close()
+  //     })
+  //     .catch(error => {
+  //       setError(error.response.data.data)
+  //       setLoading(false)
 
-        // toast.error(error.response.data.data)
-      })
-  }
+  //       // toast.error(error.response.data.data)
+  //     })
+  // }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -119,7 +119,7 @@ const RedeemPopup = (props: RefProps) => {
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel className='w-full max-w-xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow rounded-2xl'>
-                {auth.user && !error && !loading && (
+                {/* {auth.user && !error && !loading && (
                   <>
                     <Dialog.Title
                       as='h1'
@@ -165,7 +165,7 @@ const RedeemPopup = (props: RefProps) => {
                       </div>
                     </div>
                   </>
-                )}
+                )} */}
 
                 {!auth.user && (
                   <>
@@ -238,9 +238,7 @@ const RedeemPopup = (props: RefProps) => {
                               fill='currentFill'
                             />
                           </svg>
-                          <span className='text-lg text-black-300'>
-                            Your reward redemption is on process your point will be deducted accordingly..
-                          </span>
+                          <span className='text-lg text-black-300'>Your reward redemption is processing</span>
                         </div>
                       </div>
                     </>
