@@ -27,10 +27,27 @@ const Dashboard = () => {
 
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
-      auth.setLoading(true)
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.has('tab')) {
+        console.log(urlParams.get('tab'))
+        switch (urlParams.get('tab')) {
+          case 'friends':
+            setSelectedTab('Friends')
 
+            return
+          case 'reward':
+            setSelectedTab('Rewards')
+
+            return
+          case 'quest':
+            setSelectedTab('Quest')
+
+            return
+        }
+      }
+      auth.setLoading(true)
       if (!auth.user) {
-        router.replace('/home')
+        router.replace('/')
         auth.setLoading(false)
       } else {
         auth.refreshUser()
@@ -38,8 +55,9 @@ const Dashboard = () => {
       }
     }
     initAuth()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) // Include auth and router in the dependency array
+  }, [])
 
   const [selectedTab, setSelectedTab] = useState('Overview')
 

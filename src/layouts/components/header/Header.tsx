@@ -74,7 +74,7 @@ const Header: React.FC = () => {
     if (router.route == '/personality-types') {
       setActiveLink('Personality')
     }
-    if (router.route == '/home') {
+    if (router.route == '/') {
       setActiveLink(null)
     }
     if (router.route == '/personality-test') {
@@ -88,6 +88,12 @@ const Header: React.FC = () => {
     }
     if (router.route == '/faq') {
       setActiveLink('Faq')
+    }
+    if (router.route == '/leaderboard') {
+      setActiveLink('Leaderboard')
+    }
+    if (router.route == '/reward') {
+      setActiveLink('Reward')
     }
   }, [router])
 
@@ -108,10 +114,10 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
+        className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
-          <Link href='/home' className='flex items-center lg:justify-center '>
+          <Link href='/' className='flex items-center lg:justify-center '>
             <img src='/images/level0tr.png' className='h-8 mr-3' alt='Flowbite Logo' />
           </Link>
 
@@ -173,7 +179,7 @@ const Header: React.FC = () => {
                 Personality Types
               </LinkScroll>
 
-              <LinkScroll
+              {/* <LinkScroll
                 activeClass='active'
                 to='Faq'
                 spy={true}
@@ -188,6 +194,38 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
+              </LinkScroll> */}
+              <LinkScroll
+                activeClass='active'
+                to='Leaderboard'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/leaderboard')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
+                  (activeLink === 'Leaderboard'
+                    ? ' text-blue-500 animation-active  font-semibold  '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Leaderboard
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Reward'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/reward')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
+                  (activeLink === 'Reward'
+                    ? ' text-blue-500 animation-active  font-semibold  '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Rewards
               </LinkScroll>
             </ul>
           </div>
@@ -222,6 +260,12 @@ const Header: React.FC = () => {
             )}
 
             {auth.user && <ProgressQuest user={auth.user}></ProgressQuest>}
+            {/* {auth.user && (
+              <div className='flex flex-row items-center justify-center ml-2'>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='pt-2'>{auth.user.coin}</span>
+              </div>
+            )} */}
 
             {auth.user && <Dropdown></Dropdown>}
           </div>
@@ -357,7 +401,7 @@ const Header: React.FC = () => {
                 Personality Types
               </LinkScroll>
 
-              <LinkScroll
+              {/* <LinkScroll
                 activeClass='active'
                 to='Faq'
                 spy={true}
@@ -372,6 +416,38 @@ const Header: React.FC = () => {
                 }
               >
                 FAQ
+              </LinkScroll> */}
+              <LinkScroll
+                activeClass='active'
+                to='Leaderboard'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/leaderboard')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                  (activeLink === 'Leaderboard'
+                    ? ' text-blue-500 animation-active font-semibold '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Leaderboard
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Reward'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/reward')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                  (activeLink === 'Reward'
+                    ? ' text-blue-500 animation-active font-semibold '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Rewards
               </LinkScroll>
             </div>
 

@@ -98,11 +98,11 @@ const LoginPage = () => {
   })
 
   return (
-    <div className='justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-skyblue-500 flex-'>
+    <div className='justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue flex-'>
       <div className='flex w-full max-w-8xl '>
         {!hidden ? (
           <div className='flex items-center justify-center w-full'>
-            <img src='/assets/characters/image.png' alt='Characters' className=' w-[80%] max-w-[500px]' />
+            <img src='/assets/characters/image.webp' alt='Characters' className=' w-[80%] max-w-[500px]' />
           </div>
         ) : null}
         <div className='justify-start w-full'>
@@ -239,9 +239,9 @@ const LoginPage = () => {
                             </div>
 
                             <div className='text-sm'>
-                              <a href='#' className='font-medium text-blue-600 hover:text-blue-500'>
+                              <Link href='/forgot-password' className='font-medium text-blue-600 hover:text-blue-500'>
                                 Forgot your password?
-                              </a>
+                              </Link>
                             </div>
                           </div>
                           <div className='flex justify-center py-3 '>

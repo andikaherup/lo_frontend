@@ -4,6 +4,14 @@ export default {
   getResultWithoutLogin: `${base_url}/api/v1/test_calculate_response/`,
   getResultWithLogin: `${base_url}/api/v1/test_response/`,
   submitEmail: `${base_url}/api/v1/referral/`,
+  getLeaderBoardData: `${base_url}/api/v1/leaderboard/`,
+  getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
+
+  //reward
+  getReward: `${base_url}/api/v1/public_reward/`,
+  getAuthReward: `${base_url}/api/v1/reward_list/`,
+  redeemReward: `${base_url}/api/v1/reward_claim/`,
+
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }

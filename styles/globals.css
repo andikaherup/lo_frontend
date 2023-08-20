@@ -184,6 +184,19 @@ li.check:before {
   bottom: 0;
 }
 
+.tooltip {
+  @apply absolute invisible;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply z-50 visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .sandbox {
   width: 100%;
 }

@@ -1,7 +1,8 @@
 // ** React Imports
 import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useAuth } from 'src/hooks/useAuth'
+
+// import { useAuth } from 'src/hooks/useAuth'
 
 // ** Next Imports
 import Head from 'next/head'
@@ -107,13 +108,8 @@ const Guard = ({ children }: GuardProps) => {
 
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
-  const auth = useAuth()
   const router = useRouter()
-  useEffect(() => {
-    if (router.route === '/') {
-      router.replace('/home')
-    }
-  }, [auth.user, router])
+
   useEffect(() => {
     import('react-facebook-pixel')
       .then(x => x.default)
@@ -148,6 +144,11 @@ const App = (props: ExtendedAppProps) => {
         <meta name='keywords' content='Personality Test' />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
         <meta name='facebook-domain-verification' content='z1k751wen6q754z5qasx66i3cjed0j' />
+        <script
+          type='text/javascript'
+          src='https://d2ieqaiwehnqqp.cloudfront.net/t0cda0b479c1a0a9cd46a87563eed6864.js'
+          async
+        ></script>
       </Head>
 
       <AuthProvider>
