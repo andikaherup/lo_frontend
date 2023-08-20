@@ -96,7 +96,7 @@ const Leaderboard = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
+    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 lg:mt-10 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
       <div className='mb-10'>
         <div>
           <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>
@@ -222,23 +222,17 @@ const Leaderboard = () => {
           </div>
         )} */}
 
-        <div className='w-full pt-10 lg:pt-20'>
+        <div className='w-full '>
           {userList && userList.length > 0 && (
             <div className='flex justify-between'>
-              <div
-                className={`${
-                  myRank == 2
-                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
-                    : ''
-                }`}
-              >
+              <div>
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 2</div>
 
                 <div className='flex flex-col justify-center'>
                   <img
-                    className='z-10'
+                    className='z-10 scale-90'
                     alt='avatar'
-                    src={`/assets/characters/${getCharacter(
+                    src={`/assets/characters/pod${getCharacter(
                       userList[1].character_level,
                       userList[1].gender,
                       userList[1].character
@@ -246,13 +240,12 @@ const Leaderboard = () => {
                   />
 
                   <img
-                    className='absolute z-20 translate-x-20 translate-y-12'
+                    className='absolute z-20 lg:translate-x-20 md:translate-x-20 md:translate-y-20 translate-x-10 translate-y-6 lg:translate-y-14 md:w-[120px] lg:w-[150px] w-[70px]'
                     src={'/assets/3.png'}
                     alt='rank'
-                    width={150}
                   />
 
-                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
+                  {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
@@ -266,33 +259,27 @@ const Leaderboard = () => {
                   </p>
                 </div>
               </div>
-              <div
-                className={`-translate-y-1/4 ${
-                  myRank == 1
-                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
-                    : ''
-                }`}
-              >
+              <div>
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 1</div>
                 <div className='flex flex-col justify-center'>
                   <img
-                    className='z-10'
+                    className='z-10 scale-110'
                     alt='avatar'
-                    src={`/assets/characters/${getCharacter(
+                    src={`/assets/characters/pod${getCharacter(
                       userList[0].character_level,
                       userList[0].gender,
                       userList[0].character
                     )}`}
                   />
                   <img
-                    className='absolute z-20 translate-x-20 translate-y-12'
+                    className='absolute z-20 lg:translate-x-20 md:translate-x-20 md:translate-y-20 translate-x-10 translate-y-6 lg:translate-y-14 md:w-[120px] lg:w-[150px] w-[70px]'
                     src={'/assets/2.png'}
                     alt='rank'
                     width={150}
                   />
-                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
+                  {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
-                <div className='flex flex-col items-center'>
+                <div className='flex flex-col items-center pt-5'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
                     <span> {userList[0].name}</span>
                     <br />
@@ -304,32 +291,26 @@ const Leaderboard = () => {
                   </p>
                 </div>
               </div>
-              <div
-                className={`${
-                  myRank == 3
-                    ? 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] p-1 from-white-300 via-yellow-500 to-leaderboardTopBlue rounded-1/2'
-                    : ''
-                }`}
-              >
+              <div>
                 <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 3</div>
 
                 <div className='flex flex-col justify-center'>
                   <img
-                    className='z-10'
+                    className='z-10 scale-90'
                     alt='avatar'
-                    src={`/assets/characters/${getCharacter(
+                    src={`/assets/characters/pod${getCharacter(
                       userList[2].character_level,
                       userList[2].gender,
                       userList[2].character
                     )}`}
                   />
                   <img
-                    className='absolute z-20 translate-x-20 translate-y-12'
+                    className='absolute z-20 lg:translate-x-20 md:translate-x-20 md:translate-y-20 translate-x-10 translate-y-6 lg:translate-y-14 md:w-[120px] lg:w-[150px] w-[70px]'
                     src={'/assets/4.png'}
                     alt='rank'
                     width={150}
                   />
-                  <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' />
+                  {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
@@ -351,16 +332,16 @@ const Leaderboard = () => {
               <thead className='text-xs font-semibold uppercase lg:text-lg text-white-300 '>
                 <tr>
                   <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-left'>Rank</div>
+                    <div className='font-semibold text-center'>Rank</div>
                   </th>
                   <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
                     <div className='ml-10 font-semibold text-left'>Name</div>
                   </th>
                   <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-left'>Level</div>
+                    <div className='font-semibold text-center'>Level</div>
                   </th>
                   <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-left'>Points</div>
+                    <div className='font-semibold text-center'>Points</div>
                   </th>
                 </tr>
               </thead>
@@ -400,12 +381,12 @@ const Leaderboard = () => {
                       </td>
 
                       <td className='p-2 whitespace-nowrap'>
-                        <div className='text-sm font-medium text-left text-green-500 lg:text-lg'>
+                        <div className='text-sm font-medium text-center text-green-500 lg:text-lg'>
                           <Link href={`/reward?level=${data.character_level}`}>{data.character_level}</Link>
                         </div>
                       </td>
                       <td className='p-2 whitespace-nowrap'>
-                        <div className='text-sm text-left lg:text-lg'>{data.user_points}</div>
+                        <div className='text-sm text-center lg:text-lg'>{data.user_points}</div>
                       </td>
                     </tr>
                   )

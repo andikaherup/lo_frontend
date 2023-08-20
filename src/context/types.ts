@@ -41,6 +41,7 @@ export type RewardData = {
   level_required_to_unlock: number
   name: string
   points: number
+  coin_price: number
   shown_on_public_page: boolean
   stock: number
   updated_at: string

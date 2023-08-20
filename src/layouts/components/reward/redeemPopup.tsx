@@ -21,17 +21,25 @@ interface RefProps {
   item: RewardData
 }
 
+interface Error {
+  data: string
+  code: string
+}
+
 const RedeemPopup = (props: RefProps) => {
   const { item } = props
   const auth = useAuth()
 
   const { open, close } = props
-  const [error, setError] = useState<string>()
+  const [error, setError] = useState<Error>({
+    data: '',
+    code: ''
+  })
   const [loading, setLoading] = useState<boolean>(false)
 
   const closeModal = () => {
     if (!loading) {
-      setError(undefined)
+      setError({ data: '', code: '' })
       close()
     }
   }
@@ -55,7 +63,7 @@ const RedeemPopup = (props: RefProps) => {
           close()
         })
         .catch(error => {
-          setError(error.response.data.data)
+          setError({ data: error.response.data.data, code: error.response.data.code })
           setLoading(false)
 
           // toast.error(error.response.data.data)
@@ -190,8 +198,8 @@ const RedeemPopup = (props: RefProps) => {
                     </div>
                   </>
                 )}
-                {error && (
-                  <>
+                {error.data != '' && (
+                  <div className='pb-10'>
                     <Dialog.Title
                       as='h1'
                       className='pt-5 text-xl font-bold leading-6 text-center text-red-900 lg:text-3xl'
@@ -199,16 +207,18 @@ const RedeemPopup = (props: RefProps) => {
                       Redeem Failed
                     </Dialog.Title>
                     <div className='flex justify-center pt-10'>
-                      <span className='text-lg text-black-300'>{error}</span>
+                      <span className='text-lg text-black-300'>{error.data}</span>
                     </div>
-                    <div className='px-10 py-10'>
-                      <Link href={'/user-setting'} aria-current='page' className='w-full underline'>
-                        <button className='w-full py-1 mt-2 text-lg font-bold transition rounded-full lg:py-2 lg:text-2xl hover:-translate-y-1 hover:scale-110 ring-2 ring-white-300 text-black-300 bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
-                          <div className='flex items-center justify-center'>Go to Profile</div>
-                        </button>
-                      </Link>
-                    </div>
-                  </>
+                    {error.data == 'INCOMPLETE_PROFILE' && (
+                      <div className='px-10 pt-10'>
+                        <Link href={'/user-setting'} aria-current='page' className='w-full underline'>
+                          <button className='w-full py-1 mt-2 text-lg font-bold transition rounded-full lg:py-2 lg:text-2xl hover:-translate-y-1 hover:scale-110 ring-2 ring-white-300 text-black-300 bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
+                            <div className='flex items-center justify-center'>Go to Profile</div>
+                          </button>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 )}
 
                 {loading && (

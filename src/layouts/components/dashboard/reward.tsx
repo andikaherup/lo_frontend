@@ -66,35 +66,41 @@ const Reward = () => {
   }, [])
 
   return (
-    <div className='w-full h-full min-h-screen pt-10 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
+    <div className='w-full h-full min-h-screen pt-20 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
       <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:px-20'>
-        <h1 className='text-3xl font-medium text-center lg:text-6xl text-black-300'>UNLOCK YOUR REWARD</h1>
-
-        <Link target='_blank' className='flex items-center justify-center' href='https://t.me/+zl_I2784TugzMjll'>
-          <img src='/assets/icon/telegram.svg' alt='telegramicon' className='w-10 h-10' />
-          <span className='text-lg text-black-300'>Join Our Telegram</span>
-        </Link>
         {auth.user && (
-          <div className='flex items-center justify-center text-black-300'>
-            <span className='pt-2 '>Owned Coins </span>
-            <img alt='img' src='/assets/icon/medal.png'></img>
-            <span className='pt-2'>{auth.user.coin}</span>
-          </div>
+          <h1 className='text-3xl font-medium text-center lg:text-6xl text-black-300'>UNLOCK YOUR REWARDS</h1>
         )}
+        {!auth.user && (
+          <h1 className='text-2xl font-medium text-center lg:text-6xl text-black-300'>JOIN TO GET THE REWARDS</h1>
+        )}
+        <p className='text-sm text-center lg:text-lg text-black-300'>
+          Stay informed with the most recent updates on rewards and quests by joining our
+          <Link target='_blank' className='text-skyblue-300' href='https://t.me/+zl_I2784TugzMjll'>
+            {/* <img src='/assets/icon/telegram.svg' alt='telegramicon' className='w-5 h-5' /> */} Level 0 Telegram
+          </Link>{' '}
+          channel now!
+        </p>
 
         {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
 
-        <div className='pt-10 pb-20 lg:pt-20 lg:px-20 lg:mx-20'>
-          <div className='grid w-full grid-cols-2 gap-5 lg:gap-20 lg:px-20 lg:grid-cols-3'>
+        <div className='pb-20 lg:pt-10lg:px-20 lg:mx-20'>
+          {auth.user && (
+            <div className='flex items-center justify-center text-black-300'>
+              <img alt='img' className='mr-2' src='/assets/icon/medal.png'></img>
+              <span className='pt-2'>{auth.user.coin} Coins</span>
+            </div>
+          )}
+          <div className='grid w-full grid-cols-2 gap-5 pt-10 lg:pt-20 lg:gap-20 lg:px-20 lg:grid-cols-3'>
             {rewardData?.map((items: RewardData, index: number) => {
               //return null if level is not enough
               // if (urlParam && items.level_required_to_unlock > parseInt(urlParam)) {
               //   return null
               // }
               // return null if not active, but if it's public API , just return all the data
-              if (auth.user && !items.is_active) {
-                return null
-              }
+              // if (auth.user && !items.is_active) {
+              //   return null
+              // }
 
               return (
                 <div className='h-full has-tooltip' key={index}>
@@ -113,7 +119,7 @@ const Reward = () => {
 
                   <div className='flex flex-col items-center justify-center mt-2 lg:mt-5'>
                     <span className='text-2xl lg:text-3xl text-black-300'>{items.name}</span>
-                    <span className='text-lg lg:text-xl text-black-300'>{items.points} POINTS</span>
+                    <span className='text-lg lg:text-xl text-black-300'>{items.coin_price} Coins</span>
                     {/* <button
                       className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110
                       lg:py-2 lg:text-2xl  ring-2 ring-white-300 text-black-300 `}
@@ -123,9 +129,9 @@ const Reward = () => {
                     </button> */}
                     {auth.user && (
                       <button
-                        disabled={items.points > (auth.user?.coin ?? 0) ? true : false}
+                        disabled={!items.is_active ? true : false}
                         className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full ${
-                          items.points > (auth.user?.coin ?? 0)
+                          !items.is_active
                             ? 'bg-gray-400'
                             : 'bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110'
                         }  lg:py-2 lg:text-2xl  ring-2 ring-white-300 text-black-300 `}
@@ -149,7 +155,7 @@ const Reward = () => {
             })}
           </div>
         </div>
-        {selectedItem && <RedeemPopup open={openRef} close={closeRef} item={selectedItem}></RedeemPopup>}
+        {selectedItem && openRef && <RedeemPopup open={openRef} close={closeRef} item={selectedItem}></RedeemPopup>}
       </div>
     </div>
   )

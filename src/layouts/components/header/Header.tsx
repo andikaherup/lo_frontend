@@ -114,7 +114,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={'fixed top-0 w-full  z-10 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
+        className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
           <Link href='/' className='flex items-center lg:justify-center '>
@@ -225,7 +225,7 @@ const Header: React.FC = () => {
                     : ' text-black-300 hover:text-blue-500 font-normal')
                 }
               >
-                Reward
+                Rewards
               </LinkScroll>
             </ul>
           </div>
@@ -260,12 +260,12 @@ const Header: React.FC = () => {
             )}
 
             {auth.user && <ProgressQuest user={auth.user}></ProgressQuest>}
-            {auth.user && (
+            {/* {auth.user && (
               <div className='flex flex-row items-center justify-center ml-2'>
                 <img alt='img' src='/assets/icon/medal.png'></img>
                 <span className='pt-2'>{auth.user.coin}</span>
               </div>
-            )}
+            )} */}
 
             {auth.user && <Dropdown></Dropdown>}
           </div>
@@ -447,7 +447,7 @@ const Header: React.FC = () => {
                     : ' text-black-300 hover:text-blue-500 font-normal')
                 }
               >
-                Reward
+                Rewards
               </LinkScroll>
             </div>
 
