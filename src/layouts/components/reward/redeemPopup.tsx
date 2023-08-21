@@ -209,7 +209,7 @@ const RedeemPopup = (props: RefProps) => {
                     <div className='flex justify-center pt-10'>
                       <span className='text-lg text-black-300'>{error.data}</span>
                     </div>
-                    {error.data == 'INCOMPLETE_PROFILE' && (
+                    {error.code == 'INCOMPLETE_PROFILE' && (
                       <div className='px-10 pt-10'>
                         <Link href={'/user-setting'} aria-current='page' className='w-full underline'>
                           <button className='w-full py-1 mt-2 text-lg font-bold transition rounded-full lg:py-2 lg:text-2xl hover:-translate-y-1 hover:scale-110 ring-2 ring-white-300 text-black-300 bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
