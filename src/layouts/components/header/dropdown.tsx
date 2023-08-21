@@ -157,6 +157,14 @@ const Dropdown = () => {
               </Box>
             </MenuItem>
           </Link>
+          <Link href='/user-setting'>
+            <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+              <Box sx={styles}>
+                <Icon icon='mdi:account-outline' />
+                Profile
+              </Box>
+            </MenuItem>
+          </Link>
 
           <Divider />
           <MenuItem

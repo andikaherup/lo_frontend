@@ -450,6 +450,28 @@ const Header: React.FC = () => {
                 Rewards
               </LinkScroll>
             </div>
+            <hr className={`h-[0.2px] w-full  border-t-0 bg-gray-400`} />
+            {auth.user && (
+              <div className='pt-2'>
+                <h1 className='pt-2 pl-6 text-lg '>User Menu </h1>
+                <LinkScroll
+                  activeClass='active'
+                  to='profile'
+                  spy={true}
+                  smooth={true}
+                  duration={1000}
+                  onClick={() => navChange('/user-setting')}
+                  className={
+                    'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                    (activeLink === 'profile'
+                      ? ' text-blue-500 animation-active font-semibold '
+                      : ' text-black-300 hover:text-blue-500 font-normal')
+                  }
+                >
+                  Profile
+                </LinkScroll>
+              </div>
+            )}
 
             <div className='absolute bottom-0 w-full '>
               {/* <hr className={`h-[0.2px] w-full  border-t-0 bg-gray-400`} /> */}
