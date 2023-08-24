@@ -184,6 +184,10 @@ li.check:before {
   bottom: 0;
 }
 
+.switch {
+  @apply absolute w-48 h-16 text-center transition-all duration-200 ease-in-out transform -translate-x-1/2 -translate-y-1/2 bg-green-500 rounded-full top-1/2 left-1/2;
+}
+
 .tooltip {
   @apply absolute invisible;
   opacity: 0;

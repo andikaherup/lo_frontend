@@ -30,6 +30,7 @@ interface QuestDetails {
   sorting_number: number
   link: string
   tips: string
+  code: string
   action_type: string
 }
 
@@ -154,6 +155,7 @@ const SubQuest = (props: subQuestProps) => {
                   status={detail.is_completed}
                   video_url={detail.file}
                   image={detail.quest_image}
+                  code={detail.code}
                   id={detail.id}
                   link={detail.link}
                   onFinishVideo={initAuth}

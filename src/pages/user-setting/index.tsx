@@ -39,7 +39,6 @@ import toast from 'react-hot-toast'
 interface FormData {
   email: string
   name: string
-
   age: number
   gender: string
   bank_account_number: string
@@ -50,7 +49,6 @@ interface FormData {
 const accountSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
-
   age: yup.number(),
   gender: yup.string(),
   bank_account_number: yup.string().required(),

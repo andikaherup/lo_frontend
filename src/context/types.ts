@@ -65,6 +65,7 @@ export type UserDataType = {
   next_character_level: number;
   user_points: number;
   referral_points: number;
+  progress_percentage: number;
   friend_sign_ups: number;
   is_new_user: boolean;
   current_level_points: number;

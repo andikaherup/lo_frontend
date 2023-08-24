@@ -14,13 +14,21 @@ import { useAuth } from 'src/hooks/useAuth'
 
 import toast from 'react-hot-toast'
 
-const NewStepper = () => {
+interface QuestProps {
+  questType: string
+}
+
+const NewStepper = (props: QuestProps) => {
+  const { questType } = props
+  console.log('heree', questType)
+
   const auth = useAuth()
 
   useEffect(() => {
     const initAuth = async () => {
+      console.log('questtype', questType)
       await axios
-        .get(questConfig.getQuest, {
+        .get(questType == 'daily' ? questConfig.getQuestDaily : questConfig.getQuest, {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(questConfig.storageTokenKeyName)! }
         })
         .then(async res => {
@@ -34,7 +42,7 @@ const NewStepper = () => {
     }
 
     initAuth()
-  }, [])
+  }, [questType])
 
   // const [activeStep, setActiveStep] = useState(0)
   // const [isLastStep, setIsLastStep] = useState(false)

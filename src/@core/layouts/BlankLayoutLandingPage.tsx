@@ -13,6 +13,7 @@ import Footer from 'src/layouts/components/footer/Footer'
 import { useAuth } from 'src/hooks/useAuth'
 import Spinner from '../components/spinner'
 import PopupRef from 'src/layouts/components/header/referralPopup'
+import PopupLevelup from 'src/layouts/components/header/levelupPopup'
 
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -39,6 +40,7 @@ const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
   const auth = useAuth()
   const [openRef, setOpenRef] = useState<boolean>(false)
+  const [openLevelup, setLeveup] = useState<boolean>(false)
 
   useEffect(() => {
     if (auth.user?.is_new_user) {
@@ -47,6 +49,9 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
   }, [auth])
   const closeRef = () => {
     setOpenRef(false)
+  }
+  const closeLevelup = () => {
+    setLeveup(false)
   }
 
   if (auth.loading) {
@@ -57,6 +62,7 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
     <BlankLayoutWrapper className='layout-wrapper'>
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
         <PopupRef open={openRef} close={closeRef}></PopupRef>
+        <PopupLevelup open={openLevelup} close={closeLevelup}></PopupLevelup>
         <Header />
         <div className='h-full min-h-screen '>{children}</div>
         <Footer />
