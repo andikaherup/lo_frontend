@@ -11,14 +11,14 @@ interface Props {
 const ProgressQuest = (props: Props) => {
   const { user } = props
 
-  const [progress, setProgress] = useState<number>(0)
+  // const [progress, setProgress] = useState<number>(0)
 
-  useEffect(() => {
-    const userProgress = (user.user_points / (user.user_points + user.next_level_required_points)) * 100
-    setProgress(userProgress)
-  }, [user.user_points, user.next_level_required_points])
+  // useEffect(() => {
+  //   const userProgress = (user.user_points / (user.user_points + user.next_level_required_points)) * 100
+  //   setProgress(userProgress)
+  // }, [user.user_points, user.next_level_required_points])
   const progressStyles = {
-    width: `${progress}%`
+    width: `${user.progress_percentage}%`
   }
   const progressString = ' absolute top-0 bottom-0 left-1 rounded-full ' + getBackground(user.character)
 

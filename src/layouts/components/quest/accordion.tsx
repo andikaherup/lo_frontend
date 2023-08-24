@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player/lazy'
 
 // ** Axios
 import axios from 'axios'
+import FormControl from '@mui/material/FormControl'
 
 // ** MUI Imports
 import Link from 'next/link'
@@ -15,6 +16,15 @@ import { FacebookShareButton, FacebookIcon } from 'next-share'
 // ** Context
 import { useAuth } from 'src/hooks/useAuth'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { yupResolver } = require('@hookform/resolvers/yup')
+
+import * as yup from 'yup'
+
+import { useForm, Controller } from 'react-hook-form'
+import StatisfactionRadio from '../misc/statisfactionRadio'
+import { userAgent } from 'next/server'
+
 interface Props {
   header: string
   text: string
@@ -24,14 +34,204 @@ interface Props {
   character: string
   image: string
   link: string
+  code: string
   id: number
   onFinishVideo: () => void
 }
 
-const AccordionItem = ({ header, text, status, video_url, character, type, image, link, id, onFinishVideo }: Props) => {
+interface occStatisfaction {
+  occupation: string
+  job_satisfaction_level: number
+}
+interface strengthShare {
+  strength_1: string
+  strength_2: string
+  strength_3: string
+}
+
+interface areaOfGrowthShare {
+  area_of_growth_1: string
+  area_of_growth_2: string
+  area_of_growth_3: string
+}
+interface Role {
+  role: string
+  strength: string[]
+  growth: string[]
+}
+
+const occupationSchema = yup.object().shape({
+  occupation: yup.string().required(),
+  job_satisfaction_level: yup.number().required()
+})
+
+const strengthSchema = yup.object().shape({
+  strength_1: yup.string().required(),
+  strength_2: yup.string().required(),
+  strength_3: yup.string().required()
+})
+
+const growthSchema = yup.object().shape({
+  area_of_growth_1: yup.string().required(),
+  area_of_growth_2: yup.string().required(),
+  area_of_growth_3: yup.string().required()
+})
+
+const roles: Role[] = [
+  {
+    role: 'Hero',
+    strength: ['Courageous leadership', 'Resilience', 'Empowering others'],
+    growth: ['Delegating tasks', 'Self-care', 'Embracing vulnerability']
+  },
+  {
+    role: 'Magician',
+    strength: ['Creative brilliance', 'Resourceful problem-solving', 'Enchanting influence'],
+    growth: ['Grounding ideas', 'Focus and execution', 'Embracing setbacks']
+  },
+  {
+    role: 'Rebel',
+    strength: ['Independent thinking', 'Collaboration', 'Embracing change'],
+    growth: ['Fearless expression', 'Patience and diplomacy', 'Selective rebellion']
+  },
+  {
+    role: 'Creator',
+    strength: ['Imagination and Vision', 'Artistic Expression', 'Innovation and Adaptability'],
+    growth: ['Focus and Discipline', 'Dealing with Criticism', 'Balancing Exploration and Completion']
+  },
+  {
+    role: 'Synergist',
+    strength: ['Collaborative leadership', 'Diplomacy and conflict resolution', 'Empathetic connection'],
+    growth: ['Balancing individual needs', 'Setting boundaries', 'Embracing constructive conflict']
+  },
+  {
+    role: 'Oracle',
+    strength: ['Intuitive wisdom', 'Visionary perspective', 'Empowering guidance'],
+    growth: ['Grounding practicality', 'Balancing detachment and empathy', 'Effective communication']
+  },
+  {
+    role: 'Protector',
+    strength: ['Empathetic support', 'Nurturing nature', 'Resilient protector'],
+    growth: ['Self-care', 'Balancing support and empowerment', 'Setting emotional boundaries']
+  },
+  {
+    role: 'Ruler',
+    strength: ['Strategic vision', 'Effective decision-making', 'Empowering leadership'],
+    growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
+  }
+]
+
+const professions: { index: number; value: string }[] = [
+  { index: 0, value: 'Accountant' },
+  { index: 1, value: 'Administrative Assistant' },
+  { index: 2, value: 'Animator' },
+  { index: 3, value: 'Archaeologist' },
+  { index: 4, value: 'Architect' },
+  { index: 5, value: 'Artist' },
+  { index: 6, value: 'Barista' },
+  { index: 7, value: 'Biologist' },
+  { index: 8, value: 'Business Owner' },
+  { index: 9, value: 'Carpenter' },
+  { index: 10, value: 'Chef' },
+  { index: 11, value: 'Customer Service Representative' },
+  { index: 12, value: 'Dentist' },
+  { index: 13, value: 'Doctor' },
+  { index: 14, value: 'Economist' },
+  { index: 15, value: 'Electrician' },
+  { index: 16, value: 'Engineer' },
+  { index: 17, value: 'Event Planner' },
+  { index: 18, value: 'Farmer' },
+  { index: 19, value: 'Financial Analyst' },
+  { index: 20, value: 'Firefighter' },
+  { index: 21, value: 'Fitness Instructor' },
+  { index: 22, value: 'Graphic Designer' },
+  { index: 23, value: 'Hairdresser' },
+  { index: 24, value: 'Influencer' },
+  { index: 25, value: 'IT Support Specialist' },
+  { index: 26, value: 'Journalist' },
+  { index: 27, value: 'Lawyer' },
+  { index: 28, value: 'Librarian' },
+  { index: 29, value: 'Marketing Manager' },
+  { index: 30, value: 'Mechanic' },
+  { index: 31, value: 'Musician' },
+  { index: 32, value: 'Nurse' },
+  { index: 33, value: 'Pharmacist' },
+  { index: 34, value: 'Photographer' },
+  { index: 35, value: 'Pilot' },
+  { index: 36, value: 'Plumber' },
+  { index: 37, value: 'Police Officer' },
+  { index: 38, value: 'Real Estate Agent' },
+  { index: 39, value: 'Retail Manager' },
+  { index: 40, value: 'Sales Representative' },
+  { index: 41, value: 'Scientist' },
+  { index: 42, value: 'Social Worker' },
+  { index: 43, value: 'Software Developer' },
+  { index: 44, value: 'Teacher' },
+  { index: 45, value: 'Translator' },
+  { index: 46, value: 'Veterinarian' },
+  { index: 47, value: 'Waiter/Waitress' },
+  { index: 48, value: 'Writer' },
+  { index: 49, value: 'Other' }
+]
+
+const AccordionItem = ({
+  header,
+  text,
+  status,
+  video_url,
+  character,
+  type,
+  image,
+  link,
+  code,
+  id,
+  onFinishVideo
+}: Props) => {
   const auth = useAuth()
 
   const [active, setActive] = useState(false)
+  const [satisfaction, setSatisfaction] = useState<number>()
+  const [loading, setLoading] = useState<boolean>(false)
+  const defaultOccupationValues = {
+    occupation: '',
+    job_satisfaction_level: 0
+  }
+  const defaultStrengthValues = {
+    strength_1: '',
+    strength_2: '',
+    strength_3: ''
+  }
+  const defaultGrowthValues = {
+    area_of_growth_1: '',
+    area_of_growth_2: '',
+    area_of_growth_3: ''
+  }
+
+  const {
+    control: occupationControl,
+    handleSubmit: handleOccupationSubmit,
+    formState: { errors: occupationError }
+  } = useForm({
+    defaultValues: defaultOccupationValues,
+    resolver: yupResolver(occupationSchema)
+  })
+
+  const {
+    control: strengthControl,
+    handleSubmit: handleStrengthSubmit,
+    formState: { errors: strengthError }
+  } = useForm({
+    defaultValues: defaultStrengthValues,
+    resolver: yupResolver(strengthSchema)
+  })
+
+  const {
+    control: growthControl,
+    handleSubmit: handleGrowthSubmit,
+    formState: { errors: growthError }
+  } = useForm({
+    defaultValues: defaultGrowthValues,
+    resolver: yupResolver(growthSchema)
+  })
 
   const checkHeroBrightness = (name: string): string => {
     let nams = 'text-white-300'
@@ -47,14 +247,71 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
     if (type != 'no_action') setActive(!active)
   }
 
+  const changeRadio = (value: number) => {
+    console.log(value)
+    setSatisfaction(value)
+  }
+
   const shareButton = () => {
-    console.log('share')
     handleVideoEnd()
   }
 
   const goToLinkClick = () => {
     handleVideoEnd()
   }
+
+  const onFormSubmit = async (value: any) => {
+    setLoading(true)
+    if (!status) {
+      let param = {}
+      if (code == '5') {
+        param = {
+          quest: id,
+          completed: true,
+          data_collection: {
+            occupation: value.occupation,
+            job_satisfaction_level: satisfaction
+          }
+        }
+      }
+      if (code == '6') {
+        param = {
+          quest: id,
+          completed: true,
+          data_collection: {
+            strength_1: value.strength_1,
+            strength_2: value.strength_2,
+            strength_3: value.strength_3
+          }
+        }
+      }
+      if (code == '7') {
+        param = {
+          quest: id,
+          completed: true,
+          data_collection: {
+            area_of_growth_1: value.area_of_growth_1,
+            area_of_growth_2: value.area_of_growth_2,
+            area_of_growth_3: value.area_of_growth_3
+          }
+        }
+      }
+
+      //run the API call
+      await axios
+        .post(questConfig.questSubmit, param, {
+          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(questConfig.storageTokenKeyName)! }
+        })
+        .then(() => {
+          setLoading(false)
+          onFinishVideo()
+        })
+        .catch(error => {
+          console.log(error, 'errorr')
+        })
+    }
+  }
+
   const getBackground = (hero: string) => {
     switch (hero) {
       case 'Hero':
@@ -188,6 +445,349 @@ const AccordionItem = ({ header, text, status, video_url, character, type, image
                 Go To Link
               </button>
             </Link>
+          </>
+        )}
+
+        {type == 'fill_form' && code == '5' && !status && (
+          <>
+            <div className=''>
+              <div>
+                <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
+                  <FormControl className='flex justify-center'>
+                    <div className='flex flex-col items-center justify-center'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='occupation'
+                          className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
+                        >
+                          Your Occupation
+                        </label>
+                        {occupationError.occupation && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='occupation'
+                        control={occupationControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='occupation'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a occupation</option>
+                            {professions.map(prof => (
+                              <option key={prof.index} value={prof.value}>
+                                {prof.value}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <div className='flex flex-col items-center justify-center pt-5'>
+                    <div className='flex justify-between '>
+                      <label
+                        htmlFor='level_of_satisfaction'
+                        className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
+                      >
+                        Level of Satisfaction
+                      </label>
+                    </div>
+                    <div>
+                      <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                    </div>
+                  </div>
+                  <div className='flex justify-center w-full pt-10'>
+                    <button
+                      disabled={loading}
+                      type='submit'
+                      className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </>
+        )}
+
+        {type == 'fill_form' && code == '6' && !status && (
+          <>
+            <div>
+              <form onSubmit={handleStrengthSubmit(onFormSubmit)}>
+                <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='strength_1'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your First Strength
+                        </label>
+                        {strengthError.strength_1 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='strength_1'
+                        control={strengthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='strength_1'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a First Strength</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.strength[0]}>
+                                    {myRole.strength[0]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='strength_1'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your Second Strength
+                        </label>
+                        {strengthError.strength_2 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='strength_2'
+                        control={strengthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='strength_2'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a Second Strength</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.strength[1]}>
+                                    {myRole.strength[1]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='strength_3'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your Third Strength
+                        </label>
+                        {strengthError.strength_3 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='strength_3'
+                        control={strengthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='strength_3'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a Third Strength</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.strength[2]}>
+                                    {myRole.strength[2]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                </div>
+                <div className='flex justify-center w-full pt-10 lg:justify-start'>
+                  <button
+                    disabled={loading}
+                    type='submit'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </>
+        )}
+
+        {type == 'fill_form' && code == '7' && !status && (
+          <>
+            <div>
+              <form onSubmit={handleGrowthSubmit(onFormSubmit)}>
+                <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='area_of_growth_1'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your First Area of Growth
+                        </label>
+                        {growthError.area_of_growth_1 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='area_of_growth_1'
+                        control={growthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='area_of_growth_1'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a First Strength</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.growth[0]}>
+                                    {myRole.growth[0]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='area_of_growth_2'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your Second Area of Growth
+                        </label>
+                        {growthError.area_of_growth_2 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='area_of_growth_2'
+                        control={growthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='area_of_growth_2'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a Second Area of Growth</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.growth[1]}>
+                                    {myRole.growth[1]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label
+                          htmlFor='area_of_growth_3'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                        >
+                          Select Your Third Area of Growth
+                        </label>
+                        {growthError.area_of_growth_3 && (
+                          <span className='text-sm text-red-900 '> This field is required</span>
+                        )}
+                      </div>
+
+                      <Controller
+                        name='area_of_growth_3'
+                        control={growthControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='area_of_growth_3'
+                            value={value}
+                            onChange={onChange}
+                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Choose a Third Area of Growth</option>
+                            {roles.map(
+                              (myRole: Role, index: number) =>
+                                myRole.role == auth.user?.character && (
+                                  <option key={index} value={myRole.growth[2]}>
+                                    {myRole.growth[2]}
+                                  </option>
+                                )
+                            )}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                </div>
+                <div className='flex justify-center w-full pt-10 lg:justify-start'>
+                  <button
+                    disabled={loading}
+                    type='submit'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
           </>
         )}
       </div>

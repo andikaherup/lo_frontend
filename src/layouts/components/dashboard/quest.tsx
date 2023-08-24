@@ -23,11 +23,15 @@ const Quest = () => {
       case 'journey':
         return (
           <>
-            <StepperQuest></StepperQuest>
+            <StepperQuest questType='journey'></StepperQuest>
           </>
         )
-      case 'daiy':
-        return <></>
+      case 'daily':
+        return (
+          <>
+            <StepperQuest questType='daily'></StepperQuest>
+          </>
+        )
     }
   }
   const menu = [
