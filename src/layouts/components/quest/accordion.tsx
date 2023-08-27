@@ -24,9 +24,12 @@ import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import StatisfactionRadio from '../misc/statisfactionRadio'
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { userAgent } from 'next/server'
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
 
 interface Props {
   header: string
@@ -43,6 +46,9 @@ interface Props {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
 // interface occStatisfaction {
 //   occupation: string
 //   job_satisfaction_level: number
@@ -52,6 +58,7 @@ interface Props {
 //   strength_2: string
 //   strength_3: string
 // }
+<<<<<<< HEAD
 
 // interface areaOfGrowthShare {
 //   area_of_growth_1: string
@@ -74,15 +81,25 @@ interface strengthShare {
   strength_2: string
   strength_3: string
 }
+=======
+>>>>>>> 58dbe8e (update to deploy)
 
-interface areaOfGrowthShare {
-  area_of_growth_1: string
-  area_of_growth_2: string
-  area_of_growth_3: string
-}
+// interface areaOfGrowthShare {
+//   area_of_growth_1: string
+//   area_of_growth_2: string
+//   area_of_growth_3: string
+// }
+// interface Role {
+//   role: string
+//   strength: string[]
+//   growth: string[]
+// }
 interface Role {
+<<<<<<< HEAD
   role: string
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
   strength: string[]
   growth: string[]
 }
@@ -90,9 +107,13 @@ interface Role {
 const occupationSchema = yup.object().shape({
   occupation: yup.string().required(),
 <<<<<<< HEAD
+<<<<<<< HEAD
   other_occupation: yup.string(),
 =======
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+  other_occupation: yup.string(),
+>>>>>>> 58dbe8e (update to deploy)
   job_satisfaction_level: yup.number().required()
 })
 
@@ -109,6 +130,9 @@ const growthSchema = yup.object().shape({
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
 const roles: Role = {
   strength: [
     'Courageous leadership',
@@ -206,6 +230,7 @@ const roles: Role = {
 //     growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
 //   }
 // ]
+<<<<<<< HEAD
 =======
 const roles: Role[] = [
   {
@@ -250,6 +275,8 @@ const roles: Role[] = [
   }
 ]
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
 
 const professions: { index: number; value: string }[] = [
   { index: 0, value: 'Accountant' },
@@ -323,16 +350,22 @@ const AccordionItem = ({
   const [satisfaction, setSatisfaction] = useState<number>()
   const [loading, setLoading] = useState<boolean>(false)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
 
   const [selectedOccupation, setSelectedOccupation] = useState('')
 
   const defaultOccupationValues = {
     occupation: '',
     other_occupation: '',
+<<<<<<< HEAD
 =======
   const defaultOccupationValues = {
     occupation: '',
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
     job_satisfaction_level: 0
   }
   const defaultStrengthValues = {
@@ -359,11 +392,16 @@ const AccordionItem = ({
     control: strengthControl,
     handleSubmit: handleStrengthSubmit,
 <<<<<<< HEAD
+<<<<<<< HEAD
     formState: { errors: strengthError },
     setError: setStrengthError
 =======
     formState: { errors: strengthError }
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+    formState: { errors: strengthError },
+    setError: setStrengthError
+>>>>>>> 58dbe8e (update to deploy)
   } = useForm({
     defaultValues: defaultStrengthValues,
     resolver: yupResolver(strengthSchema)
@@ -373,11 +411,16 @@ const AccordionItem = ({
     control: growthControl,
     handleSubmit: handleGrowthSubmit,
 <<<<<<< HEAD
+<<<<<<< HEAD
     formState: { errors: growthError },
     setError: setGrowthError
 =======
     formState: { errors: growthError }
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+    formState: { errors: growthError },
+    setError: setGrowthError
+>>>>>>> 58dbe8e (update to deploy)
   } = useForm({
     defaultValues: defaultGrowthValues,
     resolver: yupResolver(growthSchema)
@@ -421,15 +464,22 @@ const AccordionItem = ({
           data_collection: {
             occupation: value.occupation,
 <<<<<<< HEAD
+<<<<<<< HEAD
             other_occupation: value.other_occupation,
 =======
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+            other_occupation: value.other_occupation,
+>>>>>>> 58dbe8e (update to deploy)
             job_satisfaction_level: satisfaction
           }
         }
       }
       if (code == '6') {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
         const strengthValues = [value.strength_1, value.strength_2, value.strength_3]
         const hasDuplicates = new Set(strengthValues).size !== strengthValues.length
         if (hasDuplicates) {
@@ -444,6 +494,7 @@ const AccordionItem = ({
               strength_2: value.strength_2,
               strength_3: value.strength_3
             }
+<<<<<<< HEAD
 =======
         param = {
           quest: id,
@@ -453,11 +504,16 @@ const AccordionItem = ({
             strength_2: value.strength_2,
             strength_3: value.strength_3
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
           }
         }
       }
       if (code == '7') {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
         const growthValues = [value.area_of_growth_, value.area_of_growth_2, value.area_of_growth_3]
         const hasDuplicates = new Set(growthValues).size !== growthValues.length
         if (hasDuplicates) {
@@ -472,6 +528,7 @@ const AccordionItem = ({
               area_of_growth_2: value.area_of_growth_2,
               area_of_growth_3: value.area_of_growth_3
             }
+<<<<<<< HEAD
 =======
         param = {
           quest: id,
@@ -481,11 +538,16 @@ const AccordionItem = ({
             area_of_growth_2: value.area_of_growth_2,
             area_of_growth_3: value.area_of_growth_3
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
           }
         }
       }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
       // run the API call
 
       if (Object.keys(param).length > 0) {
@@ -501,6 +563,7 @@ const AccordionItem = ({
           })
       }
       setLoading(false)
+<<<<<<< HEAD
 =======
       //run the API call
       await axios
@@ -515,6 +578,8 @@ const AccordionItem = ({
           console.log(error, 'errorr')
         })
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
     }
   }
 
@@ -657,6 +722,9 @@ const AccordionItem = ({
         {type == 'fill_form' && code == '5' && !status && (
           <>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
             <div>
               <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
                 <FormControl className='flex justify-start'>
@@ -700,6 +768,7 @@ const AccordionItem = ({
                 </FormControl>
                 {selectedOccupation == 'Other' && (
                   <FormControl className='flex justify-center pt-5'>
+<<<<<<< HEAD
                     <div className='flex flex-col items-center justify-center'>
                       <div className='flex flex-col justify-center '>
                         <label
@@ -714,21 +783,28 @@ const AccordionItem = ({
               <div>
                 <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
                   <FormControl className='flex justify-center'>
+=======
+>>>>>>> 58dbe8e (update to deploy)
                     <div className='flex flex-col items-center justify-center'>
                       <div className='flex flex-col justify-center '>
                         <label
-                          htmlFor='occupation'
-                          className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
+                          htmlFor='other_occupation'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
-                          Your Occupation
+                          Enter other occupation
                         </label>
+<<<<<<< HEAD
                         {occupationError.occupation && (
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                        {occupationError.other_occupation && (
+>>>>>>> 58dbe8e (update to deploy)
                           <span className='text-sm text-red-900 '> This field is required</span>
                         )}
                       </div>
 
                       <Controller
+<<<<<<< HEAD
 <<<<<<< HEAD
                         name='other_occupation'
                         control={occupationControl}
@@ -742,14 +818,18 @@ const AccordionItem = ({
                           ></input>
 =======
                         name='occupation'
+=======
+                        name='other_occupation'
+>>>>>>> 58dbe8e (update to deploy)
                         control={occupationControl}
                         rules={{ required: true }}
                         render={({ field: { value, onChange } }) => (
-                          <select
-                            id='occupation'
+                          <input
+                            id='other_occupation'
                             value={value}
                             onChange={onChange}
                             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+<<<<<<< HEAD
                           >
                             <option value=''>Choose a occupation</option>
                             {professions.map(prof => (
@@ -759,11 +839,17 @@ const AccordionItem = ({
                             ))}
                           </select>
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                          ></input>
+>>>>>>> 58dbe8e (update to deploy)
                         )}
                       />
                     </div>
                   </FormControl>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                 )}
 
                 <div className='flex flex-col items-center justify-center pt-5 lg:flex-row'>
@@ -771,6 +857,7 @@ const AccordionItem = ({
                     <label
                       htmlFor='level_of_satisfaction'
                       className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+<<<<<<< HEAD
                     >
                       Level of Satisfaction
                     </label>
@@ -808,13 +895,32 @@ const AccordionItem = ({
                       disabled={loading}
                       type='submit'
                       className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+=======
+>>>>>>> 58dbe8e (update to deploy)
                     >
-                      Submit
-                    </button>
+                      Level of Satisfaction
+                    </label>
                   </div>
+<<<<<<< HEAD
                 </form>
               </div>
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                  <div>
+                    <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                  </div>
+                </div>
+                <div className='flex justify-center w-full pt-10'>
+                  <button
+                    disabled={loading}
+                    type='submit'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
+>>>>>>> 58dbe8e (update to deploy)
             </div>
           </>
         )}
@@ -851,11 +957,15 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a First Strength</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             {roles.strength.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             {roles.map(
                               (myRole: Role, index: number) =>
@@ -866,6 +976,8 @@ const AccordionItem = ({
                                 )
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -898,11 +1010,15 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a Second Strength</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             {roles.strength.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             {roles.map(
                               (myRole: Role, index: number) =>
@@ -913,6 +1029,8 @@ const AccordionItem = ({
                                 )
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -945,11 +1063,15 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a Third Strength</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             {roles.strength.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             {roles.map(
                               (myRole: Role, index: number) =>
@@ -960,6 +1082,8 @@ const AccordionItem = ({
                                 )
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -967,11 +1091,16 @@ const AccordionItem = ({
                   </FormControl>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                 <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
 =======
                 <div className='flex justify-center w-full pt-10 lg:justify-start'>
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+
+                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
+>>>>>>> 58dbe8e (update to deploy)
                   <button
                     disabled={loading}
                     type='submit'
@@ -980,11 +1109,17 @@ const AccordionItem = ({
                     Submit
                   </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   {strengthError.root && (
                     <span className='ml-2 text-red-900 text-md '> {strengthError.root.message}</span>
                   )}
 =======
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                  {strengthError.root && (
+                    <span className='ml-2 text-red-900 text-md '> {strengthError.root.message}</span>
+                  )}
+>>>>>>> 58dbe8e (update to deploy)
                 </div>
               </form>
             </div>
@@ -1023,11 +1158,15 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a First Strength</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             {roles.growth.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             {roles.map(
                               (myRole: Role, index: number) =>
@@ -1038,6 +1177,8 @@ const AccordionItem = ({
                                 )
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -1070,10 +1211,14 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a Second Area of Growth</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             {/* {roles.map(
 =======
                             {roles.map(
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                            {/* {roles.map(
+>>>>>>> 58dbe8e (update to deploy)
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
                                   <option key={index} value={myRole.growth[1]}>
@@ -1081,15 +1226,21 @@ const AccordionItem = ({
                                   </option>
                                 )
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             )} */}
                             {roles.growth.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -1122,11 +1273,15 @@ const AccordionItem = ({
                           >
                             <option value=''>Choose a Third Area of Growth</option>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 58dbe8e (update to deploy)
                             {roles.growth.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
                               </option>
                             ))}
+<<<<<<< HEAD
 =======
                             {roles.map(
                               (myRole: Role, index: number) =>
@@ -1137,6 +1292,8 @@ const AccordionItem = ({
                                 )
                             )}
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+>>>>>>> 58dbe8e (update to deploy)
                           </select>
                         )}
                       />
@@ -1144,10 +1301,14 @@ const AccordionItem = ({
                   </FormControl>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
 =======
                 <div className='flex justify-center w-full pt-10 lg:justify-start'>
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
+>>>>>>> 58dbe8e (update to deploy)
                   <button
                     disabled={loading}
                     type='submit'
@@ -1156,9 +1317,13 @@ const AccordionItem = ({
                     Submit
                   </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   {growthError.root && <span className='ml-2 text-red-900 text-md '> {growthError.root.message}</span>}
 =======
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                  {growthError.root && <span className='ml-2 text-red-900 text-md '> {growthError.root.message}</span>}
+>>>>>>> 58dbe8e (update to deploy)
                 </div>
               </form>
             </div>
