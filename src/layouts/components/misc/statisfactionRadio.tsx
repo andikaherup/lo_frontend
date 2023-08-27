@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState } from 'react'
-import RadioButton from './radioButton'
+import React, { ChangeEvent } from 'react'
 
 interface RadioGroupProps {
-  // disable: boolean
   valueRadio: number | undefined
   onRadioChange: (value: number) => void
 }
@@ -14,21 +12,46 @@ interface RadioButtonProps {
 
 const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChange }) => {
   const RadioButton: React.FC<RadioButtonProps> = ({ value, selectedValue, onChange }) => {
+    const getImage = (value: number) => {
+      switch (value) {
+        case 1:
+          return 'angryface.svg'
+        case 2:
+          return 'sadface.svg'
+        case 3:
+          return 'neutralface.svg'
+        case 4:
+          return 'happyface.svg'
+        case 5:
+          return 'pleasedface.svg'
+      }
+    }
+
     return (
       <label className={`flex items-center space-x-2`}>
         <input type='radio' className='hidden' value={value} checked={selectedValue === value} onChange={onChange} />
         <div
           className={`relative flex items-center justify-center w-12 h-12 ${
-            selectedValue == value ? 'bg-black-300' : 'bg-gray-600'
-          }  border border-gray-300 rounded-lg hover:bg-gray-500 hover:cursor-pointer`}
+            selectedValue == value
+              ? value == 1
+                ? 'bg-red-500'
+                : value == 2
+                ? 'bg-purple-500'
+                : value == 3
+                ? 'bg-yellow-500'
+                : value == 4
+                ? 'bg-lightProtector'
+                : 'bg-green-500'
+              : 'bg-gray-600'
+          }  rounded-full hover:bg-gray-500 hover:cursor-pointer`}
         >
-          <div
+          {/* <div
             className={`flex items-center justify-center w-8 h-8    ${
               selectedValue == value ? 'text-white-300 border-white-300 border-2' : 'text-black-300 border-black-300'
             }  bg-gray-300 border rounded-full `}
-          >
-            <span className='text-xs font-semibold'>{value}</span>
-          </div>
+          > */}
+          <img src={`/assets/icon/${getImage(value)}`} className='object-cover' alt='iamges' />
+          {/* </div> */}
         </div>
       </label>
     )

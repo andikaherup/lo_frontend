@@ -1,18 +1,19 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-// ** MUI Imports
-// ** Hooks
-
-// ** MUI Imports
-// ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
+
+// ** Type
+import { Archetype } from 'src/context/characterType'
 
 // ** Axios
 import axios from 'axios'
+import { characters } from 'src/configs/characterData'
 
 // ** Config
 import authConfig from 'src/configs/auth'
+
+import { getBaseTextColor, getBaseLightTextColor } from 'src/configs/getBackground'
 
 interface RefProps {
   open: boolean
@@ -23,23 +24,23 @@ const PopupLevelup = (props: RefProps) => {
   const auth = useAuth()
 
   const { open, close } = props
-  const [error, setError] = useState<string>('')
 
-  const [ref, setRef] = useState('')
+  const [char, setChar] = useState<Archetype>()
 
-  const onChange = (event: any) => {
-    setRef(event.target.value)
-  }
+  useEffect(() => {
+    const myCharacter = characters.find(character => character.name === auth.user?.character)
+    setChar(myCharacter)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const onSubmit = () => {
-    setError('')
-  }
+  const circumference = 50 * 2 * Math.PI
+  const percent = 100
 
   const onSkip = () => {
     axios
       .put(
         authConfig.editUserEndpoint,
-        { is_new_user: false },
+        { has_just_leveled_up: false },
         {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
         }
@@ -51,7 +52,6 @@ const PopupLevelup = (props: RefProps) => {
       .catch(err => {
         if (err.response.data) {
           if (err.response.data.data) {
-            setError(err.response.data.data)
           }
         }
       })
@@ -87,46 +87,87 @@ const PopupLevelup = (props: RefProps) => {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-white-500 rounded-2xl'>
+              <Dialog.Panel
+                className={`w-full max-w-3xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl ${
+                  characters.find(character => character.name === auth.user?.character)?.background
+                } rounded-2xl`}
+              >
                 <Dialog.Title
                   as='h1'
                   className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'
-                >
-                  Have Invitation Code ?
-                </Dialog.Title>
+                ></Dialog.Title>
 
-                <div className='w-full max-w-xl pt-2 mx-auto mt-5'>
+                <div className='w-full max-w-3xl px-5 pt-2 mx-auto mt-5'>
                   <div className='mt-8'>
-                    <div className='my-6'>
-                      <div className='mt-1'>
-                        <input
-                          id='referral'
-                          name='referral'
-                          type='text'
-                          value={ref}
-                          onChange={onChange}
-                          autoComplete='email'
-                          className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
-                        />
-                      </div>
-                      {error && (
-                        <div className='py-2'>
-                          <span className='text-red-900'>{error}</span>
-                        </div>
-                      )}
-
-                      <div className='flex justify-between w-full mt-5 mb-10'>
-                        <button className='w-full p-4 mr-2 text-red-900 rounded-lg ' onClick={onSkip}>
-                          Skip for now
-                        </button>
-
-                        <button
-                          className='w-full p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
-                          onClick={onSubmit}
+                    <div className='grid items-center grid-cols-2 gap-5'>
+                      <div
+                        className={`${getBaseLightTextColor(
+                          auth.user?.character || 'Hero'
+                        )} rounded-3xl py-5 transition-shadow shadow-gray-400 drop-shadow-2xl shadow-xl bg-white-300`}
+                      >
+                        <h1 className='text-2xl text-center'>CONGRATULATIONS!</h1>
+                        <h1 className='text-lg text-center'>You are now at level {auth.user?.character_level}</h1>
+                        <div
+                          className='flex items-center justify-center mt-5 '
+                          x-data='{ circumference: 50 * 2 * Math.PI, percent: 80 }'
                         >
-                          Submit
-                        </button>
+                          <div className='flex items-center justify-center overflow-hidden rounded-full'>
+                            <svg className='w-32 h-32 transform translate-x-1 translate-y-1' aria-hidden='true'>
+                              <circle
+                                className='text-gray-300'
+                                strokeWidth='10'
+                                stroke='currentColor'
+                                fill='transparent'
+                                r='50'
+                                cx='60'
+                                cy='60'
+                              />
+                              <circle
+                                className={`${getBaseTextColor(auth.user?.character || 'Hero')} transition`}
+                                strokeWidth='15'
+                                strokeDasharray={circumference}
+                                strokeDashoffset={circumference - (percent / 100) * circumference}
+                                strokeLinecap='round'
+                                stroke='currentColor'
+                                fill='transparent'
+                                r='50'
+                                cx='60'
+                                cy='60'
+                              />
+                            </svg>
+                            <span className='absolute text-2xl text-black-300'>{`${percent}%`}</span>
+                          </div>
+                        </div>
+
+                        <h1
+                          className={`${getBaseLightTextColor(
+                            auth.user?.character || 'Hero'
+                          )} text-2xl text-center font-bold mt-3 `}
+                        >
+                          Conquer more <br /> quest to level up!
+                        </h1>
                       </div>
+                      <img
+                        src={`/assets/characters/pod${
+                          auth.user?.character_level == 0
+                            ? auth.user.gender == 'male'
+                              ? char?.lvl0_image_M
+                              : char?.lvl0_image_F
+                            : auth.user?.gender == 'male'
+                            ? char?.lvl1_image_M
+                            : char?.lvl1_image_F
+                        }`}
+                        alt={`Image`}
+                        className={`object-scale-down `}
+                      />
+                    </div>
+                    <div className='flex justify-center w-full mt-5 mb-10'>
+                      <button
+                        className='w-1/4 p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
+                        onClick={onSkip}
+                      >
+                        Continue
+                      </button>
                     </div>
                   </div>
                 </div>

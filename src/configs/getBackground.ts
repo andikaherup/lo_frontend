@@ -154,6 +154,38 @@ export const getBaseTextColor = (hero: string) => {
 
 }
 
+export const getBaseLightTextColor = (hero: string) => {
+
+
+  switch (hero) {
+    case 'Hero':
+      return 'text-lightHero'
+
+    case 'Magician':
+      return 'text-lightMagician'
+
+    case 'Rebel':
+      return 'text-lightRebel'
+
+    case 'Creator':
+      return 'text-lightCreator'
+
+    case 'Synergist':
+      return 'text-lightGreen'
+
+    case 'Oracle':
+      return 'text-lightOracle'
+
+    case 'Protector':
+      return 'text-lightProtector'
+
+    case 'Ruler':
+      return 'text-lightBlue'
+
+  }
+
+}
+
 export const getTextColor = (hero: string) => {
 
 
