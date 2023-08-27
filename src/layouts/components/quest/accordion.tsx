@@ -23,10 +23,7 @@ import * as yup from 'yup'
 
 import { useForm, Controller } from 'react-hook-form'
 import StatisfactionRadio from '../misc/statisfactionRadio'
-<<<<<<< HEAD
-=======
 import { userAgent } from 'next/server'
->>>>>>> e72a04a (done implement quest level 1)
 
 interface Props {
   header: string
@@ -42,16 +39,15 @@ interface Props {
   onFinishVideo: () => void
 }
 
-<<<<<<< HEAD
-// interface occStatisfaction {
-//   occupation: string
-//   job_satisfaction_level: number
-// }
-// interface strengthShare {
-//   strength_1: string
-//   strength_2: string
-//   strength_3: string
-// }
+interface occStatisfaction {
+  occupation: string
+  job_satisfaction_level: number
+}
+interface strengthShare {
+  strength_1: string
+  strength_2: string
+  strength_3: string
+}
 
 // interface areaOfGrowthShare {
 //   area_of_growth_1: string
@@ -64,35 +60,13 @@ interface Props {
 //   growth: string[]
 // }
 interface Role {
-=======
-interface occStatisfaction {
-  occupation: string
-  job_satisfaction_level: number
-}
-interface strengthShare {
-  strength_1: string
-  strength_2: string
-  strength_3: string
-}
-
-interface areaOfGrowthShare {
-  area_of_growth_1: string
-  area_of_growth_2: string
-  area_of_growth_3: string
-}
-interface Role {
   role: string
->>>>>>> e72a04a (done implement quest level 1)
   strength: string[]
   growth: string[]
 }
 
 const occupationSchema = yup.object().shape({
   occupation: yup.string().required(),
-<<<<<<< HEAD
-  other_occupation: yup.string(),
-=======
->>>>>>> e72a04a (done implement quest level 1)
   job_satisfaction_level: yup.number().required()
 })
 
@@ -108,105 +82,6 @@ const growthSchema = yup.object().shape({
   area_of_growth_3: yup.string().required()
 })
 
-<<<<<<< HEAD
-const roles: Role = {
-  strength: [
-    'Courageous leadership',
-    'Resilience',
-    'Empowering others',
-    'Creative brilliance',
-    'Resourceful problem-solving',
-    'Enchanting influence',
-    'Independent thinking',
-    'Collaboration',
-    'Embracing change',
-    'Imagination and Vision',
-    'Artistic Expression',
-    'Innovation and Adaptability',
-    'Collaborative leadership',
-    'Diplomacy and conflict resolution',
-    'Empathetic connection',
-    'Intuitive wisdom',
-    'Visionary perspective',
-    'Empowering guidance',
-    'Empathetic support',
-    'Nurturing nature',
-    'Resilient protector',
-    'Strategic vision',
-    'Effective decision-making',
-    'Empowering leadership'
-  ],
-  growth: [
-    'Delegating tasks',
-    'Self-care',
-    'Embracing vulnerability',
-    'Grounding ideas',
-    'Focus and execution',
-    'Embracing setbacks',
-    'Fearless expression',
-    'Patience and diplomacy',
-    'Selective rebellion',
-    'Focus and Discipline',
-    'Dealing with Criticism',
-    'Balancing Exploration and Completion',
-    'Balancing individual needs',
-    'Setting boundaries',
-    'Embracing constructive conflict',
-    'Grounding practicality',
-    'Balancing detachment and empathy',
-    'Effective communication',
-    'Self-care',
-    'Balancing support and empowerment',
-    'Setting emotional boundaries',
-    'Flexibility and adaptability',
-    'Delegating and trusting others',
-    'Balancing authority and collaboration'
-  ]
-}
-
-// const roles: Role[] = [
-//   {
-//     role: 'Hero',
-//     strength: ['Courageous leadership', 'Resilience', 'Empowering others'],
-//     growth: ['Delegating tasks', 'Self-care', 'Embracing vulnerability']
-//   },
-//   {
-//     role: 'Magician',
-//     strength: ['Creative brilliance', 'Resourceful problem-solving', 'Enchanting influence'],
-//     growth: ['Grounding ideas', 'Focus and execution', 'Embracing setbacks']
-//   },
-//   {
-//     role: 'Rebel',
-//     strength: ['Independent thinking', 'Collaboration', 'Embracing change'],
-//     growth: ['Fearless expression', 'Patience and diplomacy', 'Selective rebellion']
-//   },
-//   {
-//     role: 'Creator',
-//     strength: ['Imagination and Vision', 'Artistic Expression', 'Innovation and Adaptability'],
-//     growth: ['Focus and Discipline', 'Dealing with Criticism', 'Balancing Exploration and Completion']
-//   },
-//   {
-//     role: 'Synergist',
-//     strength: ['Collaborative leadership', 'Diplomacy and conflict resolution', 'Empathetic connection'],
-//     growth: ['Balancing individual needs', 'Setting boundaries', 'Embracing constructive conflict']
-//   },
-//   {
-//     role: 'Oracle',
-//     strength: ['Intuitive wisdom', 'Visionary perspective', 'Empowering guidance'],
-//     growth: ['Grounding practicality', 'Balancing detachment and empathy', 'Effective communication']
-//   },
-//   {
-//     role: 'Protector',
-//     strength: ['Empathetic support', 'Nurturing nature', 'Resilient protector'],
-//     growth: ['Self-care', 'Balancing support and empowerment', 'Setting emotional boundaries']
-//   },
-//   {
-//     role: 'Ruler',
-//     strength: ['Strategic vision', 'Effective decision-making', 'Empowering leadership'],
-//     growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
-//   }
-// ]
-=======
 const roles: Role[] = [
   {
     role: 'Hero',
@@ -249,7 +124,6 @@ const roles: Role[] = [
     growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
   }
 ]
->>>>>>> e72a04a (done implement quest level 1)
 
 const professions: { index: number; value: string }[] = [
   { index: 0, value: 'Accountant' },
@@ -322,17 +196,8 @@ const AccordionItem = ({
   const [active, setActive] = useState(false)
   const [satisfaction, setSatisfaction] = useState<number>()
   const [loading, setLoading] = useState<boolean>(false)
-<<<<<<< HEAD
-
-  const [selectedOccupation, setSelectedOccupation] = useState('')
-
   const defaultOccupationValues = {
     occupation: '',
-    other_occupation: '',
-=======
-  const defaultOccupationValues = {
-    occupation: '',
->>>>>>> e72a04a (done implement quest level 1)
     job_satisfaction_level: 0
   }
   const defaultStrengthValues = {
@@ -358,12 +223,7 @@ const AccordionItem = ({
   const {
     control: strengthControl,
     handleSubmit: handleStrengthSubmit,
-<<<<<<< HEAD
-    formState: { errors: strengthError },
-    setError: setStrengthError
-=======
     formState: { errors: strengthError }
->>>>>>> e72a04a (done implement quest level 1)
   } = useForm({
     defaultValues: defaultStrengthValues,
     resolver: yupResolver(strengthSchema)
@@ -372,12 +232,7 @@ const AccordionItem = ({
   const {
     control: growthControl,
     handleSubmit: handleGrowthSubmit,
-<<<<<<< HEAD
-    formState: { errors: growthError },
-    setError: setGrowthError
-=======
     formState: { errors: growthError }
->>>>>>> e72a04a (done implement quest level 1)
   } = useForm({
     defaultValues: defaultGrowthValues,
     resolver: yupResolver(growthSchema)
@@ -420,31 +275,11 @@ const AccordionItem = ({
           completed: true,
           data_collection: {
             occupation: value.occupation,
-<<<<<<< HEAD
-            other_occupation: value.other_occupation,
-=======
->>>>>>> e72a04a (done implement quest level 1)
             job_satisfaction_level: satisfaction
           }
         }
       }
       if (code == '6') {
-<<<<<<< HEAD
-        const strengthValues = [value.strength_1, value.strength_2, value.strength_3]
-        const hasDuplicates = new Set(strengthValues).size !== strengthValues.length
-        if (hasDuplicates) {
-          setStrengthError('root', { message: 'Select 3 unique strengths!' })
-        }
-        if (!hasDuplicates) {
-          param = {
-            quest: id,
-            completed: true,
-            data_collection: {
-              strength_1: value.strength_1,
-              strength_2: value.strength_2,
-              strength_3: value.strength_3
-            }
-=======
         param = {
           quest: id,
           completed: true,
@@ -452,27 +287,10 @@ const AccordionItem = ({
             strength_1: value.strength_1,
             strength_2: value.strength_2,
             strength_3: value.strength_3
->>>>>>> e72a04a (done implement quest level 1)
           }
         }
       }
       if (code == '7') {
-<<<<<<< HEAD
-        const growthValues = [value.area_of_growth_1, value.area_of_growth_2, value.area_of_growth_3]
-        const hasDuplicates = new Set(growthValues).size !== growthValues.length
-        if (hasDuplicates) {
-          setGrowthError('root', { message: 'Select 3 unique areas of growth!' })
-        }
-        if (!hasDuplicates) {
-          param = {
-            quest: id,
-            completed: true,
-            data_collection: {
-              area_of_growth_1: value.area_of_growth_1,
-              area_of_growth_2: value.area_of_growth_2,
-              area_of_growth_3: value.area_of_growth_3
-            }
-=======
         param = {
           quest: id,
           completed: true,
@@ -480,28 +298,10 @@ const AccordionItem = ({
             area_of_growth_1: value.area_of_growth_1,
             area_of_growth_2: value.area_of_growth_2,
             area_of_growth_3: value.area_of_growth_3
->>>>>>> e72a04a (done implement quest level 1)
           }
         }
       }
 
-<<<<<<< HEAD
-      // run the API call
-
-      if (Object.keys(param).length > 0) {
-        await axios
-          .post(questConfig.questSubmit, param, {
-            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(questConfig.storageTokenKeyName)! }
-          })
-          .then(() => {
-            onFinishVideo()
-          })
-          .catch(error => {
-            console.log(error, 'errorr')
-          })
-      }
-      setLoading(false)
-=======
       //run the API call
       await axios
         .post(questConfig.questSubmit, param, {
@@ -514,7 +314,6 @@ const AccordionItem = ({
         .catch(error => {
           console.log(error, 'errorr')
         })
->>>>>>> e72a04a (done implement quest level 1)
     }
   }
 
@@ -622,7 +421,7 @@ const AccordionItem = ({
       <div className={` duration-2000 my-5 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
         {video_url && type == 'watch_video' && (
           <div className='flex justify-center w-full h-full'>
-            <ReactPlayer url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
+            <ReactPlayer playing url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
           </div>
         )}
 
@@ -656,56 +455,6 @@ const AccordionItem = ({
 
         {type == 'fill_form' && code == '5' && !status && (
           <>
-<<<<<<< HEAD
-            <div>
-              <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
-                <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
-                  <div className='flex flex-col items-center justify-center'>
-                    <div className='flex flex-col justify-center '>
-                      <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
-                        Your Occupation
-                      </label>
-                      {occupationError.occupation && (
-                        <span className='text-sm text-red-900 '> This field is required</span>
-                      )}
-                    </div>
-
-                    <Controller
-                      name='occupation'
-                      control={occupationControl}
-                      rules={{ required: true }}
-                      render={({ field: { value, onChange } }) => (
-                        <select
-                          id='occupation'
-                          value={value}
-                          onChange={e => {
-                            onChange(e)
-                            setSelectedOccupation(e.target.value)
-                          }}
-                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                        >
-                          <option value=''>Select an occupation</option>
-                          {professions.map(prof => (
-                            <option key={prof.index} value={prof.value}>
-                              {prof.value}
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    />
-                  </div>
-                </FormControl>
-                {selectedOccupation == 'Other' && (
-                  <FormControl
-                    className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
-                  >
-                    <div className='flex flex-col items-center justify-center'>
-                      <div className='flex flex-col justify-center '>
-                        <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
-                          Enter other occupation
-                        </label>
-                        {occupationError.other_occupation && (
-=======
             <div className=''>
               <div>
                 <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
@@ -719,24 +468,11 @@ const AccordionItem = ({
                           Your Occupation
                         </label>
                         {occupationError.occupation && (
->>>>>>> e72a04a (done implement quest level 1)
                           <span className='text-sm text-red-900 '> This field is required</span>
                         )}
                       </div>
 
                       <Controller
-<<<<<<< HEAD
-                        name='other_occupation'
-                        control={occupationControl}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange } }) => (
-                          <input
-                            id='other_occupation'
-                            value={value}
-                            onChange={onChange}
-                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                          ></input>
-=======
                         name='occupation'
                         control={occupationControl}
                         rules={{ required: true }}
@@ -754,39 +490,10 @@ const AccordionItem = ({
                               </option>
                             ))}
                           </select>
->>>>>>> e72a04a (done implement quest level 1)
                         )}
                       />
                     </div>
                   </FormControl>
-<<<<<<< HEAD
-                )}
-
-                <div
-                  className={`flex flex-col items-center justify-center pt-5 lg:flex-row ${checkHeroBrightness(
-                    auth.user?.character || 'Hero'
-                  )}`}
-                >
-                  <div className='flex justify-between '>
-                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
-                      Level of Satisfaction
-                    </label>
-                  </div>
-                  <div>
-                    <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
-                  </div>
-                </div>
-                <div className='flex justify-center w-full pt-10'>
-                  <button
-                    disabled={loading}
-                    type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-=======
                   <div className='flex flex-col items-center justify-center pt-5'>
                     <div className='flex justify-between '>
                       <label
@@ -811,7 +518,6 @@ const AccordionItem = ({
                   </div>
                 </form>
               </div>
->>>>>>> e72a04a (done implement quest level 1)
             </div>
           </>
         )}
@@ -858,13 +564,6 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a First Strength</option>
-<<<<<<< HEAD
-                            {roles.strength.map((myRole: string, index: number) => (
-                              <option key={index} value={myRole}>
-                                {myRole}
-                              </option>
-                            ))}
-=======
                             {roles.map(
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
@@ -873,7 +572,6 @@ const AccordionItem = ({
                                   </option>
                                 )
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
@@ -916,13 +614,6 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Second Strength</option>
-<<<<<<< HEAD
-                            {roles.strength.map((myRole: string, index: number) => (
-                              <option key={index} value={myRole}>
-                                {myRole}
-                              </option>
-                            ))}
-=======
                             {roles.map(
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
@@ -931,7 +622,6 @@ const AccordionItem = ({
                                   </option>
                                 )
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
@@ -974,13 +664,6 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Third Strength</option>
-<<<<<<< HEAD
-                            {roles.strength.map((myRole: string, index: number) => (
-                              <option key={index} value={myRole}>
-                                {myRole}
-                              </option>
-                            ))}
-=======
                             {roles.map(
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
@@ -989,27 +672,12 @@ const AccordionItem = ({
                                   </option>
                                 )
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
                     </div>
                   </FormControl>
                 </div>
-<<<<<<< HEAD
-
-                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
-                  <button
-                    disabled={loading}
-                    type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 rounded-xl hover:opacity-80 hover:cursor-pointer'
-                  >
-                    Submit
-                  </button>
-                  {strengthError.root && (
-                    <span className='ml-2 text-red-900 text-md '> {strengthError.root.message}</span>
-                  )}
-=======
                 <div className='flex justify-center w-full pt-10 lg:justify-start'>
                   <button
                     disabled={loading}
@@ -1018,7 +686,6 @@ const AccordionItem = ({
                   >
                     Submit
                   </button>
->>>>>>> e72a04a (done implement quest level 1)
                 </div>
               </form>
             </div>
@@ -1083,7 +750,6 @@ const AccordionItem = ({
                                   </option>
                                 )
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
@@ -1126,27 +792,14 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Second Area of Growth</option>
-<<<<<<< HEAD
-                            {/* {roles.map(
-=======
                             {roles.map(
->>>>>>> e72a04a (done implement quest level 1)
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
                                   <option key={index} value={myRole.growth[1]}>
                                     {myRole.growth[1]}
                                   </option>
                                 )
-<<<<<<< HEAD
-                            )} */}
-                            {roles.growth.map((myRole: string, index: number) => (
-                              <option key={index} value={myRole}>
-                                {myRole}
-                              </option>
-                            ))}
-=======
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
@@ -1189,13 +842,6 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Third Area of Growth</option>
-<<<<<<< HEAD
-                            {roles.growth.map((myRole: string, index: number) => (
-                              <option key={index} value={myRole}>
-                                {myRole}
-                              </option>
-                            ))}
-=======
                             {roles.map(
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
@@ -1204,18 +850,13 @@ const AccordionItem = ({
                                   </option>
                                 )
                             )}
->>>>>>> e72a04a (done implement quest level 1)
                           </select>
                         )}
                       />
                     </div>
                   </FormControl>
                 </div>
-<<<<<<< HEAD
-                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
-=======
                 <div className='flex justify-center w-full pt-10 lg:justify-start'>
->>>>>>> e72a04a (done implement quest level 1)
                   <button
                     disabled={loading}
                     type='submit'
@@ -1223,10 +864,6 @@ const AccordionItem = ({
                   >
                     Submit
                   </button>
-<<<<<<< HEAD
-                  {growthError.root && <span className='ml-2 text-red-900 text-md '> {growthError.root.message}</span>}
-=======
->>>>>>> e72a04a (done implement quest level 1)
                 </div>
               </form>
             </div>

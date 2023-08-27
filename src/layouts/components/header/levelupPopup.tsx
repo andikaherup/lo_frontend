@@ -1,16 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-<<<<<<< HEAD
-import { useAuth } from 'src/hooks/useAuth'
-
-// ** Type
-import { Archetype } from 'src/context/characterType'
-
-// ** Axios
-import axios from 'axios'
-import { characters } from 'src/configs/characterData'
-=======
 // ** MUI Imports
 // ** Hooks
 
@@ -18,18 +8,15 @@ import { characters } from 'src/configs/characterData'
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 
+// ** Type
+import { Archetype } from 'src/context/characterType'
+
 // ** Axios
 import axios from 'axios'
->>>>>>> e72a04a (done implement quest level 1)
 
 // ** Config
 import authConfig from 'src/configs/auth'
 
-<<<<<<< HEAD
-import { getBaseTextColor, getBaseLightTextColor } from 'src/configs/getBackground'
-
-=======
->>>>>>> e72a04a (done implement quest level 1)
 interface RefProps {
   open: boolean
   close: () => void
@@ -39,7 +26,7 @@ const PopupLevelup = (props: RefProps) => {
   const auth = useAuth()
 
   const { open, close } = props
-<<<<<<< HEAD
+  const [error, setError] = useState<string>('')
 
   const [char, setChar] = useState<Archetype>()
 
@@ -49,31 +36,15 @@ const PopupLevelup = (props: RefProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const circumference = 50 * 2 * Math.PI
-  const percent = 100
-=======
-  const [error, setError] = useState<string>('')
-
-  const [ref, setRef] = useState('')
-
-  const onChange = (event: any) => {
-    setRef(event.target.value)
-  }
-
   const onSubmit = () => {
     setError('')
   }
->>>>>>> e72a04a (done implement quest level 1)
 
   const onSkip = () => {
     axios
       .put(
         authConfig.editUserEndpoint,
-<<<<<<< HEAD
-        { has_just_leveled_up: false },
-=======
         { is_new_user: false },
->>>>>>> e72a04a (done implement quest level 1)
         {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
         }
@@ -85,10 +56,7 @@ const PopupLevelup = (props: RefProps) => {
       .catch(err => {
         if (err.response.data) {
           if (err.response.data.data) {
-<<<<<<< HEAD
-=======
             setError(err.response.data.data)
->>>>>>> e72a04a (done implement quest level 1)
           }
         }
       })
@@ -124,12 +92,7 @@ const PopupLevelup = (props: RefProps) => {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-<<<<<<< HEAD
-              <Dialog.Panel
-                className={`w-full max-w-3xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl ${
-                  characters.find(character => character.name === auth.user?.character)?.background
-                } rounded-2xl`}
-              >
+              <Dialog.Panel className='w-full max-w-xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-white-500 rounded-2xl'>
                 <Dialog.Title
                   as='h1'
                   className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'
@@ -177,69 +140,6 @@ const PopupLevelup = (props: RefProps) => {
                           </div>
                         </div>
 
-                        <h1
-                          className={`${getBaseLightTextColor(
-                            auth.user?.character || 'Hero'
-                          )} text-2xl text-center font-bold mt-3 `}
-                        >
-                          Conquer more <br /> quest to level up!
-                        </h1>
-                      </div>
-                      <img
-                        src={`/assets/characters/pod${
-                          auth.user?.character_level == 0
-                            ? auth.user.gender == 'male'
-                              ? char?.lvl0_image_M
-                              : char?.lvl0_image_F
-                            : auth.user?.gender == 'male'
-                            ? char?.lvl1_image_M
-                            : char?.lvl1_image_F
-                        }`}
-                        alt={`Image`}
-                        className={`object-scale-down `}
-                      />
-                    </div>
-                    <div className='flex justify-center w-full mt-5 mb-10'>
-                      <button
-                        className='w-1/4 p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
-                        onClick={onSkip}
-                      >
-                        Continue
-                      </button>
-=======
-              <Dialog.Panel className='w-full max-w-xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-white-500 rounded-2xl'>
-                <Dialog.Title
-                  as='h1'
-                  className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'
-                >
-                  Have Invitation Code ?
-                </Dialog.Title>
-
-                <div className='w-full max-w-xl pt-2 mx-auto mt-5'>
-                  <div className='mt-8'>
-                    <div className='my-6'>
-                      <div className='mt-1'>
-                        <input
-                          id='referral'
-                          name='referral'
-                          type='text'
-                          value={ref}
-                          onChange={onChange}
-                          autoComplete='email'
-                          className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
-                        />
-                      </div>
-                      {error && (
-                        <div className='py-2'>
-                          <span className='text-red-900'>{error}</span>
-                        </div>
-                      )}
-
-                      <div className='flex justify-between w-full mt-5 mb-10'>
-                        <button className='w-full p-4 mr-2 text-red-900 rounded-lg ' onClick={onSkip}>
-                          Skip for now
-                        </button>
-
                         <button
                           className='w-full p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
                           onClick={onSubmit}
@@ -247,7 +147,6 @@ const PopupLevelup = (props: RefProps) => {
                           Submit
                         </button>
                       </div>
->>>>>>> e72a04a (done implement quest level 1)
                     </div>
                   </div>
                 </div>
