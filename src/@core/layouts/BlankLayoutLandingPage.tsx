@@ -46,6 +46,9 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
     if (auth.user?.is_new_user) {
       setOpenRef(true)
     }
+    if (auth.user?.has_just_leveled_up) {
+      setLeveup(true)
+    }
   }, [auth])
   const closeRef = () => {
     setOpenRef(false)

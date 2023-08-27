@@ -23,7 +23,6 @@ import * as yup from 'yup'
 
 import { useForm, Controller } from 'react-hook-form'
 import StatisfactionRadio from '../misc/statisfactionRadio'
-import { userAgent } from 'next/server'
 
 interface Props {
   header: string
@@ -39,29 +38,34 @@ interface Props {
   onFinishVideo: () => void
 }
 
-interface occStatisfaction {
-  occupation: string
-  job_satisfaction_level: number
-}
-interface strengthShare {
-  strength_1: string
-  strength_2: string
-  strength_3: string
-}
+// interface occStatisfaction {
+//   occupation: string
+//   job_satisfaction_level: number
+// }
+// interface strengthShare {
+//   strength_1: string
+//   strength_2: string
+//   strength_3: string
+// }
 
-interface areaOfGrowthShare {
-  area_of_growth_1: string
-  area_of_growth_2: string
-  area_of_growth_3: string
-}
+// interface areaOfGrowthShare {
+//   area_of_growth_1: string
+//   area_of_growth_2: string
+//   area_of_growth_3: string
+// }
+// interface Role {
+//   role: string
+//   strength: string[]
+//   growth: string[]
+// }
 interface Role {
-  role: string
   strength: string[]
   growth: string[]
 }
 
 const occupationSchema = yup.object().shape({
   occupation: yup.string().required(),
+  other_occupation: yup.string(),
   job_satisfaction_level: yup.number().required()
 })
 
@@ -77,48 +81,103 @@ const growthSchema = yup.object().shape({
   area_of_growth_3: yup.string().required()
 })
 
-const roles: Role[] = [
-  {
-    role: 'Hero',
-    strength: ['Courageous leadership', 'Resilience', 'Empowering others'],
-    growth: ['Delegating tasks', 'Self-care', 'Embracing vulnerability']
-  },
-  {
-    role: 'Magician',
-    strength: ['Creative brilliance', 'Resourceful problem-solving', 'Enchanting influence'],
-    growth: ['Grounding ideas', 'Focus and execution', 'Embracing setbacks']
-  },
-  {
-    role: 'Rebel',
-    strength: ['Independent thinking', 'Collaboration', 'Embracing change'],
-    growth: ['Fearless expression', 'Patience and diplomacy', 'Selective rebellion']
-  },
-  {
-    role: 'Creator',
-    strength: ['Imagination and Vision', 'Artistic Expression', 'Innovation and Adaptability'],
-    growth: ['Focus and Discipline', 'Dealing with Criticism', 'Balancing Exploration and Completion']
-  },
-  {
-    role: 'Synergist',
-    strength: ['Collaborative leadership', 'Diplomacy and conflict resolution', 'Empathetic connection'],
-    growth: ['Balancing individual needs', 'Setting boundaries', 'Embracing constructive conflict']
-  },
-  {
-    role: 'Oracle',
-    strength: ['Intuitive wisdom', 'Visionary perspective', 'Empowering guidance'],
-    growth: ['Grounding practicality', 'Balancing detachment and empathy', 'Effective communication']
-  },
-  {
-    role: 'Protector',
-    strength: ['Empathetic support', 'Nurturing nature', 'Resilient protector'],
-    growth: ['Self-care', 'Balancing support and empowerment', 'Setting emotional boundaries']
-  },
-  {
-    role: 'Ruler',
-    strength: ['Strategic vision', 'Effective decision-making', 'Empowering leadership'],
-    growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
-  }
-]
+const roles: Role = {
+  strength: [
+    'Courageous leadership',
+    'Resilience',
+    'Empowering others',
+    'Creative brilliance',
+    'Resourceful problem-solving',
+    'Enchanting influence',
+    'Independent thinking',
+    'Collaboration',
+    'Embracing change',
+    'Imagination and Vision',
+    'Artistic Expression',
+    'Innovation and Adaptability',
+    'Collaborative leadership',
+    'Diplomacy and conflict resolution',
+    'Empathetic connection',
+    'Intuitive wisdom',
+    'Visionary perspective',
+    'Empowering guidance',
+    'Empathetic support',
+    'Nurturing nature',
+    'Resilient protector',
+    'Strategic vision',
+    'Effective decision-making',
+    'Empowering leadership'
+  ],
+  growth: [
+    'Delegating tasks',
+    'Self-care',
+    'Embracing vulnerability',
+    'Grounding ideas',
+    'Focus and execution',
+    'Embracing setbacks',
+    'Fearless expression',
+    'Patience and diplomacy',
+    'Selective rebellion',
+    'Focus and Discipline',
+    'Dealing with Criticism',
+    'Balancing Exploration and Completion',
+    'Balancing individual needs',
+    'Setting boundaries',
+    'Embracing constructive conflict',
+    'Grounding practicality',
+    'Balancing detachment and empathy',
+    'Effective communication',
+    'Self-care',
+    'Balancing support and empowerment',
+    'Setting emotional boundaries',
+    'Flexibility and adaptability',
+    'Delegating and trusting others',
+    'Balancing authority and collaboration'
+  ]
+}
+
+// const roles: Role[] = [
+//   {
+//     role: 'Hero',
+//     strength: ['Courageous leadership', 'Resilience', 'Empowering others'],
+//     growth: ['Delegating tasks', 'Self-care', 'Embracing vulnerability']
+//   },
+//   {
+//     role: 'Magician',
+//     strength: ['Creative brilliance', 'Resourceful problem-solving', 'Enchanting influence'],
+//     growth: ['Grounding ideas', 'Focus and execution', 'Embracing setbacks']
+//   },
+//   {
+//     role: 'Rebel',
+//     strength: ['Independent thinking', 'Collaboration', 'Embracing change'],
+//     growth: ['Fearless expression', 'Patience and diplomacy', 'Selective rebellion']
+//   },
+//   {
+//     role: 'Creator',
+//     strength: ['Imagination and Vision', 'Artistic Expression', 'Innovation and Adaptability'],
+//     growth: ['Focus and Discipline', 'Dealing with Criticism', 'Balancing Exploration and Completion']
+//   },
+//   {
+//     role: 'Synergist',
+//     strength: ['Collaborative leadership', 'Diplomacy and conflict resolution', 'Empathetic connection'],
+//     growth: ['Balancing individual needs', 'Setting boundaries', 'Embracing constructive conflict']
+//   },
+//   {
+//     role: 'Oracle',
+//     strength: ['Intuitive wisdom', 'Visionary perspective', 'Empowering guidance'],
+//     growth: ['Grounding practicality', 'Balancing detachment and empathy', 'Effective communication']
+//   },
+//   {
+//     role: 'Protector',
+//     strength: ['Empathetic support', 'Nurturing nature', 'Resilient protector'],
+//     growth: ['Self-care', 'Balancing support and empowerment', 'Setting emotional boundaries']
+//   },
+//   {
+//     role: 'Ruler',
+//     strength: ['Strategic vision', 'Effective decision-making', 'Empowering leadership'],
+//     growth: ['Flexibility and adaptability', 'Delegating and trusting others', 'Balancing authority and collaboration']
+//   }
+// ]
 
 const professions: { index: number; value: string }[] = [
   { index: 0, value: 'Accountant' },
@@ -191,8 +250,12 @@ const AccordionItem = ({
   const [active, setActive] = useState(false)
   const [satisfaction, setSatisfaction] = useState<number>()
   const [loading, setLoading] = useState<boolean>(false)
+
+  const [selectedOccupation, setSelectedOccupation] = useState('')
+
   const defaultOccupationValues = {
     occupation: '',
+    other_occupation: '',
     job_satisfaction_level: 0
   }
   const defaultStrengthValues = {
@@ -218,7 +281,8 @@ const AccordionItem = ({
   const {
     control: strengthControl,
     handleSubmit: handleStrengthSubmit,
-    formState: { errors: strengthError }
+    formState: { errors: strengthError },
+    setError: setStrengthError
   } = useForm({
     defaultValues: defaultStrengthValues,
     resolver: yupResolver(strengthSchema)
@@ -227,7 +291,8 @@ const AccordionItem = ({
   const {
     control: growthControl,
     handleSubmit: handleGrowthSubmit,
-    formState: { errors: growthError }
+    formState: { errors: growthError },
+    setError: setGrowthError
   } = useForm({
     defaultValues: defaultGrowthValues,
     resolver: yupResolver(growthSchema)
@@ -270,45 +335,63 @@ const AccordionItem = ({
           completed: true,
           data_collection: {
             occupation: value.occupation,
+            other_occupation: value.other_occupation,
             job_satisfaction_level: satisfaction
           }
         }
       }
       if (code == '6') {
-        param = {
-          quest: id,
-          completed: true,
-          data_collection: {
-            strength_1: value.strength_1,
-            strength_2: value.strength_2,
-            strength_3: value.strength_3
+        const strengthValues = [value.strength_1, value.strength_2, value.strength_3]
+        const hasDuplicates = new Set(strengthValues).size !== strengthValues.length
+        if (hasDuplicates) {
+          setStrengthError('root', { message: 'Duplicate value detected!' })
+        }
+        if (!hasDuplicates) {
+          param = {
+            quest: id,
+            completed: true,
+            data_collection: {
+              strength_1: value.strength_1,
+              strength_2: value.strength_2,
+              strength_3: value.strength_3
+            }
           }
         }
       }
       if (code == '7') {
-        param = {
-          quest: id,
-          completed: true,
-          data_collection: {
-            area_of_growth_1: value.area_of_growth_1,
-            area_of_growth_2: value.area_of_growth_2,
-            area_of_growth_3: value.area_of_growth_3
+        const growthValues = [value.area_of_growth_, value.area_of_growth_2, value.area_of_growth_3]
+        const hasDuplicates = new Set(growthValues).size !== growthValues.length
+        if (hasDuplicates) {
+          setGrowthError('root', { message: 'Duplicate value detected!' })
+        }
+        if (!hasDuplicates) {
+          param = {
+            quest: id,
+            completed: true,
+            data_collection: {
+              area_of_growth_1: value.area_of_growth_1,
+              area_of_growth_2: value.area_of_growth_2,
+              area_of_growth_3: value.area_of_growth_3
+            }
           }
         }
       }
 
-      //run the API call
-      await axios
-        .post(questConfig.questSubmit, param, {
-          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(questConfig.storageTokenKeyName)! }
-        })
-        .then(() => {
-          setLoading(false)
-          onFinishVideo()
-        })
-        .catch(error => {
-          console.log(error, 'errorr')
-        })
+      // run the API call
+
+      if (Object.keys(param).length > 0) {
+        await axios
+          .post(questConfig.questSubmit, param, {
+            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(questConfig.storageTokenKeyName)! }
+          })
+          .then(() => {
+            onFinishVideo()
+          })
+          .catch(error => {
+            console.log(error, 'errorr')
+          })
+      }
+      setLoading(false)
     }
   }
 
@@ -416,7 +499,7 @@ const AccordionItem = ({
       <div className={` duration-2000 my-5 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
         {video_url && type == 'watch_video' && (
           <div className='flex justify-center w-full h-full'>
-            <ReactPlayer playing url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
+            <ReactPlayer url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
           </div>
         )}
 
@@ -450,69 +533,102 @@ const AccordionItem = ({
 
         {type == 'fill_form' && code == '5' && !status && (
           <>
-            <div className=''>
-              <div>
-                <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
-                  <FormControl className='flex justify-center'>
+            <div>
+              <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
+                <FormControl className='flex justify-start'>
+                  <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-col justify-center '>
+                      <label
+                        htmlFor='occupation'
+                        className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
+                      >
+                        Your Occupation
+                      </label>
+                      {occupationError.occupation && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
+                    </div>
+
+                    <Controller
+                      name='occupation'
+                      control={occupationControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <select
+                          id='occupation'
+                          value={value}
+                          onChange={e => {
+                            onChange(e)
+                            setSelectedOccupation(e.target.value)
+                          }}
+                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        >
+                          <option value=''>Select an occupation</option>
+                          {professions.map(prof => (
+                            <option key={prof.index} value={prof.value}>
+                              {prof.value}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                {selectedOccupation == 'Other' && (
+                  <FormControl className='flex justify-center pt-5'>
                     <div className='flex flex-col items-center justify-center'>
                       <div className='flex flex-col justify-center '>
                         <label
-                          htmlFor='occupation'
-                          className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
+                          htmlFor='other_occupation'
+                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
-                          Your Occupation
+                          Enter other occupation
                         </label>
-                        {occupationError.occupation && (
+                        {occupationError.other_occupation && (
                           <span className='text-sm text-red-900 '> This field is required</span>
                         )}
                       </div>
 
                       <Controller
-                        name='occupation'
+                        name='other_occupation'
                         control={occupationControl}
                         rules={{ required: true }}
                         render={({ field: { value, onChange } }) => (
-                          <select
-                            id='occupation'
+                          <input
+                            id='other_occupation'
                             value={value}
                             onChange={onChange}
                             className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                          >
-                            <option value=''>Choose a occupation</option>
-                            {professions.map(prof => (
-                              <option key={prof.index} value={prof.value}>
-                                {prof.value}
-                              </option>
-                            ))}
-                          </select>
+                          ></input>
                         )}
                       />
                     </div>
                   </FormControl>
-                  <div className='flex flex-col items-center justify-center pt-5'>
-                    <div className='flex justify-between '>
-                      <label
-                        htmlFor='level_of_satisfaction'
-                        className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
-                      >
-                        Level of Satisfaction
-                      </label>
-                    </div>
-                    <div>
-                      <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
-                    </div>
-                  </div>
-                  <div className='flex justify-center w-full pt-10'>
-                    <button
-                      disabled={loading}
-                      type='submit'
-                      className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                )}
+
+                <div className='flex flex-col items-center justify-center pt-5 lg:flex-row'>
+                  <div className='flex justify-between '>
+                    <label
+                      htmlFor='level_of_satisfaction'
+                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                     >
-                      Submit
-                    </button>
+                      Level of Satisfaction
+                    </label>
                   </div>
-                </form>
-              </div>
+                  <div>
+                    <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                  </div>
+                </div>
+                <div className='flex justify-center w-full pt-10'>
+                  <button
+                    disabled={loading}
+                    type='submit'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
           </>
         )}
@@ -548,14 +664,11 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a First Strength</option>
-                            {roles.map(
-                              (myRole: Role, index: number) =>
-                                myRole.role == auth.user?.character && (
-                                  <option key={index} value={myRole.strength[0]}>
-                                    {myRole.strength[0]}
-                                  </option>
-                                )
-                            )}
+                            {roles.strength.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
@@ -587,14 +700,11 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Second Strength</option>
-                            {roles.map(
-                              (myRole: Role, index: number) =>
-                                myRole.role == auth.user?.character && (
-                                  <option key={index} value={myRole.strength[1]}>
-                                    {myRole.strength[1]}
-                                  </option>
-                                )
-                            )}
+                            {roles.strength.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
@@ -626,21 +736,19 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Third Strength</option>
-                            {roles.map(
-                              (myRole: Role, index: number) =>
-                                myRole.role == auth.user?.character && (
-                                  <option key={index} value={myRole.strength[2]}>
-                                    {myRole.strength[2]}
-                                  </option>
-                                )
-                            )}
+                            {roles.strength.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
                     </div>
                   </FormControl>
                 </div>
-                <div className='flex justify-center w-full pt-10 lg:justify-start'>
+
+                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
                   <button
                     disabled={loading}
                     type='submit'
@@ -648,6 +756,9 @@ const AccordionItem = ({
                   >
                     Submit
                   </button>
+                  {strengthError.root && (
+                    <span className='ml-2 text-red-900 text-md '> {strengthError.root.message}</span>
+                  )}
                 </div>
               </form>
             </div>
@@ -685,14 +796,11 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a First Strength</option>
-                            {roles.map(
-                              (myRole: Role, index: number) =>
-                                myRole.role == auth.user?.character && (
-                                  <option key={index} value={myRole.growth[0]}>
-                                    {myRole.growth[0]}
-                                  </option>
-                                )
-                            )}
+                            {roles.growth.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
@@ -724,14 +832,19 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Second Area of Growth</option>
-                            {roles.map(
+                            {/* {roles.map(
                               (myRole: Role, index: number) =>
                                 myRole.role == auth.user?.character && (
                                   <option key={index} value={myRole.growth[1]}>
                                     {myRole.growth[1]}
                                   </option>
                                 )
-                            )}
+                            )} */}
+                            {roles.growth.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
@@ -763,21 +876,18 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
                             <option value=''>Choose a Third Area of Growth</option>
-                            {roles.map(
-                              (myRole: Role, index: number) =>
-                                myRole.role == auth.user?.character && (
-                                  <option key={index} value={myRole.growth[2]}>
-                                    {myRole.growth[2]}
-                                  </option>
-                                )
-                            )}
+                            {roles.growth.map((myRole: string, index: number) => (
+                              <option key={index} value={myRole}>
+                                {myRole}
+                              </option>
+                            ))}
                           </select>
                         )}
                       />
                     </div>
                   </FormControl>
                 </div>
-                <div className='flex justify-center w-full pt-10 lg:justify-start'>
+                <div className='flex flex-col items-center justify-center w-full pt-10 lg:flex-row lg:justify-start'>
                   <button
                     disabled={loading}
                     type='submit'
@@ -785,6 +895,7 @@ const AccordionItem = ({
                   >
                     Submit
                   </button>
+                  {growthError.root && <span className='ml-2 text-red-900 text-md '> {growthError.root.message}</span>}
                 </div>
               </form>
             </div>
