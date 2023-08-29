@@ -391,7 +391,7 @@ const Leaderboard = () => {
                     </tr>
                   )
                 })}
-                {auth.user && myRank > 20 && (
+                {auth.user && myRank > (userList?.length || 0) && (
                   <tr className='bg-yellow-300'>
                     <td className='p-2 whitespace-nowrap'>
                       <div className='text-xs text-center lg:text-lg'>{myRank}</div>
