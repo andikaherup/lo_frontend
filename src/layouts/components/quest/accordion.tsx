@@ -483,7 +483,7 @@ const AccordionItem = ({
         const strengthValues = [value.strength_1, value.strength_2, value.strength_3]
         const hasDuplicates = new Set(strengthValues).size !== strengthValues.length
         if (hasDuplicates) {
-          setStrengthError('root', { message: 'Duplicate value detected!' })
+          setStrengthError('root', { message: 'Select 3 unique strengths!' })
         }
         if (!hasDuplicates) {
           param = {
@@ -512,12 +512,16 @@ const AccordionItem = ({
       if (code == '7') {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 58dbe8e (update to deploy)
         const growthValues = [value.area_of_growth_, value.area_of_growth_2, value.area_of_growth_3]
+=======
+        const growthValues = [value.area_of_growth_1, value.area_of_growth_2, value.area_of_growth_3]
+>>>>>>> 70df47f (update on quest)
         const hasDuplicates = new Set(growthValues).size !== growthValues.length
         if (hasDuplicates) {
-          setGrowthError('root', { message: 'Duplicate value detected!' })
+          setGrowthError('root', { message: 'Select 3 unique areas of growth!' })
         }
         if (!hasDuplicates) {
           param = {
@@ -727,13 +731,10 @@ const AccordionItem = ({
 >>>>>>> 58dbe8e (update to deploy)
             <div>
               <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
-                <FormControl className='flex justify-start'>
+                <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
                   <div className='flex flex-col items-center justify-center'>
                     <div className='flex flex-col justify-center '>
-                      <label
-                        htmlFor='occupation'
-                        className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                      >
+                      <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                         Your Occupation
                       </label>
                       {occupationError.occupation && (
@@ -767,14 +768,17 @@ const AccordionItem = ({
                   </div>
                 </FormControl>
                 {selectedOccupation == 'Other' && (
+<<<<<<< HEAD
                   <FormControl className='flex justify-center pt-5'>
 <<<<<<< HEAD
+=======
+                  <FormControl
+                    className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
+                  >
+>>>>>>> 70df47f (update on quest)
                     <div className='flex flex-col items-center justify-center'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='other_occupation'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                           Enter other occupation
                         </label>
                         {occupationError.other_occupation && (
@@ -852,13 +856,21 @@ const AccordionItem = ({
 >>>>>>> 58dbe8e (update to deploy)
                 )}
 
-                <div className='flex flex-col items-center justify-center pt-5 lg:flex-row'>
+                <div
+                  className={`flex flex-col items-center justify-center pt-5 lg:flex-row ${checkHeroBrightness(
+                    auth.user?.character || 'Hero'
+                  )}`}
+                >
                   <div className='flex justify-between '>
+<<<<<<< HEAD
                     <label
                       htmlFor='level_of_satisfaction'
                       className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
 <<<<<<< HEAD
                     >
+=======
+                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                       Level of Satisfaction
                     </label>
                   </div>
@@ -930,13 +942,14 @@ const AccordionItem = ({
             <div>
               <form onSubmit={handleStrengthSubmit(onFormSubmit)}>
                 <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='strength_1'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your First Strength
                         </label>
                         {strengthError.strength_1 && (
@@ -983,13 +996,14 @@ const AccordionItem = ({
                       />
                     </div>
                   </FormControl>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='strength_1'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your Second Strength
                         </label>
                         {strengthError.strength_2 && (
@@ -1036,13 +1050,14 @@ const AccordionItem = ({
                       />
                     </div>
                   </FormControl>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='strength_3'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='strength_3' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your Third Strength
                         </label>
                         {strengthError.strength_3 && (
@@ -1104,7 +1119,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 rounded-xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -1131,13 +1146,14 @@ const AccordionItem = ({
             <div>
               <form onSubmit={handleGrowthSubmit(onFormSubmit)}>
                 <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='area_of_growth_1'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='area_of_growth_1' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your First Area of Growth
                         </label>
                         {growthError.area_of_growth_1 && (
@@ -1156,11 +1172,15 @@ const AccordionItem = ({
                             onChange={onChange}
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
+<<<<<<< HEAD
                             <option value=''>Choose a First Strength</option>
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> 58dbe8e (update to deploy)
+=======
+                            <option value=''>Choose a First Area of Growth</option>
+>>>>>>> 70df47f (update on quest)
                             {roles.growth.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
                                 {myRole}
@@ -1184,13 +1204,14 @@ const AccordionItem = ({
                       />
                     </div>
                   </FormControl>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='area_of_growth_2'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='area_of_growth_2' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your Second Area of Growth
                         </label>
                         {growthError.area_of_growth_2 && (
@@ -1246,13 +1267,14 @@ const AccordionItem = ({
                       />
                     </div>
                   </FormControl>
-                  <FormControl className='flex justify-center w-full mt-2 lg:w-fit lg:mt-0'>
+                  <FormControl
+                    className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
+                      auth.user?.character || 'Hero'
+                    )}`}
+                  >
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
-                        <label
-                          htmlFor='area_of_growth_3'
-                          className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                        >
+                        <label htmlFor='area_of_growth_3' className='block mb-2 text-sm font-medium dark:text-white'>
                           Select Your Third Area of Growth
                         </label>
                         {growthError.area_of_growth_3 && (
