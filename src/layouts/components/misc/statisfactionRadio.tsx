@@ -66,14 +66,14 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
         <RadioButton value={5} selectedValue={valueRadio} onChange={handleRadioChange} />
         {/* <h1 className='hidden ml-2 font-extrabold lg:flex '>Extremely Happy</h1> */}
       </div>
-      <div className='flex items-center justify-between w-full mt-2'>
+      {/* <div className='flex items-center justify-between w-full mt-2'>
         <div className='flex justify-start w-full'>
           <h1 className='flex ml-2 text-xs font-extrabold '>Extremely Unhappy</h1>
         </div>
         <div className='flex justify-end w-full'>
           <h1 className='flex ml-2 text-xs font-extrabold '>Extremely Happy</h1>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
