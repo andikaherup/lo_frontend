@@ -1,11 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-// ** MUI Imports
-// ** Hooks
-
-// ** MUI Imports
-// ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type
@@ -13,9 +8,12 @@ import { Archetype } from 'src/context/characterType'
 
 // ** Axios
 import axios from 'axios'
+import { characters } from 'src/configs/characterData'
 
 // ** Config
 import authConfig from 'src/configs/auth'
+
+import { getBaseTextColor, getBaseLightTextColor } from 'src/configs/getBackground'
 
 interface RefProps {
   open: boolean
@@ -26,7 +24,6 @@ const PopupLevelup = (props: RefProps) => {
   const auth = useAuth()
 
   const { open, close } = props
-  const [error, setError] = useState<string>('')
 
   const [char, setChar] = useState<Archetype>()
 
@@ -36,15 +33,14 @@ const PopupLevelup = (props: RefProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onSubmit = () => {
-    setError('')
-  }
+  const circumference = 50 * 2 * Math.PI
+  const percent = 100
 
   const onSkip = () => {
     axios
       .put(
         authConfig.editUserEndpoint,
-        { is_new_user: false },
+        { has_just_leveled_up: false },
         {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
         }
@@ -56,7 +52,6 @@ const PopupLevelup = (props: RefProps) => {
       .catch(err => {
         if (err.response.data) {
           if (err.response.data.data) {
-            setError(err.response.data.data)
           }
         }
       })
@@ -92,7 +87,11 @@ const PopupLevelup = (props: RefProps) => {
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <Dialog.Panel className='w-full max-w-xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-white-500 rounded-2xl'>
+              <Dialog.Panel
+                className={`w-full max-w-3xl px-10 pt-5 overflow-hidden text-left align-middle transition-all transform shadow-xl ${
+                  characters.find(character => character.name === auth.user?.character)?.background
+                } rounded-2xl`}
+              >
                 <Dialog.Title
                   as='h1'
                   className='mt-10 text-3xl font-medium leading-6 text-center text-textcolorblack-300'
@@ -140,13 +139,35 @@ const PopupLevelup = (props: RefProps) => {
                           </div>
                         </div>
 
-                        <button
-                          className='w-full p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
-                          onClick={onSubmit}
+                        <h1
+                          className={`${getBaseLightTextColor(
+                            auth.user?.character || 'Hero'
+                          )} text-2xl text-center font-bold mt-3 `}
                         >
-                          Submit
-                        </button>
+                          Conquer more <br /> quest to level up!
+                        </h1>
                       </div>
+                      <img
+                        src={`/assets/characters/pod${
+                          auth.user?.character_level == 0
+                            ? auth.user.gender == 'male'
+                              ? char?.lvl0_image_M
+                              : char?.lvl0_image_F
+                            : auth.user?.gender == 'male'
+                            ? char?.lvl1_image_M
+                            : char?.lvl1_image_F
+                        }`}
+                        alt={`Image`}
+                        className={`object-scale-down `}
+                      />
+                    </div>
+                    <div className='flex justify-center w-full mt-5 mb-10'>
+                      <button
+                        className='w-1/4 p-4 font-medium tracking-wide capitalize transition-all bg-blue-500 border rounded-l-full rounded-r-full outline-none text-white-500 sm:px-8 op hover:opacity-70 hover:text-white-500 '
+                        onClick={onSkip}
+                      >
+                        Continue
+                      </button>
                     </div>
                   </div>
                 </div>
