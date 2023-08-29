@@ -1,8 +1,6 @@
-import React, { ChangeEvent, useState } from 'react'
-import RadioButton from './radioButton'
+import React, { ChangeEvent } from 'react'
 
 interface RadioGroupProps {
-  // disable: boolean
   valueRadio: number | undefined
   onRadioChange: (value: number) => void
 }
