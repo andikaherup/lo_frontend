@@ -280,6 +280,7 @@ const AccordionItem = ({
         }
       }
       if (code == '6') {
+<<<<<<< HEAD
         param = {
           quest: id,
           completed: true,
@@ -287,10 +288,27 @@ const AccordionItem = ({
             strength_1: value.strength_1,
             strength_2: value.strength_2,
             strength_3: value.strength_3
+=======
+        const strengthValues = [value.strength_1, value.strength_2, value.strength_3]
+        const hasDuplicates = new Set(strengthValues).size !== strengthValues.length
+        if (hasDuplicates) {
+          setStrengthError('root', { message: 'Select 3 unique strengths!' })
+        }
+        if (!hasDuplicates) {
+          param = {
+            quest: id,
+            completed: true,
+            data_collection: {
+              strength_1: value.strength_1,
+              strength_2: value.strength_2,
+              strength_3: value.strength_3
+            }
+>>>>>>> 70df47f (update on quest)
           }
         }
       }
       if (code == '7') {
+<<<<<<< HEAD
         param = {
           quest: id,
           completed: true,
@@ -298,6 +316,22 @@ const AccordionItem = ({
             area_of_growth_1: value.area_of_growth_1,
             area_of_growth_2: value.area_of_growth_2,
             area_of_growth_3: value.area_of_growth_3
+=======
+        const growthValues = [value.area_of_growth_1, value.area_of_growth_2, value.area_of_growth_3]
+        const hasDuplicates = new Set(growthValues).size !== growthValues.length
+        if (hasDuplicates) {
+          setGrowthError('root', { message: 'Select 3 unique areas of growth!' })
+        }
+        if (!hasDuplicates) {
+          param = {
+            quest: id,
+            completed: true,
+            data_collection: {
+              area_of_growth_1: value.area_of_growth_1,
+              area_of_growth_2: value.area_of_growth_2,
+              area_of_growth_3: value.area_of_growth_3
+            }
+>>>>>>> 70df47f (update on quest)
           }
         }
       }
@@ -455,6 +489,7 @@ const AccordionItem = ({
 
         {type == 'fill_form' && code == '5' && !status && (
           <>
+<<<<<<< HEAD
             <div className=''>
               <div>
                 <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
@@ -466,6 +501,54 @@ const AccordionItem = ({
                           className='block mb-2 text-lg font-medium text-white-300 dark:text-white'
                         >
                           Your Occupation
+=======
+            <div>
+              <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
+                <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
+                  <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-col justify-center '>
+                      <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
+                        Your Occupation
+                      </label>
+                      {occupationError.occupation && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
+                    </div>
+
+                    <Controller
+                      name='occupation'
+                      control={occupationControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <select
+                          id='occupation'
+                          value={value}
+                          onChange={e => {
+                            onChange(e)
+                            setSelectedOccupation(e.target.value)
+                          }}
+                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                        >
+                          <option value=''>Select an occupation</option>
+                          {professions.map(prof => (
+                            <option key={prof.index} value={prof.value}>
+                              {prof.value}
+                            </option>
+                          ))}
+                        </select>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                {selectedOccupation == 'Other' && (
+                  <FormControl
+                    className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
+                  >
+                    <div className='flex flex-col items-center justify-center'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
+                          Enter other occupation
+>>>>>>> 70df47f (update on quest)
                         </label>
                         {occupationError.occupation && (
                           <span className='text-sm text-red-900 '> This field is required</span>
@@ -494,6 +577,7 @@ const AccordionItem = ({
                       />
                     </div>
                   </FormControl>
+<<<<<<< HEAD
                   <div className='flex flex-col items-center justify-center pt-5'>
                     <div className='flex justify-between '>
                       <label
@@ -515,6 +599,19 @@ const AccordionItem = ({
                     >
                       Submit
                     </button>
+=======
+                )}
+
+                <div
+                  className={`flex flex-col items-center justify-center pt-5 lg:flex-row ${checkHeroBrightness(
+                    auth.user?.character || 'Hero'
+                  )}`}
+                >
+                  <div className='flex justify-between '>
+                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
+                      Level of Satisfaction
+                    </label>
+>>>>>>> 70df47f (update on quest)
                   </div>
                 </form>
               </div>
@@ -528,11 +625,15 @@ const AccordionItem = ({
               <form onSubmit={handleStrengthSubmit(onFormSubmit)}>
                 <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -545,6 +646,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your First Strength
                         </label>
                         {strengthError.strength_1 && (
@@ -578,11 +684,15 @@ const AccordionItem = ({
                     </div>
                   </FormControl>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -595,6 +705,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='strength_1' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your Second Strength
                         </label>
                         {strengthError.strength_2 && (
@@ -628,11 +743,15 @@ const AccordionItem = ({
                     </div>
                   </FormControl>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='strength_3' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -645,6 +764,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='strength_3' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your Third Strength
                         </label>
                         {strengthError.strength_3 && (
@@ -682,7 +806,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 rounded-xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -698,11 +822,15 @@ const AccordionItem = ({
               <form onSubmit={handleGrowthSubmit(onFormSubmit)}>
                 <div className='flex flex-col items-start justify-center lg:justify-start lg:items-center lg:flex-row lg:gap-4'>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='area_of_growth_1' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -715,6 +843,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='area_of_growth_1' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your First Area of Growth
                         </label>
                         {growthError.area_of_growth_1 && (
@@ -734,6 +867,9 @@ const AccordionItem = ({
                             className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
                           >
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                             <option value=''>Choose a First Area of Growth</option>
                             {roles.growth.map((myRole: string, index: number) => (
                               <option key={index} value={myRole}>
@@ -756,11 +892,15 @@ const AccordionItem = ({
                     </div>
                   </FormControl>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='area_of_growth_2' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -773,6 +913,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='area_of_growth_2' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your Second Area of Growth
                         </label>
                         {growthError.area_of_growth_2 && (
@@ -806,11 +951,15 @@ const AccordionItem = ({
                     </div>
                   </FormControl>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 70df47f (update on quest)
                   <FormControl
                     className={`flex justify-center w-full mt-2 lg:w-fit lg:mt-0 ${checkHeroBrightness(
                       auth.user?.character || 'Hero'
                     )}`}
                   >
+<<<<<<< HEAD
                     <div className='flex flex-col items-start justify-center w-full'>
                       <div className='flex flex-col justify-center '>
                         <label htmlFor='area_of_growth_3' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -823,6 +972,11 @@ const AccordionItem = ({
                           className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
                         >
 >>>>>>> e72a04a (done implement quest level 1)
+=======
+                    <div className='flex flex-col items-start justify-center w-full'>
+                      <div className='flex flex-col justify-center '>
+                        <label htmlFor='area_of_growth_3' className='block mb-2 text-sm font-medium dark:text-white'>
+>>>>>>> 70df47f (update on quest)
                           Select Your Third Area of Growth
                         </label>
                         {growthError.area_of_growth_3 && (
