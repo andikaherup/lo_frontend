@@ -1,20 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, { ChangeEvent } from 'react'
 
 interface RadioGroupProps {
-=======
-import React, { ChangeEvent, useState } from 'react'
-import RadioButton from './radioButton'
-
-interface RadioGroupProps {
-  // disable: boolean
->>>>>>> e72a04a (done implement quest level 1)
-=======
-import React, { ChangeEvent } from 'react'
-
-interface RadioGroupProps {
->>>>>>> 58dbe8e (update to deploy)
   valueRadio: number | undefined
   onRadioChange: (value: number) => void
 }
@@ -26,10 +12,6 @@ interface RadioButtonProps {
 
 const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChange }) => {
   const RadioButton: React.FC<RadioButtonProps> = ({ value, selectedValue, onChange }) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 58dbe8e (update to deploy)
     const getImage = (value: number) => {
       switch (value) {
         case 1:
@@ -45,20 +27,11 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
       }
     }
 
-<<<<<<< HEAD
-=======
->>>>>>> e72a04a (done implement quest level 1)
-=======
->>>>>>> 58dbe8e (update to deploy)
     return (
       <label className={`flex items-center space-x-2`}>
         <input type='radio' className='hidden' value={value} checked={selectedValue === value} onChange={onChange} />
         <div
           className={`relative flex items-center justify-center w-12 h-12 ${
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 58dbe8e (update to deploy)
             selectedValue == value
               ? value == 1
                 ? 'bg-red-500'
@@ -71,7 +44,6 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
                 : 'bg-green-500'
               : 'bg-gray-600'
           }  rounded-full hover:bg-gray-500 hover:cursor-pointer`}
-<<<<<<< HEAD
         >
           {/* <div
             className={`flex items-center justify-center w-8 h-8    ${
@@ -80,26 +52,6 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
           > */}
           <img src={`/assets/icon/${getImage(value)}`} className='object-cover' alt='iamges' />
           {/* </div> */}
-=======
-            selectedValue == value ? 'bg-black-300' : 'bg-gray-600'
-          }  border border-gray-300 rounded-lg hover:bg-gray-500 hover:cursor-pointer`}
-=======
->>>>>>> 58dbe8e (update to deploy)
-        >
-          {/* <div
-            className={`flex items-center justify-center w-8 h-8    ${
-              selectedValue == value ? 'text-white-300 border-white-300 border-2' : 'text-black-300 border-black-300'
-            }  bg-gray-300 border rounded-full `}
-<<<<<<< HEAD
-          >
-            <span className='text-xs font-semibold'>{value}</span>
-          </div>
->>>>>>> e72a04a (done implement quest level 1)
-=======
-          > */}
-          <img src={`/assets/icon/${getImage(value)}`} className='object-cover' alt='iamges' />
-          {/* </div> */}
->>>>>>> 58dbe8e (update to deploy)
         </div>
       </label>
     )
