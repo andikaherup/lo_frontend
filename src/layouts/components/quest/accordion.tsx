@@ -536,8 +536,13 @@ const AccordionItem = ({
             <div>
               <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
                 <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
+<<<<<<< HEAD
                   <div className='grid lg:grid-cols-4'>
                     <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+=======
+                  <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-col justify-center '>
+>>>>>>> 70df47f (update on quest)
                       <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                         Your Occupation
                       </label>
@@ -575,8 +580,13 @@ const AccordionItem = ({
                   <FormControl
                     className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
                   >
+<<<<<<< HEAD
                     <div className='grid lg:grid-cols-4'>
                       <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+=======
+                    <div className='flex flex-col items-center justify-center'>
+                      <div className='flex flex-col justify-center '>
+>>>>>>> 70df47f (update on quest)
                         <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                           Enter other occupation
                         </label>
@@ -602,8 +612,17 @@ const AccordionItem = ({
                   </FormControl>
                 )}
 
+<<<<<<< HEAD
                 <div className={`grid lg:grid-cols-4 pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
                   <div className='flex items-center justify-center lg:justify-start lg:col-start-2'>
+=======
+                <div
+                  className={`flex flex-col items-center justify-center pt-5 lg:flex-row ${checkHeroBrightness(
+                    auth.user?.character || 'Hero'
+                  )}`}
+                >
+                  <div className='flex justify-between '>
+>>>>>>> 70df47f (update on quest)
                     <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
                       Level of Satisfaction
                     </label>
