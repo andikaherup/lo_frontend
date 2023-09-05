@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // import { useAuth } from 'src/hooks/useAuth'
@@ -9,6 +9,7 @@ import Head from 'next/head'
 import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
+import contentConfig from 'src/configs/content'
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -37,6 +38,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 
 // ** Spinner Import
 // import Spinner from 'src/@core/components/spinner'
+import axios from 'axios'
 
 // ** Contexts
 import { AuthProvider } from 'src/context/AuthContext'
@@ -72,6 +74,16 @@ type GuardProps = {
   authGuard: boolean
   guestGuard: boolean
   children: ReactNode
+}
+
+type MetaInfo = {
+  description: string
+
+  image: string | null
+  keywords: string
+  page: string
+  title: string
+  url: string
 }
 
 const clientSideEmotionCache = createEmotionCache()
@@ -121,7 +133,38 @@ const App = (props: ExtendedAppProps) => {
         })
       })
   }, [router.events])
+
+  useEffect(() => {
+    const getPage = () => {
+      console.log('ini', router.route)
+      switch (router.route) {
+        case '/':
+          return 'homepage'
+        case '/leaderboard':
+          return 'leaderboard'
+        case '/login':
+          return 'login'
+        case '/reward':
+          return 'reward'
+        case '/personality-types':
+          return 'personality_types'
+      }
+    }
+
+    axios.get(contentConfig.getSEO).then(response => {
+      const data = response.data.data
+
+      const page = getPage()
+      console.log(data, 'dia', page)
+
+      setSeo(data.find((datas: MetaInfo) => datas.page === page))
+    })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const [seo, setSeo] = useState<MetaInfo>()
 
   // Variables
   const contentHeightFixed = Component.contentHeightFixed ?? false
@@ -139,9 +182,13 @@ const App = (props: ExtendedAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>{`Level Zero`}</title>
-        <meta name='description' content={`L0 Personality Test `} />
-        <meta name='keywords' content='Personality Test' />
+        <title>{seo?.title}</title>
+        <meta name='robots' content='noindex' />
+        <meta name='description' content={seo?.description} />
+        <meta name='keywords' content={seo?.keywords} />
+        <meta property='og:title' content={seo?.title} />
+        <meta property='og:description' content={seo?.description} />
+        <meta property='og:image' content={seo?.image || ''} />
         <meta name='viewport' content='initial-scale=1, width=device-width' />
         <meta name='facebook-domain-verification' content='z1k751wen6q754z5qasx66i3cjed0j' />
         <script

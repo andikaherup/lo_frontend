@@ -6,6 +6,7 @@ export default {
   submitEmail: `${base_url}/api/v1/referral/`,
   getLeaderBoardData: `${base_url}/api/v1/leaderboard/`,
   getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
+  getSEO: `${base_url}/api/v1/seo/`,
 
   //reward
   getReward: `${base_url}/api/v1/public_reward/`,
