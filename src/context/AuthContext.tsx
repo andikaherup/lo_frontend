@@ -120,6 +120,7 @@ const AuthProvider = ({ children }: Props) => {
 
   const submitWhenLogin = async () => {
     const characterStringNoLogin = await localStorage.getItem('resultNoLogin')
+    const campaign = await localStorage.getItem('campaign')
 
     //if user login but there was a result from previous test , tell user if they want to add this test to their profile or not
     // const showConfirmationDialog = () => {
@@ -128,6 +129,21 @@ const AuthProvider = ({ children }: Props) => {
     //     resolve(confirmed)
     //   })
     // }
+
+    if (campaign) {
+      axios
+        .put(
+          authConfig.editUserEndpoint,
+          { campaign_source: campaign },
+          {
+            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
+          }
+        )
+        .then(() => {
+          localStorage.removeItem('campaign')
+        })
+    }
+
     if (characterStringNoLogin) {
       const confirmAction = async () => {
         const formData = new FormData()
