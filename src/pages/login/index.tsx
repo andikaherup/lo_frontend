@@ -98,7 +98,7 @@ const LoginPage = () => {
   })
 
   return (
-    <div className='justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue flex-'>
+    <div className='flex justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
       <div className='flex w-full max-w-8xl '>
         {!hidden ? (
           <div className='flex items-center justify-center w-full'>

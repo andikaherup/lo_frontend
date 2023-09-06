@@ -1,6 +1,8 @@
 const base_url = process.env.NEXT_PUBLIC_BASE_URL
 export default {
   meEndpoint: `${base_url}/api/v1/account/`,
+  changePasswordEndpoint: `${base_url}/api/v1/change_password/`,
+
   editUserEndpoint: `${base_url}/api/v1/account_update/`,
   registReferralEndpoint: `${base_url}/api/v1/referral_register/`,
   getCharbyRef: `${base_url}/api/v1/char/`,

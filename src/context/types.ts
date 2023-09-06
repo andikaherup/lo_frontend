@@ -81,6 +81,7 @@ export type UserDataType = {
   available_points: number;
   coin: number;
   used_coin: number;
+  using_default_password: boolean;
 }
 
 export type AuthValuesType = {
