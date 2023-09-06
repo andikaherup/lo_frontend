@@ -105,6 +105,7 @@ const Guard = ({ children, guestGuard }: GuardProps) => {
   if (guestGuard) {
     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
   }
+
   //   console.log('hereeee21')
 
   // return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>

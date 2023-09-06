@@ -1,9 +1,10 @@
 // ** React Imports
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import useMediaQuery from '@mui/material/useMediaQuery'
+
 // ** Next Import
 import { useRouter } from 'next/router'
 
@@ -56,9 +57,7 @@ const ChangePasswordPage = () => {
 
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  useEffect(() => {
-    console.log(auth.user)
-  }, [])
+
   const onSubmit = async (data: FormData) => {
     setLoading(true)
     const { oldPassword, retypepassword, password } = data
@@ -91,10 +90,12 @@ const ChangePasswordPage = () => {
 
       .catch(err => {
         console.log(err)
-        // toast.error(err.response.data.data)
         setError(err.response.data.data)
+
+        // toast.error(err.response.data.data)
         // if (errorCallback) errorCallback(err)
       })
+
     // auth.login({ email, password }, (err: any) => {
     //   if (err.response?.data.non_field_errors) {
     //     for (const element of err.response?.data.non_field_errors) {

@@ -4,11 +4,8 @@ import { ReactNode, useState } from 'react'
 // ** MUI Imports
 import Link from 'next/link'
 
-import React, { useMemo } from 'react'
-import Image from 'next/image'
+import React from 'react'
 
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
 import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Icon Imports
@@ -72,8 +69,6 @@ const defaultAccountValues = {
 }
 const Register = () => {
   const { register } = useAuth()
-
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
 
   // ** States
   // const [showPassword, setShowPassword] = useState<boolean>(false)
