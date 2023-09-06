@@ -33,11 +33,11 @@ import UserLayout from 'src/layouts/UserLayout'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
 
 // import AuthGuard from 'src/@core/components/auth/AuthGuard'
-// import GuestGuard from 'src/@core/components/auth/GuestGuard'
+import GuestGuard from 'src/@core/components/auth/GuestGuard'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 // ** Spinner Import
-// import Spinner from 'src/@core/components/spinner'
+import Spinner from 'src/@core/components/spinner'
 import axios from 'axios'
 
 // ** Contexts
@@ -101,11 +101,14 @@ if (themeConfig.routingLoader) {
   })
 }
 
-const Guard = ({ children }: GuardProps) => {
-  // if (guestGuard) {
+const Guard = ({ children, guestGuard }: GuardProps) => {
+  if (guestGuard) {
+    return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+  }
+
   //   console.log('hereeee21')
 
-  //   return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+  // return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
   // } else if (!guestGuard && !authGuard) {
   //   console.log('hereeee22')
 
@@ -136,7 +139,6 @@ const App = (props: ExtendedAppProps) => {
 
   useEffect(() => {
     const getPage = () => {
-      console.log('ini', router.route)
       switch (router.route) {
         case '/':
           return 'homepage'

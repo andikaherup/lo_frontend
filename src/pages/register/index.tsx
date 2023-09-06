@@ -4,11 +4,8 @@ import { ReactNode, useState } from 'react'
 // ** MUI Imports
 import Link from 'next/link'
 
-import React, { useMemo } from 'react'
-import Image from 'next/image'
+import React from 'react'
 
-import { motion } from 'framer-motion'
-import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
 import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 
 // ** Icon Imports
@@ -50,12 +47,14 @@ interface FormData {
   password: string
   age: number
   gender: string
+  confirm_password: string
 }
 
 const accountSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
   password: yup.string().min(6).required(),
+  confirm_password: yup.string().min(6).required(),
   age: yup.number().required(),
   gender: yup.string().required()
 })
@@ -64,12 +63,12 @@ const defaultAccountValues = {
   email: '',
   name: '',
   password: '',
+  confirm_password: '',
   age: 0,
   gender: ''
 }
 const Register = () => {
   const { register } = useAuth()
-  const scrollAnimation = useMemo(() => getScrollAnimation(), [])
 
   // ** States
   // const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -78,6 +77,7 @@ const Register = () => {
 
     showPassword: false
   })
+  const [error, setError] = useState<string>('')
 
   // ** Hooks
   const {
@@ -95,55 +95,64 @@ const Register = () => {
   }
 
   const onSubmit = (data: FormData) => {
-    console.log(data)
+    setError('')
 
+    if (data.password != data.confirm_password) {
+      setError('Confirm password mismatch')
+      setTimeout(() => {
+        setError('')
+      }, 7000)
+    }
     register(data, (err: any) => {
       console.log(err)
-
-      // console.log('ini errornya',err.response?.data.password1)
-      // if (err.response?.data.password1) {
-      //   for (const element of err.response?.data.password1) {
-      //     toast.error(element)
-      //   }
-      //   setError('password1', {
-      //     type: 'manual',
-      //     message: 'wrong password format'
-      //   })
-      // }
-      // if (err.response?.data.password2) {
-      //   for (const element of err.response?.data.password2) {
-      //     toast.error(element)
-      //   }
-      //   setError('password2', {
-      //     type: 'manual',
-      //     message: 'wrong password format'
-      //   })
-      // }
-      // if (err.response?.data.email) {
-      //   for (const element of err.response?.data.email) {
-      //     toast.error(element)
-      //   }
-      //   setError('email', {
-      //     type: 'manual',
-      //     message: 'wrong email format'
-      //   })
-      // }
-      // if (err.response?.data.non_field_errors) {
-      //   for (const element of err.response?.data.non_field_errors) {
-      //     toast.error(element)
-      //   }
-      // }
     })
+
+    //   // console.log('ini errornya',err.response?.data.password1)
+    //   // if (err.response?.data.password1) {
+    //   //   for (const element of err.response?.data.password1) {
+    //   //     toast.error(element)
+    //   //   }
+    //   //   setError('password1', {
+    //   //     type: 'manual',
+    //   //     message: 'wrong password format'
+    //   //   })
+    //   // }
+    //   // if (err.response?.data.password2) {
+    //   //   for (const element of err.response?.data.password2) {
+    //   //     toast.error(element)
+    //   //   }
+    //   //   setError('password2', {
+    //   //     type: 'manual',
+    //   //     message: 'wrong password format'
+    //   //   })
+    //   // }
+    //   // if (err.response?.data.email) {
+    //   //   for (const element of err.response?.data.email) {
+    //   //     toast.error(element)
+    //   //   }
+    //   //   setError('email', {
+    //   //     type: 'manual',
+    //   //     message: 'wrong email format'
+    //   //   })
+    //   // }
+    //   // if (err.response?.data.non_field_errors) {
+    //   //   for (const element of err.response?.data.non_field_errors) {
+    //   //     toast.error(element)
+    //   //   }
+    //   // }
   }
 
   return (
     <>
-      <div className='px-8 pt-20 pb-10 mx-auto xl:px-16 bg-skyblue-500 ' id='about'>
+      <div
+        className='px-8 pt-20 pb-10 mx-auto xl:px-16 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue '
+        id='about'
+      >
         <ScrollAnimationWrapper>
           <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2'>
             <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
               <h1 className='text-2xl leading-normal font-bold/2 lg:text-4xl xl:text-5xl text-black-600'>
-                Create an account!
+                Create an account
               </h1>
               <div className='w-full mt-10'>
                 <form key={0} onSubmit={handleAccountSubmit(onSubmit)}>
@@ -319,48 +328,50 @@ const Register = () => {
                         />
                       </FormControl>
                     </Grid>
-                    {/* <Grid item xs={12} sm={12}>
-                <FormControl fullWidth>
-                  <InputLabel
-                    htmlFor='stepper-linear-account-confirm-password'
-                    error={Boolean(accountErrors['confirm-password'])}
-                  >
-                    Confirm Password
-                  </InputLabel>
-                  <Controller
-                    name='confirm-password'
-                    control={accountControl}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange } }) => (
-                      <OutlinedInput
-                        value={value}
-                        onChange={onChange}
-                        label='Confirm Password'
-                        id='stepper-linear-account-confirm-password'
-                        type={state.showPassword2 ? 'text' : 'password'}
-                        error={Boolean(accountErrors['confirm-password'])}
-                        endAdornment={
-                          <InputAdornment position='end'>
-                            <IconButton
-                              edge='end'
-                              aria-label='toggle password visibility'
-                              onClick={handleClickShowConfirmPassword}
-                              onMouseDown={handleMouseDownConfirmPassword}
-                            >
-                              {state.showPassword2 ? <EyeOutline /> : <EyeOffOutline />}
-                            </IconButton>
-                          </InputAdornment>
-                        }
-                      />
-                    )}
-                  />
-                  {accountErrors['confirm-password'] && (
-                    <FormHelperText sx={{ color: 'error.main' }} id='stepper-linear-account-confirm-password-helper'>
-                      {accountErrors['confirm-password'].message}
-                    </FormHelperText>
-                  )}
-                </FormControl>
-              </Grid> */}
+                    <Grid item xs={12} sm={12}>
+                      <FormControl fullWidth>
+                        <div className='flex justify-between w-full'>
+                          <label
+                            className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
+                            htmlFor='grid-first-name'
+                          >
+                            Confirm Password
+                          </label>
+                          {accountErrors.confirm_password && (
+                            <span className='text-sm text-red-900'> This field is required</span>
+                          )}
+                        </div>
+                        <Controller
+                          name='confirm_password'
+                          control={accountControl}
+                          rules={{ required: true }}
+                          render={({ field: { value, onChange } }) => (
+                            <div className='relative'>
+                              <input
+                                value={value}
+                                onChange={onChange}
+                                type={state.showPassword ? 'text' : 'password'}
+                                placeholder='Confirm Password'
+                                className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                              />
+                              <span className='absolute inset-y-0 right-0 flex items-center pb-3 pr-3'>
+                                <IconButton
+                                  edge='end'
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={e => e.preventDefault()}
+                                  aria-label='toggle password visibility'
+                                >
+                                  <Icon
+                                    icon={state.showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'}
+                                    fontSize={25}
+                                  />
+                                </IconButton>
+                              </span>
+                            </div>
+                          )}
+                        />
+                      </FormControl>
+                    </Grid>
                     <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       {/* <Button size='large' variant='outlined' color='secondary' disabled>
                   Back
@@ -369,37 +380,32 @@ const Register = () => {
                         By continuing you agree to the L0’s{' '}
                         <Link
                           href='/tnc'
-                          className='py-2 pl-3 pr-4 bg-purple-700 rounded text-skyblue-300 lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                          className='py-2 pl-3 pr-4 rounded text-skyblue-300 lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
                         >
                           terms of service{' '}
                         </Link>
                         and{' '}
                         <Link
                           href='/privacy-policy'
-                          className='py-2 pl-3 pr-4 bg-purple-700 rounded text-skyblue-300 lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
+                          className='py-2 pl-3 pr-4 rounded text-skyblue-300 lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white'
                         >
                           privacy policy.
                         </Link>
                       </span>
                     </Grid>
-                    <div className='flex justify-end w-full mt-5 '>
+
+                    <div className='flex items-center justify-between w-full mt-5 '>
+                      <div className='px-5'>
+                        {error != '' && <span className='text-sm font-bold text-red-900 '>Error: {error}</span>}
+                      </div>
                       <ButtonPrimary>Create</ButtonPrimary>
                     </div>
                   </Grid>
                 </form>
               </div>
             </div>
-            <div className='flex w-full px-20'>
-              <motion.div className='hidden w-full h-full lg:flex' variants={scrollAnimation}>
-                <Image
-                  src='/assets/characters/image.png'
-                  alt='Characters'
-                  quality={100}
-                  width={200}
-                  height={200}
-                  layout='responsive'
-                />
-              </motion.div>
+            <div className='flex items-center justify-center w-full'>
+              <img src='/assets/characters/image.webp' alt='Characters' className=' w-[80%] max-w-[500px]' />
             </div>
           </div>
         </ScrollAnimationWrapper>
