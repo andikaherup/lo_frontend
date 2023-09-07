@@ -61,7 +61,9 @@ const Header: React.FC = () => {
   }
 
   function openModal() {
-    setIsOpen(true)
+    // setIsOpen(true)
+    router.replace('/login')
+    closeSideMenu()
   }
 
   const {} = useForm({
@@ -92,6 +94,9 @@ const Header: React.FC = () => {
     if (router.route == '/leaderboard') {
       setActiveLink('Leaderboard')
     }
+    if (router.route == '/account-security') {
+      setActiveLink('security')
+    }
     if (router.route == '/reward') {
       setActiveLink('Reward')
     }
@@ -99,6 +104,7 @@ const Header: React.FC = () => {
 
   const navChange = (value: string) => {
     router.replace(value)
+    closeSideMenu()
   }
   const handleLogout = () => {
     auth.logout()
@@ -452,25 +458,45 @@ const Header: React.FC = () => {
             </div>
             <hr className={`h-[0.2px] w-full  border-t-0 bg-gray-400`} />
             {auth.user && (
-              <div className='pt-2'>
-                <h1 className='pt-2 pl-6 text-lg '>User Menu </h1>
-                <LinkScroll
-                  activeClass='active'
-                  to='profile'
-                  spy={true}
-                  smooth={true}
-                  duration={1000}
-                  onClick={() => navChange('/user-setting')}
-                  className={
-                    'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
-                    (activeLink === 'profile'
-                      ? ' text-blue-500 animation-active font-semibold '
-                      : ' text-black-300 hover:text-blue-500 font-normal')
-                  }
-                >
-                  Profile
-                </LinkScroll>
-              </div>
+              <>
+                <div className='pt-2'>
+                  <h1 className='pt-2 pl-6 text-lg '>User Menu </h1>
+                  <div className='flex flex-col'>
+                    <LinkScroll
+                      activeClass='active'
+                      to='profile'
+                      spy={true}
+                      smooth={true}
+                      duration={1000}
+                      onClick={() => navChange('/user-setting')}
+                      className={
+                        'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                        (activeLink === 'profile'
+                          ? ' text-blue-500 animation-active font-semibold '
+                          : ' text-black-300 hover:text-blue-500 font-normal')
+                      }
+                    >
+                      Profile
+                    </LinkScroll>
+                    <LinkScroll
+                      activeClass='active'
+                      to='security'
+                      spy={true}
+                      smooth={true}
+                      duration={1000}
+                      onClick={() => navChange('/account-security')}
+                      className={
+                        'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                        (activeLink === 'security'
+                          ? ' text-blue-500 animation-active font-semibold '
+                          : ' text-black-300 hover:text-blue-500 font-normal')
+                      }
+                    >
+                      Security Settings
+                    </LinkScroll>
+                  </div>
+                </div>
+              </>
             )}
 
             <div className='absolute bottom-0 w-full '>

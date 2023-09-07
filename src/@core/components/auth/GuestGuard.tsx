@@ -19,14 +19,21 @@ const GuestGuard = (props: GuestGuardProps) => {
 
   useEffect(() => {
     if (auth.user?.using_default_password === true) {
-      router.replace('/change-password')
+      router.replace('/account-security')
     }
 
-    if (router.route === '/change-password') {
-      console.log('herrrr')
-      if (auth.user?.using_default_password === false) {
+    if (router.route === '/account-security') {
+      if (!auth.user) {
         router.replace('/')
       }
+
+      // if (auth.user?.using_default_password === false) {
+      //   router.replace('/')
+      // }
+    }
+
+    if (router.route === '/forgot-password') {
+      router.replace('/')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

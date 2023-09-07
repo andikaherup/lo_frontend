@@ -152,7 +152,7 @@ const Dropdown = () => {
           <Link href='/dashboard'>
             <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
               <Box sx={styles}>
-                <Icon icon='mdi:account-outline' />
+                <Icon icon='material-symbols:dashboard-outline' />
                 Dashboard
               </Box>
             </MenuItem>
@@ -162,6 +162,14 @@ const Dropdown = () => {
               <Box sx={styles}>
                 <Icon icon='mdi:account-outline' />
                 Profile
+              </Box>
+            </MenuItem>
+          </Link>
+          <Link href='/account-security'>
+            <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+              <Box sx={styles}>
+                <Icon icon='mdi:gear-outline' />
+                Security Settings
               </Box>
             </MenuItem>
           </Link>

@@ -137,182 +137,187 @@ const Setting = () => {
           </Badge>
         </div>
         <div className='mb-5'>
-          <h1 className='text-xl font-bold text-center uppercase text-white-300 '>the {auth.user?.character}</h1>
+          <h1 className='text-xl font-bold text-center uppercase text-black-300 '>the {auth.user?.character}</h1>
         </div>
         {auth.user && (
           <div>
             <ProgressQuest user={auth.user}></ProgressQuest>
           </div>
         )}
+        <div className='p-10 mt-10 bg-white-300 rounded-xl'>
+          <div className='flex items-center justify-between pb-4 mt-5 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600'>
+            <h3 className='text-lg font-semibold text-gray-900 text-black-300'> User Info</h3>
+          </div>
 
-        <div className='flex items-center justify-between pb-4 mt-5 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600'>
-          <h3 className='text-lg font-semibold text-gray-900 text-white-300'> User Info</h3>
-        </div>
+          <div className='mt-5'>
+            <form onSubmit={handleAccountSubmit(onSubmit)}>
+              <Grid container spacing={5}>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <div className='flex justify-between '>
+                      <label
+                        htmlFor='bank_name'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
+                        Bank Name
+                      </label>
+                      {accountErrors.bank_name && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
+                    </div>
 
-        <div className='mt-5'>
-          <form onSubmit={handleAccountSubmit(onSubmit)}>
-            <Grid container spacing={5}>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <div className='flex justify-between '>
-                    <label
-                      htmlFor='bank_name'
-                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                    >
-                      Bank Name
-                    </label>
-                    {accountErrors.bank_name && <span className='text-sm text-red-900 '> This field is required</span>}
-                  </div>
+                    <Controller
+                      name='bank_name'
+                      control={accountControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <input
+                          value={value}
+                          onChange={onChange}
+                          className='bg-gray-50 border border-black-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                          id='grid-password'
+                          type='text'
+                        />
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <div className='flex justify-between '>
+                      <label
+                        htmlFor='bank_account_number'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
+                        Bank Account Number
+                      </label>
+                      {accountErrors.bank_account_number && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
+                    </div>
 
-                  <Controller
-                    name='bank_name'
-                    control={accountControl}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange } }) => (
-                      <input
-                        value={value}
-                        onChange={onChange}
-                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                        id='grid-password'
-                        type='text'
-                      />
-                    )}
-                  />
-                </FormControl>
+                    <Controller
+                      name='bank_account_number'
+                      control={accountControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <input
+                          value={value}
+                          onChange={onChange}
+                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                          id='grid-password'
+                          type='text'
+                        />
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <div className='flex justify-between'>
+                      <label
+                        htmlFor='phone_number'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
+                        Phone Number
+                      </label>
+                      {accountErrors.phone_number && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
+                    </div>
+
+                    <Controller
+                      name='phone_number'
+                      control={accountControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <input
+                          value={value}
+                          onChange={onChange}
+                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                          id='grid-password'
+                          type='text'
+                        />
+                      )}
+                    />
+                  </FormControl>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <div className='flex justify-between '>
-                    <label
-                      htmlFor='bank_account_number'
-                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                    >
-                      Bank Account Number
-                    </label>
-                    {accountErrors.bank_account_number && (
-                      <span className='text-sm text-red-900 '> This field is required</span>
-                    )}
-                  </div>
-
-                  <Controller
-                    name='bank_account_number'
-                    control={accountControl}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange } }) => (
-                      <input
-                        value={value}
-                        onChange={onChange}
-                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                        id='grid-password'
-                        type='text'
-                      />
-                    )}
+              <div className='grid gap-4 mt-10 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
+                <div className='w-full border-b-2 border-white-300'>
+                  <h1 className='py-1 text-xl font-bold text-black-300'>Personal Data</h1>
+                </div>
+                <div className='sm:col-span-2'>
+                  <label htmlFor='name' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
+                    Name
+                  </label>
+                  <input
+                    type='text'
+                    name='name'
+                    disabled
+                    id='name'
+                    className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    value={auth.user?.name || ''}
+                    placeholder='Type product name'
+                    required
                   />
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <div className='flex justify-between'>
-                    <label
-                      htmlFor='phone_number'
-                      className='block mb-2 text-sm font-medium text-white-300 dark:text-white'
-                    >
-                      Phone Number
-                    </label>
-                    {accountErrors.phone_number && (
-                      <span className='text-sm text-red-900 '> This field is required</span>
-                    )}
-                  </div>
-
-                  <Controller
-                    name='phone_number'
-                    control={accountControl}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange } }) => (
-                      <input
-                        value={value}
-                        onChange={onChange}
-                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                        id='grid-password'
-                        type='text'
-                      />
-                    )}
+                </div>
+                <div className='w-full'>
+                  <label htmlFor='brand' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
+                    Email
+                  </label>
+                  <input
+                    type='text'
+                    name='brand'
+                    id='brand'
+                    disabled
+                    className='bg-gray-50 border hover:cursor-not-allowed  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    value={auth.user?.email}
+                    placeholder='Product brand'
+                    required
                   />
-                </FormControl>
-              </Grid>
-            </Grid>
-            <div className='grid gap-4 mt-10 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5'>
-              <div className='w-full border-b-2 border-white-300'>
-                <h1 className='py-1 text-xl font-bold text-white-300'>Personal Data</h1>
-              </div>
-              <div className='sm:col-span-2'>
-                <label htmlFor='name' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
-                  Name
-                </label>
-                <input
-                  type='text'
-                  name='name'
-                  disabled
-                  id='name'
-                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                  value={auth.user?.name || ''}
-                  placeholder='Type product name'
-                  required
-                />
-              </div>
-              <div className='w-full'>
-                <label htmlFor='brand' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
-                  Email
-                </label>
-                <input
-                  type='text'
-                  name='brand'
-                  id='brand'
-                  disabled
-                  className='bg-gray-50 border hover:cursor-not-allowed  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                  value={auth.user?.email}
-                  placeholder='Product brand'
-                  required
-                />
-              </div>
+                </div>
 
-              <div>
-                <label htmlFor='category' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
-                  Age
-                </label>
-                <input
-                  type='text'
-                  name='age'
-                  disabled
-                  id='age'
-                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                  value={auth.user?.age || ''}
-                  required
-                />
+                <div>
+                  <label htmlFor='category' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
+                    Age
+                  </label>
+                  <input
+                    type='text'
+                    name='age'
+                    disabled
+                    id='age'
+                    className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    value={auth.user?.age || ''}
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor='item-weight'
+                    className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                  >
+                    Gender
+                  </label>
+                  <input
+                    type='text'
+                    name='gender'
+                    disabled
+                    id='gender'
+                    className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                    value={auth.user?.gender || ''}
+                    required
+                  />
+                </div>
               </div>
-              <div>
-                <label htmlFor='item-weight' className='block mb-2 text-sm font-medium text-white-300 dark:text-white'>
-                  Gender
-                </label>
-                <input
-                  type='text'
-                  name='gender'
-                  disabled
-                  id='gender'
-                  className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
-                  value={auth.user?.gender || ''}
-                  required
-                />
-              </div>
-            </div>
-            <div className='flex items-center space-x-4'>
-              <button
-                type='submit'
-                className='text-white bg-blue-500 hover:opacity-80 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
-              >
-                Update Info
-              </button>
-              {/* <button
+              <div className='flex items-center space-x-4'>
+                <button
+                  type='submit'
+                  className='text-white bg-blue-500 hover:opacity-80 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
+                >
+                  Update Info
+                </button>
+                {/* <button
                 type='button'
                 className='text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
               >
@@ -330,8 +335,9 @@ const Setting = () => {
                 </svg>
                 Delete
               </button> */}
-            </div>
-          </form>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
