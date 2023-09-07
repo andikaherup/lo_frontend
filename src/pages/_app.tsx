@@ -185,7 +185,8 @@ const App = (props: ExtendedAppProps) => {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>{seo?.title}</title>
-        <meta name='robots' content='noindex' />
+
+        {/* <meta name='robots' content='noindex' /> */}
         <meta name='description' content={seo?.description} />
         <meta name='keywords' content={seo?.keywords} />
         <meta property='og:title' content={seo?.title} />

@@ -82,6 +82,7 @@ export type UserDataType = {
   coin: number;
   used_coin: number;
   using_default_password: boolean;
+  password_is_set: boolean;
 }
 
 export type AuthValuesType = {
