@@ -5,6 +5,10 @@ export default {
   getResultWithLogin: `${base_url}/api/v1/test_response/`,
   submitEmail: `${base_url}/api/v1/referral/`,
   getLeaderBoardData: `${base_url}/api/v1/leaderboard/`,
+  getDailyLoginReward: `${base_url}/api/v1/daily_login_reward/`,
+  getDailyLoginRewardStatus: `${base_url}/api/v1/daily_login_reward_status/`,
+
+
   getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
   getSEO: `${base_url}/api/v1/seo/`,
 

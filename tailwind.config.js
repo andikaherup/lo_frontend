@@ -122,6 +122,7 @@ module.exports = {
       rewardLightYellowItem: '#ff914d',
       leaderboardTopBlue: '#59CDDC',
       leaderboardBotBlue: '#51CDDD',
+      dailypopup: '#EF9A27',
       meBackground: '#C026D3',
       meOrange: '#EA580C'
     },
