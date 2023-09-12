@@ -20,6 +20,7 @@ import Noresult from 'src/layouts/components/dashboard/noresult'
 import Friends from 'src/layouts/components/dashboard/friends'
 import Quest from 'src/layouts/components/dashboard/quest'
 import Reward from 'src/layouts/components/dashboard/reward'
+import DailyRewardFloat from 'src/layouts/components/daily-rewards/dailyrewardfloat'
 
 const Dashboard = () => {
   const auth = useAuth()
@@ -142,6 +143,7 @@ const Dashboard = () => {
               <option value='Reward'>Reward</option>
             </select>
           </div> */}
+
           <div className='flex justify-center w-full px-4 pt-10 lg:px-1'>
             <div className='w-full max-w-md rounded-lg'>
               <ul className='flex text-sm font-medium text-center divide-x divide-gray-200 rounded-lg shadow dark:divide-gray-200 dark:text-gray-400'>
@@ -201,6 +203,8 @@ const Dashboard = () => {
             </div>
           </div>
           <div className='w-full'>{renderTabContent()}</div>
+
+          <DailyRewardFloat />
         </div>
       </div>
     </>

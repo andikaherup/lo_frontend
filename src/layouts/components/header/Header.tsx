@@ -124,7 +124,7 @@ const Header: React.FC = () => {
       >
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
           <Link href='/' className='flex items-center lg:justify-center '>
-            <img src='/images/level0tr.png' className='h-8 mr-3' alt='Flowbite Logo' />
+            <img src='/images/logo.svg' className='h-8 mr-3' alt='Flowbite Logo' />
           </Link>
 
           <div className='items-center justify-between hidden w-full md:flex md:w-auto md:order-1' id='navbar-sticky'>

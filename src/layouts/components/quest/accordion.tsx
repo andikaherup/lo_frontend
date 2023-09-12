@@ -249,6 +249,7 @@ const AccordionItem = ({
 
   const [active, setActive] = useState(false)
   const [satisfaction, setSatisfaction] = useState<number>()
+  const [satisfactionStatus, setSatisfactionStatus] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
   const [selectedOccupation, setSelectedOccupation] = useState('')
@@ -272,7 +273,8 @@ const AccordionItem = ({
   const {
     control: occupationControl,
     handleSubmit: handleOccupationSubmit,
-    formState: { errors: occupationError }
+    formState: { errors: occupationError },
+    setError: setOccupationError
   } = useForm({
     defaultValues: defaultOccupationValues,
     resolver: yupResolver(occupationSchema)
@@ -313,7 +315,8 @@ const AccordionItem = ({
   }
 
   const changeRadio = (value: number) => {
-    console.log(value)
+    setOccupationError('job_satisfaction_level', { message: '' })
+    setSatisfactionStatus(true)
     setSatisfaction(value)
   }
 
@@ -330,14 +333,19 @@ const AccordionItem = ({
     if (!status) {
       let param = {}
       if (code == '5') {
-        param = {
-          quest: id,
-          completed: true,
-          data_collection: {
-            occupation: value.occupation,
-            other_occupation: value.other_occupation,
-            job_satisfaction_level: satisfaction
+        if (satisfactionStatus) {
+          param = {
+            quest: id,
+            completed: true,
+            data_collection: {
+              occupation: value.occupation,
+              other_occupation: value.other_occupation,
+              job_satisfaction_level: satisfaction
+            }
           }
+        }
+        if (!satisfaction) {
+          setOccupationError('job_satisfaction_level', { message: 'Choose your satisfaction level!' })
         }
       }
       if (code == '6') {
@@ -610,6 +618,13 @@ const AccordionItem = ({
                   </div>
                   <div className='lg:col-start-3'>
                     <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                  </div>
+                  <div className='flex items-center justify-center'>
+                    {occupationError.job_satisfaction_level && (
+                      <span className='text-sm font-bold text-black-300 '>
+                        {occupationError.job_satisfaction_level.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className='flex justify-center w-full pt-5'>

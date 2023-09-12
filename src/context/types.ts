@@ -47,6 +47,13 @@ export type RewardData = {
   updated_at: string
 }
 
+export type DailyRewardData = {
+  date: string
+  day: number
+  points: number
+  status: string
+}
+
 export type UserDataType = {
   age: number | null;
   character: string;
