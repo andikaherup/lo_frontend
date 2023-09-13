@@ -295,14 +295,6 @@ const Setting = () => {
                       control={accountControl}
                       rules={{ required: true }}
                       render={({ field: { value, onChange } }) => (
-                        // <input
-                        //   value={value}
-                        //   onChange={onChange}
-                        //   className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
-                        //   id='grid-password'
-                        //   type='number'
-                        // />
-
                         <div className='relative'>
                           <select
                             onChange={onChange}
