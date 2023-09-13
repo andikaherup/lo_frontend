@@ -9,6 +9,7 @@ import { useAuth } from 'src/hooks/useAuth'
 import React from 'react'
 import StepperQuest from 'src/layouts/components/quest/stepper'
 import { getBaseColor, getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
+import Rewards from 'src/layouts/components/daily-rewards/rewards'
 
 const Quest = () => {
   const auth = useAuth()
@@ -32,6 +33,8 @@ const Quest = () => {
             <StepperQuest questType='daily'></StepperQuest>
           </>
         )
+      case 'dailyreward':
+        return <Rewards></Rewards>
     }
   }
   const menu = [
@@ -42,6 +45,10 @@ const Quest = () => {
     {
       title: 'daily',
       content: 'Daily Quest'
+    },
+    {
+      title: 'dailyreward',
+      content: 'Daily Reward'
     }
   ]
 

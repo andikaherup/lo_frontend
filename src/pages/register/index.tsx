@@ -45,7 +45,7 @@ interface FormData {
   email: string
   name: string
   password: string
-  age: number
+  age: string
   gender: string
   confirm_password: string
 }
@@ -55,7 +55,7 @@ const accountSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(6).required(),
   confirm_password: yup.string().min(6).required(),
-  age: yup.number().required(),
+  age: yup.string().required(),
   gender: yup.string().required()
 })
 
@@ -64,7 +64,7 @@ const defaultAccountValues = {
   name: '',
   password: '',
   confirm_password: '',
-  age: 0,
+  age: '',
   gender: ''
 }
 const Register = () => {
@@ -273,13 +273,40 @@ const Register = () => {
                           control={accountControl}
                           rules={{ required: true }}
                           render={({ field: { value, onChange } }) => (
-                            <input
-                              value={value}
-                              onChange={onChange}
-                              className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
-                              id='grid-password'
-                              type='number'
-                            />
+                            // <input
+                            //   value={value}
+                            //   onChange={onChange}
+                            //   className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                            //   id='grid-password'
+                            //   type='number'
+                            // />
+
+                            <div className='relative'>
+                              <select
+                                onChange={onChange}
+                                value={value}
+                                className='block w-full px-4 py-2 pr-8 leading-tight border border-gray-200 rounded appearance-none text-black-500 bg-white-300 focus:outline-none focus:bg-white focus:border-gray-500'
+                              >
+                                <option value=''></option>
+
+                                <option value='Under 18'>Under 18</option>
+                                <option value='18-24'>18-24</option>
+                                <option value='25-34'>25-34</option>
+                                <option value='35-44'>35-44</option>
+                                <option value='45-54'>45-54</option>
+                                <option value='55-64'>55-64</option>
+                                <option value='65+'>65+</option>
+                              </select>
+                              <div className='absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none'>
+                                <svg
+                                  className='w-4 h-4 fill-current'
+                                  xmlns='http://www.w3.org/2000/svg'
+                                  viewBox='0 0 20 20'
+                                >
+                                  <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+                                </svg>
+                              </div>
+                            </div>
                           )}
                         />
                       </FormControl>

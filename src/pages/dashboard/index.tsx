@@ -4,6 +4,7 @@ import { ReactNode, useState, useEffect } from 'react'
 // ** MUI Imports
 
 import Overview from 'src/layouts/components/dashboard/overview'
+import Icon from 'src/@core/components/icon'
 
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
@@ -192,11 +193,12 @@ const Dashboard = () => {
                   <button
                     className={` ${
                       selectedTab === 'Reward' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-3 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                    } flex justify-center items-center w-full p-3 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
                     onClick={() => setSelectedTab('Reward')}
                     aria-current={selectedTab === 'Reward' ? 'page' : undefined}
                   >
-                    Reward
+                    <Icon icon='mdi:cart-variant' fontSize={20} />
+                    Shop
                   </button>
                 </li>
               </ul>

@@ -27,7 +27,7 @@ export type FacebookLoginParams = {
 export type RegisterParams = {
   email: string
   password: string
-  age: number
+  age: string
   name: string
   gender: string
 }
@@ -55,7 +55,7 @@ export type DailyRewardData = {
 }
 
 export type UserDataType = {
-  age: number | null;
+  age: string;
   character: string;
   character_level: number | null;
   date_created: string;

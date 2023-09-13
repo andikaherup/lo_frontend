@@ -6,11 +6,15 @@ import contentConfig from 'src/configs/content'
 // ** MUI Imports
 import axios from 'axios'
 
+// ** Hooks Import
+import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 import toast from 'react-hot-toast'
 import ClaimPopup from './claimpopup'
 
 const Rewards = () => {
+  const auth = useAuth()
+
   const [rewardData, setRewardData] = useState<DailyRewardData[]>()
   const [openRef, setOpenRef] = useState<boolean>(false)
   const [today, setToday] = useState<string>('')
@@ -65,6 +69,8 @@ const Rewards = () => {
             .then(async res => {
               openDialog(items)
               setRewardData(res.data.cycle_status)
+              auth.refreshUser()
+
               toast.success('Daily Reward Claimed!')
             })
         })
@@ -72,14 +78,14 @@ const Rewards = () => {
   }
 
   return (
-    <div className='w-full h-full min-h-screen pt-20 rounded-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
-      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:px-20'>
-        <div className='w-full pt-10 lg:px-20'>
-          <div className='grid w-full rounded-2xl bg-white-300'>
+    <div className='w-full h-full min-h-screen pt-10 rounded-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
+      <div className='flex flex-col items-center justify-start h-full min-h-screen'>
+        <div className='w-full '>
+          <div className='grid w-full rounded-2xl '>
             <div className='flex justify-center'>
               <img alt='img' src='/assets/rewardstitle.png' className='w-5/6 pt-10 lg:w-2/5' />
             </div>
-            <div className='grid grid-cols-3 px-5 py-20 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
+            <div className='grid grid-cols-3 px-5 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
               {rewardData?.map((items: DailyRewardData, index: number) => {
                 const isLastElement = index === rewardData.length - 1
 
