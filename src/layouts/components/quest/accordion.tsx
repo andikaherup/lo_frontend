@@ -505,13 +505,13 @@ const AccordionItem = ({
       </button>
 
       <div className={` duration-2000 my-5 w-full ease-in-out ${active ? 'block' : 'hidden'}`}>
-        {video_url && type == 'watch_video' && (
+        {video_url && type == 'watch_video' && !status && (
           <div className='flex justify-center w-full h-full'>
             <ReactPlayer url={video_url} controls onEnded={handleVideoEnd} light={image} width='100%' />
           </div>
         )}
 
-        {type == 'share_facebook' && (
+        {type == 'share_facebook' && !status && (
           <>
             <FacebookShareButton
               url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
@@ -526,7 +526,7 @@ const AccordionItem = ({
             </FacebookShareButton>
           </>
         )}
-        {type == 'click_link' && (
+        {type == 'click_link' && !status && (
           <>
             <Link href={link} aria-current='page' target='_blank'>
               <button
