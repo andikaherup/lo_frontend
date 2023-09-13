@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
 // ** Type Import
 import { useGoogleLogin } from '@react-oauth/google'
@@ -40,6 +40,11 @@ interface FormData {
   password: string
 }
 
+interface Error {
+  error: string
+  error_description: string
+}
+
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(5).required()
@@ -75,24 +80,26 @@ const LoginPage = () => {
   }
 
   const onSubmit = async (data: FormData) => {
+    setError('')
     const { email, password } = data
     auth.login({ email, password }, (err: any) => {
-      if (err.response?.data.non_field_errors) {
-        for (const element of err.response?.data.non_field_errors) {
-          console.log(element)
-        }
-      }
+      setError(err.response?.data.error_description)
     })
   }
 
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
+  const [error, setError] = useState<string>('')
 
   // const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
-  const { control: accountControl, handleSubmit } = useForm({
+  const {
+    control: accountControl,
+    formState: { errors: accountErrors },
+    handleSubmit
+  } = useForm({
     defaultValues,
     resolver: yupResolver(schema)
   })
@@ -171,9 +178,14 @@ const LoginPage = () => {
                         <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
                           <div>
                             <FormControl fullWidth>
-                              <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
-                                Email address
-                              </label>
+                              <div className='flex justify-between'>
+                                <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
+                                  Email address
+                                </label>
+                                {accountErrors.email && (
+                                  <span className='text-sm text-red-900'> {accountErrors.email.message}</span>
+                                )}
+                              </div>
                               <div className='mt-1'>
                                 <Controller
                                   name='email'
@@ -195,14 +207,16 @@ const LoginPage = () => {
                               </div>
                             </FormControl>
                           </div>
-                          <div className='space-y-1'>
+                          <div className='mt-4 space-y-1'>
                             <FormControl fullWidth>
-                              <label
-                                htmlFor='password'
-                                className='block mt-3 mb-2 text-sm font-medium text-left text-textcolorblack-300'
-                              >
-                                Password{' '}
-                              </label>
+                              <div className='flex justify-between'>
+                                <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
+                                  Password
+                                </label>
+                                {accountErrors.password && (
+                                  <span className='text-sm text-red-900'> {accountErrors.password.message}</span>
+                                )}
+                              </div>
                               <div className='mt-1'>
                                 <Controller
                                   name='password'
@@ -238,13 +252,14 @@ const LoginPage = () => {
                               </label>
                             </div>
 
-                            <div className='text-sm'>
+                            {/* <div className='text-sm'>
                               <Link href='/forgot-password' className='font-medium text-blue-600 hover:text-blue-500'>
                                 Forgot your password?
                               </Link>
-                            </div>
+                            </div> */}
                           </div>
-                          <div className='flex justify-center py-3 '>
+                          <div className='flex flex-col items-center justify-center py-3 '>
+                            {error != '' && <span className='mb-2 text-sm text-red-900'> {error}</span>}
                             <ButtonPrimary>Sign In</ButtonPrimary>
                           </div>
 
