@@ -45,6 +45,7 @@ const Dashboard = () => {
           case 'dailyquest':
           case 'dailyreward':
             setSelectedTab('Quest')
+
             return
           default:
             // if user access the page with /dashboard?tab=random string

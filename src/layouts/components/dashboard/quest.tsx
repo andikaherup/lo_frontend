@@ -24,12 +24,15 @@ const Quest = () => {
         switch (urlParams.get('tab')) {
           case 'questjourney':
             setSelectedTab('journey')
+
             return
           case 'dailyquest':
             setSelectedTab('daily')
+
             return
           case 'dailyreward':
             setSelectedTab('dailyreward')
+
             return
           default:
             // if user access the page with /dashboard?tab=random string

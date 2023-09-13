@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 // ** Configs
 import contentConfig from 'src/configs/content'
 
@@ -8,11 +9,9 @@ import axios from 'axios'
 // ** Hooks Import
 
 import { DailyRewardData } from 'src/context/types'
+
 // ** MUI Imports
-
 import { useRouter } from 'next/router'
-
-import { Router } from 'next/router'
 
 const DailyRewardFloat = () => {
   const router = useRouter()

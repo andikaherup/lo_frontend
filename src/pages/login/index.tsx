@@ -40,11 +40,6 @@ interface FormData {
   password: string
 }
 
-interface Error {
-  error: string
-  error_description: string
-}
-
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(5).required()
