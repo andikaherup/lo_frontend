@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
+import { userAgent } from 'next/server'
 
 interface GuestGuardProps {
   children: ReactNode
@@ -20,6 +21,12 @@ const GuestGuard = (props: GuestGuardProps) => {
   useEffect(() => {
     if (auth.user?.using_default_password === true) {
       router.replace('/account-security')
+    }
+    //if no user login send back to login page for all page that required login
+    if (!auth.user) {
+      if (router.route === '/dashboard' || router.route === '/user-setting') {
+        router.replace('/login')
+      }
     }
 
     if (router.route === '/account-security') {

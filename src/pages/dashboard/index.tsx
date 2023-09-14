@@ -106,7 +106,7 @@ const Dashboard = () => {
             return <Noresult></Noresult>
           }
 
-          return <Reward></Reward>
+          return <Reward isPublic={false}></Reward>
         }
       case 'Quest':
         if (auth.user?.character === '') {
