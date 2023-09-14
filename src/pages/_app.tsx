@@ -32,7 +32,7 @@ import UserLayout from 'src/layouts/UserLayout'
 // import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
 
-// import AuthGuard from 'src/@core/components/auth/AuthGuard'
+import AuthGuard from 'src/@core/components/auth/AuthGuard'
 import GuestGuard from 'src/@core/components/auth/GuestGuard'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
@@ -101,24 +101,35 @@ if (themeConfig.routingLoader) {
   })
 }
 
-const Guard = ({ children, guestGuard }: GuardProps) => {
+// const Guard = ({ children, guestGuard }: GuardProps) => {
+//   if (guestGuard) {
+//     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+//   } else if (!guestGuard) {
+//     return <>{children}</>
+//   }
+//   //   console.log('hereeee21')
+
+//   // return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+//   // } else if (!guestGuard && !authGuard) {
+//   //   console.log('hereeee22')
+
+//   //   return <>{children}</>
+//   // } else {
+//   //   console.log('hereeee23')
+
+//   //   return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
+//   // }
+//   // return <>{children}</>
+// }
+
+const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
   if (guestGuard) {
     return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
+  } else if (!guestGuard && !authGuard) {
+    return <>{children}</>
+  } else {
+    return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
   }
-
-  //   console.log('hereeee21')
-
-  // return <GuestGuard fallback={<Spinner />}>{children}</GuestGuard>
-  // } else if (!guestGuard && !authGuard) {
-  //   console.log('hereeee22')
-
-  //   return <>{children}</>
-  // } else {
-  //   console.log('hereeee23')
-
-  //   return <AuthGuard fallback={<Spinner />}>{children}</AuthGuard>
-  // }
-  return <>{children}</>
 }
 
 // ** Configure JSS & ClassName
@@ -157,7 +168,6 @@ const App = (props: ExtendedAppProps) => {
       const data = response.data.data
 
       const page = getPage()
-      console.log(data, 'dia', page)
 
       setSeo(data.find((datas: MetaInfo) => datas.page === page))
     })

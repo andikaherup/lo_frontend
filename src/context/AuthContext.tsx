@@ -76,8 +76,8 @@ const AuthProvider = ({ children }: Props) => {
         setLoading(false)
       }
     }
-
     initAuth()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -22,20 +22,6 @@ const AuthGuard = (props: AuthGuardProps) => {
       if (!router.isReady) {
         return
       }
-
-      if (auth.user === null && !window.localStorage.getItem('userData')) {
-        if (router.asPath !== '/') {
-          console.log('here34')
-          router.replace({
-            pathname: '/',
-            query: { returnUrl: router.asPath }
-          })
-        } else {
-          console.log('here3')
-
-          router.replace('/')
-        }
-      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.route]

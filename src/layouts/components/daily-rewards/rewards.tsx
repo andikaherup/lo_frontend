@@ -20,6 +20,7 @@ const Rewards = () => {
   const [today, setToday] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<DailyRewardData>()
   const [bonus, setBonus] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const openDialog = (item: DailyRewardData) => {
     setSelectedItem(item)
@@ -55,7 +56,8 @@ const Rewards = () => {
   }, [])
 
   const claimDaily = async (items: DailyRewardData) => {
-    console.log(today, items.date, today === items.date)
+    setLoading(true)
+
     if (today === items.date && items.status === 'pending') {
       await axios
         .get(contentConfig.getDailyLoginReward, {
@@ -70,9 +72,9 @@ const Rewards = () => {
               openDialog(items)
               setRewardData(res.data.cycle_status)
               auth.refreshUser()
-
               toast.success('Daily Reward Claimed!')
             })
+          setLoading(false)
         })
     }
   }
@@ -95,7 +97,7 @@ const Rewards = () => {
                       <img
                         alt='img'
                         src={
-                          items.status == 'claimed'
+                          items.status == 'claimed' || items.date < today
                             ? `/assets/daily-rewards/${items.day}claimed.png`
                             : `/assets/daily-rewards/${items.day}.png`
                         }
@@ -137,9 +139,9 @@ const Rewards = () => {
                       </div> */}
                       <button
                         className={`lg:px-5 px-2 py-1 text-xs transition rounded-full ${
-                          items.status == 'claimed' ? 'bg-gray-400' : 'bg-white-300'
+                          items.status == 'claimed' || items.date < today ? 'bg-gray-400' : 'bg-white-300'
                         }   lg:text-sm ring-2 ring-yellow-500  text-black-300 ${
-                          items.date === today
+                          items.date === today && items.status != 'claimed'
                             ? 'hover:-translate-y-1 hover:scale-110 cursor-pointer'
                             : 'cursor-default'
                         } `}
@@ -154,7 +156,9 @@ const Rewards = () => {
             </div>
           </div>
         </div>
-        {selectedItem && openRef && <ClaimPopup open={true} close={closeRef} item={selectedItem}></ClaimPopup>}
+        {selectedItem && openRef && (
+          <ClaimPopup load={loading} open={true} close={closeRef} item={selectedItem}></ClaimPopup>
+        )}
       </div>
     </div>
   )
