@@ -11,6 +11,7 @@ import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 import toast from 'react-hot-toast'
 import ClaimPopup from './claimpopup'
+import Icon from 'src/@core/components/icon'
 
 const Rewards = () => {
   const auth = useAuth()
@@ -20,7 +21,10 @@ const Rewards = () => {
   const [today, setToday] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<DailyRewardData>()
   const [bonus, setBonus] = useState<number>(0)
+  const [extraPts, setExtraPts] = useState<number>(0)
+
   const [loading, setLoading] = useState<boolean>(false)
+  const [strike, setStrike] = useState<boolean>(false)
 
   const openDialog = (item: DailyRewardData) => {
     setSelectedItem(item)
@@ -39,8 +43,12 @@ const Rewards = () => {
         .then(async res => {
           console.log(res.data)
           setToday(res.data.today_date)
+          setStrike(res.data.day_strike)
           if (res.data.last_day_additional_points) {
             setBonus(res.data.last_day_additional_points)
+          }
+          if (res.data.extra_pts) {
+            setExtraPts(res.data.extra_pts)
           }
 
           setRewardData(res.data.cycle_status)
@@ -70,6 +78,13 @@ const Rewards = () => {
             })
             .then(async res => {
               openDialog(items)
+              setStrike(res.data.day_strike)
+              if (res.data.last_day_additional_points) {
+                setBonus(res.data.last_day_additional_points)
+              }
+              if (res.data.extra_pts) {
+                setExtraPts(res.data.extra_pts)
+              }
               setRewardData(res.data.cycle_status)
               auth.refreshUser()
               toast.success('Daily Reward Claimed!')
@@ -85,7 +100,26 @@ const Rewards = () => {
         <div className='w-full '>
           <div className='grid w-full rounded-2xl '>
             <div className='flex justify-center'>
-              <img alt='img' src='/assets/rewardstitle.png' className='w-5/6 pt-10 lg:w-2/5' />
+              <img alt='img' src='/assets/rewardstitle.png' className='w-4/6 pt-10 md:w-3/6 lg:w-2/5' />
+            </div>
+            <div className='flex justify-center py-3'>
+              {strike && (
+                <h1 className='text-sm text-center lg:text-lg lg:w-1/2 text-black-300'>
+                  {' '}
+                  Great news! You're on track to receive an additional <span className='font-bold'>
+                    {' '}
+                    {extraPts}
+                  </span>{' '}
+                  points on the last day of your streak. Keep the momentum going and secure your bonus reward!
+                </h1>
+              )}
+              {!strike && (
+                <h1 className='text-sm text-center text-red-900 lg:text-lg lg:w-1/2'>
+                  Unfortunately, you've missed out on the additional <span className='font-bold'> {extraPts}</span>{' '}
+                  points this time. But don't fret, start a new streak now and you'll have another chance to earn those
+                  bonus points next week. Keep going!
+                </h1>
+              )}
             </div>
             <div className='grid grid-cols-3 px-5 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
               {rewardData?.map((items: DailyRewardData, index: number) => {
@@ -102,7 +136,11 @@ const Rewards = () => {
                             : `/assets/daily-rewards/${items.day}.png`
                         }
                         className={`lg:max-w-[150px] max-w-[100px] lg:max-h-[250px] max-h-[150px] object-scale-down ${
-                          items.status == 'pending' && today === items.date ? 'animate-pulse' : ''
+                          items.status == 'pending' && today === items.date
+                            ? 'animate-pulse'
+                            : items.status == 'pending' && items.date > today
+                            ? 'opacity-40'
+                            : ''
                         } `}
                       />
                       {/* <button onClick={() => claimDaily(items)}>
@@ -147,7 +185,17 @@ const Rewards = () => {
                         } `}
                         onClick={() => claimDaily(items)}
                       >
-                        Claim {isLastElement ? items.points + bonus : items.points} points
+                        {items.status == 'claimed' && `${items.points} pts claimed`}
+                        {items.status == 'pending' &&
+                          items.date === today &&
+                          `Claim ${isLastElement ? items.points + bonus : items.points} pts`}
+                        {items.status == 'pending' && items.date != today && (
+                          <div className='flex items-center justify-center'>
+                            <Icon icon='solar:lock-bold-duotone' fontSize={14} className='mr-1' /> $
+                            {isLastElement ? items.points + bonus : items.points} pts
+                          </div>
+                        )}
+                        {items.status == 'missed' && `Missed`}
                       </button>
                     </div>
                   </div>

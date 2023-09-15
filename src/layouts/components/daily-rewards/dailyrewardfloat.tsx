@@ -7,34 +7,39 @@ import contentConfig from 'src/configs/content'
 import axios from 'axios'
 
 // ** Hooks Import
-
+// ** Hooks Import
+import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 
 // ** MUI Imports
 import { useRouter } from 'next/router'
 
 const DailyRewardFloat = () => {
+  const auth = useAuth()
+
   const router = useRouter()
 
   useEffect(() => {
     const initData = async () => {
-      await axios
-        .get(contentConfig.getDailyLoginRewardStatus, {
-          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
-        })
-        .then(async res => {
-          const today = res.data.today_date
-          const data = res.data.cycle_status
+      if (auth.user) {
+        await axios
+          .get(contentConfig.getDailyLoginRewardStatus, {
+            headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+          })
+          .then(async res => {
+            const today = res.data.today_date
+            const data = res.data.cycle_status
 
-          const foundItem: DailyRewardData = data.find((item: DailyRewardData) => item.date === today)
-          console.log(foundItem)
-          if (foundItem) {
-            if (foundItem.status == 'pending') setShow(true)
-          }
-        })
-        .catch(() => {
-          // toast.error('Something went wrong, contact Admin33')
-        })
+            const foundItem: DailyRewardData = data.find((item: DailyRewardData) => item.date === today)
+            console.log(foundItem)
+            if (foundItem) {
+              if (foundItem.status == 'pending') setShow(true)
+            }
+          })
+          .catch(() => {
+            // toast.error('Something went wrong, contact Admin33')
+          })
+      }
     }
 
     initData()
@@ -44,8 +49,6 @@ const DailyRewardFloat = () => {
 
   const [show, setShow] = useState<boolean>(false)
   const goDailyReward = () => {
-    // window.location.reload()
-
     router.replace('/dashboard?tab=dailyreward')
     setShow(false)
   }
