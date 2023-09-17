@@ -12,7 +12,12 @@ import { useAuth } from 'src/hooks/useAuth'
 import RedeemPopup from '../reward/redeemPopup'
 import { RewardData } from 'src/context/types'
 
-const Reward = () => {
+interface rewardProps {
+  isPublic: boolean
+}
+
+const Reward = (props: rewardProps) => {
+  const { isPublic } = props
   const auth = useAuth()
   const [rewardData, setRewardData] = useState<RewardData[]>()
   const [openRef, setOpenRef] = useState<boolean>(false)
@@ -35,7 +40,7 @@ const Reward = () => {
         setUrlParam(urlParams.get('level') || '')
       }
 
-      if (auth.user) {
+      if (!isPublic) {
         await axios
           .get(contentConfig.getAuthReward, {
             headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }

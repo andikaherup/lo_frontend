@@ -4,9 +4,11 @@ import { ReactNode, useState, useEffect } from 'react'
 // ** MUI Imports
 
 import Overview from 'src/layouts/components/dashboard/overview'
+import Icon from 'src/@core/components/icon'
 
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
+import Link from 'next/link'
 
 // ** Type
 import { characters } from 'src/configs/characterData'
@@ -30,20 +32,24 @@ const Dashboard = () => {
     const initAuth = async (): Promise<void> => {
       const urlParams = new URLSearchParams(window.location.search)
       if (urlParams.has('tab')) {
-        console.log(urlParams.get('tab'))
         switch (urlParams.get('tab')) {
           case 'friends':
             setSelectedTab('Friends')
 
             return
           case 'reward':
-            setSelectedTab('Rewards')
+            setSelectedTab('Reward')
 
             return
-          case 'quest':
+          case 'questjourney':
+          case 'dailyquest':
+          case 'dailyreward':
             setSelectedTab('Quest')
 
             return
+          default:
+            // if user access the page with /dashboard?tab=random string
+            router.replace('/dashboard')
         }
       }
       auth.setLoading(true)
@@ -58,7 +64,7 @@ const Dashboard = () => {
     initAuth()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [router])
 
   const [selectedTab, setSelectedTab] = useState('Overview')
 
@@ -100,7 +106,7 @@ const Dashboard = () => {
             return <Noresult></Noresult>
           }
 
-          return <Reward></Reward>
+          return <Reward isPublic={false}></Reward>
         }
       case 'Quest':
         if (auth.user?.character === '') {
@@ -152,52 +158,61 @@ const Dashboard = () => {
                     selectedTab === 'Overview' ? 'bg-blue-500' : 'bg-greybackground-300'
                   }`}
                 >
-                  <button
-                    className={` ${
-                      selectedTab === 'Overview' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-3 rounded-lg rounded-r-none outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
-                    onClick={() => setSelectedTab('Overview')}
-                    aria-current={selectedTab === 'Overview' ? 'page' : undefined}
-                  >
-                    Overview
-                  </button>
+                  <Link href={`/dashboard`}>
+                    <button
+                      className={` ${
+                        selectedTab === 'Overview' ? 'text-white-500 ' : 'text-textcolorblack-500'
+                      } inline-block w-full p-3 rounded-lg rounded-r-none outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                      onClick={() => setSelectedTab('Overview')}
+                      aria-current={selectedTab === 'Overview' ? 'page' : undefined}
+                    >
+                      Overview
+                    </button>
+                  </Link>
                 </li>
                 <li className={`w-full  ${selectedTab === 'Quest' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
-                  <button
-                    className={` ${
-                      selectedTab === 'Quest' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
-                    onClick={() => setSelectedTab('Quest')}
-                    aria-current={selectedTab === 'Quest' ? 'page' : undefined}
-                  >
-                    Quest
-                  </button>
+                  <Link href={`/dashboard?tab=quest`}>
+                    <button
+                      className={` ${
+                        selectedTab === 'Quest' ? 'text-white-500 ' : 'text-textcolorblack-500'
+                      } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                      onClick={() => setSelectedTab('Quest')}
+                      aria-current={selectedTab === 'Quest' ? 'page' : undefined}
+                    >
+                      Quest
+                    </button>
+                  </Link>
                 </li>{' '}
                 <li className={`w-full  ${selectedTab === 'Friends' ? 'bg-blue-500' : 'bg-greybackground-300'}`}>
-                  <button
-                    className={` ${
-                      selectedTab === 'Friends' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
-                    onClick={() => setSelectedTab('Friends')}
-                    aria-current={selectedTab === 'Friends' ? 'page' : undefined}
-                  >
-                    Friends
-                  </button>
+                  <Link href={`/dashboard?tab=friends`}>
+                    <button
+                      className={` ${
+                        selectedTab === 'Friends' ? 'text-white-500 ' : 'text-textcolorblack-500'
+                      } inline-block w-full p-3 outline-none active:text-green-500  hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                      onClick={() => setSelectedTab('Friends')}
+                      aria-current={selectedTab === 'Friends' ? 'page' : undefined}
+                    >
+                      Friends
+                    </button>
+                  </Link>
                 </li>{' '}
                 <li
                   className={`w-full rounded-lg rounded-l-none ${
                     selectedTab === 'Reward' ? 'bg-blue-500' : 'bg-greybackground-300'
                   }`}
                 >
-                  <button
-                    className={` ${
-                      selectedTab === 'Reward' ? 'text-white-500 ' : 'text-textcolorblack-500'
-                    } inline-block w-full p-3 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
-                    onClick={() => setSelectedTab('Reward')}
-                    aria-current={selectedTab === 'Reward' ? 'page' : undefined}
-                  >
-                    Reward
-                  </button>
+                  <Link href={`/dashboard?tab=reward`}>
+                    <button
+                      className={` ${
+                        selectedTab === 'Reward' ? 'text-white-500 ' : 'text-textcolorblack-500'
+                      } flex justify-center items-center w-full p-3 rounded-lg rounded-l-none outline-none active:text-green-500 text-textcolorblack-500 hover:text-gray-700 hover:bg-skyblue-500 focus:ring-2 active:ring-blue-500 active focus:bg-blue-500 focus:text-white-500`}
+                      onClick={() => setSelectedTab('Reward')}
+                      aria-current={selectedTab === 'Reward' ? 'page' : undefined}
+                    >
+                      <Icon icon='mdi:cart-variant' fontSize={20} />
+                      Shop
+                    </button>
+                  </Link>
                 </li>
               </ul>
             </div>

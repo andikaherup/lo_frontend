@@ -6,16 +6,25 @@ import contentConfig from 'src/configs/content'
 // ** MUI Imports
 import axios from 'axios'
 
+// ** Hooks Import
+import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 import toast from 'react-hot-toast'
 import ClaimPopup from './claimpopup'
+import Icon from 'src/@core/components/icon'
 
 const Rewards = () => {
+  const auth = useAuth()
+
   const [rewardData, setRewardData] = useState<DailyRewardData[]>()
   const [openRef, setOpenRef] = useState<boolean>(false)
   const [today, setToday] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<DailyRewardData>()
   const [bonus, setBonus] = useState<number>(0)
+  const [extraPts, setExtraPts] = useState<number>(0)
+
+  const [loading, setLoading] = useState<boolean>(false)
+  const [strike, setStrike] = useState<boolean>(false)
 
   const openDialog = (item: DailyRewardData) => {
     setSelectedItem(item)
@@ -34,8 +43,12 @@ const Rewards = () => {
         .then(async res => {
           console.log(res.data)
           setToday(res.data.today_date)
+          setStrike(res.data.day_strike)
           if (res.data.last_day_additional_points) {
             setBonus(res.data.last_day_additional_points)
+          }
+          if (res.data.extra_pts) {
+            setExtraPts(res.data.extra_pts)
           }
 
           setRewardData(res.data.cycle_status)
@@ -51,7 +64,8 @@ const Rewards = () => {
   }, [])
 
   const claimDaily = async (items: DailyRewardData) => {
-    console.log(today, items.date, today === items.date)
+    setLoading(true)
+
     if (today === items.date && items.status === 'pending') {
       await axios
         .get(contentConfig.getDailyLoginReward, {
@@ -64,22 +78,50 @@ const Rewards = () => {
             })
             .then(async res => {
               openDialog(items)
+              setStrike(res.data.day_strike)
+              if (res.data.last_day_additional_points) {
+                setBonus(res.data.last_day_additional_points)
+              }
+              if (res.data.extra_pts) {
+                setExtraPts(res.data.extra_pts)
+              }
               setRewardData(res.data.cycle_status)
+              auth.refreshUser()
               toast.success('Daily Reward Claimed!')
             })
+          setLoading(false)
         })
     }
   }
 
   return (
-    <div className='w-full h-full min-h-screen pt-20 rounded-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
-      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:px-20'>
-        <div className='w-full pt-10 lg:px-20'>
-          <div className='grid w-full rounded-2xl bg-white-300'>
+    <div className='w-full h-full min-h-screen pt-10 rounded-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
+      <div className='flex flex-col items-center justify-start h-full min-h-screen'>
+        <div className='w-full '>
+          <div className='grid w-full rounded-2xl '>
             <div className='flex justify-center'>
-              <img alt='img' src='/assets/rewardstitle.png' className='w-5/6 pt-10 lg:w-2/5' />
+              <img alt='img' src='/assets/rewardstitle.png' className='w-4/6 pt-10 md:w-3/6 lg:w-2/5' />
             </div>
-            <div className='grid grid-cols-3 px-5 py-20 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
+            <div className='flex justify-center py-3'>
+              {strike && (
+                <h1 className='text-sm text-center lg:text-lg lg:w-1/2 text-black-300'>
+                  {' '}
+                  Great news! You're on track to receive an additional <span className='font-bold'>
+                    {' '}
+                    {extraPts}
+                  </span>{' '}
+                  points on the last day of your streak. Keep the momentum going and secure your bonus reward!
+                </h1>
+              )}
+              {!strike && (
+                <h1 className='text-sm text-center text-red-900 lg:text-lg lg:w-1/2'>
+                  Unfortunately, you've missed out on the additional <span className='font-bold'> {extraPts}</span>{' '}
+                  points this time. But don't fret, start a new streak now and you'll have another chance to earn those
+                  bonus points next week. Keep going!
+                </h1>
+              )}
+            </div>
+            <div className='grid grid-cols-3 px-5 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
               {rewardData?.map((items: DailyRewardData, index: number) => {
                 const isLastElement = index === rewardData.length - 1
 
@@ -89,12 +131,16 @@ const Rewards = () => {
                       <img
                         alt='img'
                         src={
-                          items.status == 'claimed'
+                          items.status == 'claimed' || items.date < today
                             ? `/assets/daily-rewards/${items.day}claimed.png`
                             : `/assets/daily-rewards/${items.day}.png`
                         }
                         className={`lg:max-w-[150px] max-w-[100px] lg:max-h-[250px] max-h-[150px] object-scale-down ${
-                          items.status == 'pending' && today === items.date ? 'animate-pulse' : ''
+                          items.status == 'pending' && today === items.date
+                            ? 'animate-pulse'
+                            : items.status == 'pending' && items.date > today
+                            ? 'opacity-40'
+                            : ''
                         } `}
                       />
                       {/* <button onClick={() => claimDaily(items)}>
@@ -131,15 +177,25 @@ const Rewards = () => {
                       </div> */}
                       <button
                         className={`lg:px-5 px-2 py-1 text-xs transition rounded-full ${
-                          items.status == 'claimed' ? 'bg-gray-400' : 'bg-white-300'
+                          items.status == 'claimed' || items.date < today ? 'bg-gray-400' : 'bg-white-300'
                         }   lg:text-sm ring-2 ring-yellow-500  text-black-300 ${
-                          items.date === today
+                          items.date === today && items.status != 'claimed'
                             ? 'hover:-translate-y-1 hover:scale-110 cursor-pointer'
                             : 'cursor-default'
                         } `}
                         onClick={() => claimDaily(items)}
                       >
-                        Claim {isLastElement ? items.points + bonus : items.points} points
+                        {items.status == 'claimed' && `${items.points} pts claimed`}
+                        {items.status == 'pending' &&
+                          items.date === today &&
+                          `Claim ${isLastElement ? items.points + bonus : items.points} pts`}
+                        {items.status == 'pending' && items.date != today && (
+                          <div className='flex items-center justify-center'>
+                            <Icon icon='solar:lock-bold-duotone' fontSize={14} className='mr-1' /> $
+                            {isLastElement ? items.points + bonus : items.points} pts
+                          </div>
+                        )}
+                        {items.status == 'missed' && `Missed`}
                       </button>
                     </div>
                   </div>
@@ -148,7 +204,9 @@ const Rewards = () => {
             </div>
           </div>
         </div>
-        {selectedItem && openRef && <ClaimPopup open={true} close={closeRef} item={selectedItem}></ClaimPopup>}
+        {selectedItem && openRef && (
+          <ClaimPopup load={loading} open={true} close={closeRef} item={selectedItem}></ClaimPopup>
+        )}
       </div>
     </div>
   )

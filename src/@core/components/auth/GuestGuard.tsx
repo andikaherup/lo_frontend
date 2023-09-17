@@ -23,8 +23,10 @@ const GuestGuard = (props: GuestGuardProps) => {
     }
 
     if (router.route === '/account-security') {
+      //if no user login send back to login page for all page that required login
+
       if (!auth.user) {
-        router.replace('/')
+        router.replace('/login')
       }
 
       // if (auth.user?.using_default_password === false) {

@@ -1,16 +1,50 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
+import { useRouter } from 'next/router'
 
 // ** Layout Import
 
 import React from 'react'
 import StepperQuest from 'src/layouts/components/quest/stepper'
 import { getBaseColor, getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
+import Rewards from 'src/layouts/components/daily-rewards/rewards'
+import Link from 'next/link'
 
 const Quest = () => {
+  const router = useRouter()
+
+  useEffect(() => {
+    const initAuth = async (): Promise<void> => {
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.has('tab')) {
+        console.log(urlParams.get('tab'))
+        switch (urlParams.get('tab')) {
+          case 'questjourney':
+            setSelectedTab('journey')
+
+            return
+          case 'dailyquest':
+            setSelectedTab('daily')
+
+            return
+          case 'dailyreward':
+            setSelectedTab('dailyreward')
+
+            return
+          default:
+            // if user access the page with /dashboard?tab=random string
+            router.replace('/dashboard')
+        }
+      }
+    }
+    initAuth()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const auth = useAuth()
   const [selectedTab, setSelectedTab] = useState('journey')
 
@@ -32,16 +66,25 @@ const Quest = () => {
             <StepperQuest questType='daily'></StepperQuest>
           </>
         )
+      case 'dailyreward':
+        return <Rewards></Rewards>
     }
   }
   const menu = [
     {
       title: 'journey',
-      content: 'Your Journey'
+      content: 'Your Journey',
+      link: '/dashboard?tab=questjourney'
     },
     {
       title: 'daily',
-      content: 'Daily Quest'
+      content: 'Daily Quest',
+      link: '/dashboard?tab=dailyquest'
+    },
+    {
+      title: 'dailyreward',
+      content: 'Daily Reward',
+      link: '/dashboard?tab=dailyreward'
     }
   ]
 
@@ -64,19 +107,21 @@ const Quest = () => {
                   {menu.map((menu, index) => (
                     <li key={index} className='mr-4'>
                       {auth.user && (
-                        <button
-                          className={`inline-block px-1 py-2  rounded-t-lg ${
-                            selectedTab == menu.title
-                              ? getBaseTextColor(auth.user?.character) +
-                                ' font-bold active border-b-4 text-md ' +
-                                getBaseBorderColor(auth.user?.character)
-                              : ' text-black-300'
-                          }`}
-                          onClick={() => setSelectedTab(menu.title)}
-                          aria-current={selectedTab === menu.title ? 'page' : undefined}
-                        >
-                          {menu.content}
-                        </button>
+                        <Link href={menu.link}>
+                          <button
+                            className={`inline-block px-1 py-2  rounded-t-lg ${
+                              selectedTab == menu.title
+                                ? getBaseTextColor(auth.user?.character) +
+                                  ' font-bold active border-b-4 text-md ' +
+                                  getBaseBorderColor(auth.user?.character)
+                                : ' text-black-300'
+                            }`}
+                            onClick={() => setSelectedTab(menu.title)}
+                            aria-current={selectedTab === menu.title ? 'page' : undefined}
+                          >
+                            {menu.content}
+                          </button>
+                        </Link>
                       )}
                     </li>
                   ))}

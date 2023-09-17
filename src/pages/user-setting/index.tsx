@@ -39,7 +39,7 @@ import toast from 'react-hot-toast'
 interface FormData {
   email: string
   name: string
-  age: number
+  age: string
   gender: string
   bank_account_number: string
   bank_name: string
@@ -49,7 +49,7 @@ interface FormData {
 const accountSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
-  age: yup.number(),
+  age: yup.string().required(),
   gender: yup.string(),
   bank_account_number: yup.string().required(),
   bank_name: yup.string().required(),
@@ -69,8 +69,7 @@ const Setting = () => {
   const defaultAccountValues = {
     email: auth.user?.email || '',
     name: auth.user?.name || '',
-
-    age: auth.user?.age || 0,
+    age: auth.user?.age || '',
     gender: auth.user?.gender || '',
     bank_account_number: auth.user?.bank_account_number || '',
     bank_name: auth.user?.bank_name || '',
@@ -91,7 +90,9 @@ const Setting = () => {
       bank_account_number: data.bank_account_number,
       bank_name: data.bank_name,
       phone_number: data.phone_number,
-      name: data.name
+      name: data.name,
+      age: data.age,
+      gender: data.gender
     }
     axios
       .put(authConfig.editUserEndpoint, payload, {
@@ -279,10 +280,45 @@ const Setting = () => {
                 </div>
 
                 <div>
-                  <label htmlFor='category' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
+                  <FormControl fullWidth>
+                    <div className='flex justify-between w-full'>
+                      <label
+                        htmlFor='phone_number'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
+                        Age
+                      </label>
+                      {accountErrors.age && <span className='text-sm text-red-900'> This field is required</span>}
+                    </div>
+                    <Controller
+                      name='age'
+                      control={accountControl}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange } }) => (
+                        <div className='relative'>
+                          <select
+                            onChange={onChange}
+                            value={value}
+                            className='bg-gray-50 border hover:cursor-not-allowed  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                          >
+                            <option value=''></option>
+
+                            <option value='Under 18'>Under 18</option>
+                            <option value='18-24'>18-24</option>
+                            <option value='25-34'>25-34</option>
+                            <option value='35-44'>35-44</option>
+                            <option value='45-54'>45-54</option>
+                            <option value='55-64'>55-64</option>
+                            <option value='65+'>65+</option>
+                          </select>
+                        </div>
+                      )}
+                    />
+                  </FormControl>
+                  {/* <label htmlFor='category' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
                     Age
-                  </label>
-                  <input
+                  </label> */}
+                  {/* <input
                     type='text'
                     name='age'
                     disabled
@@ -290,7 +326,7 @@ const Setting = () => {
                     className='bg-gray-50 hover:cursor-not-allowed border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
                     value={auth.user?.age || ''}
                     required
-                  />
+                  /> */}
                 </div>
                 <div>
                   <label

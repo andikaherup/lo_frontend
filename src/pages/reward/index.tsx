@@ -7,7 +7,7 @@ import Reward from 'src/layouts/components/dashboard/reward'
 const reward = () => {
   return (
     <div className='mt-10'>
-      <Reward />
+      <Reward isPublic={true} />
     </div>
   )
 }

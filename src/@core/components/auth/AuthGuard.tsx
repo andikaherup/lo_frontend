@@ -5,7 +5,7 @@ import { ReactNode, ReactElement, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Hooks Import
-import { useAuth } from 'src/hooks/useAuth'
+// import { useAuth } from 'src/hooks/useAuth'
 
 interface AuthGuardProps {
   children: ReactNode
@@ -13,8 +13,9 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = (props: AuthGuardProps) => {
-  const { children, fallback } = props
-  const auth = useAuth()
+  const { children } = props
+
+  // const auth = useAuth()
   const router = useRouter()
 
   useEffect(
@@ -22,28 +23,14 @@ const AuthGuard = (props: AuthGuardProps) => {
       if (!router.isReady) {
         return
       }
-
-      if (auth.user === null && !window.localStorage.getItem('userData')) {
-        if (router.asPath !== '/') {
-          console.log('here34')
-          router.replace({
-            pathname: '/',
-            query: { returnUrl: router.asPath }
-          })
-        } else {
-          console.log('here3')
-
-          router.replace('/')
-        }
-      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.route]
   )
 
-  if (auth.loading || auth.user === null) {
-    return fallback
-  }
+  // if (auth.loading || auth.user === null) {
+  //   return fallback
+  // }
 
   return <>{children}</>
 }
