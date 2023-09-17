@@ -7,7 +7,6 @@ import contentConfig from 'src/configs/content'
 import axios from 'axios'
 
 // ** Hooks Import
-// ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 
