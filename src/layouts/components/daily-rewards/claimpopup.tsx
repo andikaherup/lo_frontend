@@ -68,11 +68,18 @@ const ClaimPopup = (props: RefProps) => {
                         className='lg:max-w-[150px] max-w-[100px] lg:max-h-[250px] max-h-[150px] object-scale-down'
                       />
 
-                      <img
+                      {/* <img
                         alt='img'
                         src='/assets/daily-rewards/button.png'
                         className=' transition max-w-[150px] lg:max-h-[200px] max-h-[50px]'
-                      />
+                      /> */}
+
+                      <button
+                        className={`lg:px-5 px-2 py-1 text-xs transition rounded-full
+                        bg-white-300 lg:text-sm ring-2 ring-yellow-500  text-black-300  `}
+                      >
+                        {item.points} pts claimed!
+                      </button>
                     </div>
                   </div>
                 )}

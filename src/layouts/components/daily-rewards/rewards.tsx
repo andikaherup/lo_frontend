@@ -191,7 +191,7 @@ const Rewards = () => {
                           `Claim ${isLastElement ? items.points + bonus : items.points} pts`}
                         {items.status == 'pending' && items.date != today && (
                           <div className='flex items-center justify-center'>
-                            <Icon icon='solar:lock-bold-duotone' fontSize={14} className='mr-1' /> $
+                            <Icon icon='solar:lock-bold-duotone' fontSize={14} className='mr-1' />
                             {isLastElement ? items.points + bonus : items.points} pts
                           </div>
                         )}
