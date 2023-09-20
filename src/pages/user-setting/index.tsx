@@ -10,6 +10,11 @@ import Grid from '@mui/material/Grid'
 // ** Hooks Import
 import { useAuth } from 'src/hooks/useAuth'
 import ProgressQuest from 'src/layouts/components/header/progressQuest'
+import Tooltip from '@mui/material/Tooltip'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import Icon from 'src/@core/components/icon'
 
 // ** Axios
 import axios from 'axios'
@@ -64,7 +69,10 @@ const Setting = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const auth = useAuth()
+
+  const [tooltipShow, setTooltipShow] = useState<boolean>(false)
   const [char, setChar] = useState<Archetype>()
+  const [selected, setSelected] = useState<boolean>(auth.user?.anonymous_on_leaderboard || false)
 
   const defaultAccountValues = {
     email: auth.user?.email || '',
@@ -100,6 +108,24 @@ const Setting = () => {
       })
       .then(async () => {
         toast.success('User data has been updated')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  const handleChange = (value: any) => {
+    // Check if the value is already in the selected array
+    setSelected(value.target.checked)
+    const payload = {
+      anonymous_on_leaderboard: value.target.checked
+    }
+    axios
+      .put(authConfig.editUserEndpoint, payload, {
+        headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
+      })
+      .then(async () => {
+        toast.success(`Your account is now ${value.target.checked === true ? 'Anonymous' : 'Public'}`)
       })
       .catch(err => {
         console.log(err)
@@ -146,6 +172,27 @@ const Setting = () => {
           </div>
         )}
         <div className='p-10 mt-10 bg-white-300 rounded-xl'>
+          <div className='flex items-center justify-end'>
+            <div className='flex items-center justify-center'>
+              <label className='relative inline-flex items-center cursor-pointer'>
+                <input type='checkbox' checked={selected} onChange={handleChange} className='sr-only peer' />
+                <div className="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+            <span className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>Anonymous Mode</span>
+
+            <Tooltip open={tooltipShow} title='Hide your character on the leaderboard' placement='top'>
+              <IconButton
+                sx={{ color: '#db4437' }}
+                onClick={() => {
+                  setTooltipShow(!tooltipShow)
+                }}
+              >
+                <Icon icon='mdi:info' className='w-8 h-8' />
+              </IconButton>
+            </Tooltip>
+          </div>
+
           <div className='flex items-center justify-between pb-4 mt-5 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600'>
             <h3 className='text-lg font-semibold text-gray-900 text-black-300'> User Info</h3>
           </div>

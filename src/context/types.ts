@@ -90,6 +90,8 @@ export type UserDataType = {
   used_coin: number;
   using_default_password: boolean;
   password_is_set: boolean;
+  alias: null | string;
+  anonymous_on_leaderboard: boolean;
 }
 
 export type AuthValuesType = {
