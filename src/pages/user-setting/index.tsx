@@ -49,6 +49,7 @@ interface FormData {
   bank_account_number: string
   bank_name: string
   phone_number: string
+  alias: string
 }
 
 const accountSchema = yup.object().shape({
@@ -58,7 +59,8 @@ const accountSchema = yup.object().shape({
   gender: yup.string(),
   bank_account_number: yup.string().required(),
   bank_name: yup.string().required(),
-  phone_number: yup.string().required()
+  phone_number: yup.string().required(),
+  alias: yup.string()
 })
 
 const Setting = () => {
@@ -81,7 +83,8 @@ const Setting = () => {
     gender: auth.user?.gender || '',
     bank_account_number: auth.user?.bank_account_number || '',
     bank_name: auth.user?.bank_name || '',
-    phone_number: auth.user?.phone_number || ''
+    phone_number: auth.user?.phone_number || '',
+    alias: auth.user?.alias || ''
   }
 
   const {
@@ -100,7 +103,8 @@ const Setting = () => {
       phone_number: data.phone_number,
       name: data.name,
       age: data.age,
-      gender: data.gender
+      gender: data.gender,
+      alias: data.alias && data.alias != '' ? data.alias : null
     }
     axios
       .put(authConfig.editUserEndpoint, payload, {
@@ -172,27 +176,6 @@ const Setting = () => {
           </div>
         )}
         <div className='p-10 mt-10 bg-white-300 rounded-xl'>
-          <div className='flex items-center justify-end'>
-            <div className='flex items-center justify-center'>
-              <label className='relative inline-flex items-center cursor-pointer'>
-                <input type='checkbox' checked={selected} onChange={handleChange} className='sr-only peer' />
-                <div className="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              </label>
-            </div>
-            <span className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>Anonymous Mode</span>
-
-            <Tooltip open={tooltipShow} title='Hide your character on the leaderboard' placement='top'>
-              <IconButton
-                sx={{ color: '#db4437' }}
-                onClick={() => {
-                  setTooltipShow(!tooltipShow)
-                }}
-              >
-                <Icon icon='mdi:info' className='w-8 h-8' />
-              </IconButton>
-            </Tooltip>
-          </div>
-
           <div className='flex items-center justify-between pb-4 mt-5 mb-4 border-b rounded-t sm:mb-5 dark:border-gray-600'>
             <h3 className='text-lg font-semibold text-gray-900 text-black-300'> User Info</h3>
           </div>
@@ -391,6 +374,55 @@ const Setting = () => {
                     value={auth.user?.gender || ''}
                     required
                   />
+                </div>
+              </div>
+              <div className='flex items-center justify-between pb-4 mt-5 border-b rounded-t dark:border-gray-600'>
+                <h3 className='text-lg font-semibold text-gray-900 text-black-300'>Public Data</h3>
+              </div>
+              <div className='flex flex-col items-start justify-start mb-4'>
+                <FormControl>
+                  <div className='flex justify-between '>
+                    <label htmlFor='alias' className='block mb-2 text-sm font-medium text-black-300 dark:text-white'>
+                      Alias
+                    </label>
+                    {accountErrors.alias && <span className='text-sm text-red-900 '> This field is required</span>}
+                  </div>
+
+                  <Controller
+                    name='alias'
+                    control={accountControl}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <input
+                        value={value}
+                        onChange={onChange}
+                        className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500'
+                        id='alias'
+                        type='text'
+                      />
+                    )}
+                  />
+                </FormControl>
+
+                <div className='flex items-center justify-start w-full'>
+                  <div className='flex items-center justify-center'>
+                    <label className='relative inline-flex items-center cursor-pointer'>
+                      <input type='checkbox' checked={selected} onChange={handleChange} className='sr-only peer' />
+                      <div className="w-11 h-6 bg-gray-400 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    </label>
+                  </div>
+                  <span className='ml-2 text-sm font-medium text-gray-900 dark:text-gray-300'>Anonymous Mode</span>
+
+                  <Tooltip open={tooltipShow} title='Hide your character on the leaderboard' placement='top'>
+                    <IconButton
+                      sx={{ color: '#db4437' }}
+                      onClick={() => {
+                        setTooltipShow(!tooltipShow)
+                      }}
+                    >
+                      <Icon icon='mdi:info' className='w-8 h-8' />
+                    </IconButton>
+                  </Tooltip>
                 </div>
               </div>
               <div className='flex items-center space-x-4'>
