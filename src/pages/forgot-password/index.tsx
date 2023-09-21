@@ -12,10 +12,9 @@ import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import toast from 'react-hot-toast'
 
-// ** Next Import
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 // ** Axios
 import axios from 'axios'
+
 // ** Config
 import authConfig from 'src/configs/auth'
 import FormControl from '@mui/material/FormControl'
@@ -93,6 +92,7 @@ const ForgotPassword = () => {
         console.log(err)
       })
   }
+
   return (
     <div className='justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-skyblue-500 flex-'>
       <div className='flex w-full max-w-8xl '>
