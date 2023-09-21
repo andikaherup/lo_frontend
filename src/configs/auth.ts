@@ -8,7 +8,7 @@ export default {
   editUserEndpoint: `${base_url}/api/v1/account_update/`,
   registReferralEndpoint: `${base_url}/api/v1/referral_register/`,
   getCharbyRef: `${base_url}/api/v1/char/`,
-
+  resetPassword: `${base_url}/api/v1/forgot_password/`,
 
 
   convertToken: `${base_url}/api-auth/convert-token/`,

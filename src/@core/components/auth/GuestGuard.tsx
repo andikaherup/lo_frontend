@@ -34,9 +34,9 @@ const GuestGuard = (props: GuestGuardProps) => {
       // }
     }
 
-    if (router.route === '/forgot-password') {
-      router.replace('/')
-    }
+    // if (router.route === '/forgot-password') {
+    //   router.replace('/')
+    // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.route])

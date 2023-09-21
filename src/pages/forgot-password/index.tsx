@@ -10,10 +10,14 @@ import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
+import toast from 'react-hot-toast'
 
 // ** Next Import
 import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
-
+// ** Axios
+import axios from 'axios'
+// ** Config
+import authConfig from 'src/configs/auth'
 import FormControl from '@mui/material/FormControl'
 
 // ** Icon Imports
@@ -65,7 +69,7 @@ const ForgotPassword = () => {
   // ** Hooks
   const theme = useTheme()
 
-  const { control: accountControl } = useForm({
+  const { control: accountControl, handleSubmit: handleAccountSubmit } = useForm({
     defaultValues,
     resolver: yupResolver(schema)
   })
@@ -74,6 +78,21 @@ const ForgotPassword = () => {
 
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
+  const onSubmit = (data: any) => {
+    console.log(data)
+
+    const payload = {
+      email: data.email
+    }
+    axios
+      .put(authConfig.resetPassword, payload)
+      .then(async () => {
+        toast.success(`Your password has been reset , please check your email`)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
   return (
     <div className='justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-skyblue-500 flex-'>
       <div className='flex w-full max-w-8xl '>
@@ -105,7 +124,7 @@ const ForgotPassword = () => {
                             Enter your email and we&prime;ll send you instructions to reset your password
                           </Typography>
                         </Box>
-                        <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()}>
+                        <form autoComplete='off' onSubmit={handleAccountSubmit(onSubmit)}>
                           <div>
                             <FormControl fullWidth>
                               {/* <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
@@ -133,7 +152,7 @@ const ForgotPassword = () => {
                             </FormControl>
                           </div>
                           <div className='flex justify-center py-3 '>
-                            <ButtonPrimary>Send Reset Link</ButtonPrimary>
+                            <button type='submit'>Send Reset Link</button>
                           </div>
                           <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <LinkStyled href='/login'>
