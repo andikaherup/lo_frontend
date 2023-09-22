@@ -29,6 +29,7 @@ import { useAuth } from 'src/hooks/useAuth'
 // ** Demo Imports
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 import toast from 'react-hot-toast'
+import SecurityPopup from 'src/layouts/components/account-security/securitypopup'
 
 interface FormData {
   oldPassword: string
@@ -74,9 +75,13 @@ const ChangePasswordPage = () => {
 
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [loadingPopup, setLoadingPopup] = useState<boolean>(false)
+  const [openRef, setOpenRef] = useState<boolean>(false)
+  const [securityMessage, setSecurityMessage] = useState<string>('')
 
   const onSubmit = async (data: FormData) => {
     setLoading(true)
+    setLoadingPopup(true)
     const { oldPassword, retypepassword, password } = data
 
     const payload = {
@@ -101,8 +106,9 @@ const ChangePasswordPage = () => {
           .then(() => {
             auth.refreshUser()
             setError('')
-
-            router.replace('/')
+            setSecurityMessage('Password Changed')
+            setOpenRef(true)
+            // router.replace('/')
           })
       })
 
@@ -122,6 +128,7 @@ const ChangePasswordPage = () => {
     //   }
     // })
     setLoading(false)
+    setLoadingPopup(false)
   }
 
   const textProcess = (text: string) => {
@@ -203,6 +210,10 @@ const ChangePasswordPage = () => {
     defaultValues,
     resolver: yupResolver(createSchema)
   })
+
+  const closeRef = () => {
+    setOpenRef(false)
+  }
 
   return (
     <section
@@ -569,6 +580,7 @@ const ChangePasswordPage = () => {
               </div>
             </div>
           </Box>
+          <SecurityPopup load={loadingPopup} open={openRef} close={closeRef} message={securityMessage}></SecurityPopup>
         </div>
       </div>
     </section>

@@ -110,6 +110,7 @@ const Setting = () => {
         headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
       })
       .then(async () => {
+        auth.refreshUser()
         toast.success('User data has been updated')
       })
       .catch(err => {
@@ -128,6 +129,8 @@ const Setting = () => {
         headers: { Authorization: 'Bearer ' + window.localStorage.getItem(authConfig.storageTokenKeyName)! }
       })
       .then(async () => {
+        auth.refreshUser()
+
         toast.success(`Your account is now ${value.target.checked === true ? 'Anonymous' : 'Public'}`)
       })
       .catch(err => {

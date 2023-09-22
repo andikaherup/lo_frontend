@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -67,7 +67,7 @@ const defaultValues = {
 const ForgotPassword = () => {
   // ** Hooks
   const theme = useTheme()
-
+  const [error, setError] = useState<string>('')
   const { control: accountControl, handleSubmit: handleAccountSubmit } = useForm({
     defaultValues,
     resolver: yupResolver(schema)
@@ -84,12 +84,13 @@ const ForgotPassword = () => {
       email: data.email
     }
     axios
-      .put(authConfig.resetPassword, payload)
-      .then(async () => {
-        toast.success(`Your password has been reset , please check your email`)
+      .post(authConfig.resetPassword, payload)
+      .then(async res => {
+        toast.success(res.data.data)
       })
       .catch(err => {
-        console.log(err)
+        setError(err.response.data.data)
+        console.log(err.response.data.data)
       })
   }
 
@@ -151,7 +152,10 @@ const ForgotPassword = () => {
                               </div>
                             </FormControl>
                           </div>
-                          <div className='flex justify-center py-3 '>
+                          <div className='px-5 py-2'>
+                            {error != '' && <span className='text-sm font-bold text-red-900 '>Error: {error}</span>}
+                          </div>
+                          <div className='flex justify-center pb-3 '>
                             <button type='submit'>Send Reset Link</button>
                           </div>
                           <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

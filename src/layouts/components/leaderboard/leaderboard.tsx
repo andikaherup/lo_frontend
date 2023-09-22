@@ -75,7 +75,6 @@ const Leaderboard = () => {
   }, [])
 
   const getCharacter = (level: number, gender: string, name: string): string => {
-    console.log('char', level, gender, name)
     if (name) {
       if (level == 0) {
         if (gender == 'male') {
@@ -234,7 +233,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[1].character === 'Anonymous'
-                        ? '/assets/characters/noimage.png'
+                        ? '/assets/characters/podnoimage.png'
                         : `/assets/characters/pod${getCharacter(
                             userList[1].character_level,
                             userList[1].gender,
@@ -271,7 +270,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[0].character === 'Anonymous'
-                        ? '/assets/characters/noimage.png'
+                        ? '/assets/characters/podnoimage.png'
                         : `/assets/characters/pod${getCharacter(
                             userList[0].character_level,
                             userList[0].gender,
@@ -308,7 +307,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[2].character === 'Anonymous'
-                        ? '/assets/characters/noimage.png'
+                        ? '/assets/characters/podnoimage.png'
                         : `/assets/characters/pod${getCharacter(
                             userList[2].character_level,
                             userList[2].gender,
