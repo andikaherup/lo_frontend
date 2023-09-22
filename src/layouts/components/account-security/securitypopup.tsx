@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // ** Config
-import { DailyRewardData } from 'src/context/types'
 
 interface RefProps {
   load: boolean

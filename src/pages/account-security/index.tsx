@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl'
 import Icon from 'src/@core/components/icon'
 
 // ** Next Import
-import { useRouter } from 'next/router'
+
 import { characters } from 'src/configs/characterData'
 import IconButton from '@mui/material/IconButton'
 
@@ -71,7 +71,6 @@ const defaultValues = {
 
 const ChangePasswordPage = () => {
   const auth = useAuth()
-  const router = useRouter()
 
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -108,7 +107,6 @@ const ChangePasswordPage = () => {
             setError('')
             setSecurityMessage('Password Changed')
             setOpenRef(true)
-            // router.replace('/')
           })
       })
 
