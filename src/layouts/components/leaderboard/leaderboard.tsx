@@ -75,7 +75,6 @@ const Leaderboard = () => {
   }, [])
 
   const getCharacter = (level: number, gender: string, name: string): string => {
-    console.log('char', level, gender, name)
     if (name) {
       if (level == 0) {
         if (gender == 'male') {
@@ -232,11 +231,15 @@ const Leaderboard = () => {
                   <img
                     className='z-10 scale-90'
                     alt='avatar'
-                    src={`/assets/characters/pod${getCharacter(
-                      userList[1].character_level,
-                      userList[1].gender,
-                      userList[1].character
-                    )}`}
+                    src={
+                      userList[1].character === 'Anonymous'
+                        ? '/assets/characters/podnoimage.png'
+                        : `/assets/characters/pod${getCharacter(
+                            userList[1].character_level,
+                            userList[1].gender,
+                            userList[1].character
+                          )}`
+                    }
                   />
 
                   <img
@@ -265,11 +268,15 @@ const Leaderboard = () => {
                   <img
                     className='z-10 scale-110'
                     alt='avatar'
-                    src={`/assets/characters/pod${getCharacter(
-                      userList[0].character_level,
-                      userList[0].gender,
-                      userList[0].character
-                    )}`}
+                    src={
+                      userList[0].character === 'Anonymous'
+                        ? '/assets/characters/podnoimage.png'
+                        : `/assets/characters/pod${getCharacter(
+                            userList[0].character_level,
+                            userList[0].gender,
+                            userList[0].character
+                          )}`
+                    }
                   />
                   <img
                     className='absolute z-20 lg:translate-x-20 md:translate-x-20 md:translate-y-20 translate-x-10 translate-y-6 lg:translate-y-14 md:w-[120px] lg:w-[150px] w-[70px]'
@@ -296,13 +303,17 @@ const Leaderboard = () => {
 
                 <div className='flex flex-col justify-center'>
                   <img
-                    className='z-10 scale-90'
+                    className={userList[2].character === 'Anonymous' ? '' : 'z-10 scale-90'}
                     alt='avatar'
-                    src={`/assets/characters/pod${getCharacter(
-                      userList[2].character_level,
-                      userList[2].gender,
-                      userList[2].character
-                    )}`}
+                    src={
+                      userList[2].character === 'Anonymous'
+                        ? '/assets/characters/podnoimage.png'
+                        : `/assets/characters/pod${getCharacter(
+                            userList[2].character_level,
+                            userList[2].gender,
+                            userList[2].character
+                          )}`
+                    }
                   />
                   <img
                     className='absolute z-20 lg:translate-x-20 md:translate-x-20 md:translate-y-20 translate-x-10 translate-y-6 lg:translate-y-14 md:w-[120px] lg:w-[150px] w-[70px]'
@@ -355,7 +366,7 @@ const Leaderboard = () => {
                       <td className='p-2 whitespace-nowrap'>
                         <div className='flex items-center'>
                           <div className='flex-shrink-0 '>
-                            {data.character && (
+                            {data.character && data.character != 'Anonymous' && (
                               <img
                                 className='rounded-full'
                                 src={`/assets/characters/${
@@ -372,7 +383,7 @@ const Leaderboard = () => {
                                 alt='character'
                               />
                             )}
-                            {!data.character && (
+                            {(!data.character || data.character === 'Anonymous') && (
                               <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
                             )}
                           </div>
@@ -399,7 +410,7 @@ const Leaderboard = () => {
                     <td className='p-2 whitespace-nowrap'>
                       <div className='flex items-center'>
                         <div className='flex-shrink-0 '>
-                          {auth.user?.character && (
+                          {auth.user?.character && auth.user?.character != 'Anonymous' && (
                             <img
                               className='rounded-full'
                               src={`/assets/characters/${
@@ -418,9 +429,10 @@ const Leaderboard = () => {
                               alt='character'
                             />
                           )}
-                          {!auth.user?.character && (
-                            <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
-                          )}
+                          {!auth.user?.character ||
+                            (auth.user?.character === 'Anonymous' && (
+                              <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
+                            ))}
                         </div>
                         <div className='text-xs font-bold text-gray-800 lg:text-lg '>{auth.user?.name}</div>
                       </div>

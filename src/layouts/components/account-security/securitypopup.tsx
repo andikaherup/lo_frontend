@@ -2,17 +2,16 @@ import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // ** Config
-import { DailyRewardData } from 'src/context/types'
 
 interface RefProps {
   load: boolean
   open: boolean
   close: () => void
-  item: DailyRewardData
+  message: string
 }
 
-const ClaimPopup = (props: RefProps) => {
-  const { item, load } = props
+const SecurityPopup = (props: RefProps) => {
+  const { message, load } = props
 
   const { open, close } = props
 
@@ -56,30 +55,13 @@ const ClaimPopup = (props: RefProps) => {
                   <div className='pb-10'>
                     <Dialog.Title
                       as='h1'
-                      className='pt-5 text-xl font-bold leading-6 text-center text-darkMagician lg:text-3xl'
+                      className='pt-5 text-xl font-bold leading-6 text-center text-green-500 lg:text-3xl'
                     >
-                      CONGRATULATIONS!
+                      Success!
                     </Dialog.Title>
 
-                    <div className='flex flex-col items-center justify-center'>
-                      <img
-                        alt='img'
-                        src={`/assets/daily-rewards/${item.day}.png`}
-                        className='lg:max-w-[150px] max-w-[100px] lg:max-h-[250px] max-h-[150px] object-scale-down'
-                      />
-
-                      {/* <img
-                        alt='img'
-                        src='/assets/daily-rewards/button.png'
-                        className=' transition max-w-[150px] lg:max-h-[200px] max-h-[50px]'
-                      /> */}
-
-                      <button
-                        className={`lg:px-5 px-2 py-1 text-xs transition rounded-full
-                        bg-white-300 lg:text-sm ring-2 ring-yellow-500  text-black-300  `}
-                      >
-                        {item.points} pts claimed!
-                      </button>
+                    <div className='flex flex-col items-center justify-center mt-3'>
+                      <h1 className=''>{message}</h1>
                     </div>
                   </div>
                 )}
@@ -111,7 +93,7 @@ const ClaimPopup = (props: RefProps) => {
                               fill='currentFill'
                             />
                           </svg>
-                          <span className='text-lg text-black-300'>Your daily reward claim is processing</span>
+                          <span className='text-lg text-black-300'>Your request is being processed</span>
                         </div>
                       </div>
                     </>
@@ -126,4 +108,4 @@ const ClaimPopup = (props: RefProps) => {
   )
 }
 
-export default ClaimPopup
+export default SecurityPopup

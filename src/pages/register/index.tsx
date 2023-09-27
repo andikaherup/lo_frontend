@@ -12,6 +12,11 @@ import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
 import Icon from 'src/@core/components/icon'
 import Grid from '@mui/material/Grid'
 
+// ** Type Import
+import { useGoogleLogin } from '@react-oauth/google'
+import { GoogleLoginButton, FacebookLoginButton } from 'react-social-login-buttons'
+import FacebookLogin from '@greatsumini/react-facebook-login'
+
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
@@ -68,7 +73,19 @@ const defaultAccountValues = {
   gender: ''
 }
 const Register = () => {
-  const { register } = useAuth()
+  const auth = useAuth()
+  const loginGoogle = useGoogleLogin({
+    onSuccess: (codeResponse: any) => googleLogin(codeResponse)
+  })
+
+  const googleLogin = async (response: any) => {
+    await auth.googleLogin(response)
+  }
+
+  const facebookLogin = async (response: any) => {
+    console.log('here', response)
+    await auth.facebookLogin(response)
+  }
 
   // ** States
   // const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -103,7 +120,7 @@ const Register = () => {
         setError('')
       }, 7000)
     }
-    register(data, (err: any) => {
+    auth.register(data, (err: any) => {
       console.log(err)
     })
 
@@ -150,11 +167,47 @@ const Register = () => {
       >
         <ScrollAnimationWrapper>
           <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2'>
-            <div className='flex flex-col items-start justify-start row-start-2 lg:px-10 sm:row-start-1'>
-              <h1 className='text-2xl leading-normal font-bold/2 lg:text-4xl xl:text-5xl text-black-600'>
-                Create an account
-              </h1>
-              <div className='w-full mt-10'>
+            <div className='flex flex-col items-center justify-center row-start-2 lg:px-10 sm:row-start-1'>
+              <h1 className='text-xl leading-normal lg:text-4xl text-black-600'>Create an account</h1>
+              <div className='flex justify-center w-full mt-5'>
+                <p className='text-sm text-center text-textcolorblack-300 dark:text-textcolorblack-300'>
+                  Not a member yet? sign up using your social media accounts.
+                </p>
+              </div>
+              <div className='flex justify-center w-full mt-5'>
+                <div className='grid lg:grid-cols-2 grid-col-1'>
+                  <div className='w-full'>
+                    <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
+                      <span className='text-sm'>Sign up with Google</span>
+                    </GoogleLoginButton>
+                  </div>
+                  <div className='w-full'>
+                    <FacebookLogin
+                      appId='120705577700367'
+                      onSuccess={response => {
+                        facebookLogin(response)
+                      }}
+                      onFail={error => {
+                        console.log('Login Failed!', error)
+                      }}
+                      onProfileSuccess={response => {
+                        console.log('Get Profile Success!', response)
+                      }}
+                      render={({ onClick }) => (
+                        <FacebookLoginButton onClick={onClick}>
+                          <span className='text-sm'>Sign up with Facebook</span>
+                        </FacebookLoginButton>
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='flex justify-center w-full mt-5'>
+                <p className='text-sm text-center text-textcolorblack-300 dark:text-neutral-300'>
+                  or register with email
+                </p>
+              </div>
+              <div className='w-full mt-5'>
                 <form key={0} onSubmit={handleAccountSubmit(onSubmit)}>
                   <Grid container spacing={5}>
                     <Grid item xs={12} sm={12}>

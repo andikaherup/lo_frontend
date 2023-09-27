@@ -6,7 +6,7 @@ import FormControl from '@mui/material/FormControl'
 import Icon from 'src/@core/components/icon'
 
 // ** Next Import
-import { useRouter } from 'next/router'
+
 import { characters } from 'src/configs/characterData'
 import IconButton from '@mui/material/IconButton'
 
@@ -29,6 +29,7 @@ import { useAuth } from 'src/hooks/useAuth'
 // ** Demo Imports
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 import toast from 'react-hot-toast'
+import SecurityPopup from 'src/layouts/components/account-security/securitypopup'
 
 interface FormData {
   oldPassword: string
@@ -70,13 +71,16 @@ const defaultValues = {
 
 const ChangePasswordPage = () => {
   const auth = useAuth()
-  const router = useRouter()
 
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [loadingPopup, setLoadingPopup] = useState<boolean>(false)
+  const [openRef, setOpenRef] = useState<boolean>(false)
+  const [securityMessage, setSecurityMessage] = useState<string>('')
 
   const onSubmit = async (data: FormData) => {
     setLoading(true)
+    setLoadingPopup(true)
     const { oldPassword, retypepassword, password } = data
 
     const payload = {
@@ -101,8 +105,9 @@ const ChangePasswordPage = () => {
           .then(() => {
             auth.refreshUser()
             setError('')
-
-            router.replace('/')
+            setSecurityMessage('Password Changed')
+            accountReset()
+            setOpenRef(true)
           })
       })
 
@@ -122,6 +127,7 @@ const ChangePasswordPage = () => {
     //   }
     // })
     setLoading(false)
+    setLoadingPopup(false)
   }
 
   const textProcess = (text: string) => {
@@ -154,6 +160,7 @@ const ChangePasswordPage = () => {
       .then(() => {
         auth.refreshUser()
         toast.success('Password creation success')
+        createReset()
         setError('')
       })
 
@@ -189,6 +196,7 @@ const ChangePasswordPage = () => {
   const {
     control: accountControl,
     formState: { errors: formError },
+    reset: accountReset,
     handleSubmit
   } = useForm({
     defaultValues,
@@ -198,11 +206,16 @@ const ChangePasswordPage = () => {
   const {
     control: passwordCreateControl,
     formState: { errors: formCreateError },
+    reset: createReset,
     handleSubmit: handleCreateSubmit
   } = useForm({
     defaultValues,
     resolver: yupResolver(createSchema)
   })
+
+  const closeRef = () => {
+    setOpenRef(false)
+  }
 
   return (
     <section
@@ -569,6 +582,7 @@ const ChangePasswordPage = () => {
               </div>
             </div>
           </Box>
+          <SecurityPopup load={loadingPopup} open={openRef} close={closeRef} message={securityMessage}></SecurityPopup>
         </div>
       </div>
     </section>

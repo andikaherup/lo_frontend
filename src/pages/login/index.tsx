@@ -247,11 +247,11 @@ const LoginPage = () => {
                               </label>
                             </div>
 
-                            {/* <div className='text-sm'>
+                            <div className='text-sm'>
                               <Link href='/forgot-password' className='font-medium text-blue-600 hover:text-blue-500'>
                                 Forgot your password?
                               </Link>
-                            </div> */}
+                            </div>
                           </div>
                           <div className='flex flex-col items-center justify-center py-3 '>
                             {error != '' && <span className='mb-2 text-sm text-red-900'> {error}</span>}
