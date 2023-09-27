@@ -106,6 +106,7 @@ const ChangePasswordPage = () => {
             auth.refreshUser()
             setError('')
             setSecurityMessage('Password Changed')
+            accountReset()
             setOpenRef(true)
           })
       })
@@ -159,6 +160,7 @@ const ChangePasswordPage = () => {
       .then(() => {
         auth.refreshUser()
         toast.success('Password creation success')
+        createReset()
         setError('')
       })
 
@@ -194,6 +196,7 @@ const ChangePasswordPage = () => {
   const {
     control: accountControl,
     formState: { errors: formError },
+    reset: accountReset,
     handleSubmit
   } = useForm({
     defaultValues,
@@ -203,6 +206,7 @@ const ChangePasswordPage = () => {
   const {
     control: passwordCreateControl,
     formState: { errors: formCreateError },
+    reset: createReset,
     handleSubmit: handleCreateSubmit
   } = useForm({
     defaultValues,

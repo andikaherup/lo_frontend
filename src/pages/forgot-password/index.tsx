@@ -120,7 +120,7 @@ const ForgotPassword = () => {
                     <div className='mt-8'>
                       <div className='my-6'>
                         <Box sx={{ mb: 6 }}>
-                          <TypographyStyled variant='h5'>Forgot Password? 🔒</TypographyStyled>
+                          <TypographyStyled variant='h5'>Reset Password? 🔒</TypographyStyled>
                           <Typography variant='body2'>
                             Enter your email and we&prime;ll send you instructions to reset your password
                           </Typography>
@@ -156,7 +156,12 @@ const ForgotPassword = () => {
                             {error != '' && <span className='text-sm font-bold text-red-900 '>Error: {error}</span>}
                           </div>
                           <div className='flex justify-center pb-3 '>
-                            <button type='submit'>Send Reset Link</button>
+                            <button
+                              className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                              type='submit'
+                            >
+                              Send Reset Link
+                            </button>
                           </div>
                           <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <LinkStyled href='/login'>
