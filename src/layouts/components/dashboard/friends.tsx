@@ -6,7 +6,6 @@ import { useState, Fragment, useEffect } from 'react'
 
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { getBaseDarkColor } from 'src/configs/getBackground'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
@@ -102,7 +101,7 @@ const Friends = () => {
     setIsOpen(false)
   }
 
-  const onFormSubmit = async (value: any) => {
+  const onFormSubmit = async (value: Guess) => {
     setLoading(true)
     const payload = {
       email_to_invite: value.email,
@@ -128,9 +127,9 @@ const Friends = () => {
       })
   }
 
-  function openModal() {
-    setIsOpen(true)
-  }
+  // function openModal() {
+  //   setIsOpen(true)
+  // }
 
   const onSubmit = async (data: FormData) => {
     const { email } = data
