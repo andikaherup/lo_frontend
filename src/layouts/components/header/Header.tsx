@@ -122,7 +122,10 @@ const Header: React.FC = () => {
       <header
         className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
-        <Link href='https://rebrand.ly/L0xNLC' target='_blank'>
+        <Link
+          href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=Level0website&utm_campaign=header'
+          target='_blank'
+        >
           <img className='hidden lg:flex' src='/assets/bannertop.gif' alt='banner'></img>
           <img className='flex lg:hidden' src='/assets/bannertopmobile.gif' alt='banner'></img>
         </Link>

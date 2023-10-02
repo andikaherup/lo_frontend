@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
-import Link from 'next/link'
 
 // ** Types
 import { BlankLayoutProps } from './types'
@@ -67,15 +66,9 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
       <Box className='app-content' sx={{ minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
         <PopupRef open={openRef} close={closeRef}></PopupRef>
         <PopupLevelup open={openLevelup} close={closeLevelup}></PopupLevelup>
-        {/* banner */}
-        <Link href='https://rebrand.ly/L0xNLC' target='_blank'>
-          <img className='hidden lg:flex' src='/assets/bannertop.gif' alt='banner'></img>
-          <img className='flex lg:hidden' src='/assets/bannertopmobile.gif' alt='banner'></img>
-        </Link>
-        {/* banner */}
 
         <Header />
-        <div className='h-full min-h-screen '>{children}</div>
+        <div className='h-full min-h-screen pt-20 '>{children}</div>
         <Footer />
       </Box>
     </BlankLayoutWrapper>
