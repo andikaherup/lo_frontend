@@ -6,7 +6,6 @@ import { useState, Fragment, useEffect } from 'react'
 
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { getBaseDarkColor } from 'src/configs/getBackground'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { yupResolver } = require('@hookform/resolvers/yup')
@@ -31,15 +30,30 @@ const schema = yup.object().shape({
   message: yup.string().min(5).required()
 })
 
+const guessSchema = yup.object().shape({
+  email: yup.string().email().required(),
+  character: yup.string().required()
+})
+
 const defaultValues = {
   email: '',
   message:
     "I recently tried out this amazing personality test and thought you might be interested too! Why not give it a shot and then we can compare our results? It's completely free and will only take about 10 minutes of your time. Thanks!"
 }
+const defaultGuessValues = {
+  email: '',
+  character: ''
+}
+
+const similarArray = ['Hero', 'Magician', 'Rebel', 'Oracle', 'Creator', 'Ruler', 'Synergist', 'Protector']
 
 interface FormData {
   email: string
   message: string
+}
+interface Guess {
+  email: string
+  character: string
 }
 
 const Friends = () => {
@@ -52,11 +66,22 @@ const Friends = () => {
   }, [auth])
 
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [personalLink, setPersonalLink] = useState('https://thel0.com/invitation/')
 
   const { control: accountControl, handleSubmit } = useForm({
     defaultValues,
     resolver: yupResolver(schema)
+  })
+
+  const {
+    control: guessControl,
+    handleSubmit: handleGuessSubmit,
+    formState: { errors: guessError },
+    reset: guessReset
+  } = useForm({
+    defaultValues: defaultGuessValues,
+    resolver: yupResolver(guessSchema)
   })
 
   const handleCopyUrl = () => {
@@ -76,9 +101,35 @@ const Friends = () => {
     setIsOpen(false)
   }
 
-  function openModal() {
-    setIsOpen(true)
+  const onFormSubmit = async (value: Guess) => {
+    setLoading(true)
+    const payload = {
+      email_to_invite: value.email,
+      character_prediction: value.character
+    }
+
+    axios
+      .post(contentConfig.submitEmail, payload, {
+        headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+      })
+      .then(async () => {
+        guessReset()
+        toast.success('Mail sent!')
+        setLoading(false)
+      })
+      .catch(err => {
+        if (err.response.data) {
+          if (err.response.data.data) {
+            toast.error(err.response.data.data)
+          }
+        }
+        setLoading(false)
+      })
   }
+
+  // function openModal() {
+  //   setIsOpen(true)
+  // }
 
   const onSubmit = async (data: FormData) => {
     const { email } = data
@@ -116,7 +167,7 @@ const Friends = () => {
             </h1>
           )}
         </div>
-        {auth.user && (
+        {/* {auth.user && (
           <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
             <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
               <div className='px-3 py-2 bg-referralYellow'>
@@ -351,7 +402,229 @@ const Friends = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
+
+        <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
+          <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
+            <div className='pb-5'>
+              <div className='px-2 py-2 bg-referralYellow'>
+                <span className='text-lg font-bold text-black-300'>Gain 200 points</span>
+              </div>
+              <div className='pt-1'>
+                <span className='font-bold text-md lg:text-lg text-black-300'>
+                  Send an Invitation & Guess Your Friend's Character Correctly
+                </span>
+              </div>
+              <div>
+                <span className='text-xs lg:text-sm text-black-300'>
+                  If the character of your friend matches with the character guessed, you shall earn additional 200
+                  points.
+                </span>
+              </div>
+            </div>
+            <div>
+              <div className='px-2 py-2 bg-referralYellow'>
+                <span className='text-lg font-bold text-black-300'>Gain 300 points</span>
+              </div>
+              <div className='pt-1'>
+                <span className='font-bold text-md lg:text-lg text-black-300'>Match with Your Friend's Character.</span>
+              </div>
+              <div>
+                <span className='text-xs lg:text-sm text-black-300'>
+                  If their character matches with your character, you shall earn 300 points.
+                </span>
+              </div>
+            </div>
+
+            <div className='pt-10'>
+              <form onSubmit={handleGuessSubmit(onFormSubmit)}>
+                <div className='grid gap-4 lg:grid-cols-2'>
+                  <FormControl fullWidth>
+                    <div className='grid '>
+                      <div className='flex flex-col items-center justify-center lg:items-start '>
+                        <label htmlFor='character' className='block mb-1 font-bold text-md dark:text-black-300'>
+                          Guess Their Character
+                        </label>
+                        {guessError.character && <span className='text-sm text-red-900 '> This field is required</span>}
+                      </div>
+
+                      <Controller
+                        name='character'
+                        control={guessControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <select
+                            id='occupation'
+                            value={value}
+                            onChange={e => {
+                              onChange(e)
+                            }}
+                            className='bg-referralYellow border border-gray-300 text-gray-900 font-bold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-referralYellow dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          >
+                            <option value=''>Select a character</option>
+                            {similarArray.map(char => (
+                              <option key={char} value={char}>
+                                {char}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormControl fullWidth>
+                    <div className='grid '>
+                      <div className='flex flex-col items-center justify-center lg:items-start '>
+                        <label htmlFor='email' className='block mb-1 font-bold text-md dark:text-black-300'>
+                          Enter Your Friend's Email
+                        </label>
+                        {guessError.email && <span className='text-sm text-red-900 '> This field is required</span>}
+                      </div>
+
+                      <Controller
+                        name='email'
+                        control={guessControl}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange } }) => (
+                          <input
+                            id='email'
+                            name='email'
+                            type='email'
+                            value={value}
+                            onChange={onChange}
+                            autoComplete='email'
+                            className='bg-referralYellow font-bold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-referralYellow dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          />
+                        )}
+                      />
+                    </div>
+                  </FormControl>
+                </div>
+                <div className='flex justify-center w-full pt-5'>
+                  <button
+                    type='submit'
+                    disabled={loading}
+                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                  >
+                    {!loading && ' Submit'}
+                    {loading && (
+                      <svg
+                        aria-hidden='true'
+                        className='inline w-5 h-5 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600'
+                        viewBox='0 0 100 101'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <path
+                          d='M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z'
+                          fill='currentColor'
+                        />
+                        <path
+                          d='M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z'
+                          fill='currentFill'
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div className='sm:col-start-8 sm:col-end-12'>
+            <div className='p-8 rounded-md bg-white-300'>
+              <div>
+                <h1 className='text-4xl font-bold text-black-300'>{auth.user?.friend_sign_ups}</h1>
+              </div>
+              <div>
+                <h1 className='text-xl font-semibold text-black-300'>Friends Invited</h1>
+              </div>
+
+              {/* <div className='w-full mt-5'>
+                <button
+                  onClick={openModal}
+                  className='w-full px-3 py-4 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
+                >
+                  Invite a Friend
+                </button>
+              </div> */}
+              <div>
+                <span className='text-xs lg:text-sm text-black-300'>
+                  Kindly note that sharing the referral code alone, without a matching character, will not earn you
+                  additional points.
+                </span>
+                <div className='flex justify-center mt-5'>
+                  <span className='mb-2 text-xs font-medium text-referralSemiBlack'> copy your personal link</span>
+                </div>
+                <div className='flex'>
+                  <div className='relative w-full'>
+                    <input
+                      value={personalLink}
+                      readOnly
+                      className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
+                    />
+                    <button
+                      onClick={handleCopyUrl}
+                      type='submit'
+                      className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                    >
+                      <svg
+                        className='w-6 h-6 text-white-300 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 18 20'
+                      >
+                        <path
+                          stroke='currentColor'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth='2'
+                          d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className='flex justify-center mt-5'>
+                  <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your code</span>
+                </div>
+                <div className='flex'>
+                  <div className='relative w-full'>
+                    <input
+                      value={auth.user?.referral_code}
+                      readOnly
+                      className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
+                    />
+                    <button
+                      onClick={handleCopyCode}
+                      type='submit'
+                      className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
+                    >
+                      <svg
+                        className='w-6 h-6 text-white-300 dark:text-white'
+                        aria-hidden='true'
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 18 20'
+                      >
+                        <path
+                          stroke='currentColor'
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          strokeWidth='2'
+                          d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as='div' className='relative z-50' onClose={closeModal}>

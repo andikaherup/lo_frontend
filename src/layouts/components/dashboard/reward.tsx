@@ -132,7 +132,7 @@ const Reward = (props: rewardProps) => {
                     >
                       Detail
                     </button> */}
-                    {auth.user && (
+                    {auth.user && !isPublic && (
                       <button
                         disabled={!items.is_active ? true : false}
                         className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full ${
