@@ -503,7 +503,7 @@ const Friends = () => {
                 <div className='flex justify-center w-full pt-5'>
                   <button
                     type='submit'
-                    disabled={loading}
+                    disabled
                     className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
                   >
                     {!loading && ' Submit'}
