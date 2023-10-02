@@ -549,6 +549,10 @@ const Friends = () => {
                 </button>
               </div> */}
               <div>
+                <span className='text-xs lg:text-sm text-black-300'>
+                  Kindly note that sharing the referral code alone, without a matching character, will not earn you
+                  additional points.
+                </span>
                 <div className='flex justify-center mt-5'>
                   <span className='mb-2 text-xs font-medium text-referralSemiBlack'> copy your personal link</span>
                 </div>
