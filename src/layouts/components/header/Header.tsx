@@ -122,6 +122,10 @@ const Header: React.FC = () => {
       <header
         className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
       >
+        <Link href='https://rebrand.ly/L0xNLC' target='_blank'>
+          <img className='hidden lg:flex' src='/assets/bannertop.gif' alt='banner'></img>
+          <img className='flex lg:hidden' src='/assets/bannertopmobile.gif' alt='banner'></img>
+        </Link>
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
           <Link href='/' className='flex items-center lg:justify-center '>
             <img src='/images/logo.svg' className='h-8 mr-3' alt='Flowbite Logo' />
