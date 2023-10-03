@@ -124,7 +124,8 @@ module.exports = {
       leaderboardBotBlue: '#51CDDD',
       dailypopup: '#EF9A27',
       meBackground: '#C026D3',
-      meOrange: '#EA580C'
+      meOrange: '#EA580C',
+      newUIbackground: '#EFEDEE'
     },
     extend: {
       fontFamily: {

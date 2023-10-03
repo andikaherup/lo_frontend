@@ -120,7 +120,10 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
+        className={
+          'fixed top-0 w-full  z-30 transition-all bg-transparent ' +
+          (scrollActive ? ' shadow-md pt-0 bg-white-300' : '')
+        }
       >
         <Link
           href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=Level0website&utm_campaign=header'

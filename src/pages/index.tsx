@@ -2,7 +2,7 @@
 import { ReactNode, useEffect, useState } from 'react'
 
 // ** slider
-import HeroSlider, { Overlay, Slide, MenuNav } from 'hero-slider'
+import HeroSlider, { Overlay, Slide, Nav } from 'hero-slider'
 
 // ** MUI Imports
 import Link from 'next/link'
@@ -24,6 +24,7 @@ import { useAuth } from 'src/hooks/useAuth'
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 import Testimonials from 'src/layouts/components/home/testimonials'
 import UTMForm from 'src/layouts/components/utm'
+import ButtonOutline from 'src/layouts/components/misc/ButtonOutline.'
 
 const images = [
   {
@@ -133,114 +134,65 @@ const Home = () => {
   return (
     <>
       <UTMForm></UTMForm>
-      <HeroSlider
-        height={'100vh'}
-        autoplay
-        controller={{
-          initialSlide: 1,
-          slidingDuration: 500,
-          slidingDelay: 100,
-          onSliding: nextSlide => console.debug('onSliding(nextSlide): ', nextSlide),
-          onBeforeSliding: (previousSlide, nextSlide) =>
-            console.debug('onBeforeSliding(previousSlide, nextSlide): ', previousSlide, nextSlide),
-          onAfterSliding: nextSlide => console.debug('onAfterSliding(nextSlide): ', nextSlide)
-        }}
-      >
-        <Overlay>
-          <div>
-            <h1>Basic Setup</h1>
-            <h2>Check out the documentation for more advanced examples.</h2>
+      <div className='pt-10 bg-newUIbackground'>
+        <HeroSlider
+          className='lg:max-h-[500px] max-h-[300px] z-15'
+          autoplay
+          accessibility={{
+            shouldDisplayButtons: true
+          }}
+          controller={{
+            initialSlide: 1,
+            slidingDuration: 300,
+
+            onSliding: nextSlide => console.debug('onSliding(nextSlide): ', nextSlide),
+            onBeforeSliding: (previousSlide, nextSlide) =>
+              console.debug('onBeforeSliding(previousSlide, nextSlide): ', previousSlide, nextSlide),
+            onAfterSliding: nextSlide => console.debug('onAfterSliding(nextSlide): ', nextSlide)
+          }}
+        >
+          {images.map((image, index) => (
+            <Slide shouldRenderMask>
+              <Overlay>
+                <div className='flex items-center justify-center w-full'>
+                  <img
+                    className='z-10 object-scale-down max-w-xs transition delay-500 lg:max-w-lg md:max-w-md sm:max-w-sm animate-fade-in-bottom drop-shadow-md'
+                    key={index}
+                    src={`/assets/characters/${image.image}`}
+                    alt={`Image ${index + 1}`}
+                  ></img>
+                  <span className='absolute text-6xl font-bold scale-150 z-9 text-black-300 lg:text-9xl'>
+                    {image.name}
+                  </span>{' '}
+                </div>
+              </Overlay>
+            </Slide>
+          ))}
+        </HeroSlider>
+        <div>
+          <h1 className='px-10 mt-5 text-lg font-bold text-center lg:text-3xl text-black-300'>
+            Discover Your Unique Strength and Potential <br />
+            To Win An Abundant Life
+          </h1>
+          <div className='flex justify-center my-3'>
+            <span className='text-sm text-center text-black-300'>
+              Take less than 10 minutes to Discover Your Genius Profile
+            </span>
           </div>
-        </Overlay>
-
-        <Slide shouldRenderMask label='Giau Pass - Italy' />
-
-        <Slide shouldRenderMask label='Bogliasco - Italy' />
-
-        <Slide shouldRenderMask label='County Clare - Ireland' />
-
-        <Slide shouldRenderMask label='Crater Rock, OR - United States' />
-
-        <MenuNav />
-      </HeroSlider>
-      <div className={`px-8 pt-20 mx-auto xl:px-16 h-screen ${images[currentImageIndex].background} w-full`} id='about'>
-        <div className='grid w-full h-full grid-flow-row py-6 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
-          <div className='flex flex-col items-center w-full row-start-2 lg:justify-center lg:items-start lg:px-10 sm:row-start-1'>
-            <div key={images[currentImageIndex].image} className='relative'>
-              <h1
-                className={`text-3xl font-extrabold lg:text-left text-center uppercase z-10 transition duration-2000 animate-clip lg:text-8xl text-white-300`}
-              >
-                {images[currentImageIndex].name}
-              </h1>
-              <div className='absolute left-0 h-full transition delay-1000 -translate-y-1/2 duration-50 top-1/2 bg-white-300 z-2 animate-hide'></div>
-            </div>
-            {haveResult && (
-              <>
-                <Link className='pt-5 lg:pl-2' href={'result'} aria-current='page'>
-                  <h1 className='mb-3 text-lg font-bold text-white-300'>
-                    Glad to see you again! <br />
-                    <span className='mt-2 text-sm font-bold text-white-300 '>
-                      Kindly press the button below to view your result.
-                    </span>
-                  </h1>
-
-                  <button
-                    className={`px-5 lg:px-10 py-2  text-white-300  justify-center items-center  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110  lg:text-xl font-semibold flex rounded-full`}
-                  >
-                    View Your Result
-                    <svg
-                      aria-hidden='true'
-                      className='w-5 h-5 ml-2 -mr-1'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
-                        clipRule='evenodd'
-                      ></path>
-                    </svg>
-                  </button>
-                  {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
-                </Link>
-              </>
-            )}
-            {!haveResult && (
-              <Link
-                className='pt-5 lg:pl-2'
-                href={auth.user?.character ? '/dashboard' : '/personality-test'}
-                aria-current='page'
-              >
-                <button className='px-3 py-2 font-semibold transition duration-300 ease-in-out lg:px-10 text-md lg:text-2xl delay-50 hover:-translate-y-1 hover:scale-110 outline outline-2 outline-offset-3 outline-white-500 text-white-300'>
-                  {haveResult ? 'View your result' : 'Start Quest'}
-                </button>
-                {/* <ButtonPrimary>Personality Test</ButtonPrimary> */}
-              </Link>
-            )}
-          </div>
-          <div className='flex w-full'>
-            <div className='relative flex w-full min-w-fit '>
-              {images.map((image, index) => (
-                <img
-                  key={index}
-                  src={`/assets/characters/${image.image}`}
-                  alt={`Image ${index + 1}`}
-                  className={`${
-                    index === currentImageIndex ? 'opacity-100 flex' : 'opacity-0 hidden'
-                  } transition-opacity object-scale-down animate-fade-in-bottom duration-2000 delay-150 drop-shadow-md`}
-                />
-              ))}
-            </div>
+          <div className='relative flex items-center justify-center mt-3'>
+            <Link href='/personality-test' className='absolute z-20 top-3'>
+              <ButtonOutline>Take test</ButtonOutline>
+            </Link>
           </div>
         </div>
       </div>
 
-      <div className={`z-9 ${images[currentImageIndex].background}`} style={{ position: 'relative', zIndex: 9 }}>
+      <div className='z-9 bg-newUIbackground' style={{ position: 'relative', zIndex: 9 }}>
         <div className='px-6 py-20 m-auto text-gray-500 md:px-12 xl:px-0'>
           <div className='grid gap-6 mx-auto md:w-3/4 lg:w-1/2 '>
-            <div className='px-8 pt-12 bg-yellow-300 border-8 shadow-2xl border-black-300 rounded-3xl dark:bg-gray-800 shadow-gray-600/10 dark:shadow-none sm:px-12 lg:px-8'>
+            <div className='px-8 pt-12 shadow-2xl dark:shadow-none sm:px-12 lg:px-8'>
               <div className='mb-12 space-y-4'>
+                <h1>Unlock Your True Self with Level Zero</h1>
                 <p className='mb-6 text-sm lg:text-lg text-black-600 dark:text-gray-300'>
                   Our test analyzes your preferences, beliefs, and aspirations, providing you with a reliable and valid
                   profile that empowers you to make informed decisions, embrace your natural talents, and harness your
