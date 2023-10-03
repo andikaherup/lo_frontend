@@ -1,9 +1,6 @@
 // ** React Imports
 import { ReactNode, useEffect, useState } from 'react'
 
-// ** slider
-import HeroSlider, { Overlay, Slide, MenuNav } from 'hero-slider'
-
 // ** MUI Imports
 import Link from 'next/link'
 
@@ -133,36 +130,6 @@ const Home = () => {
   return (
     <>
       <UTMForm></UTMForm>
-      <HeroSlider
-        height={'100vh'}
-        autoplay
-        controller={{
-          initialSlide: 1,
-          slidingDuration: 500,
-          slidingDelay: 100,
-          onSliding: nextSlide => console.debug('onSliding(nextSlide): ', nextSlide),
-          onBeforeSliding: (previousSlide, nextSlide) =>
-            console.debug('onBeforeSliding(previousSlide, nextSlide): ', previousSlide, nextSlide),
-          onAfterSliding: nextSlide => console.debug('onAfterSliding(nextSlide): ', nextSlide)
-        }}
-      >
-        <Overlay>
-          <div>
-            <h1>Basic Setup</h1>
-            <h2>Check out the documentation for more advanced examples.</h2>
-          </div>
-        </Overlay>
-
-        <Slide shouldRenderMask label='Giau Pass - Italy' />
-
-        <Slide shouldRenderMask label='Bogliasco - Italy' />
-
-        <Slide shouldRenderMask label='County Clare - Ireland' />
-
-        <Slide shouldRenderMask label='Crater Rock, OR - United States' />
-
-        <MenuNav />
-      </HeroSlider>
       <div className={`px-8 pt-20 mx-auto xl:px-16 h-screen ${images[currentImageIndex].background} w-full`} id='about'>
         <div className='grid w-full h-full grid-flow-row py-6 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2 sm:py-16'>
           <div className='flex flex-col items-center w-full row-start-2 lg:justify-center lg:items-start lg:px-10 sm:row-start-1'>
