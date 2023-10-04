@@ -26,20 +26,26 @@ const BottomText = ({ name, title, quote }: dataProps) => {
   }
 
   return (
-    <div className='p-6'>
-      <h5 className='mb-2 text-lg font-bold'>{name}</h5>
-      <h6 className='mb-4 font-medium text-skyblue-300 dark:text-primary-400'>{title}</h6>
+    <div className='pt-5'>
+      <p className='flex flex-col text-black-300'>
+        <span className='text-xl font-bold '>{name}</span>
 
-      <p className='text-sm' ref={quoteRef} style={{ maxHeight: showFullQuote ? 'none' : '5rem', overflow: 'hidden' }}>
+        <span className='text-xs font-semibold'>{title}</span>
+      </p>
+      <p
+        className='pt-5 text-xs text-black-300'
+        ref={quoteRef}
+        style={{ maxHeight: showFullQuote ? 'none' : '5rem', overflow: 'hidden' }}
+      >
         {quote}
       </p>
       {!showFullQuote && (
-        <button className=' text-skyblue-300 dark:text-primary-400' onClick={toggleQuote}>
+        <button className='text-xs text-skyblue-300 dark:text-primary-400' onClick={toggleQuote}>
           See more
         </button>
       )}
       {showFullQuote && (
-        <button className=' text-skyblue-300 dark:text-primary-400' onClick={toggleQuote}>
+        <button className='text-xs text-skyblue-300 dark:text-primary-400' onClick={toggleQuote}>
           See less
         </button>
       )}

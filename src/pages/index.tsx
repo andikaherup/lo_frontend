@@ -163,7 +163,7 @@ const Home = () => {
                   ></img>
                   <span className='absolute text-6xl font-bold scale-150 z-9 text-black-300 lg:text-9xl'>
                     {image.name}
-                  </span>{' '}
+                  </span>
                 </div>
               </Overlay>
             </Slide>
@@ -192,18 +192,27 @@ const Home = () => {
           <div className='grid gap-6 mx-auto md:w-3/4 lg:w-1/2 '>
             <div className='px-8 pt-12 shadow-2xl dark:shadow-none sm:px-12 lg:px-8'>
               <div className='mb-12 space-y-4'>
-                <h1>Unlock Your True Self with Level Zero</h1>
-                <p className='mb-6 text-sm lg:text-lg text-black-600 dark:text-gray-300'>
-                  Our test analyzes your preferences, beliefs, and aspirations, providing you with a reliable and valid
-                  profile that empowers you to make informed decisions, embrace your natural talents, and harness your
-                  full potential.
+                <h1 className='text-2xl font-bold text-center text-black-300'>Unlock Your True Self with Level Zero</h1>
+                <p className='mb-6 text-sm text-center lg:text-lg text-black-600 dark:text-gray-300'>
+                  Do you ever feel lost, unsure of who you truly are and where you fit in the world?
+                  <br />
+                  The Level 0 personality test is your compass in this journey of self-discovery.
+                </p>
+                <p className='mb-6 text-sm text-center lg:text-lg text-black-600 dark:text-gray-300'>
+                  It unveils the essence of your character, painting in a vivid portrait of your unique traits as a{' '}
+                  <b>hero, magician, rebel, oracle, creator, ruler, protector</b>, or <b>synergist</b>. Beyond labels,
+                  Level Zero empowers transformation by unlocking your hidden potential, guiding you toward personal
+                  growth, meaningful relationships, and professional success. Embrace this test as the first step toward
+                  a purposeful, fulfilled, and limitless future.
+                  <br />
+                  Your Journey starts now.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className={`w-full  ${images[currentImageIndex].background}`}>
+      <div className={`w-full `}>
         <div className='container py-24 mx-auto md:px-6'>
           <Testimonials></Testimonials>
         </div>
