@@ -187,7 +187,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className='z-9 bg-newUIbackground' style={{ position: 'relative', zIndex: 9 }}>
+      <div className='pt-20 z-9 bg-newUIbackground' style={{ position: 'relative', zIndex: 9 }}>
         <div className='px-6 py-20 m-auto text-gray-500 md:px-12 xl:px-0'>
           <div className='grid gap-6 mx-auto md:w-3/4 lg:w-1/2 '>
             <div className='px-8 pt-12 shadow-2xl dark:shadow-none sm:px-12 lg:px-8'>
