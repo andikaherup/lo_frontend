@@ -68,7 +68,7 @@ const BlankLayoutLandingPage = ({ children }: BlankLayoutProps) => {
         <PopupLevelup open={openLevelup} close={closeLevelup}></PopupLevelup>
 
         <Header />
-        <div className='h-full min-h-screen pt-20 bg-newUIbackground '>{children}</div>
+        <div className='h-full min-h-screen bg-newUIbackground '>{children}</div>
         <Footer />
       </Box>
     </BlankLayoutWrapper>

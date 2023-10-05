@@ -132,7 +132,7 @@ const Home = () => {
   }, [])
 
   return (
-    <>
+    <div className='pt-20'>
       <UTMForm></UTMForm>
       <div className='pt-10 bg-newUIbackground'>
         <HeroSlider
@@ -288,7 +288,7 @@ const Home = () => {
           </section>
         </div>
       </div> */}
-    </>
+    </div>
   )
 }
 

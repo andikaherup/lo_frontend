@@ -125,12 +125,17 @@ module.exports = {
       dailypopup: '#EF9A27',
       meBackground: '#C026D3',
       meOrange: '#EA580C',
-      newUIbackground: '#EFEDEE'
+      newUIbackground: '#EFEEEE',
+      button3rdcolor: '#5F65AD',
+      button2ndcolor: '#5B3B96',
+      button1stcolor: '#3B2F8F',
+      purpleText: '#5900B5'
     },
     extend: {
       fontFamily: {
         kufam: ['Kufam', 'sans-serif'],
-        knewave: ['Knewave', 'cursive']
+        knewave: ['Knewave', 'cursive'],
+        Montserrat: ['Montserrat']
       },
       animation: {
         'fade-in-bottom': 'fade-in-bottom 1.5s cubic-bezier(0.680, -0.550, 0.265, 1.550)   both',
