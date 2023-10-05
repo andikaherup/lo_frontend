@@ -71,32 +71,30 @@ const Reward = (props: rewardProps) => {
   }, [])
 
   return (
-    <div className='w-full h-full min-h-screen pt-20 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
-      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:px-20'>
-        {auth.user && (
-          <h1 className='text-3xl font-medium text-center lg:text-6xl text-black-300'>UNLOCK YOUR REWARDS</h1>
-        )}
+    <div className='w-full h-full min-h-screen pt-20 bg-newUIbackground'>
+      <div className='flex flex-col items-start justify-start h-full min-h-screen px-5 lg:px-20'>
+        {auth.user && <h1 className='text-3xl font-bold text-left lg:text-6xl text-black-300'>UNLOCK YOUR REWARDS</h1>}
         {!auth.user && (
-          <h1 className='text-2xl font-medium text-center lg:text-6xl text-black-300'>JOIN TO GET THE REWARDS</h1>
+          <h1 className='text-2xl font-bold text-left lg:text-6xl text-black-300'>JOIN TO GET THE REWARDS</h1>
         )}
         <p className='text-sm text-center lg:text-lg text-black-300'>
           Stay informed with the most recent updates on rewards and quests by joining our
-          <Link target='_blank' className='text-skyblue-300' href='https://t.me/+zl_I2784TugzMjll'>
+          <Link target='_blank' className='font-bold text-black-300' href='https://t.me/+zl_I2784TugzMjll'>
             {/* <img src='/assets/icon/telegram.svg' alt='telegramicon' className='w-5 h-5' /> */} Level 0 Telegram
           </Link>{' '}
           channel now!
         </p>
 
         {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
-
-        <div className='pb-20 lg:pt-10lg:px-20 lg:mx-20'>
-          {auth.user && (
-            <div className='flex items-center justify-center text-black-300'>
-              <img alt='img' className='mr-2' src='/assets/icon/medal.png'></img>
-              <span className='pt-2'>{auth.user.coin} Coins</span>
-            </div>
-          )}
-          <div className='grid w-full grid-cols-2 gap-5 pt-10 lg:pt-20 lg:gap-20 lg:px-20 lg:grid-cols-3'>
+        {auth.user && (
+          <div className='flex items-center justify-end w-full text-black-300'>
+            <img alt='img' className='mr-2' src='/assets/icon/medal.png'></img>
+            <span className='font-bold text-black-300'>Your Coins :</span>
+            <span className='ml-2 font-bold text-purpleText'>{auth.user.coin} points</span>
+          </div>
+        )}
+        <div className='pb-20 '>
+          <div className='grid w-full grid-cols-2 gap-5 lg:pt-20 lg:gap-5 lg:grid-cols-3'>
             {rewardData?.map((items: RewardData, index: number) => {
               //return null if level is not enough
               // if (urlParam && items.level_required_to_unlock > parseInt(urlParam)) {
@@ -108,22 +106,22 @@ const Reward = (props: rewardProps) => {
               // }
 
               return (
-                <div className='h-full has-tooltip' key={index}>
+                <div className='h-full px-16 py-10 hover:ring-2 has-tooltip bg-white-500 rounded-2xl' key={index}>
                   <span className='p-5 -mt-8 transition rounded shadow-lg bg-black-500 text-white-300 tooltip'>
                     {items.description}
                   </span>
                   <Link href={!auth.user ? '/login' : '#'}>
-                    <div className='flex justify-center px-2 rounded-3xl bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem'>
+                    <div className='flex justify-center px-2 rounded-3xl '>
                       <img
                         alt='img'
                         src={items.image}
-                        className='lg:p-5 p-3 transition lg:max-h-[250px] max-h-[150px] hover:-translate-y-1 hover:scale-105'
+                        className=' transition lg:max-h-[250px] max-h-[150px] hover:-translate-y-1 hover:scale-105'
                       />
                     </div>
                   </Link>
 
                   <div className='flex flex-col items-center justify-center mt-2 lg:mt-5'>
-                    <span className='text-2xl lg:text-3xl text-black-300'>{items.name}</span>
+                    <span className='font-bold text-md lg:text-lg text-black-300'>{items.name}</span>
                     <span className='text-lg lg:text-xl text-black-300'>{items.coin_price} Coins</span>
                     {/* <button
                       className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110
@@ -135,11 +133,11 @@ const Reward = (props: rewardProps) => {
                     {auth.user && !isPublic && (
                       <button
                         disabled={!items.is_active ? true : false}
-                        className={`w-full py-1 mt-2 text-lg font-bold transition rounded-full ${
+                        className={`px-5  mt-2 text-lg font-bold transition rounded-full ${
                           !items.is_active
                             ? 'bg-gray-400'
-                            : 'bg-gradient-to-r from-rewardLightYellow to-rewardLightYellowItem hover:-translate-y-1 hover:scale-110'
-                        }  lg:py-2 lg:text-2xl  ring-2 ring-white-300 text-black-300 `}
+                            : 'bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor hover:-translate-y-1 hover:scale-110'
+                        }  lg:py-2 lg:text-lg  ring-2 ring-white-300 text-white-500 `}
                         onClick={() => openDialog(items)}
                       >
                         Redeem

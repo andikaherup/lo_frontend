@@ -47,27 +47,35 @@ const Overview = ({ character, gender, changeTab }: Props) => {
   // }
 
   return (
-    <div className={`bg-white-500`}>
-      <div className={`px-8 xl:px-16 w-full  ${character.background} lg:rounded-b-[150px] rounded-b-[50px]`}>
+    <div className={` ${character.background}`}>
+      <div className={`px-8 xl:px-16 ${character.background} w-full`}>
         <div
           className={`${
             auth.user
-              ? 'flex flex-col justify-center items-center w-full  py-6  sm:py-16'
+              ? 'grid w-full h-full grid-flow-row grid-cols-1 py-6 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-7 sm:py-16'
               : 'flex justify-center items-center w-full h-full max-h-screen'
           }`}
         >
           {/* <div className='w-full h-screen'>
             <SparklingSvg></SparklingSvg>
           </div> */}
-
-          <div className='flex items-center justify-center w-full lg:px-10 '>
-            <div className='flex flex-col items-center justify-center'>
+          <div
+            className={`${
+              auth.user
+                ? 'flex flex-col items-center justify-center w-full row-start-2 sm:col-start-3 sm:col-end-4 lg:items-end lg:px-10 sm:row-start-1'
+                : 'flex lg:justify-center lg:items-center lg:py-0 py-20 w-full h-screen'
+            }`}
+          >
+            <div className='text-center lg:text-justify'>
+              <h1 className={`mb-1 text-sm font-bold lg:mb-4 lg:text-md ${checkHeroBrightness(character.name)}`}>
+                Level Zero
+              </h1>
               <h1 className={`mb-3 text-xl lg:mb-7 lg:text-4xl ${checkHeroBrightness(character.name)}`}>
-                Your Primary Genius Profile is the
+                Your primary <br /> archetype is
               </h1>
 
               <h1
-                className={`text-3xl font-bold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-9xl ${checkHeroBrightness(
+                className={`text-3xl font-extrabold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-8xl ${checkHeroBrightness(
                   character.name
                 )}`}
               >
@@ -101,25 +109,9 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               )}
             </div>
           </div>
-
           {auth.user && (
-            <div className='flex w-full mb-[-100px] lg:mb-[-200px] '>
-              <div className='relative flex justify-center w-full '>
-                <div className='absolute top-0 right-0 rotate-90'>
-                  <FacebookShareButton
-                    url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
-                    hashtag={'#personality-test'}
-                  >
-                    <div className='flex flex-row items-center justify-center'>
-                      <div className='-rotate-90'>
-                        <FacebookIcon size={50} round />
-                      </div>
-                      <span className={`pl-2 font-bold text-left ${checkHeroBrightness(character.name)}`}>
-                        Share Your Character <br /> on Facebook
-                      </span>
-                    </div>
-                  </FacebookShareButton>
-                </div>
+            <div className='flex w-full sm:col-start-4 sm:col-end-7'>
+              <div className='relative flex w-full min-w-fit '>
                 <div className='flex flex-col items-center'>
                   <img
                     src={`/assets/characters/${
@@ -134,28 +126,93 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                     alt={`Image`}
                     className={`object-scale-down `}
                   />
+
+                  <FacebookShareButton
+                    url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
+                    hashtag={'#personality-test'}
+                  >
+                    <div className='flex flex-row items-center justify-center'>
+                      <FacebookIcon size={32} round />
+                      <span className={`pl-2 ${checkHeroBrightness(character.name)}`}>
+                        Share Your Character on Facebook
+                      </span>
+                    </div>
+                  </FacebookShareButton>
                 </div>
               </div>
             </div>
           )}
         </div>
       </div>
-
       {auth.user && (
         <>
-          <div className={`px-8 xl:px-16 lg:py-20 py-10 mt-20  w-ful flex justify-center`} id='about'>
-            <div className='max-w-3xl text-center lg:text-center'>
-              <p className={`text-black-300 text-sm lg:text-xl`}>{character.char_description}</p>
+          <hr
+            className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
+          />
+          <div className={`px-8 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
+            <div className='grid w-full h-full grid-flow-row grid-cols-1 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-8 '>
+              <div className='flex w-full sm:col-start-2 sm:col-end-5'>
+                <div className='relative flex w-full min-w-fit '>
+                  <>
+                    <img
+                      src={`/assets/characters/${
+                        auth.user?.character_level == 0
+                          ? gender == 'male'
+                            ? character.lvl0_image_M
+                            : character.lvl0_image_F
+                          : gender == 'male'
+                          ? character.lvl1_image_M
+                          : character.lvl1_image_F
+                      }`}
+                      alt={`Image`}
+                      className={`object-scale-down `}
+                    />
+                  </>
+                </div>
+              </div>
+              <div className='flex flex-col items-center justify-center w-full row-start-2 sm:col-start-5 sm:col-end-8 lg:items-end lg:px-10 sm:row-start-1'>
+                <div className='text-center lg:text-left'>
+                  <h1
+                    className={`text-xl font-extrabold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-4xl ${checkHeroBrightness(
+                      character.name
+                    )}`}
+                  >
+                    {character.name} Archetype
+                  </h1>
+
+                  <p className={`${checkHeroBrightness(character.name)}`}>{character.char_description}</p>
+                  {/* <div className='flex mt-10'>
+                    <button
+                      className={`px-5 lg:px-10 py-2 ${
+                        character.background
+                      }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
+                        character.name
+                      )} lg:text-xl font-semibold flex rounded-full`}
+                    >
+                      {character.name} Character
+                      <svg
+                        aria-hidden='true'
+                        className='w-5 h-5 ml-2 -mr-1'
+                        fill='currentColor'
+                        viewBox='0 0 20 20'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <path
+                          fillRule='evenodd'
+                          d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                          clipRule='evenodd'
+                        ></path>
+                      </svg>
+                    </button>
+                  </div> */}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className={`${character.background} flex justify-center w-full `}>
-            <div>
-              <h1 className='-mt-3 text-4xl font-extrabold scale-150 lg:-mt-7 scale text-white-300 lg:text-9xl'>
-                Wealth Creation{' '}
-              </h1>
-            </div>
-          </div>
+          <hr
+            className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
+          />
           <div className={`px-8 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
             <div className='grid w-full h-full grid-flow-row grid-cols-1 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-8'>
               <div className='flex flex-col items-center justify-center w-full row-start-2 sm:col-start-2 sm:col-end-7 lg:items-start lg:px-10 sm:row-start-1'>

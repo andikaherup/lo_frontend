@@ -17,7 +17,10 @@ class CustomDocument extends Document {
         <Head>
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link rel='preconnect' href='https://fonts.googleapis.com' />
-          <link href='https://fonts.googleapis.com/css2?family=Montserrat&display=swap' rel='stylesheet' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap'
+            rel='stylesheet'
+          />
           <link href='https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css' rel='stylesheet' />
           <link rel='apple-touch-icon' sizes='180x180' href='/images/level0tr.png' />
           <link rel='shortcut icon' href='/images/level0tr.png' />]
