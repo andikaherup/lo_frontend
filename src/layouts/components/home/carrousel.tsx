@@ -57,7 +57,12 @@ const EmblaCarousel: React.FC<PropType> = props => {
                       datas.character
                     )} `}
                   />
-                  <BottomText name={datas.name} title={datas.title} quote={datas.quote}></BottomText>
+                  <BottomText
+                    name={datas.name}
+                    title={datas.title}
+                    character={datas.character}
+                    quote={datas.quote}
+                  ></BottomText>
                 </div>
               </div>
             </div>

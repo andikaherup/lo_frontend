@@ -167,17 +167,12 @@ const Testimonials = () => {
         </div>
       </section> */}
 
-      <section className='px-5 mb-32 text-center lg:px-20'>
+      <section className='px-5 mb-20 text-center lg:px-20'>
         <h2 className='mb-5 text-3xl font-bold text-black-300'>See what others have to say</h2>
         <section className='sandbox__carousel'>
           <EmblaCarousel slides={data} options={OPTIONS}></EmblaCarousel>
         </section>
 
-        <section className='my-8 dark:bg-gray-800 dark:text-gray-100'>
-          <div className='container flex flex-col items-center mx-auto mb-12 md:p-10 md:px-12'>
-            <h1 className='p-4 text-4xl font-semibold text-center leadi'>What our customers are saying about us</h1>
-          </div>
-        </section>
         {/* <Carousel loop>
           {data.map((datas, index) => {
             return (

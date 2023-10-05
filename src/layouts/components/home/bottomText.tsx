@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { gettestimonialTextCOlor } from 'src/configs/getBackground'
 
 interface dataProps {
   name: string
   title: string
   quote: string
+  character: string
 }
 
-const BottomText = ({ name, title, quote }: dataProps) => {
+const BottomText = ({ name, title, quote, character }: dataProps) => {
   const [showFullQuote, setShowFullQuote] = useState(false)
   const quoteRef = useRef<HTMLParagraphElement>(null)
 
@@ -32,6 +34,7 @@ const BottomText = ({ name, title, quote }: dataProps) => {
 
         <span className='text-xs font-semibold'>{title}</span>
       </p>
+      <span className={`${gettestimonialTextCOlor(character)} font-bold`}>{character}</span>
       <p
         className='pt-5 text-xs text-black-300'
         ref={quoteRef}

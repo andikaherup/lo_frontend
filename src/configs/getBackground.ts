@@ -56,6 +56,34 @@ export const gettestimonialRingCOlor = (character: string) => {
   }
 }
 
+export const gettestimonialTextCOlor = (character: string) => {
+  switch (character) {
+    case 'The Hero':
+      return 'text-lightHero'
+
+    case 'The Magician':
+      return 'text-lightMagician'
+
+    case 'The Rebel':
+      return 'text-lightRebel'
+
+    case 'The Creator':
+      return 'text-lightCreator'
+
+    case 'The Synergist':
+      return 'text-lightGreen'
+
+    case 'The Oracle':
+      return 'text-lightOracle'
+
+    case 'The Protector':
+      return 'text-lightProtector'
+
+    case 'The Ruler':
+      return 'text-lightBlue'
+  }
+}
+
 export const getBaseColor = (hero: string) => {
 
 

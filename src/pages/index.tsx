@@ -213,8 +213,22 @@ const Home = () => {
         </div>
       </div>
       <div className={`w-full `}>
-        <div className='container py-24 mx-auto md:px-6'>
+        <div className='container pt-24 mx-auto md:px-6'>
           <Testimonials></Testimonials>
+        </div>
+      </div>
+      <div className='grid w-full pb-10 mx-auto lg:grid-cols-2'>
+        <div>
+          <img className='hidden lg:flex' src='/assets/Main-Page-D1.png' />
+          <img className='flex lg:hidden' src='/assets/Main-Page-M1.png' />
+        </div>
+        <div className='flex flex-col items-center justify-center'>
+          <h1 className='mb-5 text-lg font-bold text-center lg:text-3xl text-black-300'>
+            Transform Your Life with Level Zero Today
+          </h1>
+          <Link href='/personality-test'>
+            <ButtonOutline>Take test</ButtonOutline>
+          </Link>
         </div>
       </div>
       {/* <div className={`w-full ${images[currentImageIndex].background}`}>
