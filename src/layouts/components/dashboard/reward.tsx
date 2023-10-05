@@ -71,9 +71,13 @@ const Reward = (props: rewardProps) => {
   }, [])
 
   return (
-    <div className='w-full h-full min-h-screen pt-20 bg-newUIbackground'>
-      <div className='flex flex-col items-start justify-start h-full min-h-screen px-5 lg:px-20'>
-        {auth.user && <h1 className='text-3xl font-bold text-left lg:text-6xl text-black-300'>UNLOCK YOUR REWARDS</h1>}
+    <div className='w-full h-full min-h-screen pt-10 lg:pt-20 bg-newUIbackground'>
+      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:items-start lg:px-20'>
+        {auth.user && (
+          <h1 className='text-2xl font-bold text-center lg:text-left lg:text-6xl text-black-300'>
+            UNLOCK YOUR REWARDS
+          </h1>
+        )}
         {!auth.user && (
           <h1 className='text-2xl font-bold text-left lg:text-6xl text-black-300'>JOIN TO GET THE REWARDS</h1>
         )}
@@ -87,14 +91,14 @@ const Reward = (props: rewardProps) => {
 
         {urlParam && <h1 className='text-2xl font-bold text-black-300'>Rewards for Level {urlParam}</h1>}
         {auth.user && (
-          <div className='flex items-center justify-end w-full text-black-300'>
+          <div className='flex items-center justify-center w-full lg:justify-end text-black-300'>
             <img alt='img' className='mr-2' src='/assets/icon/medal.png'></img>
             <span className='font-bold text-black-300'>Your Coins :</span>
             <span className='ml-2 font-bold text-purpleText'>{auth.user.coin} points</span>
           </div>
         )}
         <div className='pb-20 '>
-          <div className='grid w-full grid-cols-2 gap-5 lg:pt-20 lg:gap-5 lg:grid-cols-3'>
+          <div className='grid w-full grid-cols-1 gap-5 pt-5 lg:pt-20 lg:gap-5 lg:grid-cols-3'>
             {rewardData?.map((items: RewardData, index: number) => {
               //return null if level is not enough
               // if (urlParam && items.level_required_to_unlock > parseInt(urlParam)) {
