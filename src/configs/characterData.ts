@@ -10,6 +10,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Hero_LVL_0_(F).png',
     lvl1_image_M: 'HERO_LVL_1.png',
     lvl0_image_M: 'HERO_LVL_0.png',
+    lead_F: 'hero-lead-female.png',
+    lead_M: 'hero-lead-male.png',
     embrace_text:
       'To fully embrace your Hero archetype and maximize your potential, we recommend the following next steps:',
     name: 'Hero',
@@ -98,6 +100,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Magician_LVL_0_(F).png',
     lvl1_image_M: 'magician_LVL_1.png',
     lvl0_image_M: 'magician_LVL_0.png',
+    lead_F: 'magician-lead-female.png',
+    lead_M: 'magician-lead-male.png',
     embrace_text:
       'To fully embrace your Magician archetype and maximize your creative potential, we recommend the following next steps:',
     name: 'Magician',
@@ -188,6 +192,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Rebel_LVL_0_(F).png',
     lvl1_image_M: 'rebel_LVL_0_(2).png',
     lvl0_image_M: 'rebel_LVL_0.png',
+    lead_F: 'rebel-lead-female.png',
+    lead_M: 'rebel-lead-male.png',
     embrace_text:
       'To fully embrace your Rebel archetype and maximize your potential as a catalyst for change, we recommend the following next steps:',
     name: 'Rebel',
@@ -276,6 +282,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Creator_LVL 0_(F).png',
     lvl1_image_M: 'CREATOR_LVL_1.png',
     lvl0_image_M: 'CREATOR_LVL_0.png',
+    lead_F: 'creator-lead-female.png',
+    lead_M: 'creator-lead-male.png',
     name: 'Creator',
     embrace_text:
       'To fully embrace your Creator archetype and maximize your potential as a catalyst for change, we recommend the following next steps:',
@@ -365,6 +373,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Synergist_LVL_0_(F).png',
     lvl1_image_M: 'synergist_LVL_0_(2).png',
     lvl0_image_M: 'synergist_LVL_0.png',
+    lead_F: 'synergist-lead-female.png',
+    lead_M: 'synergist-lead-male.png',
     embrace_text:
       'To fully embrace your Synergist archetype and maximize your potential as a catalyst for collaboration and unity, we recommend the following next steps:',
     name: 'Synergist',
@@ -454,6 +464,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Oracle_LVL_0_(F).png',
     lvl1_image_M: 'oracle_LVL_1.png',
     lvl0_image_M: 'oracle_LVL_0.png',
+    lead_F: 'oracle-lead-female.png',
+    lead_M: 'oracle-lead-male.png',
     name: 'Oracle',
     embrace_text:
       'To fully embrace your Oracle archetype and maximize your potential as a visionary guide, we recommend the following next steps:',
@@ -543,6 +555,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Protector_LVL_0_(F).png',
     lvl1_image_M: 'protector_lvl_1.png',
     lvl0_image_M: 'protector_lvl_0.png',
+    lead_F: 'protector-lead-female.png',
+    lead_M: 'protector-lead-male.png',
     name: 'Protector',
     embrace_text:
       'To fully embrace your Protector archetype and maximize your potential as a caring guardian, we recommend the following next steps:',
@@ -632,6 +646,8 @@ export const characters: Archetype[] = [
     lvl0_image_F: 'Ruler_LVL_0_(F).png',
     lvl1_image_M: 'RULER_LVL_1.png',
     lvl0_image_M: 'RULER_LVL_0.png',
+    lead_F: 'ruler-lead-female.png',
+    lead_M: 'ruler-lead-male.png',
     name: 'Ruler',
     embrace_text:
       'To fully embrace your Ruler archetype and maximize your potential as an influential leader, we recommend the following next steps:',

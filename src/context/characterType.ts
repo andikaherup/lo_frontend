@@ -39,6 +39,9 @@ export interface Archetype {
   lvl0_image_F: string
   lvl1_image_M: string
   lvl0_image_M: string
+  lead_F: string
+  lead_M: string
+
 }
 
 

@@ -100,7 +100,7 @@ const Header: React.FC = () => {
     }
     if (router.route == '/leaderboard') {
       setActiveLink('Leaderboard')
-      setTransparent(false)
+      setTransparent(true)
     }
     if (router.route == '/account-security') {
       setActiveLink('security')
