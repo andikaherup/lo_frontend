@@ -110,6 +110,12 @@ const Header: React.FC = () => {
       setActiveLink('Reward')
       setTransparent(false)
     }
+    if (router.route == '/register') {
+      setTransparent(true)
+    }
+    if (router.route == '/login') {
+      setTransparent(true)
+    }
   }, [router])
 
   const navChange = (value: string) => {

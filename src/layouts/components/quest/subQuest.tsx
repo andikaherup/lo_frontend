@@ -80,7 +80,7 @@ const SubQuest = (props: subQuestProps) => {
   return (
     <>
       {sortedQuest.map((detail, index) => (
-        <div key={index}>
+        <div key={index} id={`quest-${id}`}>
           <div className='relative flex flex-col items-center w-full px-3 space-y-4 text-white transition transform rounded cursor-pointer lg:px-6 hover:-translate-y-2 md:flex-row md:space-y-0'>
             <div className='z-10 flex w-full'>
               <div className='w-full lg:max-w-[90%]'>

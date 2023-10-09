@@ -407,50 +407,6 @@ const AccordionItem = ({
     }
   }
 
-  const getBackground = (hero: string) => {
-    switch (hero) {
-      case 'Hero':
-        return 'bg-gradient-to-r from-darkHero from-10% via-darkHero via-10% to-lightHero'
-
-      case 'Magician':
-        return 'bg-gradient-to-r from-darkMagician from-10% via-darkMagician via-10% to-lightMagician'
-
-      case 'Rebel':
-        return 'bg-gradient-to-r from-darkRebel from-10% via-darkRebel via-10% to-lightRebel'
-
-      case 'Creator':
-        return 'bg-gradient-to-r from-darkCreator from-10% via-darkCreator via-10% to-lightCreator'
-
-      case 'Synergist':
-        return 'bg-gradient-to-r from-darkGreen from-10% via-darkGreen via-10% to-lightGreen'
-
-      case 'Oracle':
-        return 'bg-gradient-to-r from-darkOracle from-10% via-darkOracle via-10% to-lightOracle'
-
-      case 'Protector':
-        return 'bg-gradient-to-r from-darkProtector from-10% via-darkProtector via-10% to-lightProtector'
-
-      case 'Ruler':
-        return 'bg-gradient-to-r from-darkBlue from-10% via-darkBlue via-10% to-lightBlue'
-    }
-  }
-
-  const getTextColor = (hero: string) => {
-    switch (hero) {
-      case 'Hero':
-      case 'Magician':
-        return 'text-black-300'
-
-      case 'Rebel':
-      case 'Creator':
-      case 'Synergist':
-      case 'Oracle':
-      case 'Protector':
-      case 'Ruler':
-        return 'text-white-500'
-    }
-  }
-
   const handleVideoEnd = async () => {
     // Run your function when the video finishes playing
     if (!status) {
@@ -476,18 +432,18 @@ const AccordionItem = ({
       <button
         className={`faq-btn flex lg:flex-row-reverse ${
           type != 'no_action' ? 'cursor-pointer' : 'cursor-default'
-        } flex-col-reverse items-center w-full text-left`}
+        } flex-row-reverse items-center w-full text-left`}
         onClick={() => handleToggle()}
       >
         <div className='flex items-center justify-end w-full '>
           {/* <span className={`text-left lg:text-md font-bold text-xs text-black-300`}>
             {status ? 'COMPLETED' : type == 'no_action' ? '' : 'GET STARTED'}
           </span> */}
-          <div className='w-full lg:max-w-[20%] lg:flex  hidden'>
+          <div className='w-full lg:max-w-[20%] lg:flex  '>
             {!is_completed && (
               <div className='flex items-center justify-center'>
                 <img alt='img' src='/assets/icon/medal.png'></img>
-                <span className='text-xl font-bold text-questPointText'>+{points}</span>
+                <span className='font-bold lg:text-xl text-md text-questPointText'>+{points}</span>
               </div>
             )}
           </div>
@@ -773,7 +729,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 rounded-3xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r text-white-500 from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>

@@ -11,7 +11,6 @@ import { useAuth } from 'src/hooks/useAuth'
 import { DailyRewardData } from 'src/context/types'
 import toast from 'react-hot-toast'
 import ClaimPopup from './claimpopup'
-import Icon from 'src/@core/components/icon'
 
 const Rewards = () => {
   const auth = useAuth()
@@ -20,7 +19,8 @@ const Rewards = () => {
   const [openRef, setOpenRef] = useState<boolean>(false)
   const [today, setToday] = useState<string>('')
   const [selectedItem, setSelectedItem] = useState<DailyRewardData>()
-  const [bonus, setBonus] = useState<number>(0)
+
+  // const [bonus, setBonus] = useState<number>(0)
   const [extraPts, setExtraPts] = useState<number>(0)
 
   const [loading, setLoading] = useState<boolean>(false)
@@ -44,9 +44,10 @@ const Rewards = () => {
           console.log(res.data)
           setToday(res.data.today_date)
           setStrike(res.data.day_strike)
-          if (res.data.last_day_additional_points) {
-            setBonus(res.data.last_day_additional_points)
-          }
+
+          // if (res.data.last_day_additional_points) {
+          //   setBonus(res.data.last_day_additional_points)
+          // }
           if (res.data.extra_pts) {
             setExtraPts(res.data.extra_pts)
           }
@@ -79,9 +80,10 @@ const Rewards = () => {
             .then(async res => {
               openDialog(items)
               setStrike(res.data.day_strike)
-              if (res.data.last_day_additional_points) {
-                setBonus(res.data.last_day_additional_points)
-              }
+
+              // if (res.data.last_day_additional_points) {
+              //   setBonus(res.data.last_day_additional_points)
+              // }
               if (res.data.extra_pts) {
                 setExtraPts(res.data.extra_pts)
               }
@@ -114,7 +116,7 @@ const Rewards = () => {
 
             <div className='grid grid-cols-3 gap-4 px-5 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
               {rewardData?.map((items: DailyRewardData, index: number) => {
-                const isLastElement = index === rewardData.length - 1
+                // const isLastElement = index === rewardData.length - 1
 
                 return (
                   <div key={index}>

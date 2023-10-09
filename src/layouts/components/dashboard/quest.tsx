@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 import React from 'react'
 import StepperQuest from 'src/layouts/components/quest/stepper'
-import { getBaseColor, getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
+import { getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
 import Rewards from 'src/layouts/components/daily-rewards/rewards'
 import Link from 'next/link'
 
@@ -78,6 +78,7 @@ const Quest = () => {
       imageActive: 'assets/icon/dashboard/Journey-Icon-White.png',
       imageNotActive: 'assets/icon/dashboard/Journey-Icon.png'
     },
+
     // {
     //   title: 'daily',
     //   content: 'Daily Quest',
@@ -96,20 +97,20 @@ const Quest = () => {
     <section className='relative  h-full min-h-screen z-5 overflow-hidden pb-12 px-3 lg:pt-10 pt-5  lg:pb-[90px]'>
       <div className='container pb-5 mx-auto lg:px-10'>
         <div className='w-full'>
-          <div className='px-2 pt-5 lg:pt-20'>
+          <div className='px-2 '>
             <h1 className='mb-3 text-2xl font-bold lg:text-5xl'>Quests</h1>
           </div>
 
           {auth.user && (
             <div className={`justify-start  w-full lg:flex lg:pt-10 `}>
               <div className='text-sm font-medium text-center'>
-                <ul className='flex flex-wrap '>
+                <ul className='flex lg:flex-wrap '>
                   {menu.map((menu, index) => (
-                    <li key={index} className='mr-10'>
+                    <li key={index} className='mr-2 lg:mr-10'>
                       {auth.user && (
                         <Link href={menu.link}>
                           <button
-                            className={` px-16 py-10 flex justify-center items-center font-bold   text-2xl  rounded-t-lg ${
+                            className={` lg:px-16 lg:py-10 px-5 py-5 flex justify-center items-center font-bold   lg:text-2xl text-md rounded-t-lg ${
                               selectedTab == menu.title
                                 ? getBaseTextColor(auth.user?.character) +
                                   ' active text-white-300 bg-purpleText bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor ' +
@@ -122,14 +123,14 @@ const Quest = () => {
                             {menu.title == 'journey' && (
                               <img
                                 src={selectedTab === menu.title ? menu.imageActive : menu.imageNotActive}
-                                className='w-12 h-12 mr-2'
+                                className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
                                 alt='icon'
                               />
                             )}
                             {menu.title == 'dailyreward' && (
                               <img
                                 src={selectedTab === menu.title ? menu.imageActive : menu.imageNotActive}
-                                className='w-12 h-12 mr-2'
+                                className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
                                 alt='icon'
                               />
                             )}

@@ -131,7 +131,8 @@ module.exports = {
       button1stcolor: '#3B2F8F',
       purpleText: '#5900B5',
       dailyRewardDayBG: '#FFCE00',
-      questPointText: '#F0C430'
+      questPointText: '#F0C430',
+      grayText: '#AFB5C0'
     },
     extend: {
       fontFamily: {

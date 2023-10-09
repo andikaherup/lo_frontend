@@ -154,7 +154,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
 
           <div className={`${character.background} flex justify-center w-full `}>
             <div>
-              <h1 className='-mt-3 text-4xl font-extrabold scale-150 lg:-mt-7 scale text-white-300 lg:text-9xl'>
+              <h1 className='-mt-3 text-4xl font-extrabold scale-150 lg:-mt-9 scale text-white-500 lg:text-9xl'>
                 Wealth Creation{' '}
               </h1>
             </div>

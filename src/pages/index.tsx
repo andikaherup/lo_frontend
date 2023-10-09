@@ -137,9 +137,11 @@ const Home = () => {
                     src={`/assets/characters/${image.image}`}
                     alt={`Image ${index + 1}`}
                   ></img>
-                  <span className='absolute text-6xl font-bold scale-150 z-9 text-black-300 lg:text-9xl'>
-                    {image.name}
-                  </span>
+                  <div className='absolute scale-150'>
+                    <span className='text-6xl font-bold scale-150 z-9 text-black-300 lg:text-[200px] md:text-[120px]'>
+                      {image.name}
+                    </span>
+                  </div>
                 </div>
               </Overlay>
             </Slide>

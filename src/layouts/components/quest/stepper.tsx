@@ -62,26 +62,29 @@ const NewStepper = (props: QuestProps) => {
     setSortedQuest(sortedQuests)
   }, [quest])
 
-  const determineBadge = (badgeTitle: string) => {
-    switch (badgeTitle) {
-      case 'INTRO':
-        return 'text-textBadgeGreen bg-badgeGreen'
+  // const determineBadge = (badgeTitle: string) => {
+  //   switch (badgeTitle) {
+  //     case 'INTRO':
+  //       return 'text-textBadgeGreen bg-badgeGreen'
 
-      case 'LEVEL 1':
-        return 'text-textBadgeBlue bg-badgeBlue'
-    }
-  }
+  //     case 'LEVEL 1':
+  //       return 'text-textBadgeBlue bg-badgeBlue'
+  //   }
+  // }
 
   if (!load) {
     return <></>
   }
 
   return (
-    <div className='grid grid-cols-4'>
-      <div className='flex justify-center w-full pt-10'>
+    <div className='grid grid-cols-1 lg:grid-cols-4'>
+      <div className='justify-center hidden w-full pt-10 lg:flex'>
         <div className='border border-t-0 border-b-0 border-l-0 border-r-black-300 h-fit'>
-          {sortedQuest.map(quest => (
-            <div className='flex flex-col items-start justify-center pr-10 border-2 border-t-0 border-b-0 border-l-0 border-r-purpleText'>
+          {sortedQuest.map((quest, index: number) => (
+            <div
+              key={index}
+              className='flex flex-col items-start justify-center pr-10 border-2 border-t-0 border-b-0 border-l-0 border-r-purpleText'
+            >
               <span className={` bg-purpleText text-white-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}>
                 {quest.label}
               </span>
@@ -90,7 +93,7 @@ const NewStepper = (props: QuestProps) => {
           ))}
         </div>
       </div>
-      <div className='w-full col-start-2 col-end-5 lg:p-10'>
+      <div className='w-full lg:col-start-2 lg:col-end-5 lg:p-10'>
         {/* {sortedQuest.map((quest, index) => (
         <ol key={index} className='relative text-gray-500 dark:text-gray-400'>
           <li className='flex items-center justify-start w-full pl-4 mb-4 lg:ml-4'>
