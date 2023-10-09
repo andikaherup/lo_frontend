@@ -81,70 +81,7 @@ const SubQuest = (props: subQuestProps) => {
     <>
       {sortedQuest.map((detail, index) => (
         <div key={index}>
-          {/* <li key={index} className='flex items-center justify-start w-full pl-4 mb-10 lg:ml-4'>
-            <span
-              className={`absolute flex items-center justify-center w-5 h-5 ${'bg-lightGreen'} rounded-full -left-4  `}
-            >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='icon icon-tabler icon-tabler-check'
-                width='18'
-                height='18'
-                viewBox='0 0 24 24'
-                strokeWidth='1.5'
-                stroke='white'
-                fill='none'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path stroke='none' d='M0 0h24v24H0z' />
-                <path d='M5 12l5 5l10 -10' />
-              </svg>
-            </span>
-
-            <div className='flex items-center justify-between w-full'>
-              <AccordionItem
-                character={character}
-                header={detail.name}
-                text={detail.description}
-                type={detail.link_type}
-                status={detail.is_completed}
-                video_url={detail.file}
-                image={detail.quest_image}
-              ></AccordionItem>
-              <div className='flex items-center justify-center pl-3'>
-                <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
-                <img src='/assets/icon/medal.png'></img>
-              </div>
-            </div>
-          </li> */}
-
-          <div className='relative flex flex-col items-center w-full px-3 space-y-4 text-white transition transform rounded cursor-pointer lg:py-4 lg:px-6 hover:-translate-y-2 md:flex-row md:space-y-0'>
-            {/* <div
-              className={`absolute lg:flex hidden z-10 mt-2 transform ${
-                detail.is_completed ? getBaseDarkColor(character) : 'bg-gray-400 '
-              } rounded-full w-7 h-7 -left-10 flex justify-center items-center -translate-x-2/4 md:mt-0`}
-            >
-              {detail.is_completed && (
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  strokeWidth='4'
-                  stroke='white'
-                  className='w-6 h-6'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M4.5 12.75l6 6 9-13.5' />
-                </svg>
-              )}
-            </div> */}
-
-            {/* <div
-              className={`lg:flex hidden absolute z-0 w-20 h-1 ${
-                detail.is_completed ? 'bg-' + getBaseColor(character) : 'bg-gray-400 '
-              } -left-10`}
-            ></div> */}
-
+          <div className='relative flex flex-col items-center w-full px-3 space-y-4 text-white transition transform rounded cursor-pointer lg:px-6 hover:-translate-y-2 md:flex-row md:space-y-0'>
             <div className='z-10 flex w-full'>
               <div className='w-full lg:max-w-[90%]'>
                 <AccordionItem
@@ -157,18 +94,20 @@ const SubQuest = (props: subQuestProps) => {
                   image={detail.quest_image}
                   code={detail.code}
                   id={detail.id}
+                  points={detail.quest_points}
+                  is_completed={detail.is_completed}
                   link={detail.link}
                   onFinishVideo={initAuth}
                 ></AccordionItem>
               </div>
-              <div className='w-full lg:max-w-[10%] lg:flex hidden'>
+              {/* <div className='w-full lg:max-w-[10%] lg:flex hidden'>
                 {!detail.is_completed && (
                   <div className='flex flex-col items-center justify-center pl-3'>
                     <img alt='img' src='/assets/icon/medal.png'></img>
                     <span className='pt-2 text-black-300'>+{detail.quest_points}</span>
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -126,14 +126,7 @@ const Dashboard = () => {
 
   return (
     <div className='pt-10'>
-      <div
-        className={`lg:pt-20 pt-10 ${
-          selectedTab == 'Reward'
-            ? 'bg-newUIbackground'
-            : characters.find(character => character.name === auth.user?.character)?.background
-        }`}
-        id='about'
-      >
+      <div className={`lg:pt-20 pt-10 bg-newUIbackground`} id='about'>
         <div className='w-full'>
           {/* <div className='flex justify-center w-full pt-5 mt-6 sm:hidden'>
             <select

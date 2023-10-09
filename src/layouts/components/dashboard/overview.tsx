@@ -62,7 +62,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
 
           <div className='flex items-center justify-center w-full lg:px-10 '>
             <div className='flex flex-col items-center justify-center'>
-              <h1 className={`mb-3 text-xl lg:mb-7 lg:text-4xl ${checkHeroBrightness(character.name)}`}>
+              <h1 className={`mb-3 text-xl lg:mb-7 font-bold lg:text-2xl ${checkHeroBrightness(character.name)}`}>
                 Your Primary Genius Profile is the
               </h1>
 
@@ -105,17 +105,20 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           {auth.user && (
             <div className='flex w-full mb-[-100px] lg:mb-[-200px] '>
               <div className='relative flex justify-center w-full '>
-                <div className='absolute top-0 right-0 rotate-90'>
+                <div className='absolute lg:top-0 top-[50px] lg:right-0 right-[-100px] rotate-90'>
                   <FacebookShareButton
                     url={`https://thel0.com/invitation/${auth.user?.referral_code}`}
                     hashtag={'#personality-test'}
                   >
                     <div className='flex flex-row items-center justify-center'>
-                      <div className='-rotate-90'>
+                      <div className='hidden -rotate-90 lg:flex'>
                         <FacebookIcon size={50} round />
                       </div>
-                      <span className={`pl-2 font-bold text-left ${checkHeroBrightness(character.name)}`}>
-                        Share Your Character <br /> on Facebook
+                      <div className='flex -rotate-90 lg:hidden'>
+                        <FacebookIcon size={30} round />
+                      </div>
+                      <span className={`pl-2 font-bold text-lg lg:text-xl text-white-300 text-left  `}>
+                        Share your character <br /> on Facebook
                       </span>
                     </div>
                   </FacebookShareButton>

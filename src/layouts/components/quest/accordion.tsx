@@ -31,6 +31,8 @@ interface Props {
   video_url: string
   type: string | null
   character: string
+  is_completed: boolean
+  points: number
   image: string
   link: string
   code: string
@@ -242,6 +244,8 @@ const AccordionItem = ({
   image,
   link,
   code,
+  points,
+  is_completed,
   id,
   onFinishVideo
 }: Props) => {
@@ -301,7 +305,7 @@ const AccordionItem = ({
   })
 
   const checkHeroBrightness = (name: string): string => {
-    let nams = 'text-white-300'
+    let nams = 'text-white-500'
 
     if (name == 'Hero' || name == 'Magician') {
       nams = 'text-black-300'
@@ -443,7 +447,7 @@ const AccordionItem = ({
       case 'Oracle':
       case 'Protector':
       case 'Ruler':
-        return 'text-white-300'
+        return 'text-white-500'
     }
   }
 
@@ -468,7 +472,7 @@ const AccordionItem = ({
   }
 
   return (
-    <div className={`single-faq w-full rounded-lg border border-[#F3F4FE] ${getBackground(character)}   px-5 py-3 `}>
+    <div className={`single-faq w-full rounded-lg  text-black-300   px-5 py-3 `}>
       <button
         className={`faq-btn flex lg:flex-row-reverse ${
           type != 'no_action' ? 'cursor-pointer' : 'cursor-default'
@@ -476,9 +480,17 @@ const AccordionItem = ({
         onClick={() => handleToggle()}
       >
         <div className='flex items-center justify-end w-full '>
-          <span className={`text-left lg:text-md font-bold text-xs ${getTextColor(character)}`}>
+          {/* <span className={`text-left lg:text-md font-bold text-xs text-black-300`}>
             {status ? 'COMPLETED' : type == 'no_action' ? '' : 'GET STARTED'}
-          </span>
+          </span> */}
+          <div className='w-full lg:max-w-[20%] lg:flex  hidden'>
+            {!is_completed && (
+              <div className='flex items-center justify-center'>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='text-xl font-bold text-questPointText'>+{points}</span>
+              </div>
+            )}
+          </div>
           {type != 'no_action' && (
             <div className=' flex h-10 w-full max-w-[40px] items-center justify-end rounded-lg bg-opacity-10 text-primary'>
               <svg
@@ -498,9 +510,9 @@ const AccordionItem = ({
           )}
         </div>
 
-        <div className='w-full'>
-          <h4 className={`lg:text-lg text-sm font-semibold ${getTextColor(character)}`}>{header}</h4>
-          <p className={`lg:text-md  text-xs leading-relaxed ${getTextColor(character)}`}>{text}</p>
+        <div className='w-full text-black-300'>
+          <h4 className={`lg:text-2xl text-sm font-bold `}>{header}</h4>
+          <p className={`lg:text-md  text-xs leading-relaxed font-bold text-black-500 `}>{text}</p>
         </div>
       </button>
 
@@ -521,7 +533,7 @@ const AccordionItem = ({
             >
               <div className='flex flex-row items-center justify-center'>
                 <FacebookIcon size={32} round />
-                <span className={`pl-2 ${checkHeroBrightness(character)}`}>Share Your Character on Facebook</span>
+                <span className={`pl-2 text-black-300`}>Share Your Character on Facebook</span>
               </div>
             </FacebookShareButton>
           </>
@@ -531,7 +543,7 @@ const AccordionItem = ({
             <Link href={link} aria-current='page' target='_blank'>
               <button
                 onClick={goToLinkClick}
-                className='px-5 py-3 bg-blue-500 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
               >
                 Go To Link
               </button>
@@ -580,9 +592,7 @@ const AccordionItem = ({
                   </div>
                 </FormControl>
                 {selectedOccupation == 'Other' && (
-                  <FormControl
-                    className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
-                  >
+                  <FormControl className={`flex justify-center pt-5 `}>
                     <div className='grid lg:grid-cols-4'>
                       <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
                         <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
@@ -610,13 +620,13 @@ const AccordionItem = ({
                   </FormControl>
                 )}
 
-                <div className={`grid lg:grid-cols-4 pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
-                  <div className='flex items-center justify-center lg:justify-start lg:col-start-2'>
-                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
+                <div className={`flex justify-start items-center`}>
+                  <div className='flex items-center justify-center '>
+                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm text-black-300'>
                       Level of Satisfaction
                     </label>
                   </div>
-                  <div className='lg:col-start-3'>
+                  <div className='flex items-center justify-center'>
                     <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
                   </div>
                   <div className='flex items-center justify-center'>
@@ -631,7 +641,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -763,7 +773,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -905,7 +915,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -916,6 +926,7 @@ const AccordionItem = ({
           </>
         )}
       </div>
+      <hr className='mt-10' />
     </div>
   )
 }

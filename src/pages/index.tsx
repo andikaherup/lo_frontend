@@ -1,16 +1,13 @@
 // ** React Imports
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 
 // ** slider
-import HeroSlider, { Overlay, Slide, Nav } from 'hero-slider'
+import HeroSlider, { Overlay, Slide } from 'hero-slider'
 
 // ** MUI Imports
 import Link from 'next/link'
 
 import React from 'react'
-
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
 
 // import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 
@@ -110,27 +107,6 @@ const images = [
 ]
 
 const Home = () => {
-  const auth = useAuth()
-  useEffect(() => {
-    const getData = async () => {
-      const characterString = await localStorage.getItem('resultNoLogin')
-      if (characterString) {
-        setHaveResult(true)
-      }
-    }
-    getData()
-  }, [auth])
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [haveResult, setHaveResult] = useState(false)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length)
-    }, 2500)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <div className='pt-20'>
       <UTMForm></UTMForm>
@@ -152,7 +128,7 @@ const Home = () => {
           }}
         >
           {images.map((image, index) => (
-            <Slide shouldRenderMask>
+            <Slide shouldRenderMask key={index}>
               <Overlay>
                 <div className='flex items-center justify-center w-full'>
                   <img
@@ -219,8 +195,8 @@ const Home = () => {
       </div>
       <div className='grid w-full pb-10 mx-auto lg:grid-cols-2'>
         <div>
-          <img className='hidden lg:flex' src='/assets/Main-Page-D1.png' />
-          <img className='flex lg:hidden' src='/assets/Main-Page-M1.png' />
+          <img className='hidden lg:flex' src='/assets/Main-Page-D1.png' alt='main' />
+          <img className='flex lg:hidden' src='/assets/Main-Page-M1.png' alt='main' />
         </div>
         <div className='flex flex-col items-center justify-center'>
           <h1 className='mb-5 text-lg font-bold text-center lg:text-3xl text-black-300'>

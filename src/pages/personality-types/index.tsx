@@ -2,8 +2,7 @@
 import { ReactNode } from 'react'
 
 import React from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
+
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { getBackground } from 'src/configs/getBackground'
@@ -12,7 +11,6 @@ import { getBackground } from 'src/configs/getBackground'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
 
 // import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
-import Icon from 'src/@core/components/icon'
 
 // ** Configs
 
@@ -43,7 +41,7 @@ const PersonalityTypes = () => {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 2,
+      items: 1,
       partialVisibilityGutter: 40
     }
   }
@@ -139,6 +137,7 @@ const PersonalityTypes = () => {
         {heroes.map((hero, index) => (
           <div
             className={` relative flex flex-col justify-center px-4 items-center h-full hover:cursor-pointer hover:scale-125 transition`}
+            key={index}
           >
             <div className='px-4 pt-10 pb-20 mt-20 mb-10 rounded-lg lg:py-20 sm:px-8 md:px-12 '></div>
             <div className={`${getBackground(hero.name)} flex flex-col justify-center lg:pb-10 pb-2  rounded-2xl`}>

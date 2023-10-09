@@ -77,8 +77,21 @@ const NewStepper = (props: QuestProps) => {
   }
 
   return (
-    <div className='w-full lg:p-10'>
-      {/* {sortedQuest.map((quest, index) => (
+    <div className='grid grid-cols-4'>
+      <div className='flex justify-center w-full pt-10'>
+        <div className='border border-t-0 border-b-0 border-l-0 border-r-black-300 h-fit'>
+          {sortedQuest.map(quest => (
+            <div className='flex flex-col items-start justify-center pr-10 border-2 border-t-0 border-b-0 border-l-0 border-r-purpleText'>
+              <span className={` bg-purpleText text-white-300 text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}>
+                {quest.label}
+              </span>
+              <span className='font-bold text-purpleText'>{quest.title}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className='w-full col-start-2 col-end-5 lg:p-10'>
+        {/* {sortedQuest.map((quest, index) => (
         <ol key={index} className='relative text-gray-500 dark:text-gray-400'>
           <li className='flex items-center justify-start w-full pl-4 mb-4 lg:ml-4'>
             <span
@@ -106,36 +119,37 @@ const NewStepper = (props: QuestProps) => {
         </ol>
       ))} */}
 
-      {sortedQuest.map((quest, index) => (
-        <div key={index} className='relative w-full mb-10'>
-          {auth.user && (
-            <div>
-              <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 md:flex-row md:space-y-0'>
-                {/* <div
+        {sortedQuest.map((quest, index) => (
+          <div key={index} className='relative w-full mb-10'>
+            {auth.user && (
+              <div>
+                <div className='relative flex flex-col items-start px-3 py-2 space-y-4 text-white transition transform rounded lg:py-4 lg:px-6 md:flex-row md:space-y-0'>
+                  {/* <div
                   className={`lg:flex hidden absolute z-10 w-7 h-7 mt-2 transform ${getBaseDarkColor(
                     auth.user?.character
                   )} rounded-full -left-10 -translate-x-2/4 md:mt-0`}
                 ></div> */}
 
-                {/* <div className={`absolute z-0 w-10 h-1 bg-${getBaseColor('Rebel')} -left-10`}></div> */}
+                  {/* <div className={`absolute z-0 w-10 h-1 bg-${getBaseColor('Rebel')} -left-10`}></div> */}
 
-                <div>
-                  <span
-                    className={`${determineBadge(quest.label)} ${determineBadge(
-                      quest.label
-                    )} text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
-                  >
-                    {quest.label}
-                  </span>
-                  <h3 className='pt-2 font-medium leading-tight text-black-300'>{quest.title}</h3>
-                  <p className='text-sm'>{quest.description}</p>
+                  {/* <div>
+                    <span
+                      className={`${determineBadge(quest.label)} ${determineBadge(
+                        quest.label
+                      )} text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
+                    >
+                      {quest.label}
+                    </span>
+                    <h3 className='pt-2 font-medium leading-tight text-black-300'>{quest.title}</h3>
+                    <p className='text-sm'>{quest.description}</p>
+                  </div> */}
                 </div>
+                <SubQuest id={quest.id} character={auth.user?.character} />
               </div>
-              <SubQuest id={quest.id} character={auth.user?.character} />
-            </div>
-          )}
-        </div>
-      ))}
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

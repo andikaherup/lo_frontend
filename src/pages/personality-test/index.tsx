@@ -194,7 +194,7 @@ const PersonalityTest = () => {
                   <div className='block h-full rounded-lg bg-newUIbackground dark:bg-neutral-700'>
                     <div className='p-6'>
                       <div className='flex justify-center mb-5'>
-                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I1.png' />
+                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I1.png' alt='rule1' />
                       </div>
                       <p className='text-xl font-bold text-center text-black-300 '>
                         Spend some time and choose the answer that best describes you.
@@ -207,7 +207,7 @@ const PersonalityTest = () => {
                   <div className='block h-full rounded-lg bg-newUIbackground dark:bg-neutral-700'>
                     <div className='p-6'>
                       <div className='flex justify-center mb-5'>
-                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I2.png' />
+                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I2.png' alt='rule2' />
                       </div>
                       <p className='text-xl font-bold text-center text-black-300 '>
                         Be as honest as possible, there is no right or wrong.
@@ -220,7 +220,7 @@ const PersonalityTest = () => {
                   <div className='block h-full rounded-lg bg-newUIbackground dark:bg-neutral-700'>
                     <div className='p-6'>
                       <div className='flex justify-center mb-5'>
-                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I3.png' />
+                        <img className='object-scale-down w-40' src='/assets/PersonalityTest-Page-I3.png' alt='rule3' />
                       </div>
                       <p className='text-xl font-bold text-center text-black-300 '>
                         Try not to leave a “neutral” response.
