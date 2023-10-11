@@ -33,6 +33,14 @@ const Overview = ({ character, gender, changeTab }: Props) => {
     return nams
   }
 
+  const downloadImage = () => {
+    const imageUrl = `/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
+    const link = document.createElement('a')
+    link.href = imageUrl
+    link.download = `${character.name}-report`
+    link.click()
+  }
+
   const [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
@@ -486,6 +494,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                 ></img>
                 <div className='flex pt-5'>
                   <button
+                    onClick={downloadImage}
                     className={`px-5 lg:px-10 py-2  border border-gray-400 bg-newUIbackground  transition hover:-translate-y-1 hover:scale-110 text-black-300 lg:text-xl font-semibold flex rounded-full`}
                   >
                     Download
