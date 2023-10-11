@@ -97,9 +97,9 @@ const Quest = () => {
     <section className='relative  h-full min-h-screen z-5 overflow-hidden pb-12 px-3 lg:pt-10 pt-5  lg:pb-[90px]'>
       <div className='container pb-5 mx-auto lg:px-10'>
         <div className='w-full'>
-          <div className='px-2 '>
+          {/* <div className='px-2 '>
             <h1 className='mb-3 text-2xl font-bold lg:text-5xl'>Quests</h1>
-          </div>
+          </div> */}
 
           {auth.user && (
             <div className={`justify-start  w-full lg:flex lg:pt-10 `}>

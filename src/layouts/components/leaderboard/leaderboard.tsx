@@ -135,7 +135,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[1].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
+                        ? '/assets/icon/leaderboard/anon.png'
                         : `/assets/icon/leaderboard/${getCharacter(
                             userList[1].character_level,
                             userList[1].gender,
@@ -171,7 +171,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[0].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
+                        ? '/assets/icon/leaderboard/anon.png'
                         : `/assets/icon/leaderboard/${getCharacter(
                             userList[0].character_level,
                             userList[0].gender,
@@ -206,7 +206,7 @@ const Leaderboard = () => {
                     alt='avatar'
                     src={
                       userList[2].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
+                        ? '/assets/icon/leaderboard/anon.png'
                         : `/assets/icon/leaderboard/${getCharacter(
                             userList[2].character_level,
                             userList[2].gender,
@@ -241,51 +241,11 @@ const Leaderboard = () => {
             <div className='w-full overflow-scroll text-lg bg-white max-h-[550px] bg-scroll '>
               {userList?.map((data: UserData, index: number) => {
                 return (
-                  // <tr key={index} className={`rounded-2xl  ${myRank == data.rank ? 'bg-yellow-300' : 'bg-gray-500'}`}>
-                  //   <td className='p-2 whitespace-nowrap'>
-                  //     <div className='text-sm text-center lg:text-lg'>{data.rank}</div>
-                  //   </td>
-                  //   <td className='p-2 whitespace-nowrap'>
-                  //     <div className='flex items-center'>
-                  //       <div className='flex-shrink-0 '>
-                  //         {data.character && data.character != 'Anonymous' && (
-                  //           <img
-                  //             className='rounded-full'
-                  //             src={`/assets/icon/leaderboard/${
-                  //               data.character_level == 0
-                  //                 ? data.gender == 'male'
-                  //                   ? 'L0/' + characters.find(character => character.name === data.character)?.lead_M
-                  //                   : 'L0/' + characters.find(character => character.name === data.character)?.lead_F
-                  //                 : data.gender == 'male'
-                  //                 ? 'L1/' + characters.find(character => character.name === data.character)?.lead_M
-                  //                 : 'L1/' + characters.find(character => character.name === data.character)?.lead_F
-                  //             }`}
-                  //             width='60'
-                  //             height='60'
-                  //             alt='character'
-                  //           />
-                  //         )}
-                  //         {(!data.character || data.character === 'Anonymous') && (
-                  //           <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
-                  //         )}
-                  //       </div>
-                  //       <div className='text-xs font-bold text-gray-800 lg:text-lg '>{data.name}</div>
-                  //     </div>
-                  //   </td>
-
-                  //   <td className='p-2 whitespace-nowrap'>
-                  //     <div className='text-sm font-medium text-center text-green-500 lg:text-lg'>
-                  //       <Link href={`/reward?level=${data.character_level}`}>{data.character_level}</Link>
-                  //     </div>
-                  //   </td>
-                  //   <td className='p-2 whitespace-nowrap'>
-                  // <div className='text-sm text-center lg:text-lg'>{data.user_points}</div>
-                  //   </td>
-                  // </tr>
                   <div
                     className={`grid w-full grid-cols-3 mb-2  rounded-3xl  ${
                       myRank == data.rank ? 'bg-yellow-300' : 'bg-greyloading-300'
                     }`}
+                    key={index}
                   >
                     <div className='flex items-center justify-start col-start-1 col-end-3 pl-5 lg:pl-10'>
                       <span className='mr-2 text-sm font-bold text-center lg:text-lg text-black-300'>{data.rank}</span>

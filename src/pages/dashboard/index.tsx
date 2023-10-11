@@ -128,7 +128,7 @@ const Dashboard = () => {
     <div className='pt-10'>
       <div
         className={`pt-16  ${
-          selectedTab == 'Reward' || selectedTab == 'Quest'
+          selectedTab == 'Reward' || selectedTab == 'Quest' || selectedTab == 'Friends'
             ? 'bg-newUIbackground'
             : characters.find(character => character.name === auth.user?.character)?.background
         }`}

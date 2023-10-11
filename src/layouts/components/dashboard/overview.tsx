@@ -10,6 +10,7 @@ import { Archetype } from 'src/context/characterType'
 
 import { FacebookShareButton, FacebookIcon } from 'next-share'
 import LoginDialog from '../header/loginDialog'
+import { getBaseTextColor } from 'src/configs/getBackground'
 
 // import SparklingSvg from '../other/sparklingsvg'
 
@@ -47,8 +48,12 @@ const Overview = ({ character, gender, changeTab }: Props) => {
   // }
 
   return (
-    <div className={`bg-white-500`}>
-      <div className={`px-8 xl:px-16 w-full  ${character.background} lg:rounded-b-[150px] rounded-b-[50px]`}>
+    <div className={`${auth.user ? 'bg-white-500' : ''}`}>
+      <div
+        className={`px-8 xl:px-16 w-full  ${
+          auth.user ? character.background : ''
+        } lg:rounded-b-[150px] rounded-b-[50px]`}
+      >
         <div
           className={`${
             auth.user
@@ -61,45 +66,64 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           </div> */}
 
           <div className='flex items-center justify-center w-full lg:px-10 '>
-            <div className='flex flex-col items-center justify-center'>
-              <h1 className={`mb-3 text-xl lg:mb-7 font-bold lg:text-2xl ${checkHeroBrightness(character.name)}`}>
-                Your Primary Genius Profile is the
-              </h1>
+            {!auth.user && (
+              <div className='grid grid-cols-1 pt-20 rever lg:grid-cols-2'>
+                <img
+                  src={`/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  alt='onepage'
+                  className='object-scale-down blur-md lg:order-last'
+                ></img>
+                <div className='flex flex-col items-center justify-center pt-10 '>
+                  <h1 className={`mb-3 text-xl lg:mb-7 lg:text-left text-center font-bold lg:text-2xl text-black-300`}>
+                    Your Primary Genius Profile is the
+                  </h1>
 
-              <h1
-                className={`text-3xl font-bold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-9xl ${checkHeroBrightness(
-                  character.name
-                )}`}
-              >
-                {character.name}
-              </h1>
-              {!auth.user && (
-                <Link href='/login' aria-current='page'>
-                  <button
-                    className={`px-5 lg:px-10 py-2 flex justify-center items-center ${
-                      character.background
-                    }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
-                      character.name
-                    )} lg:text-xl font-semibold flex rounded-full`}
+                  <h1
+                    className={`text-3xl font-extrabold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-8xl text-black-300`}
                   >
-                    Login to view your full report
-                    <svg
-                      aria-hidden='true'
-                      className='w-5 h-5 ml-2 -mr-1'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
-                        clipRule='evenodd'
-                      ></path>
-                    </svg>
-                  </button>
-                </Link>
-              )}
-            </div>
+                    {character.name}
+                  </h1>
+
+                  <div className='flex'>
+                    <Link href='/login' aria-current='page'>
+                      <button
+                        className={`px-5 lg:px-10 py-2 flex justify-center items-center ${character.background}  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 text-black-300 lg:text-xl font-semibold flex rounded-full`}
+                      >
+                        Login to view your full report
+                        <svg
+                          aria-hidden='true'
+                          className='w-5 h-5 ml-2 -mr-1'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            fillRule='evenodd'
+                            d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                            clipRule='evenodd'
+                          ></path>
+                        </svg>
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            )}
+            {auth.user && (
+              <div className='flex flex-col items-center justify-center'>
+                <h1 className={`mb-3 text-xl lg:mb-7 font-bold lg:text-2xl ${checkHeroBrightness(character.name)}`}>
+                  Your Primary Genius Profile is the
+                </h1>
+
+                <h1
+                  className={`text-3xl font-bold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-9xl ${checkHeroBrightness(
+                    character.name
+                  )}`}
+                >
+                  {character.name}
+                </h1>
+              </div>
+            )}
           </div>
 
           {auth.user && (
@@ -159,16 +183,104 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               </h1>
             </div>
           </div>
-          <div className={`px-8 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
-            <div className='grid w-full h-full grid-flow-row grid-cols-1 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-8'>
-              <div className='flex flex-col items-center justify-center w-full row-start-2 sm:col-start-2 sm:col-end-7 lg:items-start lg:px-10 sm:row-start-1'>
-                <span className={`mb-5 text-3xl font-bold ${checkHeroBrightness(character.name)}`}>Strengths:</span>
-                {character.strengths.map((strength, index) => (
-                  <p key={index} className={`mb-5 ${checkHeroBrightness(character.name)} `}>
-                    <span className='font-bold'>{strength.title} </span>
-                    {strength.content}
-                  </p>
-                ))}
+          <div className={`lg:px-20 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
+            <div className='lg:px-20'>
+              <div className='px-5 lg:px-20'>
+                <span className={`mb-5 lg:text-3xl text-xl font-bold text-white-500 `}>Path To Wealth Creation:</span>
+                <p className='pt-2 mb-3 text-sm lg:pt-5 lg:text-lg text-white-500'>
+                  Heroes are natural leaders and risk-takers. Heroes are drawn to businesses that allow them to make a
+                  difference in the world and to take charge.
+                </p>
+
+                <p className='mb-5 text-sm lg:text-lg text-white-500'>
+                  Careers that involve entrepreneurship and business ownership can be lucrative for Heroes.
+                </p>
+                <div className='grid grid-flow-col grid-cols-1 lg:grid-cols-2'>
+                  <img src='/assets/icon/overview/I1.png' alt='ladder' className='object-scale-down '></img>
+
+                  <div>
+                    <p className='mb-5 text-sm lg:text-lg text-white-500'>
+                      Heroes can also consider investment in socially responsible ventures, such as impact investing or
+                      investing in companies focused on making a positive difference in the world.
+                    </p>
+                    <ul className='pl-3 list-disc lg:pl-0'>
+                      {character.strengths.map((strength, index) => (
+                        <li key={index} className={`mb-5 text-sm lg:text-lg ${checkHeroBrightness(character.name)} `}>
+                          {strength.content}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='lg:px-20'>
+            <div className='lg:px-20'>
+              <div className='px-5 py-20 lg:px-14'>
+                <h1 className='mb-10 text-2xl font-bold text-black-300'>Career Path</h1>
+
+                <p className='mb-5'>
+                  Careers in emergency services (such as firefighting or paramedics), military or defense, social work,
+                  nonprofit organizations focused on humanitarian causes, or leadership roles that involve making a
+                  positive impact on society.
+                </p>
+                <div className='flex justify-start w-full '>
+                  <ul className='pl-8 list-disc'>
+                    <li>CEO</li>
+                    <li>Entrepreneur</li>
+                    <li>Firefighter</li>
+                    <li>Paramedic</li>
+                    <li>Police officer</li>
+                    <li>Military personnel</li>
+                    <li>Social worker</li>
+                    <li>Humanitarian aid worker</li>
+                    <li>Non-profit organization manager</li>
+                    <li>Healthcare professional</li>
+                    <li>Emergency medical technician</li>
+                    <li>sad</li>
+                  </ul>
+
+                  {/* <img src='/assets/icon/overview/I3.png' alt='career' className='object-scale-down'></img> */}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={`px-8 xl:px-16 lg:py-12 py-5 w-full`} id='about'>
+            <div className='w-full lg:px-20 '>
+              <div className='flex flex-col justify-center w-full lg:px-20'>
+                {/* <span className={`mb-5 text-[200px] font-extrabold  ${getBaseTextColor(character.name)}`}>
+                  Strengths:
+                </span> */}
+                <img src='/assets/icon/overview/herostrength.png' alt='ladder' className='object-scale-down'></img>
+
+                <div className='grid lg:grid-cols-2  lg:gap-32 lg:px-20 lg:-mt-[500px] lg:pb-[100px]'>
+                  <div className='text-black-300'>
+                    <div className='max-w-sm lg:mb-20'>
+                      <span className='text-xl font-bold lg:text-2xl'>{character.strengths[0].title} </span>
+
+                      <p className={`mb-5 lg:text-md text-sm text-black-300 text-left `}>
+                        {character.strengths[0].content}
+                      </p>
+                    </div>
+                    <div className='max-w-sm'>
+                      <span className='text-xl font-bold lg:text-2xl'>{character.strengths[2].title} </span>
+
+                      <p className={`mb-5 text-black-300 text-left lg:text-md text-sm `}>
+                        {character.strengths[2].content}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className='flex flex-col justify-start max-w-sm lg:mt-20 lg:items-end text-black-300'>
+                    <span className='text-xl font-bold lg:text-2xl'>{character.strengths[1].title} </span>
+
+                    <p className={`mb-5 text-black-300  lg:text-right lg:text-md text-sm`}>
+                      {character.strengths[1].content}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -200,50 +312,39 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               </div>
             </div>
           </div>
-          <hr
-            className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
-          />
-          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5 ${character.background} w-full`} id='about'>
-            <div className='grid lg:px-20 lg:grid-cols-7'>
-              <div className=' sm:col-start-3 sm:col-end-6'>
-                <div className='flex items-center w-full justify-left'>
-                  <div className='lg:basis-3/5'>
-                    <h1
-                      className={`text-2xl font-bold text-center lg:text-left lg:text-4xl ${checkHeroBrightness(
-                        character.name
-                      )}`}
-                    >
-                      Motivations and Inspirations
-                    </h1>
-                  </div>
-                  <div className='hidden basis-2/5 lg:flex'>
-                    <img src={`/assets/characters/67.png`} alt={`Image`} className={`object-scale-down  `} />
-                  </div>
+
+          <div className={`px-8 lg:px-5 w-full lg:py-12 py-5 `} id='about'>
+            <div className='lg:px-20'>
+              <div className='mb-10 lg:px-20'>
+                <div className='flex flex-col items-center justify-center w-full lg:px-20'>
+                  <h1 className={`w-full text-xl font-bold text-center  lg:text-3xl text-black-300`}>
+                    Motivations and Inspirations
+                  </h1>
                 </div>
               </div>
-            </div>
-            <div className='grid lg:px-20 lg:grid-cols-5'>
-              {character.motivation_and_aspiration.map((motivation, index) => (
-                <div key={index} className={`mb-6 lg:mb-0 sm:col-start-${2 + index}`}>
-                  <div
-                    className={`block h-full rounded-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ${character.background} `}
-                  >
-                    <div className='p-6 text-center border-opacity-100 border-neutral-100 dark:border-opacity-10'>
-                      <div
-                        className={`flex items-center justify-center w-8 h-8 ${character.background} border rounded-full mb-4 `}
-                      >
-                        <span className={`text-xs font-semibold ${checkHeroBrightness(character.name)}`}>
-                          {index + 1}
-                        </span>
-                      </div>
+              <div className='grid lg:px-20 lg:grid-cols-5'>
+                {character.motivation_and_aspiration.map((motivation, index) => (
+                  <div key={index} className={`mb-6 lg:mb-0 sm:col-start-${2 + index}`}>
+                    <div
+                      className={`block h-full rounded-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ${character.background} `}
+                    >
+                      <div className='p-6 text-center border-opacity-100 border-neutral-100 dark:border-opacity-10'>
+                        <div
+                          className={`flex items-center justify-center w-8 h-8 ${character.background} border rounded-full mb-4 `}
+                        >
+                          <span className={`text-xs font-semibold ${checkHeroBrightness(character.name)}`}>
+                            {index + 1}
+                          </span>
+                        </div>
 
-                      <p className={`text-left ${checkHeroBrightness(character.name)}`}>
-                        <span className='font-bold'>{motivation.title}</span> {motivation.content}
-                      </p>
+                        <p className={`text-left ${checkHeroBrightness(character.name)}`}>
+                          <span className='font-bold'>{motivation.title}</span> {motivation.content}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
           <hr
@@ -301,9 +402,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                 <div className='flex justify-end mt-10'>
                   <button
                     onClick={toQuest}
-                    className={`px-5 lg:px-10 py-2 ${
-                      character.background
-                    }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
+                    className={`px-5 lg:px-10 py-2 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
                       character.name
                     )} lg:text-xl font-semibold flex rounded-full`}
                   >
@@ -372,6 +471,32 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                       </svg>
                     </button>
                   </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='px-20 pb-20'>
+            <div className='px-20'>
+              <div className='flex flex-col items-center justify-center'>
+                <img
+                  src={`/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  alt='onepage'
+                  className='object-scale-down '
+                ></img>
+                <div className='flex pt-5'>
+                  <button
+                    className={`px-5 lg:px-10 py-2  border border-gray-400 bg-newUIbackground  transition hover:-translate-y-1 hover:scale-110 text-black-300 lg:text-xl font-semibold flex rounded-full`}
+                  >
+                    Download
+                  </button>
+                  <button
+                    className={`px-5 ml-2 lg:px-10 py-2 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor  transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
+                      character.name
+                    )} lg:text-xl font-semibold flex rounded-full`}
+                  >
+                    Share
+                  </button>
                 </div>
               </div>
             </div>

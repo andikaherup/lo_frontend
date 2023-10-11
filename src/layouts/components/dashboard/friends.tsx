@@ -160,16 +160,18 @@ const Friends = () => {
     <div className='h-full lg:h-screen lg:px-20'>
       <div>
         <div className='flex flex-col items-center px-10 mt-10 lg:items-start'>
-          <h1 className={`text-center lg:text-5xl text-3xl font-bold lg:mb-4 lg:text-md text-white-300`}>Friends</h1>
+          <h1 className={`text-center lg:text-5xl text-3xl font-bold lg:mb-4 lg:text-md text-black-300`}>
+            Invite Friends
+          </h1>
           {auth.user?.friend_sign_ups == 0 && (
-            <h1 className='mb-4 font-bold text-center lg:text-lg text-md text-white-300'>
+            <h1 className='mb-4 font-bold text-center lg:text-lg text-md text-black-300'>
               You don’t have any friends here yet. Why not invite a few?
             </h1>
           )}
         </div>
         {/* {auth.user && (
           <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
-            <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
+            <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-500'>
               <div className='px-3 py-2 bg-referralYellow'>
                 <span className='text-lg font-bold text-white-300'>
                   Invite 3 Friends to take the LO Personality Test
@@ -313,7 +315,7 @@ const Friends = () => {
               </div>
             </div>
             <div className='sm:col-start-8 sm:col-end-12'>
-              <div className='p-8 rounded-md bg-white-300'>
+              <div className='p-8 rounded-md bg-white-500'>
                 <div>
                   <h1 className='text-4xl font-bold text-black-300'>{auth.user?.friend_sign_ups}</h1>
                 </div>
@@ -405,9 +407,9 @@ const Friends = () => {
         )} */}
 
         <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
-          <div className='px-10 py-10 rounded-md sm:col-start-1 sm:col-end-8 bg-white-300'>
+          <div className='px-10 py-10 rounded-2xl sm:col-start-1 sm:col-end-8 bg-white-500'>
             <div className='pb-5'>
-              <div className='px-2 py-2 bg-referralYellow'>
+              <div className='px-2 py-2 bg-referralYellow rounded-xl'>
                 <span className='text-lg font-bold text-black-300'>Gain 200 points</span>
               </div>
               <div className='pt-1'>
@@ -423,7 +425,7 @@ const Friends = () => {
               </div>
             </div>
             <div>
-              <div className='px-2 py-2 bg-referralYellow'>
+              <div className='px-2 py-2 bg-referralYellow rounded-xl'>
                 <span className='text-lg font-bold text-black-300'>Gain 300 points</span>
               </div>
               <div className='pt-1'>
@@ -532,7 +534,7 @@ const Friends = () => {
           </div>
 
           <div className='sm:col-start-8 sm:col-end-12'>
-            <div className='p-8 rounded-md bg-white-300'>
+            <div className='p-8 rounded-2xl bg-white-500'>
               <div>
                 <h1 className='text-4xl font-bold text-black-300'>{auth.user?.friend_sign_ups}</h1>
               </div>
