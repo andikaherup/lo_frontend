@@ -10,7 +10,6 @@ import { Archetype } from 'src/context/characterType'
 
 import { FacebookShareButton, FacebookIcon } from 'next-share'
 import LoginDialog from '../header/loginDialog'
-import { getBaseTextColor } from 'src/configs/getBackground'
 
 // import SparklingSvg from '../other/sparklingsvg'
 
@@ -34,7 +33,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
   }
 
   const downloadImage = () => {
-    const imageUrl = `/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
+    const imageUrl = `/assets/icon/overview/onepage-d/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
     const link = document.createElement('a')
     link.href = imageUrl
     link.download = `${character.name}-report`
@@ -77,13 +76,18 @@ const Overview = ({ character, gender, changeTab }: Props) => {
             {!auth.user && (
               <div className='grid grid-cols-1 pt-20 rever lg:grid-cols-2'>
                 <img
-                  src={`/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  src={`/assets/icon/overview/onepage-d/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
                   alt='onepage'
-                  className='object-scale-down blur-md lg:order-last'
+                  className='hidden object-scale-down blur-md lg:order-last lg:flex'
+                ></img>
+                <img
+                  src={`/assets/icon/overview/onepage-m/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  alt='onepage'
+                  className='flex object-scale-down blur-md lg:order-last lg:hidden'
                 ></img>
                 <div className='flex flex-col items-center justify-center pt-10 '>
                   <h1 className={`mb-3 text-xl lg:mb-7 lg:text-left text-center font-bold lg:text-2xl text-black-300`}>
-                    Your Primary Genius Profile is the
+                    Your Primary Genius Profile is
                   </h1>
 
                   <h1
@@ -120,7 +124,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
             {auth.user && (
               <div className='flex flex-col items-center justify-center'>
                 <h1 className={`mb-3 text-xl lg:mb-7 font-bold lg:text-2xl ${checkHeroBrightness(character.name)}`}>
-                  Your Primary Genius Profile is the
+                  Your Primary Genius Profile is
                 </h1>
 
                 <h1
@@ -484,13 +488,18 @@ const Overview = ({ character, gender, changeTab }: Props) => {
             </div>
           </div>
 
-          <div className='px-20 pb-20'>
-            <div className='px-20'>
+          <div className='pb-20 lg:px-20'>
+            <div className='px-10 lg:px-20'>
               <div className='flex flex-col items-center justify-center'>
                 <img
-                  src={`/assets/icon/overview/onepage/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  src={`/assets/icon/overview/onepage-d/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
                   alt='onepage'
-                  className='object-scale-down '
+                  className='hidden object-scale-down lg:flex'
+                ></img>
+                <img
+                  src={`/assets/icon/overview/onepage-m/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
+                  alt='onepage'
+                  className='flex object-scale-down lg:hidden '
                 ></img>
                 <div className='flex pt-5'>
                   <button

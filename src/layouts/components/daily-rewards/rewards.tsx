@@ -108,10 +108,10 @@ const Rewards = () => {
                 className='w-4/6 pt-10 md:w-3/6 lg:w-2/5'
               />
 
-              <div className='flex items-center justify-center'>
+              {/* <div className='flex items-center justify-center'>
                 <h1 className='font-bold lg:text-xl text-md text-black-300'>Points you earn on week : </h1>
                 <h1 className='ml-4 text-xl font-bold lg:text-5xl text-purpleText'> 20 Points</h1>
-              </div>
+              </div> */}
             </div>
 
             <div className='grid grid-cols-3 gap-4 px-5 lg:px-20 lg:grid-cols-7 md:grid-cols-5 '>
@@ -125,9 +125,16 @@ const Rewards = () => {
                         today === items.date ? 'bg-dailyRewardDayBG' : 'bg-gray-500'
                       } `}
                     >
-                      MON
+                      Day {index + 1}
                     </div>
-                    <div className='flex flex-col items-center justify-center border border-gray-500 rounded-b-xl'>
+                    <div className='relative flex flex-col items-center justify-center border border-gray-500 rounded-b-xl'>
+                      {items.status != 'missed' && (
+                        <div className='absolute top-0 left-0 flex items-center justify-center'>
+                          <img alt='img' src='/assets/icon/medal.png' className='w-6'></img>
+                          <span className='text-sm font-bold lg:text-md text-questPointText'>+{items.points}</span>
+                        </div>
+                      )}
+
                       <button onClick={() => claimDaily(items)}>
                         <img
                           alt='img'
@@ -137,7 +144,9 @@ const Rewards = () => {
                               : items.status == 'missed'
                               ? `/assets/icon/daily-rewards/missed/M${items.day}.png`
                               : items.status == 'pending'
-                              ? '/assets/icon/dashboard/LOCKED-Icon.png'
+                              ? items.date === today
+                                ? `/assets/daily-rewards/${items.day}.png`
+                                : '/assets/icon/dashboard/LOCKED-Icon.png'
                               : `/assets/daily-rewards/${items.day}.png`
                           }
                           className={`lg:max-w-[150px] max-w-[100px] lg:max-h-[250px] max-h-[150px] object-scale-down ${

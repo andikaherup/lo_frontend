@@ -56,6 +56,14 @@ interface Guess {
   character: string
 }
 
+interface Myref {
+  character_prediction: string
+  email_to_invite: string
+  friend_name: string
+  is_completed: boolean
+  referral_points: number
+}
+
 const Friends = () => {
   const auth = useAuth()
 
@@ -63,8 +71,26 @@ const Friends = () => {
     if (auth.user?.referral_code) {
       setPersonalLink('https://thel0.com/invitation/' + auth.user.referral_code)
     }
+
+    const initAuth = async (): Promise<void> => {
+      await axios
+        .get(contentConfig.submitEmail, {
+          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+        })
+        .then(async res => {
+          console.log(res.data)
+          setMyRefData(res.data.data)
+        })
+        .catch(() => {
+          // toast.error('Something went wrong, contact Admin33')
+        })
+    }
+    initAuth()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth])
 
+  const [myRefData, setMyRefData] = useState<Myref[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [personalLink, setPersonalLink] = useState('https://thel0.com/invitation/')
@@ -157,7 +183,7 @@ const Friends = () => {
   }
 
   return (
-    <div className='h-full lg:h-screen lg:px-20'>
+    <div className='h-full pb-20 lg:h-full lg:px-20'>
       <div>
         <div className='flex flex-col items-center px-10 mt-10 lg:items-start'>
           <h1 className={`text-center lg:text-5xl text-3xl font-bold lg:mb-4 lg:text-md text-black-300`}>
@@ -407,14 +433,30 @@ const Friends = () => {
         )} */}
 
         <div className='grid grid-cols-1 gap-4 px-3 pb-20 mt-5 lg:pb-0 sm:grid-cols-12'>
-          <div className='px-10 py-10 rounded-2xl sm:col-start-1 sm:col-end-8 bg-white-500'>
-            <div className='pb-5'>
-              <div className='px-2 py-2 bg-referralYellow rounded-xl'>
-                <span className='text-lg font-bold text-black-300'>Gain 200 points</span>
+          <div className='h-full lg:col-start-1 lg:col-end-3'>
+            <div className='flex flex-col items-center justify-center h-full p-8 rounded-2xl bg-white-500'>
+              <div>
+                <h1 className='font-bold text-9xl text-black-300'>{auth.user?.friend_sign_ups}</h1>
               </div>
+              <div>
+                <h1 className='text-xl font-semibold text-black-300'>Friends Invited</h1>
+              </div>
+
+              {/* <div className='w-full mt-5'>
+                <button
+                  onClick={openModal}
+                  className='w-full px-3 py-4 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
+                >
+                  Invite a Friend
+                </button>
+              </div> */}
+            </div>
+          </div>
+          <div className='px-10 py-10 rounded-2xl lg:col-start-3 lg:col-end-13 bg-white-500'>
+            <div className='pb-5'>
               <div className='pt-1'>
                 <span className='font-bold text-md lg:text-lg text-black-300'>
-                  Send an Invitation & Guess Your Friend's Character Correctly
+                  Send an Invitation & Guess Your Friend's Character Correctly to earn more points.
                 </span>
               </div>
               <div>
@@ -422,91 +464,86 @@ const Friends = () => {
                   If the character of your friend matches with the character guessed, you shall earn additional 200
                   points.
                 </span>
-              </div>
-            </div>
-            <div>
-              <div className='px-2 py-2 bg-referralYellow rounded-xl'>
-                <span className='text-lg font-bold text-black-300'>Gain 300 points</span>
-              </div>
-              <div className='pt-1'>
-                <span className='font-bold text-md lg:text-lg text-black-300'>Match with Your Friend's Character.</span>
-              </div>
-              <div>
+                <br />
                 <span className='text-xs lg:text-sm text-black-300'>
                   If their character matches with your character, you shall earn 300 points.
                 </span>
               </div>
             </div>
 
-            <div className='pt-10'>
+            <div className=''>
               <form onSubmit={handleGuessSubmit(onFormSubmit)}>
-                <div className='grid gap-4 lg:grid-cols-2'>
-                  <FormControl fullWidth>
-                    <div className='grid '>
-                      <div className='flex flex-col items-center justify-center lg:items-start '>
-                        <label htmlFor='character' className='block mb-1 font-bold text-md dark:text-black-300'>
-                          Guess Their Character
-                        </label>
-                        {guessError.character && <span className='text-sm text-red-900 '> This field is required</span>}
-                      </div>
+                <div className='grid grid-cols-1 lg:grid-cols-2'>
+                  <div className='grid lg:grid-cols-1'>
+                    <FormControl fullWidth>
+                      <div className='grid '>
+                        <div className='flex flex-col items-center justify-center lg:items-start '>
+                          <label htmlFor='character' className='block mb-1 font-bold text-md dark:text-black-300'>
+                            Guess Their Character
+                          </label>
+                          {guessError.character && (
+                            <span className='text-sm text-red-900 '> This field is required</span>
+                          )}
+                        </div>
 
-                      <Controller
-                        name='character'
-                        control={guessControl}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange } }) => (
-                          <select
-                            id='occupation'
-                            value={value}
-                            onChange={e => {
-                              onChange(e)
-                            }}
-                            className='bg-referralYellow border border-gray-300 text-gray-900 font-bold text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-referralYellow dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                          >
-                            <option value=''>Select a character</option>
-                            {similarArray.map(char => (
-                              <option key={char} value={char}>
-                                {char}
-                              </option>
-                            ))}
-                          </select>
-                        )}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormControl fullWidth>
-                    <div className='grid '>
-                      <div className='flex flex-col items-center justify-center lg:items-start '>
-                        <label htmlFor='email' className='block mb-1 font-bold text-md dark:text-black-300'>
-                          Enter Your Friend's Email
-                        </label>
-                        {guessError.email && <span className='text-sm text-red-900 '> This field is required</span>}
+                        <Controller
+                          name='character'
+                          control={guessControl}
+                          rules={{ required: true }}
+                          render={({ field: { value, onChange } }) => (
+                            <select
+                              id='occupation'
+                              value={value}
+                              onChange={e => {
+                                onChange(e)
+                              }}
+                              className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                            >
+                              <option value=''>Select a character</option>
+                              {similarArray.map(char => (
+                                <option key={char} value={char}>
+                                  {char}
+                                </option>
+                              ))}
+                            </select>
+                          )}
+                        />
                       </div>
+                    </FormControl>
+                    <FormControl fullWidth>
+                      <div className='grid '>
+                        <div className='flex flex-col items-center justify-center lg:items-start '>
+                          <label htmlFor='email' className='block mb-1 font-bold text-md dark:text-black-300'>
+                            Enter Your Friend's Email
+                          </label>
+                          {guessError.email && <span className='text-sm text-red-900 '> This field is required</span>}
+                        </div>
 
-                      <Controller
-                        name='email'
-                        control={guessControl}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange } }) => (
-                          <input
-                            id='email'
-                            name='email'
-                            type='email'
-                            value={value}
-                            onChange={onChange}
-                            autoComplete='email'
-                            className='bg-referralYellow font-bold border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-referralYellow dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-                          />
-                        )}
-                      />
-                    </div>
-                  </FormControl>
+                        <Controller
+                          name='email'
+                          control={guessControl}
+                          rules={{ required: true }}
+                          render={({ field: { value, onChange } }) => (
+                            <input
+                              id='email'
+                              name='email'
+                              type='email'
+                              value={value}
+                              onChange={onChange}
+                              autoComplete='email'
+                              className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                            />
+                          )}
+                        />
+                      </div>
+                    </FormControl>
+                  </div>
                 </div>
-                <div className='flex justify-center w-full pt-5'>
+                <div className='flex justify-center w-full py-3 lg:justify-start'>
                   <button
                     type='submit'
                     disabled={loading}
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='px-10 py-3 lg:px-5 rounded-3xl bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-300 hover:opacity-80 hover:cursor-pointer'
                   >
                     {!loading && ' Submit'}
                     {loading && (
@@ -531,100 +568,111 @@ const Friends = () => {
                 </div>
               </form>
             </div>
-          </div>
+            <div>
+              <span className='text-xs lg:text-sm text-black-300'>
+                Kindly note that sharing the referral code alone, without a matching character, will not earn you
+                additional points.
+              </span>
 
-          <div className='sm:col-start-8 sm:col-end-12'>
-            <div className='p-8 rounded-2xl bg-white-500'>
-              <div>
-                <h1 className='text-4xl font-bold text-black-300'>{auth.user?.friend_sign_ups}</h1>
-              </div>
-              <div>
-                <h1 className='text-xl font-semibold text-black-300'>Friends Invited</h1>
-              </div>
-
-              {/* <div className='w-full mt-5'>
-                <button
-                  onClick={openModal}
-                  className='w-full px-3 py-4 text-lg font-semibold bg-blue-500 rounded-lg text-white-300'
-                >
-                  Invite a Friend
-                </button>
-              </div> */}
-              <div>
-                <span className='text-xs lg:text-sm text-black-300'>
-                  Kindly note that sharing the referral code alone, without a matching character, will not earn you
-                  additional points.
-                </span>
-                <div className='flex justify-center mt-5'>
-                  <span className='mb-2 text-xs font-medium text-referralSemiBlack'> copy your personal link</span>
-                </div>
-                <div className='flex'>
-                  <div className='relative w-full'>
-                    <input
-                      value={personalLink}
-                      readOnly
-                      className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
-                    />
-                    <button
-                      onClick={handleCopyUrl}
-                      type='submit'
-                      className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
-                    >
-                      <svg
-                        className='w-6 h-6 text-white-300 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 18 20'
+              <div className='grid grid-cols-1 lg:grid-cols-2'>
+                <div>
+                  <div className='flex justify-center mt-5'>
+                    <span className='mb-2 text-xs font-medium text-referralSemiBlack'> copy your personal link</span>
+                  </div>
+                  <div className='flex'>
+                    <div className='relative w-full'>
+                      <input
+                        value={personalLink}
+                        readOnly
+                        className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                      />
+                      <button
+                        onClick={handleCopyUrl}
+                        type='submit'
+                        className='absolute px-2 text-sm font-medium right-2 top-2 text-black-300 rounded-r-3xl '
                       >
-                        <path
-                          stroke='currentColor'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
-                        />
-                      </svg>
-                    </button>
+                        <svg
+                          className='w-6 h-6 text-black-300 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 18 20'
+                        >
+                          <path
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div>
-                <div className='flex justify-center mt-5'>
-                  <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your code</span>
-                </div>
-                <div className='flex'>
-                  <div className='relative w-full'>
-                    <input
-                      value={auth.user?.referral_code}
-                      readOnly
-                      className='block p-2.5 w-full z-20 text-sm border-2  ring-blue-500 border-blue-500'
-                    />
-                    <button
-                      onClick={handleCopyCode}
-                      type='submit'
-                      className='absolute top-0 right-0 p-2.5 h-full text-sm font-medium text-white bg-blue-500  border border-blue-500 hover:bg-blue-300 '
-                    >
-                      <svg
-                        className='w-6 h-6 text-white-300 dark:text-white'
-                        aria-hidden='true'
-                        xmlns='http://www.w3.org/2000/svg'
-                        fill='none'
-                        viewBox='0 0 18 20'
+                <div>
+                  <div className='flex justify-center mt-5'>
+                    <span className='mb-2 text-xs font-medium text-referralSemiBlack'>Or copy your code</span>
+                  </div>
+                  <div className='flex'>
+                    <div className='relative w-full'>
+                      <input
+                        value={auth.user?.referral_code}
+                        readOnly
+                        className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                      />
+                      <button
+                        onClick={handleCopyCode}
+                        type='submit'
+                        className='absolute px-2 text-sm font-medium right-2 top-2 text-black-300 rounded-r-3xl '
                       >
-                        <path
-                          stroke='currentColor'
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          strokeWidth='2'
-                          d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
-                        />
-                      </svg>
-                    </button>
+                        <svg
+                          className='w-6 h-6 text-black-300 dark:text-white'
+                          aria-hidden='true'
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 18 20'
+                        >
+                          <path
+                            stroke='currentColor'
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            strokeWidth='2'
+                            d='m7.708 2.292.706-.706A2 2 0 0 1 9.828 1h6.239A.97.97 0 0 1 17 2v12a.97.97 0 0 1-.933 1H15M6 5v4a1 1 0 0 1-1 1H1m11-4v12a.97.97 0 0 1-.933 1H1.933A.97.97 0 0 1 1 18V9.828a2 2 0 0 1 .586-1.414l2.828-2.828A2 2 0 0 1 5.828 5h5.239A.97.97 0 0 1 12 6Z'
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className='px-10 pb-20 lg:col-start-3 lg:col-end-13 bg-white-500'>
+            <div className='py-10'>
+              <h1 className='text-xl font-bold text-black-300'>Invited Friends</h1>
+            </div>
+            <table className='w-full overflow-auto overflow-x-auto table-auto'>
+              <thead>
+                <tr>
+                  <th className='text-left'>No</th>
+                  <th className='text-left'>Email Address</th>
+                  <th className='text-left'>Prediction</th>
+                  <th className='text-left'>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {myRefData.map((ref: Myref, index: number) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{ref.email_to_invite}</td>
+                    <td>{ref.character_prediction}</td>
+                    <td>{ref.is_completed ? 'Predicted' : 'False Predict'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

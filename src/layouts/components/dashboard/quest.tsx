@@ -111,7 +111,7 @@ const Quest = () => {
                         <Link href={menu.link}>
                           <button
                             className={` lg:px-16 lg:py-10 px-5 py-5 flex justify-center items-center font-bold   lg:text-2xl text-md rounded-t-lg ${
-                              selectedTab == menu.title
+                              selectedTab != menu.title
                                 ? getBaseTextColor(auth.user?.character) +
                                   ' active text-white-300 bg-purpleText bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor ' +
                                   getBaseBorderColor(auth.user?.character)
@@ -122,14 +122,14 @@ const Quest = () => {
                           >
                             {menu.title == 'journey' && (
                               <img
-                                src={selectedTab === menu.title ? menu.imageActive : menu.imageNotActive}
+                                src={selectedTab != menu.title ? menu.imageActive : menu.imageNotActive}
                                 className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
                                 alt='icon'
                               />
                             )}
                             {menu.title == 'dailyreward' && (
                               <img
-                                src={selectedTab === menu.title ? menu.imageActive : menu.imageNotActive}
+                                src={selectedTab != menu.title ? menu.imageActive : menu.imageNotActive}
                                 className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
                                 alt='icon'
                               />
