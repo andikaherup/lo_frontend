@@ -39,6 +39,7 @@ const Header: React.FC = () => {
   const [activeLink, setActiveLink] = useState<string | null>(null)
   const [scrollActive, setScrollActive] = useState(false)
   const [sideMenu, setSideMenu] = useState(false)
+  const [transparent, setTransparent] = useState(false)
 
   const [isMobileMenuOpen] = useState(false)
   const router = useRouter()
@@ -75,30 +76,45 @@ const Header: React.FC = () => {
   useEffect(() => {
     if (router.route == '/personality-types') {
       setActiveLink('Personality')
+      setTransparent(true)
     }
     if (router.route == '/') {
       setActiveLink(null)
+      setTransparent(true)
     }
     if (router.route == '/personality-test') {
       setActiveLink('about')
+      setTransparent(false)
     }
     if (router.route == '/quest') {
       setActiveLink('Quest')
+      setTransparent(false)
     }
     if (router.route == '/dashboard') {
       setActiveLink('Dashboard')
+      setTransparent(false)
     }
     if (router.route == '/faq') {
       setActiveLink('Faq')
+      setTransparent(false)
     }
     if (router.route == '/leaderboard') {
       setActiveLink('Leaderboard')
+      setTransparent(true)
     }
     if (router.route == '/account-security') {
       setActiveLink('security')
+      setTransparent(false)
     }
     if (router.route == '/reward') {
       setActiveLink('Reward')
+      setTransparent(false)
+    }
+    if (router.route == '/register') {
+      setTransparent(true)
+    }
+    if (router.route == '/login') {
+      setTransparent(true)
     }
   }, [router])
 
@@ -120,7 +136,10 @@ const Header: React.FC = () => {
   return (
     <>
       <header
-        className={'fixed top-0 w-full  z-30 transition-all bg-white-300 ' + (scrollActive ? ' shadow-md pt-0' : '')}
+        className={
+          `fixed top-0 w-full  z-30 transition-all ${transparent ? 'bg-transparent' : 'bg-white-300'} ` +
+          (scrollActive ? ' shadow-md pt-0 bg-white-300' : '')
+        }
       >
         <Link
           href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=Level0website&utm_campaign=header'

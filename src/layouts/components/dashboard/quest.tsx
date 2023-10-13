@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 import React from 'react'
 import StepperQuest from 'src/layouts/components/quest/stepper'
-import { getBaseColor, getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
+import { getBaseBorderColor, getBaseTextColor } from 'src/configs/getBackground'
 import Rewards from 'src/layouts/components/daily-rewards/rewards'
 import Link from 'next/link'
 
@@ -74,51 +74,66 @@ const Quest = () => {
     {
       title: 'journey',
       content: 'Your Journey',
-      link: '/dashboard?tab=questjourney'
+      link: '/dashboard?tab=questjourney',
+      imageActive: 'assets/icon/dashboard/Journey-Icon-White.png',
+      imageNotActive: 'assets/icon/dashboard/Journey-Icon.png'
     },
-    {
-      title: 'daily',
-      content: 'Daily Quest',
-      link: '/dashboard?tab=dailyquest'
-    },
+
+    // {
+    //   title: 'daily',
+    //   content: 'Daily Quest',
+    //   link: '/dashboard?tab=dailyquest'
+    // },
     {
       title: 'dailyreward',
       content: 'Daily Reward',
-      link: '/dashboard?tab=dailyreward'
+      link: '/dashboard?tab=dailyreward',
+      imageActive: 'assets/icon/dashboard/Daily-Reward-Icon-W.png',
+      imageNotActive: 'assets/icon/dashboard/Daily-Reward-Icon.png'
     }
   ]
 
   return (
     <section className='relative  h-full min-h-screen z-5 overflow-hidden pb-12 px-3 lg:pt-10 pt-5  lg:pb-[90px]'>
-      <div className='container px-2 pb-5 mx-auto rounded-xl bg-white-300 lg:px-10'>
+      <div className='container pb-5 mx-auto lg:px-10'>
         <div className='w-full'>
-          <div className='px-2 pt-5 lg:pt-20'>
+          {/* <div className='px-2 '>
             <h1 className='mb-3 text-2xl font-bold lg:text-5xl'>Quests</h1>
-          </div>
+          </div> */}
 
           {auth.user && (
-            <div
-              className={`justify-start px-2  w-full lg:flex lg:pt-10 border-b-2 border-${getBaseColor(
-                auth.user?.character
-              )}`}
-            >
-              <div className='text-sm font-medium text-center border-b border-gray-200 dark:text-gray-400 dark:border-gray-700'>
-                <ul className='flex flex-wrap -mb-px'>
+            <div className={`justify-start  w-full lg:flex lg:pt-10 `}>
+              <div className='text-sm font-medium text-center'>
+                <ul className='flex lg:flex-wrap '>
                   {menu.map((menu, index) => (
-                    <li key={index} className='mr-4'>
+                    <li key={index} className='mr-2 lg:mr-10'>
                       {auth.user && (
                         <Link href={menu.link}>
                           <button
-                            className={`inline-block px-1 py-2  rounded-t-lg ${
-                              selectedTab == menu.title
+                            className={` lg:px-16 lg:py-10 px-5 py-5 flex justify-center items-center font-bold   lg:text-2xl text-md rounded-t-lg ${
+                              selectedTab != menu.title
                                 ? getBaseTextColor(auth.user?.character) +
-                                  ' font-bold active border-b-4 text-md ' +
+                                  ' active text-white-300 bg-purpleText bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor ' +
                                   getBaseBorderColor(auth.user?.character)
-                                : ' text-black-300'
+                                : ' text-purpleText bg-white-500'
                             }`}
                             onClick={() => setSelectedTab(menu.title)}
                             aria-current={selectedTab === menu.title ? 'page' : undefined}
                           >
+                            {menu.title == 'journey' && (
+                              <img
+                                src={selectedTab != menu.title ? menu.imageActive : menu.imageNotActive}
+                                className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
+                                alt='icon'
+                              />
+                            )}
+                            {menu.title == 'dailyreward' && (
+                              <img
+                                src={selectedTab != menu.title ? menu.imageActive : menu.imageNotActive}
+                                className='w-6 h-6 mr-2 lg:w-12 lg:h-12'
+                                alt='icon'
+                              />
+                            )}
                             {menu.content}
                           </button>
                         </Link>
@@ -130,7 +145,7 @@ const Quest = () => {
             </div>
           )}
 
-          <div className='w-full'>{renderTabContent()}</div>
+          <div className='w-full bg-white-500'>{renderTabContent()}</div>
         </div>
       </div>
     </section>

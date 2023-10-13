@@ -38,9 +38,25 @@ export interface Archetype {
   lvl1_image_F: string
   lvl0_image_F: string
   lvl1_image_M: string
+  path_to_wealth: pathToWealth
+  career: Career
   lvl0_image_M: string
+  lead_F: string
+  lead_M: string
+
 }
 
+
+interface pathToWealth {
+  first_explanation: string
+  second_explanation: string
+  third_explanation: string
+  list: string[]
+}
+interface Career {
+  career_text: string
+  list_of_career: string[]
+}
 
 export interface ResponseData {
   calculated_result: string

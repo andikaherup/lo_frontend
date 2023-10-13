@@ -100,14 +100,14 @@ const LoginPage = () => {
   })
 
   return (
-    <div className='flex justify-center w-full h-full pt-10 w-max-lg lg:px-20 content-right bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
-      <div className='flex w-full max-w-8xl '>
+    <div className='flex justify-center w-full h-full pt-10 w-max-lg content-right'>
+      <div className='flex w-full '>
         {!hidden ? (
-          <div className='flex items-center justify-center w-full'>
-            <img src='/assets/characters/image.webp' alt='Characters' className=' w-[80%] max-w-[500px]' />
+          <div className='z-20 flex items-center justify-center w-full'>
+            <img src='/assets/icon/sign/Signup-I1.png' alt='Characters' className='lg:-mr-[150px]' />
           </div>
         ) : null}
-        <div className='justify-start w-full'>
+        <div className='justify-start w-full bg-white-500 rounded-l-[50px]'>
           <Box
             sx={{
               p: 7,
@@ -116,7 +116,6 @@ const LoginPage = () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}
-            className='bg'
           >
             <div>
               <div className='relative inset-0 w-full '>
@@ -174,9 +173,9 @@ const LoginPage = () => {
                           <div>
                             <FormControl fullWidth>
                               <div className='flex justify-between'>
-                                <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
+                                {/* <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
                                   Email address
-                                </label>
+                                </label> */}
                                 {accountErrors.email && (
                                   <span className='text-sm text-red-900'> {accountErrors.email.message}</span>
                                 )}
@@ -195,19 +194,19 @@ const LoginPage = () => {
                                       onChange={onChange}
                                       autoComplete='email'
                                       placeholder='Your Email'
-                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                      className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                                     />
                                   )}
                                 />
                               </div>
                             </FormControl>
                           </div>
-                          <div className='mt-4 space-y-1'>
+                          <div className='space-y-1 '>
                             <FormControl fullWidth>
                               <div className='flex justify-between'>
-                                <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
+                                {/* <label className='block mb-2 text-sm font-medium text-left text-textcolorblack-300'>
                                   Password
-                                </label>
+                                </label> */}
                                 {accountErrors.password && (
                                   <span className='text-sm text-red-900'> {accountErrors.password.message}</span>
                                 )}
@@ -226,7 +225,7 @@ const LoginPage = () => {
                                       type='password'
                                       autoComplete='current-password'
                                       placeholder='Your Password'
-                                      className='block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg text-neutral-600 bg-gray-50 focus:outline-none focus:border-transparent ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300'
+                                      className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                                     />
                                   )}
                                 />

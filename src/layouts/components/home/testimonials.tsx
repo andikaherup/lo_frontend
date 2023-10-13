@@ -4,21 +4,24 @@ import { EmblaOptionsType } from 'embla-carousel-react'
 const Testimonials = () => {
   const data = [
     {
-      name: 'Jia Qin - The Oracle',
+      name: 'Jia Qin ',
+      character: 'The Oracle',
       title: 'Content Lead',
       quote:
         'It was like opening a treasure chest of self-discovery and unleashing my true potential. This test made personal growth fun and exciting. Highly recommended for anyone looking to learn more about themselves and grow personally!',
       image: '/assets/testi/jia.png'
     },
     {
-      name: 'Sean Seah - The Magician',
+      name: 'Sean Seah',
+      character: 'The Magician',
       title: 'Best Selling Author, International Speaker',
       quote:
         'I used to think I am not going to do well in life as I did badly in school. Then I realised that each of us are gifted in different areas in life. The L0 test is one of the most advanced and comprehensive tests that helped me understand myself better and taught me how to excel in different areas of my life by being fully me!',
       image: '/assets/testi/sean.jpg'
     },
     {
-      name: 'Jacintha - The Synergist',
+      name: 'Jacintha',
+      character: 'The Synergist',
       title: ' Entrepreneur',
       quote:
         'Had so much fun doing the L0 personality test! Pretty amazed at how accurate the description of a synergist matches how I have been interacting with people around me over the years. More importantly, the area of growth helped me to understand more about myself and what I need to improve on. What I love most about this test is that it provides me with bite size information on next steps recommendation which I can already start working on to excel in life and become a better version of myself!',
@@ -26,14 +29,16 @@ const Testimonials = () => {
     },
 
     {
-      name: 'Chloe - The Magician',
+      name: 'Chloe',
+      character: 'The Magician',
       title: ' Arigato Investor, President of Buffett Online School',
       quote:
         'The L0 personality test helps me understand more about myself, my talent, strength and most importantly, my area of growth, so I can improve more as a better investor, creator and individual!',
       image: '/assets/testi/cloe1.png'
     },
     {
-      name: 'Sally – The Oracle',
+      name: 'Sally',
+      character: 'The Oracle',
       title: ' Entrepreneur',
       quote:
         "The discovery of my Oracle archetype through the L0 personality test has been truly empowering, as I never saw myself that way before. Embracing my innate wisdom and intuition has boosted my confidence in decision-making. Understanding both my strengths and weaknesses, I am able to offer guidance more readily and nurture stronger relationships as a leader. To grow further, I'll practise mindfulness to inspire positive change, fostering authenticity and empathy. The in-depth analysis provided by the personality test has given me great insights on the areas for improvement. I'm excited for the ongoing journey of self-improvement and levelling up everyday.",
@@ -162,11 +167,12 @@ const Testimonials = () => {
         </div>
       </section> */}
 
-      <section className='px-5 mb-32 text-center lg:px-20'>
-        <h2 className='mb-12 text-3xl font-bold text-white-300'>Testimonials</h2>
+      <section className='px-5 mb-20 text-center lg:px-20'>
+        <h2 className='mb-5 text-3xl font-bold text-black-300'>See what others have to say</h2>
         <section className='sandbox__carousel'>
           <EmblaCarousel slides={data} options={OPTIONS}></EmblaCarousel>
         </section>
+
         {/* <Carousel loop>
           {data.map((datas, index) => {
             return (

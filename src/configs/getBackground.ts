@@ -28,6 +28,62 @@ export const getBackground = (hero: string) => {
 
 }
 
+export const gettestimonialRingCOlor = (character: string) => {
+  switch (character) {
+    case 'The Hero':
+      return 'ring-lightHero'
+
+    case 'The Magician':
+      return 'ring-lightMagician'
+
+    case 'The Rebel':
+      return 'ring-lightRebel'
+
+    case 'The Creator':
+      return 'ring-lightCreator'
+
+    case 'The Synergist':
+      return 'ring-lightGreen'
+
+    case 'The Oracle':
+      return 'ring-lightOracle'
+
+    case 'The Protector':
+      return 'ring-lightProtector'
+
+    case 'The Ruler':
+      return 'ring-lightBlue'
+  }
+}
+
+export const gettestimonialTextCOlor = (character: string) => {
+  switch (character) {
+    case 'The Hero':
+      return 'text-lightHero'
+
+    case 'The Magician':
+      return 'text-lightMagician'
+
+    case 'The Rebel':
+      return 'text-lightRebel'
+
+    case 'The Creator':
+      return 'text-lightCreator'
+
+    case 'The Synergist':
+      return 'text-lightGreen'
+
+    case 'The Oracle':
+      return 'text-lightOracle'
+
+    case 'The Protector':
+      return 'text-lightProtector'
+
+    case 'The Ruler':
+      return 'text-lightBlue'
+  }
+}
+
 export const getBaseColor = (hero: string) => {
 
 
@@ -60,8 +116,6 @@ export const getBaseColor = (hero: string) => {
 
 }
 export const getBaseBorderColor = (hero: string) => {
-
-
   switch (hero) {
     case 'Hero':
       return 'border-darkHero'

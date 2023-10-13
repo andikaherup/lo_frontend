@@ -18,7 +18,7 @@ class CustomDocument extends Document {
           <link rel='preconnect' href='https://fonts.gstatic.com' />
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link
-            href='https://fonts.googleapis.com/css2?family=Knewave&family=Kufam:wght@400;500;700;800&family=Share&display=swap'
+            href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap'
             rel='stylesheet'
           />
           <link href='https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css' rel='stylesheet' />

@@ -15,15 +15,15 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
     const getImage = (value: number) => {
       switch (value) {
         case 1:
-          return 'ExtremelyAngry.png'
+          return 'R1.png'
         case 2:
-          return 'Angry.png'
+          return 'R2.png'
         case 3:
-          return 'Neutral.png'
+          return 'R3.png'
         case 4:
-          return 'Happy.png'
+          return 'R4.png'
         case 5:
-          return 'ExtremelyHappy.png'
+          return 'R5.png'
       }
     }
 
@@ -40,7 +40,11 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
               selectedValue == value ? 'text-white-300 border-white-300 border-2' : 'text-black-300 border-black-300'
             }  bg-gray-300 border rounded-full `}
           > */}
-          <img src={`/assets/icon/${getImage(value)}`} className='object-fill scale-150' alt='iamges' />
+          <img
+            src={`/assets/icon/dashboard/${getImage(value)}`}
+            className={`object-fill hover:scale-110 ${selectedValue && selectedValue != value ? 'opacity-50' : ''}`}
+            alt='iamges'
+          />
           {/* </div> */}
         </div>
       </label>

@@ -23,6 +23,7 @@ import * as yup from 'yup'
 
 import { useForm, Controller } from 'react-hook-form'
 import StatisfactionRadio from '../misc/statisfactionRadio'
+import toast from 'react-hot-toast'
 
 interface Props {
   header: string
@@ -31,6 +32,8 @@ interface Props {
   video_url: string
   type: string | null
   character: string
+  is_completed: boolean
+  points: number
   image: string
   link: string
   code: string
@@ -242,6 +245,8 @@ const AccordionItem = ({
   image,
   link,
   code,
+  points,
+  is_completed,
   id,
   onFinishVideo
 }: Props) => {
@@ -301,7 +306,7 @@ const AccordionItem = ({
   })
 
   const checkHeroBrightness = (name: string): string => {
-    let nams = 'text-white-300'
+    let nams = 'text-white-500'
 
     if (name == 'Hero' || name == 'Magician') {
       nams = 'text-black-300'
@@ -397,53 +402,10 @@ const AccordionItem = ({
           })
           .catch(error => {
             console.log(error, 'errorr')
+            toast.error(error.response.data.data)
           })
       }
       setLoading(false)
-    }
-  }
-
-  const getBackground = (hero: string) => {
-    switch (hero) {
-      case 'Hero':
-        return 'bg-gradient-to-r from-darkHero from-10% via-darkHero via-10% to-lightHero'
-
-      case 'Magician':
-        return 'bg-gradient-to-r from-darkMagician from-10% via-darkMagician via-10% to-lightMagician'
-
-      case 'Rebel':
-        return 'bg-gradient-to-r from-darkRebel from-10% via-darkRebel via-10% to-lightRebel'
-
-      case 'Creator':
-        return 'bg-gradient-to-r from-darkCreator from-10% via-darkCreator via-10% to-lightCreator'
-
-      case 'Synergist':
-        return 'bg-gradient-to-r from-darkGreen from-10% via-darkGreen via-10% to-lightGreen'
-
-      case 'Oracle':
-        return 'bg-gradient-to-r from-darkOracle from-10% via-darkOracle via-10% to-lightOracle'
-
-      case 'Protector':
-        return 'bg-gradient-to-r from-darkProtector from-10% via-darkProtector via-10% to-lightProtector'
-
-      case 'Ruler':
-        return 'bg-gradient-to-r from-darkBlue from-10% via-darkBlue via-10% to-lightBlue'
-    }
-  }
-
-  const getTextColor = (hero: string) => {
-    switch (hero) {
-      case 'Hero':
-      case 'Magician':
-        return 'text-black-300'
-
-      case 'Rebel':
-      case 'Creator':
-      case 'Synergist':
-      case 'Oracle':
-      case 'Protector':
-      case 'Ruler':
-        return 'text-white-300'
     }
   }
 
@@ -463,22 +425,31 @@ const AccordionItem = ({
         })
         .catch(error => {
           console.log(error, 'errorr')
+          toast.error(error.response.data.data)
         })
     }
   }
 
   return (
-    <div className={`single-faq w-full rounded-lg border border-[#F3F4FE] ${getBackground(character)}   px-5 py-3 `}>
+    <div className={`single-faq w-full rounded-lg  text-black-300   px-5 py-3 `}>
       <button
         className={`faq-btn flex lg:flex-row-reverse ${
           type != 'no_action' ? 'cursor-pointer' : 'cursor-default'
-        } flex-col-reverse items-center w-full text-left`}
+        } flex-row-reverse items-center w-full text-left`}
         onClick={() => handleToggle()}
       >
         <div className='flex items-center justify-end w-full '>
-          <span className={`text-left lg:text-md font-bold text-xs ${getTextColor(character)}`}>
+          {/* <span className={`text-left lg:text-md font-bold text-xs text-black-300`}>
             {status ? 'COMPLETED' : type == 'no_action' ? '' : 'GET STARTED'}
-          </span>
+          </span> */}
+          <div className='w-full lg:max-w-[20%] lg:flex  '>
+            {!is_completed && (
+              <div className='flex items-center justify-center'>
+                <img alt='img' src='/assets/icon/medal.png'></img>
+                <span className='font-bold lg:text-xl text-md text-questPointText'>+{points}</span>
+              </div>
+            )}
+          </div>
           {type != 'no_action' && (
             <div className=' flex h-10 w-full max-w-[40px] items-center justify-end rounded-lg bg-opacity-10 text-primary'>
               <svg
@@ -498,9 +469,9 @@ const AccordionItem = ({
           )}
         </div>
 
-        <div className='w-full'>
-          <h4 className={`lg:text-lg text-sm font-semibold ${getTextColor(character)}`}>{header}</h4>
-          <p className={`lg:text-md  text-xs leading-relaxed ${getTextColor(character)}`}>{text}</p>
+        <div className='w-full text-black-300'>
+          <h4 className={`lg:text-2xl text-sm font-bold `}>{header}</h4>
+          <p className={`lg:text-md  text-xs leading-relaxed font-bold text-black-500 `}>{text}</p>
         </div>
       </button>
 
@@ -521,7 +492,7 @@ const AccordionItem = ({
             >
               <div className='flex flex-row items-center justify-center'>
                 <FacebookIcon size={32} round />
-                <span className={`pl-2 ${checkHeroBrightness(character)}`}>Share Your Character on Facebook</span>
+                <span className={`pl-2 text-black-300`}>Share Your Character on Facebook</span>
               </div>
             </FacebookShareButton>
           </>
@@ -531,7 +502,7 @@ const AccordionItem = ({
             <Link href={link} aria-current='page' target='_blank'>
               <button
                 onClick={goToLinkClick}
-                className='px-5 py-3 bg-blue-500 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
               >
                 Go To Link
               </button>
@@ -544,15 +515,18 @@ const AccordionItem = ({
             <div>
               <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
                 <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
-                  <div className='grid lg:grid-cols-4'>
-                    <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
-                      <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
+                  <div className='grid lg:grid-cols-3'>
+                    {/* <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+                      <label
+                        htmlFor='occupation'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
                         Your Occupation
                       </label>
                       {occupationError.occupation && (
                         <span className='text-sm text-red-900 '> This field is required</span>
                       )}
-                    </div>
+                    </div> */}
 
                     <Controller
                       name='occupation'
@@ -566,7 +540,7 @@ const AccordionItem = ({
                             onChange(e)
                             setSelectedOccupation(e.target.value)
                           }}
-                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                         >
                           <option value=''>Select an occupation</option>
                           {professions.map(prof => (
@@ -577,21 +551,22 @@ const AccordionItem = ({
                         </select>
                       )}
                     />
+                    {occupationError.occupation && (
+                      <span className='text-sm text-red-900 '> This field is required</span>
+                    )}
                   </div>
                 </FormControl>
                 {selectedOccupation == 'Other' && (
-                  <FormControl
-                    className={`flex justify-center pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}
-                  >
-                    <div className='grid lg:grid-cols-4'>
-                      <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+                  <FormControl className={`flex justify-center pt-5 `}>
+                    <div className='grid lg:grid-cols-3'>
+                      {/* <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
                         <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                           Enter other occupation
                         </label>
                         {occupationError.other_occupation && (
                           <span className='text-sm text-red-900 '> This field is required</span>
                         )}
-                      </div>
+                      </div> */}
 
                       <Controller
                         name='other_occupation'
@@ -602,36 +577,39 @@ const AccordionItem = ({
                             id='other_occupation'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            placeholder='enter other occupation'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           ></input>
                         )}
                       />
+                      {occupationError.other_occupation && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
                     </div>
                   </FormControl>
                 )}
-
-                <div className={`grid lg:grid-cols-4 pt-5 ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
-                  <div className='flex items-center justify-center lg:justify-start lg:col-start-2'>
-                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm font-medium dark:text-white'>
-                      Level of Satisfaction
-                    </label>
-                  </div>
-                  <div className='lg:col-start-3'>
-                    <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
-                  </div>
-                  <div className='flex items-center justify-center'>
-                    {occupationError.job_satisfaction_level && (
-                      <span className='text-sm font-bold text-black-300 '>
-                        {occupationError.job_satisfaction_level.message}
-                      </span>
-                    )}
+                <div className='grid lg:grid-cols-3'>
+                  <div className={`flex justify-between items-center`}>
+                    <div className='flex items-center justify-center '>
+                      <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm text-black-300'>
+                        Level of Satisfaction
+                      </label>
+                    </div>
+                    <div className='flex items-center justify-center'>
+                      <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                    </div>
                   </div>
                 </div>
+                {occupationError.job_satisfaction_level && (
+                  <span className='text-sm font-bold text-black-300 '>
+                    {occupationError.job_satisfaction_level.message}
+                  </span>
+                )}
                 <div className='flex justify-center w-full pt-5'>
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -670,7 +648,7 @@ const AccordionItem = ({
                             id='strength_1'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a First Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -707,7 +685,7 @@ const AccordionItem = ({
                             id='strength_2'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Second Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -744,7 +722,7 @@ const AccordionItem = ({
                             id='strength_3'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Third Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -763,7 +741,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r text-white-500 from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -805,7 +783,7 @@ const AccordionItem = ({
                             id='area_of_growth_1'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a First Area of Growth</option>
                             {roles.growth.map((myRole: string, index: number) => (
@@ -842,7 +820,7 @@ const AccordionItem = ({
                             id='area_of_growth_2'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Second Area of Growth</option>
                             {/* {roles.map(
@@ -887,7 +865,7 @@ const AccordionItem = ({
                             id='area_of_growth_3'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Third Area of Growth</option>
                             {roles.growth.map((myRole: string, index: number) => (
@@ -905,7 +883,7 @@ const AccordionItem = ({
                   <button
                     disabled={loading}
                     type='submit'
-                    className='w-1/2 px-5 py-3 bg-blue-500 lg:w-1/5 text-white-300 rounded-xl hover:opacity-80 hover:cursor-pointer'
+                    className='w-1/2 px-5 py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor lg:w-1/5 text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                   >
                     Submit
                   </button>
@@ -916,6 +894,7 @@ const AccordionItem = ({
           </>
         )}
       </div>
+      <hr className='mt-10' />
     </div>
   )
 }

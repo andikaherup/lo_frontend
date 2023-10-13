@@ -23,7 +23,7 @@ const UserThemeOptions = (): ThemeOptions => {
   return {
     typography: {
       fontFamily:
-        '"Kufam"',
+        'Montserrat',
     },
 
     /*

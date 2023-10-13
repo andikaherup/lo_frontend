@@ -72,7 +72,9 @@ const Result = () => {
     <>
       <div
         className={`pt-20 h-screen ${
-          characters.find(character => character.name === selectedCharacter?.calculated_result)?.background
+          auth.user
+            ? characters.find(character => character.name === selectedCharacter?.calculated_result)?.background
+            : ''
         }`}
         id='about'
       >

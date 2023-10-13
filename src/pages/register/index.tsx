@@ -6,8 +6,6 @@ import Link from 'next/link'
 
 import React from 'react'
 
-import ScrollAnimationWrapper from 'src/layouts/ScrollAnimationWrapper'
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 import Grid from '@mui/material/Grid'
@@ -36,7 +34,6 @@ import FormControl from '@mui/material/FormControl'
 
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
-import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 
 // import { RegisterParams } from 'src/context/types'
 
@@ -161,64 +158,61 @@ const Register = () => {
 
   return (
     <>
-      <div
-        className='px-8 pt-20 pb-10 mx-auto xl:px-16 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue '
-        id='about'
-      >
-        <ScrollAnimationWrapper>
-          <div className='grid grid-flow-row gap-8 py-6 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2'>
-            <div className='flex flex-col items-center justify-center row-start-2 lg:px-10 sm:row-start-1'>
-              <h1 className='text-xl leading-normal lg:text-4xl text-black-600'>Create an account</h1>
-              <div className='flex justify-center w-full mt-5'>
-                <p className='text-sm text-center text-textcolorblack-300 dark:text-textcolorblack-300'>
-                  Not a member yet? sign up using your social media accounts.
-                </p>
-              </div>
-              <div className='flex justify-center w-full mt-5'>
-                <div className='grid lg:grid-cols-2 grid-col-1'>
-                  <div className='w-full'>
-                    <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
-                      <span className='text-sm'>Sign up with Google</span>
-                    </GoogleLoginButton>
-                  </div>
-                  <div className='w-full'>
-                    <FacebookLogin
-                      appId='120705577700367'
-                      onSuccess={response => {
-                        facebookLogin(response)
-                      }}
-                      onFail={error => {
-                        console.log('Login Failed!', error)
-                      }}
-                      onProfileSuccess={response => {
-                        console.log('Get Profile Success!', response)
-                      }}
-                      render={({ onClick }) => (
-                        <FacebookLoginButton onClick={onClick}>
-                          <span className='text-sm'>Sign up with Facebook</span>
-                        </FacebookLoginButton>
-                      )}
-                    />
-                  </div>
+      <div className='px-8 pt-20 pb-10 mx-auto xl:px-16 ' id='about'>
+        <div className='grid grid-flow-row gap-8 py-16 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-2'>
+          <div className='flex flex-col items-center justify-center row-start-2 lg:px-10 sm:row-start-1'>
+            <h1 className='text-xl font-bold leading-normal lg:text-2xl text-black-600'>Create an account</h1>
+            <div className='flex justify-center w-full mt-5'>
+              <p className='text-sm text-center text-textcolorblack-300 dark:text-textcolorblack-300'>
+                Not a member yet? sign up using your social media accounts.
+              </p>
+            </div>
+            <div className='flex justify-center w-full mt-5'>
+              <div className='grid lg:grid-cols-2 grid-col-1'>
+                <div className='w-full'>
+                  <GoogleLoginButton style={{ fontSize: '14px' }} onClick={loginGoogle}>
+                    <span className='text-sm'>Sign up with Google</span>
+                  </GoogleLoginButton>
+                </div>
+                <div className='w-full'>
+                  <FacebookLogin
+                    appId='120705577700367'
+                    onSuccess={response => {
+                      facebookLogin(response)
+                    }}
+                    onFail={error => {
+                      console.log('Login Failed!', error)
+                    }}
+                    onProfileSuccess={response => {
+                      console.log('Get Profile Success!', response)
+                    }}
+                    render={({ onClick }) => (
+                      <FacebookLoginButton onClick={onClick}>
+                        <span className='text-sm'>Sign up with Facebook</span>
+                      </FacebookLoginButton>
+                    )}
+                  />
                 </div>
               </div>
-              <div className='flex justify-center w-full mt-5'>
-                <p className='text-sm text-center text-textcolorblack-300 dark:text-neutral-300'>
-                  or register with email
-                </p>
-              </div>
-              <div className='w-full mt-5'>
+            </div>
+            <div className='flex justify-center w-full mt-5'>
+              <p className='text-sm text-center text-textcolorblack-300 dark:text-neutral-300'>
+                or register with email
+              </p>
+            </div>
+            <div className='flex justify-center w-full mt-5'>
+              <div className='max-w-lg'>
                 <form key={0} onSubmit={handleAccountSubmit(onSubmit)}>
-                  <Grid container spacing={5}>
+                  <Grid container spacing={1}>
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Username
-                          </label>
+                          </label> */}
                           {accountErrors.name && <span className='text-sm text-red-900 '> This field is required</span>}
                         </div>
 
@@ -230,8 +224,9 @@ const Register = () => {
                             <input
                               value={value}
                               onChange={onChange}
-                              className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                              className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               id='grid-password'
+                              placeholder='Username'
                               type='text'
                             />
                           )}
@@ -241,12 +236,12 @@ const Register = () => {
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Email
-                          </label>
+                          </label> */}
                           {accountErrors.email && <span className='text-sm text-red-900'> This field is required</span>}
                         </div>
                         <Controller
@@ -257,8 +252,9 @@ const Register = () => {
                             <input
                               value={value}
                               onChange={onChange}
-                              className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none text-md bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                              className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               id='grid-password'
+                              placeholder='Email Address'
                               type='text'
                             />
                           )}
@@ -269,12 +265,12 @@ const Register = () => {
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Gender
-                          </label>
+                          </label> */}
                           {accountErrors.gender && (
                             <span className='text-sm text-red-900'> This field is required</span>
                           )}
@@ -288,23 +284,26 @@ const Register = () => {
                               <select
                                 onChange={onChange}
                                 value={value}
-                                className='block w-full px-4 py-2 pr-8 leading-tight border border-gray-200 rounded appearance-none text-black-500 bg-white-300 focus:outline-none focus:bg-white focus:border-gray-500'
+                                placeholder='Gender'
+                                className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               >
-                                <option value=''></option>
+                                <option value='' disabled hidden>
+                                  Choose Gender
+                                </option>
 
                                 <option value='male'>Male</option>
                                 <option value='female'>Female</option>
                                 <option value='others'>Others</option>
                               </select>
-                              <div className='absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none'>
-                                <svg
-                                  className='w-4 h-4 fill-current'
-                                  xmlns='http://www.w3.org/2000/svg'
-                                  viewBox='0 0 20 20'
-                                >
-                                  <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
-                                </svg>
-                              </div>
+                              {/* <div className='absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none'>
+                                  <svg
+                                    className='w-4 h-4 fill-current'
+                                    xmlns='http://www.w3.org/2000/svg'
+                                    viewBox='0 0 20 20'
+                                  >
+                                    <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+                                  </svg>
+                                </div> */}
                             </div>
                           )}
                         />
@@ -313,12 +312,12 @@ const Register = () => {
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Your Age:
-                          </label>
+                          </label> */}
                           {accountErrors.age && <span className='text-sm text-red-900'> This field is required</span>}
                         </div>
                         <Controller
@@ -330,9 +329,12 @@ const Register = () => {
                               <select
                                 onChange={onChange}
                                 value={value}
-                                className='block w-full px-4 py-2 pr-8 leading-tight border border-gray-200 rounded appearance-none text-black-500 bg-white-300 focus:outline-none focus:bg-white focus:border-gray-500'
+                                placeholder='Age'
+                                className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               >
-                                <option value=''></option>
+                                <option value='' disabled hidden>
+                                  Choose Age
+                                </option>
 
                                 <option value='Under 18'>Under 18</option>
                                 <option value='18-24'>18-24</option>
@@ -342,7 +344,7 @@ const Register = () => {
                                 <option value='55-64'>55-64</option>
                                 <option value='65+'>65+</option>
                               </select>
-                              <div className='absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none'>
+                              {/* <div className='absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none'>
                                 <svg
                                   className='w-4 h-4 fill-current'
                                   xmlns='http://www.w3.org/2000/svg'
@@ -350,7 +352,7 @@ const Register = () => {
                                 >
                                   <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
                                 </svg>
-                              </div>
+                              </div> */}
                             </div>
                           )}
                         />
@@ -359,12 +361,12 @@ const Register = () => {
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Password
-                          </label>
+                          </label> */}
                           {accountErrors.password && (
                             <span className='text-sm text-red-900'> This field is required</span>
                           )}
@@ -380,7 +382,7 @@ const Register = () => {
                                 onChange={onChange}
                                 type={state.showPassword ? 'text' : 'password'}
                                 placeholder='Password'
-                                className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                                className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               />
                               <span className='absolute inset-y-0 right-0 flex items-center pb-3 pr-3'>
                                 <IconButton
@@ -403,12 +405,12 @@ const Register = () => {
                     <Grid item xs={12} sm={12}>
                       <FormControl fullWidth>
                         <div className='flex justify-between w-full'>
-                          <label
+                          {/* <label
                             className='block mb-2 font-bold tracking-wide uppercase text-md text-black-500'
                             htmlFor='grid-first-name'
                           >
                             Confirm Password
-                          </label>
+                          </label> */}
                           {accountErrors.confirm_password && (
                             <span className='text-sm text-red-900'> This field is required</span>
                           )}
@@ -424,7 +426,7 @@ const Register = () => {
                                 onChange={onChange}
                                 type={state.showPassword ? 'text' : 'password'}
                                 placeholder='Confirm Password'
-                                className='block w-full px-4 py-2 mb-3 leading-tight border border-gray-200 rounded appearance-none bg-white-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
+                                className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 appearance-none rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                               />
                               <span className='absolute inset-y-0 right-0 flex items-center pb-3 pr-3'>
                                 <IconButton
@@ -466,21 +468,23 @@ const Register = () => {
                       </span>
                     </Grid>
 
-                    <div className='flex items-center justify-between w-full mt-5 '>
+                    <div className='flex flex-col items-center justify-center w-full mt-5 '>
                       <div className='px-5'>
                         {error != '' && <span className='text-sm font-bold text-red-900 '>Error: {error}</span>}
                       </div>
-                      <ButtonPrimary>Create</ButtonPrimary>
+                      <button className='w-full py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'>
+                        Submit
+                      </button>
                     </div>
                   </Grid>
                 </form>
               </div>
             </div>
-            <div className='flex items-center justify-center w-full'>
-              <img src='/assets/characters/image.webp' alt='Characters' className=' w-[80%] max-w-[500px]' />
-            </div>
           </div>
-        </ScrollAnimationWrapper>
+          <div className='flex items-center justify-center w-full'>
+            <img src='/assets/icon/sign/Signup-I2.png' alt='Characters' />
+          </div>
+        </div>
       </div>
     </>
   )

@@ -78,15 +78,15 @@ const Leaderboard = () => {
     if (name) {
       if (level == 0) {
         if (gender == 'male') {
-          return characters.find(character => character.name === name)?.lvl0_image_M || ''
+          return 'L0/' + characters.find(character => character.name === name)?.lead_M || ''
         } else {
-          return characters.find(character => character.name === name)?.lvl0_image_F || ''
+          return 'L0/' + characters.find(character => character.name === name)?.lead_F || ''
         }
       } else {
         if (gender == 'male') {
-          return characters.find(character => character.name === name)?.lvl1_image_M || ''
+          return 'L1/' + characters.find(character => character.name === name)?.lead_M || ''
         } else {
-          return characters.find(character => character.name === name)?.lvl1_image_F || ''
+          return 'L1/' + characters.find(character => character.name === name)?.lead_F || ''
         }
       }
     } else {
@@ -95,146 +95,48 @@ const Leaderboard = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center h-full min-h-screen py-20 lg:mt-10 bg-gradient-to-b from-leaderboardTopBlue to-leaderboardBotBlue'>
-      <div className='mb-10'>
-        <div>
-          <h1 className='mb-5 text-3xl font-bold text-center lg:text-8xl text-white-300'>
-            TOP {userList?.length} LEADERBOARD
-          </h1>
-          <p className='font-bold text-center text-md lg:text-3xl text-white-300'>
-            Sign up and invite friends to join the Quest
-          </p>
-        </div>
-        <div className='flex justify-center'>
-          <span className='text-xs font-bold text-center lg:text-xl text-white-300'>
-            Share Level 0 and earn{' '}
-            <Link href={auth.user ? '/reward' : '/login'} aria-current='page' className='underline'>
-              Rewards
-            </Link>{' '}
-            for your referrals
-          </span>
-        </div>
-        <div className='flex justify-center mt-5 lg:pb-10 lg:mt-10'>
-          <Link href={auth.user ? '/dashboard?tab=friends' : '/login'} aria-current='page' className='underline'>
-            <button className='px-5 py-2 text-sm font-extrabold transition lg:px-10 lg:text-lg hover:-translate-y-1 hover:scale-110 text-white-300 rounded-3xl ring-2 ring-white-300'>
-              INVITE
-            </button>
-          </Link>
+    <div className='flex flex-col items-center justify-center w-full h-full min-h-screen bg-white-500 '>
+      <div className='w-full lg:rounded-b-[150px] rounded-b-[50px]  bg-gradient-to-r from-button1stcolor pt-20 via-button2ndcolor to-button3rdcolor lg:pb-[200px] pb-[50px]'>
+        <div className='w-full pt-20 mb-10'>
+          <div>
+            <h1 className='mb-5 text-3xl font-bold text-center lg:text-4xl text-white-300'>
+              TOP {userList?.length} LEADERBOARD
+            </h1>
+            <p className='text-center text-md lg:text-lg text-white-300'>
+              Sign up and invite friends to join the Quest
+            </p>
+          </div>
+          <div className='flex justify-center'>
+            <span className='text-xs text-center lg:text-lg text-white-300'>
+              Share Level 0 and earn{' '}
+              <Link href={auth.user ? '/reward' : '/login'} aria-current='page' className='underline'>
+                Rewards
+              </Link>{' '}
+              for your referrals
+            </span>
+          </div>
+          <div className='flex justify-center mt-5 lg:pb-10 lg:mt-10'>
+            <Link href={auth.user ? '/dashboard?tab=friends' : '/login'} aria-current='page' className='underline'>
+              <button className='px-5 py-2 text-sm font-bold transition lg:px-10 lg:text-lg hover:-translate-y-1 hover:scale-110 text-white-300 rounded-3xl ring-2 ring-white-300'>
+                INVITE
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-      <div className='px-2 lg:w-1/2'>
-        {/* <Card className='animate-bounce'>
-          <Box className='bg-white-300'>
-            <Box
-              className='p-5 bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow text-white-300'
-              sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-            >
-              <div>
-                <span className='mr-10 text-xl font-bold text-black-300'>Rank</span>
-                <span className='text-xl font-bold text-black-300'>Name</span>
-              </div>
-              <span className='text-xl font-bold text-black-300'>Level</span>
-              <span className='text-xl font-bold text-black-300'>Points</span>
-            </Box>
-            {userList?.map((data: UserData, index: number) => {
-              return (
-                <Box
-                  key={index}
-                  className='px-8 hover:bg-gray-500'
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
-                >
-                  <div className='flex justify-center mr-10 text-black-300'>
-                    <span>{index + 1}</span>
-                  </div>
-                  <img
-                    alt='avatar'
-                    src={`/assets/characters/${
-                      data.character_level == 0
-                        ? data.gender == 'male'
-                          ? characters.find(character => character.name === data.character)?.lvl0_image_M
-                          : characters.find(character => character.name === data.character)?.lvl0_image_F
-                        : data.gender == 'male'
-                        ? characters.find(character => character.name === data.character)?.lvl1_image_M
-                        : characters.find(character => character.name === data.character)?.lvl1_image_F
-                    }`}
-                    width={55}
-                    height={55}
-                  />
-
-                  <div className='grid w-full grid-cols-8'>
-                    <Box sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
-                      <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                        {data.name}
-                      </Typography>
-                    </Box>
-                    <Box className='col-start-5' sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
-                      <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                        {data.character_level}
-                      </Typography>
-                    </Box>
-                    <Box className='flex justify-end col-start-8'>
-                      <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                        {data.user_points}
-                      </Typography>
-                    </Box>
-                  </div>
-                </Box>
-              )
-            })}
-          </Box>
-        </Card>
-        {auth.user && (
-          <div className='mt-10 rounded-lg bg-white-300'>
-            <Box
-              className='px-8 hover:bg-gray-500'
-              sx={{
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <div className='flex justify-center mr-10 text-black-300'>
-                <span>{myRank}</span>
-              </div>
-              <img alt='avatar' src='/assets/characters/Hero_LVL_0_(F).png' width='55' height='55' />
-
-              <div className='grid w-full grid-cols-8'>
-                <Box sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
-                  <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                    {auth.user?.name}
-                  </Typography>
-                </Box>
-                <Box className='col-start-5' sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
-                  <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                    {auth.user?.character_level}
-                  </Typography>
-                </Box>
-                <Box className='flex justify-end col-start-8'>
-                  <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'black' }}>
-                    {auth.user?.points}
-                  </Typography>
-                </Box>
-              </div>
-            </Box>
-          </div>
-        )} */}
-
+      <div className='px-2 lg:w-1/2 lg:-mt-[200px] -mt-[60px]'>
         <div className='w-full '>
           {userList && userList.length > 0 && (
             <div className='flex justify-between'>
               <div>
-                <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 2</div>
-
                 <div className='flex flex-col justify-center'>
                   <img
                     className='z-10 scale-90'
                     alt='avatar'
                     src={
                       userList[1].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
-                        : `/assets/characters/pod${getCharacter(
+                        ? '/assets/icon/leaderboard/anon.png'
+                        : `/assets/icon/leaderboard/${getCharacter(
                             userList[1].character_level,
                             userList[1].gender,
                             userList[1].character
@@ -251,27 +153,26 @@ const Leaderboard = () => {
                   {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
                 <div className='flex flex-col items-center'>
-                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-black-300'>
                     <span> {userList[1].name}</span>
                     <br />
                     <Link href={`/reward?level=${userList[1].character_level}`}>
                       <span>Level {userList[1].character_level}</span>
                     </Link>
                     <br />
-                    <span>Points : {userList[1].user_points}</span>
+                    <span className='font-normal'>Points : {userList[1].user_points}</span>
                   </p>
                 </div>
               </div>
               <div>
-                <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 1</div>
                 <div className='flex flex-col justify-center'>
                   <img
-                    className='z-10 scale-110'
+                    className='z-10 scale-125 '
                     alt='avatar'
                     src={
                       userList[0].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
-                        : `/assets/characters/pod${getCharacter(
+                        ? '/assets/icon/leaderboard/anon.png'
+                        : `/assets/icon/leaderboard/${getCharacter(
                             userList[0].character_level,
                             userList[0].gender,
                             userList[0].character
@@ -287,28 +188,26 @@ const Leaderboard = () => {
                   {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
                 <div className='flex flex-col items-center pt-5'>
-                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-black-300'>
                     <span> {userList[0].name}</span>
                     <br />
                     <Link href={`/reward?level=${userList[0].character_level}`}>
                       <span>Level {userList[0].character_level}</span>
                     </Link>
                     <br />
-                    <span>Points : {userList[0].user_points}</span>
+                    <span className='font-normal'>Points : {userList[0].user_points}</span>
                   </p>
                 </div>
               </div>
               <div>
-                <div className='flex justify-center text-lg font-bold lg:text-2xl'>Rank 3</div>
-
                 <div className='flex flex-col justify-center'>
                   <img
-                    className={userList[2].character === 'Anonymous' ? '' : 'z-10 scale-90'}
+                    className={'z-10 scale-90'}
                     alt='avatar'
                     src={
                       userList[2].character === 'Anonymous'
-                        ? '/assets/characters/podnoimage.png'
-                        : `/assets/characters/pod${getCharacter(
+                        ? '/assets/icon/leaderboard/anon.png'
+                        : `/assets/icon/leaderboard/${getCharacter(
                             userList[2].character_level,
                             userList[2].gender,
                             userList[2].character
@@ -324,132 +223,123 @@ const Leaderboard = () => {
                   {/* <img className='-translate-y-3 lg:-translate-y-5' src={'/assets/podium.png'} alt='podium' /> */}
                 </div>
                 <div className='flex flex-col items-center'>
-                  <p className='text-xs font-bold text-center lg:text-lg text-white-300'>
+                  <p className='text-xs font-bold text-center lg:text-lg text-black-300'>
                     <span>{userList[2].name}</span>
                     <br />
                     <Link href={`/reward?level=${userList[2].character_level}`}>
                       <span>Level {userList[2].character_level}</span>
                     </Link>
                     <br />
-                    <span>Points : {userList[2].user_points}</span>
+                    <span className='font-normal'>Points : {userList[2].user_points}</span>
                   </p>
                 </div>
               </div>
             </div>
           )}
 
-          <div className='w-full p-3 mt-5 rounded-2xl '>
-            <table className='w-full rounded-xl bg-gradient-to-r from-rewardLightBlue to-rewardLightYellow'>
-              <thead className='text-xs font-semibold uppercase lg:text-lg text-white-300 '>
-                <tr>
-                  <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-center'>Rank</div>
-                  </th>
-                  <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='ml-10 font-semibold text-left'>Name</div>
-                  </th>
-                  <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-center'>Level</div>
-                  </th>
-                  <th className='px-2 py-2 lg:py-4 whitespace-nowrap'>
-                    <div className='font-semibold text-center'>Points</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className='text-lg bg-white divide-gray-100'>
-                {userList?.map((data: UserData, index: number) => {
-                  return (
-                    <tr key={index} className={`${myRank == data.rank ? 'bg-yellow-300' : ''}`}>
-                      <td className='p-2 whitespace-nowrap'>
-                        <div className='text-sm text-center lg:text-lg'>{data.rank}</div>
-                      </td>
-                      <td className='p-2 whitespace-nowrap'>
-                        <div className='flex items-center'>
-                          <div className='flex-shrink-0 '>
-                            {data.character && data.character != 'Anonymous' && (
-                              <img
-                                className='rounded-full'
-                                src={`/assets/characters/${
-                                  data.character_level == 0
-                                    ? data.gender == 'male'
-                                      ? characters.find(character => character.name === data.character)?.lvl0_image_M
-                                      : characters.find(character => character.name === data.character)?.lvl0_image_F
-                                    : data.gender == 'male'
-                                    ? characters.find(character => character.name === data.character)?.lvl1_image_M
-                                    : characters.find(character => character.name === data.character)?.lvl1_image_F
-                                }`}
-                                width='60'
-                                height='60'
-                                alt='character'
-                              />
-                            )}
-                            {(!data.character || data.character === 'Anonymous') && (
-                              <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
-                            )}
-                          </div>
-                          <div className='text-xs font-bold text-gray-800 lg:text-lg '>{data.name}</div>
-                        </div>
-                      </td>
-
-                      <td className='p-2 whitespace-nowrap'>
-                        <div className='text-sm font-medium text-center text-green-500 lg:text-lg'>
-                          <Link href={`/reward?level=${data.character_level}`}>{data.character_level}</Link>
-                        </div>
-                      </td>
-                      <td className='p-2 whitespace-nowrap'>
-                        <div className='text-sm text-center lg:text-lg'>{data.user_points}</div>
-                      </td>
-                    </tr>
-                  )
-                })}
-                {auth.user && myRank > (userList?.length || 0) && (
-                  <tr className='bg-yellow-300'>
-                    <td className='p-2 whitespace-nowrap'>
-                      <div className='text-xs text-center lg:text-lg'>{myRank}</div>
-                    </td>
-                    <td className='p-2 whitespace-nowrap'>
+          <div className='w-full p-3 pb-20 mt-5 rounded-2xl '>
+            <div className='w-full overflow-scroll text-lg bg-white max-h-[550px] bg-scroll '>
+              {userList?.map((data: UserData, index: number) => {
+                return (
+                  <div
+                    className={`grid w-full grid-cols-3 mb-2  rounded-3xl  ${
+                      myRank == data.rank ? 'bg-yellow-300' : 'bg-greyloading-300'
+                    }`}
+                    key={index}
+                  >
+                    <div className='flex items-center justify-start col-start-1 col-end-3 pl-5 lg:pl-10'>
+                      <span className='mr-2 text-sm font-bold text-center lg:text-lg text-black-300'>{data.rank}</span>
                       <div className='flex items-center'>
                         <div className='flex-shrink-0 '>
-                          {auth.user?.character && auth.user?.character != 'Anonymous' && (
+                          {data.character && data.character != 'Anonymous' && (
                             <img
-                              className='rounded-full'
-                              src={`/assets/characters/${
-                                auth.user?.character_level == 0
-                                  ? auth.user?.gender == 'male'
-                                    ? characters.find(character => character.name === auth.user?.character)
-                                        ?.lvl0_image_M
-                                    : characters.find(character => character.name === auth.user?.character)
-                                        ?.lvl0_image_F
-                                  : auth.user?.gender == 'male'
-                                  ? characters.find(character => character.name === auth.user?.character)?.lvl1_image_M
-                                  : characters.find(character => character.name === auth.user?.character)?.lvl1_image_F
+                              className='scale-90 rounded-full lg:scale-100'
+                              src={`/assets/icon/leaderboard/${
+                                data.character_level == 0
+                                  ? data.gender == 'male'
+                                    ? 'L0/' + characters.find(character => character.name === data.character)?.lead_M
+                                    : 'L0/' + characters.find(character => character.name === data.character)?.lead_F
+                                  : data.gender == 'male'
+                                  ? 'L1/' + characters.find(character => character.name === data.character)?.lead_M
+                                  : 'L1/' + characters.find(character => character.name === data.character)?.lead_F
                               }`}
-                              width='60'
-                              height='60'
+                              width='70'
+                              height='70'
                               alt='character'
                             />
                           )}
-                          {!auth.user?.character ||
-                            (auth.user?.character === 'Anonymous' && (
-                              <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
-                            ))}
+                          {(!data.character || data.character === 'Anonymous') && (
+                            <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
+                          )}
                         </div>
-                        <div className='text-xs font-bold text-gray-800 lg:text-lg '>{auth.user?.name}</div>
+                        <div className='text-xs font-bold text-gray-800 lg:text-lg '>{data.name}</div>
                       </div>
-                    </td>
+                    </div>
 
-                    <td className='p-2 whitespace-nowrap'>
-                      <div className='text-xs font-medium text-left text-green-500 lg:text-lg'>
-                        {auth.user?.character_level}
+                    <div className='flex items-center justify-end col-start-3 pr-5 lg:pr-10'>
+                      <div className='grid grid-cols-2 gap-4 lg:gap-10'>
+                        <div className='flex items-center justify-end '>
+                          <Link href={`/reward?level=${data.character_level}`}>
+                            <span className='text-sm text-start'>Lv. {data.character_level} </span>
+                          </Link>
+                        </div>
+                        <div className='flex items-center justify-start'>
+                          <span className='font-bold text-left text-md lg:text-lg text-purpleText'>
+                            {data.user_points}
+                          </span>
+                        </div>
                       </div>
-                    </td>
-                    <td className='p-2 whitespace-nowrap'>
-                      <div className='text-xs text-left lg:text-lg'>{myData?.user_points}</div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                    </div>
+                  </div>
+                )
+              })}
+              {auth.user && myRank > (userList?.length || 0) && (
+                <tr className='bg-yellow-300'>
+                  <td className='p-2 whitespace-nowrap'>
+                    <div className='text-xs text-center lg:text-lg'>{myRank}</div>
+                  </td>
+                  <td className='p-2 whitespace-nowrap'>
+                    <div className='flex items-center'>
+                      <div className='flex-shrink-0 '>
+                        {auth.user?.character && auth.user?.character != 'Anonymous' && (
+                          <img
+                            className='rounded-full'
+                            src={`/assets/icon/leaderboard/${
+                              auth.user?.character_level == 0
+                                ? auth.user?.gender == 'male'
+                                  ? 'L0/' +
+                                    characters.find(character => character.name === auth.user?.character)?.lead_M
+                                  : 'L0/' +
+                                    characters.find(character => character.name === auth.user?.character)?.lead_F
+                                : auth.user?.gender == 'male'
+                                ? 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_M
+                                : 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_F
+                            }`}
+                            width='60'
+                            height='60'
+                            alt='character'
+                          />
+                        )}
+                        {!auth.user?.character ||
+                          (auth.user?.character === 'Anonymous' && (
+                            <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
+                          ))}
+                      </div>
+                      <div className='text-xs font-bold text-gray-800 lg:text-lg '>{auth.user?.name}</div>
+                    </div>
+                  </td>
+
+                  <td className='p-2 whitespace-nowrap'>
+                    <div className='text-xs font-medium text-left text-green-500 lg:text-lg'>
+                      {auth.user?.character_level}
+                    </div>
+                  </td>
+                  <td className='p-2 whitespace-nowrap'>
+                    <div className='text-xs text-left lg:text-lg'>{myData?.user_points}</div>
+                  </td>
+                </tr>
+              )}
+            </div>
           </div>
         </div>
       </div>
