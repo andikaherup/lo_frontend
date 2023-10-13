@@ -62,23 +62,23 @@ const NewStepper = (props: QuestProps) => {
     setSortedQuest(sortedQuests)
   }, [quest])
 
-  // const determineBadge = (badgeTitle: string) => {
-  //   switch (badgeTitle) {
-  //     case 'INTRO':
-  //       return 'text-textBadgeGreen bg-badgeGreen'
+  const determineBadge = (badgeTitle: string) => {
+    switch (badgeTitle) {
+      case 'INTRO':
+        return 'text-textBadgeGreen bg-badgeGreen'
 
-  //     case 'LEVEL 1':
-  //       return 'text-textBadgeBlue bg-badgeBlue'
-  //   }
-  // }
+      case 'LEVEL 1':
+        return 'text-textBadgeBlue bg-badgeBlue'
+    }
+  }
 
   if (!load) {
     return <></>
   }
 
   return (
-    <div className='grid grid-cols-1 lg:grid-cols-4'>
-      <div className='justify-center hidden w-full pt-10 lg:flex'>
+    <div className='grid '>
+      {/* <div className='justify-center hidden w-full pt-10 lg:flex'>
         <div className='border border-t-0 border-b-0 border-l-0 border-r-black-300 h-fit'>
           {sortedQuest.map((quest, index: number) => (
             <div
@@ -92,35 +92,35 @@ const NewStepper = (props: QuestProps) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className='w-full lg:col-start-2 lg:col-end-5 lg:p-10'>
+      </div> */}
+      <div className='w-full lg:p-10'>
         {/* {sortedQuest.map((quest, index) => (
-        <ol key={index} className='relative text-gray-500 dark:text-gray-400'>
-          <li className='flex items-center justify-start w-full pl-4 mb-4 lg:ml-4'>
-            <span
-              className={`absolute flex items-center justify-center w-5 h-5  rounded-full -left-4 dark:ring-gray-900  ${
-                'bg-' + getBaseColor('Rebel')
-              }`}
-            >
-              <svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                <circle cx='7.5' cy='7.5' r='7.5' fill='bg-orange-500' />
-              </svg>
-            </span>
-            <div>
+          <ol key={index} className='relative text-gray-500 dark:text-gray-400'>
+            <li className='flex items-center justify-start w-full pl-4 mb-4 lg:ml-4'>
               <span
-                className={`${determineBadge(quest.label)} ${determineBadge(
-                  quest.label
-                )} text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
+                className={`absolute flex items-center justify-center w-5 h-5  rounded-full -left-4 dark:ring-gray-900  ${
+                  'bg-' + getBaseColor('Rebel')
+                }`}
               >
-                {quest.label}
+                <svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <circle cx='7.5' cy='7.5' r='7.5' fill='bg-orange-500' />
+                </svg>
               </span>
-              <h3 className='pt-2 font-medium leading-tight text-black-300'>{quest.title}</h3>
-              <p className='text-sm'>{quest.description}</p>
-            </div>
-          </li>
-          {auth.user && <SubQuest id={quest.id} character={auth.user?.character} />}
-        </ol>
-      ))} */}
+              <div>
+                <span
+                  className={`${determineBadge(quest.label)} ${determineBadge(
+                    quest.label
+                  )} text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
+                >
+                  {quest.label}
+                </span>
+                <h3 className='pt-2 font-medium leading-tight text-black-300'>{quest.title}</h3>
+                <p className='text-sm'>{quest.description}</p>
+              </div>
+            </li>
+            {auth.user && <SubQuest id={quest.id} character={auth.user?.character} />}
+          </ol>
+        ))} */}
 
         {sortedQuest.map((quest, index) => (
           <div key={index} className='relative w-full mb-10'>
@@ -146,6 +146,19 @@ const NewStepper = (props: QuestProps) => {
                     <h3 className='pt-2 font-medium leading-tight text-black-300'>{quest.title}</h3>
                     <p className='text-sm'>{quest.description}</p>
                   </div> */}
+                </div>
+                <div className='px-6 pb-5 lg:px-10'>
+                  <div>
+                    <span
+                      className={`${determineBadge(quest.label)} ${determineBadge(
+                        quest.label
+                      )} text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}
+                    >
+                      {quest.label}
+                    </span>
+                    <h3 className='px-1 pt-2 font-bold leading-tight text-black-300 '>{quest.title}</h3>
+                    <p className='px-1 text-xs lg:text-sm text-black-300'>{quest.description}</p>
+                  </div>
                 </div>
                 <SubQuest id={quest.id} character={auth.user?.character} />
               </div>

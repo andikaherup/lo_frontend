@@ -42,7 +42,7 @@ const StatisfactionRadio: React.FC<RadioGroupProps> = ({ valueRadio, onRadioChan
           > */}
           <img
             src={`/assets/icon/dashboard/${getImage(value)}`}
-            className={`object-fill hover:scale-110 ${selectedValue && selectedValue != value ? 'grayscale' : ''}`}
+            className={`object-fill hover:scale-110 ${selectedValue && selectedValue != value ? 'opacity-50' : ''}`}
             alt='iamges'
           />
           {/* </div> */}

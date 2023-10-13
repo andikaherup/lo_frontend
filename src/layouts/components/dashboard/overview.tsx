@@ -59,7 +59,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
   // }
 
   return (
-    <div className={`${auth.user ? 'bg-white-500' : ''}`}>
+    <div className={`${auth.user ? 'bg-newUIbackground' : ''}`}>
       <div
         className={`px-8 xl:px-16 w-full  ${
           auth.user ? character.background : ''
@@ -199,33 +199,37 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               </h1>
             </div>
           </div>
-          <div className={`lg:px-20 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
+          <div className={`lg:px-20 lg:py-12 py-5 ${character.background} w-full`} id='about'>
             <div className='lg:px-20'>
               <div className='px-5 lg:px-20'>
-                <span className={`mb-5 lg:text-3xl text-xl font-bold text-white-500 `}>Path To Wealth Creation:</span>
-                <p className='pt-2 mb-3 text-sm lg:pt-5 lg:text-lg text-white-500'>
-                  {character.path_to_wealth.first_explanation}
-                </p>
+                <div className='lg:px-20'>
+                  <span className={`mb-5 lg:text-3xl text-xl font-bold text-white-500 `}>Path To Wealth Creation:</span>
+                  <p className='pt-2 mb-3 text-sm lg:pt-5 lg:text-lg text-white-500'>
+                    {character.path_to_wealth.first_explanation}
+                  </p>
 
-                <p className='mb-5 text-sm lg:text-lg text-white-500'>{character.path_to_wealth.second_explanation}</p>
-                <div className='grid grid-flow-col grid-cols-1 lg:grid-cols-2'>
-                  <img
-                    src={`/assets/icon/overview/ladder/${character.name}.png`}
-                    alt='ladder'
-                    className='object-scale-down '
-                  ></img>
+                  <p className='mb-5 text-sm lg:text-lg text-white-500'>
+                    {character.path_to_wealth.second_explanation}
+                  </p>
+                  <div className='grid grid-flow-col grid-cols-1 lg:grid-cols-2'>
+                    <img
+                      src={`/assets/icon/overview/ladder/${character.name}.png`}
+                      alt='ladder'
+                      className='object-scale-down '
+                    ></img>
 
-                  <div>
-                    <p className='mb-5 text-sm lg:text-lg text-white-500'>
-                      {character.path_to_wealth.third_explanation}
-                    </p>
-                    <ul className='pl-3 list-disc lg:pl-0'>
-                      {character.path_to_wealth.list.map((strength, index) => (
-                        <li key={index} className={`mb-5 text-sm lg:text-lg ${checkHeroBrightness(character.name)} `}>
-                          {strength}
-                        </li>
-                      ))}
-                    </ul>
+                    <div>
+                      <p className='mb-5 text-sm lg:text-lg text-white-500'>
+                        {character.path_to_wealth.third_explanation}
+                      </p>
+                      <ul className='pl-3 list-disc lg:pl-0'>
+                        {character.path_to_wealth.list.map((strength, index) => (
+                          <li key={index} className={`mb-5 text-sm lg:text-lg ${checkHeroBrightness(character.name)} `}>
+                            {strength}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -233,22 +237,24 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           </div>
           <div className='lg:px-20'>
             <div className='lg:px-20'>
-              <div className='px-5 py-20 lg:px-14'>
-                <h1 className='mb-10 text-2xl font-bold text-black-300'>Career Path</h1>
+              <div className='lg:px-20'>
+                <div className='px-5 py-20 lg:px-20'>
+                  <h1 className='mb-10 text-2xl font-bold text-black-300'>Career Path</h1>
 
-                <p className='mb-5'>{character.career.career_text}</p>
-                <div className='grid w-full grid-cols-3 '>
-                  <ul className='w-full pl-3 list-disc lg:col-start-1 lg:col-end-2 '>
-                    {character.career.list_of_career.map((career, index) => (
-                      <li key={index}>{career}</li>
-                    ))}
-                  </ul>
+                  <p className='mb-5'>{character.career.career_text}</p>
+                  <div className='grid w-full lg:grid-cols-3 '>
+                    <ul className='w-full pl-3 list-disc lg:col-start-1 lg:col-end-2 '>
+                      {character.career.list_of_career.map((career, index) => (
+                        <li key={index}>{career}</li>
+                      ))}
+                    </ul>
 
-                  <img
-                    src={`/assets/icon/overview/career/${character.name}.png`}
-                    alt='career'
-                    className='object-scale-down lg:col-start-2 lg:col-end-4'
-                  ></img>
+                    <img
+                      src={`/assets/icon/overview/career/${character.name}.png`}
+                      alt='career'
+                      className='object-scale-down lg:col-start-2 lg:col-end-4'
+                    ></img>
+                  </div>
                 </div>
               </div>
             </div>
@@ -257,12 +263,27 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           <div className={`px-8 xl:px-16 lg:py-12 py-5 w-full`} id='about'>
             <div className='w-full lg:px-20 '>
               <div className='flex flex-col justify-center w-full lg:px-20'>
-                {/* <span className={`mb-5 text-[200px] font-extrabold  ${getBaseTextColor(character.name)}`}>
-                  Strengths:
-                </span> */}
-                <img src='/assets/icon/overview/herostrength.png' alt='ladder' className='object-scale-down'></img>
+                {/* <span className={` text-[200px] font-extrabold text-black-300`}>Strengths:</span> */}
+                <img
+                  src={`/assets/icon/overview/strength-m/${character.name}.png`}
+                  alt='ladder'
+                  className='object-scale-down'
+                ></img>
+                {/* <img
+                  src={`/assets/characters/${
+                    auth.user?.character_level == 0
+                      ? gender == 'male'
+                        ? character.lvl0_image_M
+                        : character.lvl0_image_F
+                      : gender == 'male'
+                      ? character.lvl1_image_M
+                      : character.lvl1_image_F
+                  }`}
+                  alt={`Image`}
+                  className={`object-scale-down `}
+                /> */}
 
-                <div className='grid lg:grid-cols-2  lg:gap-32 lg:px-20 lg:-mt-[500px] lg:pb-[100px]'>
+                <div className='grid lg:grid-cols-2 lg:gap-32 lg:px-20 lg:-mt-[500px] lg:pb-[100px]'>
                   <div className='text-black-300'>
                     <div className='max-w-sm lg:mb-20'>
                       <span className='text-xl font-bold lg:text-2xl'>{character.strengths[0].title} </span>
@@ -294,76 +315,75 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           <hr
             className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
           />
-          <div className={`px-8 xl:px-16 lg:py-12 py-5 ${character.background} w-full`} id='about'>
-            <div className='grid w-full h-full grid-flow-row grid-cols-1 lg:px-20 sm:grid-flow-col md:grid-rows-1 sm:grid-cols-8'>
-              <div className='flex w-full lg:pl-10 sm:col-start-2 sm:col-end-4'>
-                <div className='text-center lg:text-left'>
-                  <h1
-                    className={`text-xl font-extrabold lg:text-left uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-4xl ${checkHeroBrightness(
-                      character.name
-                    )}`}
-                  >
-                    AREA OF GROWTH
-                  </h1>
-                  <img src={`/assets/characters/66.png`} alt={`Image`} className={`object-scale-down `} />
-                </div>
-              </div>
-              <div className='flex flex-col items-center justify-center w-full row-start-2 sm:col-start-4 sm:col-end-8 lg:items-end lg:px-10 sm:row-start-1'>
-                {character.area_of_growth.map((area, index) => (
-                  <div key={index} className={`${character.background} rounded-xl text-center lg:text-left p-5 mb-5`}>
-                    <p className={`${checkHeroBrightness(character.name)}`}>
-                      <span className='font-bold'> {area.title} </span> {area.content}
-                    </p>
+          <div className={`px-8  lg:py-12 lg:px-20 py-5 w-full`} id='about'>
+            <div className='lg:px-20'>
+              <div className='flex flex-col items-center justify-center w-full h-full lg:px-20'>
+                <div className='flex w-full'>
+                  <div className='w-full text-center lg:text-center'>
+                    <div className='flex items-center justify-center w-full'>
+                      <h1
+                        className={`text-2xl font-extrabold  uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-4xl text-gray-400`}
+                      >
+                        AREAS FOR
+                      </h1>
+                      <h1
+                        className={`text-2xl ml-2 font-extrabold  uppercase transition duration-300 mb-3 animate-focus-in-expand lg:text-9xl text-gray-400`}
+                      >
+                        GROWTH
+                      </h1>
+                    </div>
                   </div>
-                ))}
+                </div>
+                <div className='grid w-full grid-cols-1 gap-5 lg:grid-cols-3 lg:px-16 '>
+                  {character.area_of_growth.map((area, index) => (
+                    <div
+                      key={index}
+                      className={` text-left lg:text-left  mb-5 ${
+                        index == 1 ? 'lg:border-x lg:border-black-300 lg:px-10' : 'lg:px-2'
+                      }`}
+                    >
+                      <p className={`text-black-300`}>
+                        <span className='font-bold'> {area.title} </span> {area.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className={`px-8 lg:px-5 w-full lg:py-12 py-5 `} id='about'>
+          <div className={` lg:px-20 w-full lg:py-12 py-2 `} id='about'>
             <div className='lg:px-20'>
-              <div className='mb-10 lg:px-20'>
-                <div className='flex flex-col items-center justify-center w-full lg:px-20'>
-                  <h1 className={`w-full text-xl font-bold text-center  lg:text-3xl text-black-300`}>
-                    Motivations and Inspirations
-                  </h1>
+              <div className='lg:px-20'>
+                <div className='mb-10 lg:px-20'>
+                  <div className='flex flex-col items-center justify-center w-full lg:px-20'>
+                    <h1 className={`w-full text-xl font-bold text-center  lg:text-3xl text-black-300`}>
+                      Motivations and Inspirations
+                    </h1>
+                  </div>
                 </div>
-              </div>
-              <div className='grid lg:px-20 lg:grid-cols-5'>
-                {character.motivation_and_aspiration.map((motivation, index) => (
-                  <div key={index} className={`mb-6 lg:mb-0 sm:col-start-${2 + index}`}>
-                    <div
-                      className={`block h-full rounded-lg shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] ${character.background} `}
-                    >
-                      <div className='p-6 text-center border-opacity-100 border-neutral-100 dark:border-opacity-10'>
-                        <div
-                          className={`flex items-center justify-center w-8 h-8 ${character.background} border rounded-full mb-4 `}
-                        >
-                          <span className={`text-xs font-semibold ${checkHeroBrightness(character.name)}`}>
-                            {index + 1}
-                          </span>
+                <div className='flex flex-col justify-center lg:px-10'>
+                  {character.motivation_and_aspiration.map((motivation, index) => (
+                    <div key={index} className={`mb-6 lg:mb-0 sm:col-start-${2 + index}`}>
+                      <div className={`block h-full rounded-lg  `}>
+                        <div className='px-6 text-center border-opacity-100 border-neutral-100 dark:border-opacity-10'>
+                          <p className={`text-left `}>
+                            <span className='font-bold'>{motivation.title}</span> {motivation.content}
+                          </p>
                         </div>
-
-                        <p className={`text-left ${checkHeroBrightness(character.name)}`}>
-                          <span className='font-bold'>{motivation.title}</span> {motivation.content}
-                        </p>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
           <hr
             className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
           />
-          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5 ${character.background} w-full`} id='about'>
+          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5 `} id='about'>
             <div className='flex justify-center lg:px-20'>
-              <h2
-                className={`mb-20 text-xl font-bold text-center lg:w-2/3 lg:px-20 ${checkHeroBrightness(
-                  character.name
-                )}`}
-              >
+              <h2 className={`mb-20 text-xl font-bold text-center lg:w-2/3 lg:px-20 text-black-300`}>
                 {character.embrace_text}
               </h2>
             </div>
@@ -393,7 +413,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
           <hr
             className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
           />
-          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5 ${character.background} w-full`} id='about'>
+          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5`} id='about'>
             <div className='flex justify-center'>
               <div className={`rounded-3xl ${character.background} px-10 py-8 w-full max-w-xl`}>
                 <h1 className={`mb-5 text-3xl font-bold ${checkHeroBrightness(character.name)}`}>
@@ -433,51 +453,95 @@ const Overview = ({ character, gender, changeTab }: Props) => {
             </div>
           </div>
 
-          <hr
-            className={`h-0.5  border-t-0  bg-transparent bg-gradient-to-r from-transparent  via-white-500  to-transparent  opacity-10 dark:opacity-100`}
-          />
-          <div className={`px-8 lg:px-20 w-full lg:py-12 py-5 ${character.background} w-full`} id='about'>
-            <div className='flex justify-center w-full'>
-              <div className='lg:p-10 lg:w-2/3'>
-                <h1 className={`mb-5 text-4xl font-extrabold ${checkHeroBrightness(character.name)}`}>
-                  Bonus: Complimentary Foundation Class
-                </h1>
-                <p className={`mb-2 ${checkHeroBrightness(character.name)}`}>{character.bonus_class.content}</p>
+          <div className={`px-5 lg:px-20 w-full lg:py-12 py-5  `} id='about'>
+            <div className='lg:px-20'>
+              <div className='flex justify-center w-full py-5 lg:py-10 lg:px-20 bg-white-500 rounded-3xl'>
+                <div className='px-10 py-5 lg:py-10 lg:px-20 text-black-300'>
+                  <h1 className={`mb-5 lg:text-4xl text-2xl font-extrabold text-black-300`}>
+                    Bonus: Free 50 tickets to Next Level Conference
+                  </h1>
+                  <p className='text-black-300'>
+                    Are you tired of missing out on opportunities that could change your life?
+                  </p>
+                  <br />
+                  <p className='text-black-300'>
+                    Unleash Your Genius at the upcoming Next Level Conference. Don't miss this chance to learn from our
+                    esteemed speakers who will be condensing more than 200 years of experience combined to help you
+                    transform your wealth, health and relationship.
+                  </p>
+                  <br />
+                  <p className='text-black-300'>
+                    {' '}
+                    Join us at the Next Level Conference to access exclusive Masterclasses, interviews, and training
+                    sessions.
+                  </p>
+                  <br />
+
+                  <p>
+                    Learn from world-renowned experts who have helped thousands achieve higher levels of abundance,
+                    happiness, and wealth.
+                  </p>
+                  <br />
+
+                  <p>
+                    From building side hustles to improving your business, investing profitably, and enhancing your
+                    health, we've got you covered with world-class training sessions.
+                  </p>
+                  <br />
+
+                  <p>
+                    Register now. Take the first step towards a brighter future and discover your path of least
+                    resistance to wealth.
+                  </p>
+                  <br />
+
+                  <p>
+                    Seize this opportunity to learn from the best, all from the comfort of your home. Don't let the
+                    chance to transform your life pass you by.
+                  </p>
+                  <br />
+
+                  <p>Reserve your spot at the Next Level Conference here.</p>
+                  <br />
+
+                  <p>Your genius awaits—unlock it now!</p>
+                  {/* <p className={`mb-2 ${checkHeroBrightness(character.name)}`}>{character.bonus_class.content}</p>
 
                 <p className={`mb-2 font-bold ${checkHeroBrightness(character.name)}`}>
                   To access your Foundation Class, <b>click on the Join Now button below.</b>
-                </p>
+                </p> */}
 
-                <p className={`${checkHeroBrightness(character.name)}`}>{character.conclusion}</p>
-                <div className='flex justify-end w-full mt-10'>
-                  <Link
-                    href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=level0&utm_campaign=report'
-                    aria-current='page'
-                    target='_blank'
-                  >
-                    <button
-                      className={`px-5 lg:px-10 py-2 ${
-                        character.background
-                      }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
-                        character.name
-                      )} lg:text-xl font-semibold flex rounded-full`}
+                  {/* <p className={`${checkHeroBrightness(character.name)}`}>{character.conclusion}</p> */}
+                  <div className='flex justify-end w-full mt-10'>
+                    <Link
+                      href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=level0&utm_campaign=report'
+                      aria-current='page'
+                      target='_blank'
                     >
-                      Join Now
-                      <svg
-                        aria-hidden='true'
-                        className='w-5 h-5 ml-2 -mr-1'
-                        fill='currentColor'
-                        viewBox='0 0 20 20'
-                        xmlns='http://www.w3.org/2000/svg'
+                      <button
+                        className={`px-5 lg:px-10 py-2 ${
+                          character.background
+                        }  outline outline-white-300 transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
+                          character.name
+                        )} lg:text-xl font-semibold flex rounded-full`}
                       >
-                        <path
-                          fillRule='evenodd'
-                          d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
-                          clipRule='evenodd'
-                        ></path>
-                      </svg>
-                    </button>
-                  </Link>
+                        Join Now
+                        <svg
+                          aria-hidden='true'
+                          className='w-5 h-5 ml-2 -mr-1'
+                          fill='currentColor'
+                          viewBox='0 0 20 20'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <path
+                            fillRule='evenodd'
+                            d='M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z'
+                            clipRule='evenodd'
+                          ></path>
+                        </svg>
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

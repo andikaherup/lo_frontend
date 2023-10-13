@@ -23,6 +23,7 @@ import * as yup from 'yup'
 
 import { useForm, Controller } from 'react-hook-form'
 import StatisfactionRadio from '../misc/statisfactionRadio'
+import toast from 'react-hot-toast'
 
 interface Props {
   header: string
@@ -401,6 +402,7 @@ const AccordionItem = ({
           })
           .catch(error => {
             console.log(error, 'errorr')
+            toast.error(error.response.data.data)
           })
       }
       setLoading(false)
@@ -423,6 +425,7 @@ const AccordionItem = ({
         })
         .catch(error => {
           console.log(error, 'errorr')
+          toast.error(error.response.data.data)
         })
     }
   }
@@ -512,15 +515,18 @@ const AccordionItem = ({
             <div>
               <form onSubmit={handleOccupationSubmit(onFormSubmit)}>
                 <FormControl className={`flex justify-start ${checkHeroBrightness(auth.user?.character || 'Hero')}`}>
-                  <div className='grid lg:grid-cols-4'>
-                    <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
-                      <label htmlFor='occupation' className='block mb-2 text-sm font-medium dark:text-white'>
+                  <div className='grid lg:grid-cols-3'>
+                    {/* <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+                      <label
+                        htmlFor='occupation'
+                        className='block mb-2 text-sm font-medium text-black-300 dark:text-white'
+                      >
                         Your Occupation
                       </label>
                       {occupationError.occupation && (
                         <span className='text-sm text-red-900 '> This field is required</span>
                       )}
-                    </div>
+                    </div> */}
 
                     <Controller
                       name='occupation'
@@ -534,7 +540,7 @@ const AccordionItem = ({
                             onChange(e)
                             setSelectedOccupation(e.target.value)
                           }}
-                          className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                          className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                         >
                           <option value=''>Select an occupation</option>
                           {professions.map(prof => (
@@ -545,19 +551,22 @@ const AccordionItem = ({
                         </select>
                       )}
                     />
+                    {occupationError.occupation && (
+                      <span className='text-sm text-red-900 '> This field is required</span>
+                    )}
                   </div>
                 </FormControl>
                 {selectedOccupation == 'Other' && (
                   <FormControl className={`flex justify-center pt-5 `}>
-                    <div className='grid lg:grid-cols-4'>
-                      <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
+                    <div className='grid lg:grid-cols-3'>
+                      {/* <div className='flex flex-col items-center justify-center lg:items-start lg:col-start-2 '>
                         <label htmlFor='other_occupation' className='block mb-2 text-sm font-medium dark:text-white'>
                           Enter other occupation
                         </label>
                         {occupationError.other_occupation && (
                           <span className='text-sm text-red-900 '> This field is required</span>
                         )}
-                      </div>
+                      </div> */}
 
                       <Controller
                         name='other_occupation'
@@ -568,31 +577,34 @@ const AccordionItem = ({
                             id='other_occupation'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            placeholder='enter other occupation'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           ></input>
                         )}
                       />
+                      {occupationError.other_occupation && (
+                        <span className='text-sm text-red-900 '> This field is required</span>
+                      )}
                     </div>
                   </FormControl>
                 )}
-
-                <div className={`flex justify-start items-center`}>
-                  <div className='flex items-center justify-center '>
-                    <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm text-black-300'>
-                      Level of Satisfaction
-                    </label>
-                  </div>
-                  <div className='flex items-center justify-center'>
-                    <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
-                  </div>
-                  <div className='flex items-center justify-center'>
-                    {occupationError.job_satisfaction_level && (
-                      <span className='text-sm font-bold text-black-300 '>
-                        {occupationError.job_satisfaction_level.message}
-                      </span>
-                    )}
+                <div className='grid lg:grid-cols-3'>
+                  <div className={`flex justify-between items-center`}>
+                    <div className='flex items-center justify-center '>
+                      <label htmlFor='level_of_satisfaction' className='block mb-2 text-sm text-black-300'>
+                        Level of Satisfaction
+                      </label>
+                    </div>
+                    <div className='flex items-center justify-center'>
+                      <StatisfactionRadio valueRadio={satisfaction} onRadioChange={changeRadio}></StatisfactionRadio>
+                    </div>
                   </div>
                 </div>
+                {occupationError.job_satisfaction_level && (
+                  <span className='text-sm font-bold text-black-300 '>
+                    {occupationError.job_satisfaction_level.message}
+                  </span>
+                )}
                 <div className='flex justify-center w-full pt-5'>
                   <button
                     disabled={loading}
@@ -636,7 +648,7 @@ const AccordionItem = ({
                             id='strength_1'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a First Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -673,7 +685,7 @@ const AccordionItem = ({
                             id='strength_2'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Second Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -710,7 +722,7 @@ const AccordionItem = ({
                             id='strength_3'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Third Strength</option>
                             {roles.strength.map((myRole: string, index: number) => (
@@ -771,7 +783,7 @@ const AccordionItem = ({
                             id='area_of_growth_1'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a First Area of Growth</option>
                             {roles.growth.map((myRole: string, index: number) => (
@@ -808,7 +820,7 @@ const AccordionItem = ({
                             id='area_of_growth_2'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Second Area of Growth</option>
                             {/* {roles.map(
@@ -853,7 +865,7 @@ const AccordionItem = ({
                             id='area_of_growth_3'
                             value={value}
                             onChange={onChange}
-                            className='bg-gray-50 w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            className='block w-full px-4 py-3 mb-3 text-sm leading-tight border border-gray-200 rounded-3xl bg-greyloading-300 text-black-500 focus:outline-none focus:bg-white focus:border-gray-500'
                           >
                             <option value=''>Choose a Third Area of Growth</option>
                             {roles.growth.map((myRole: string, index: number) => (

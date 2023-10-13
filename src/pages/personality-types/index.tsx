@@ -139,11 +139,11 @@ const PersonalityTypes = () => {
           </div>
         </div>
         <div
-          className={`relative py-10 h-screen max-h-fit flex-col mt-10  flex justify-center items-center lg:ml-[200px] rounded-2xl ${getBackground(
+          className={`relative py-10 h-screen flex-col lg:mt-10 mt-[150px]  flex justify-center items-center lg:ml-[200px] lg:rounded-tl-2xl rounded-tl-[200px] ${getBackground(
             selected?.name
           )}`}
         >
-          <div className=' lg:-ml-[200px] lg:-mt-[250px] '>
+          <div className=' lg:-ml-[200px] lg:-mt-[250px] -mt-[480px]  '>
             <div className='grid lg:grid-cols-4'>
               <div className='grid grid-cols-2 lg:col-start-1 lg:col-end-3 '>
                 <img className='lg:scale-150' src={selected?.image1} alt='first'></img>
@@ -155,7 +155,7 @@ const PersonalityTypes = () => {
                   <h1 className='text-3xl font-extrabold text-center lg:text-left lg:text-9xl text-white-500 '>
                     {selected?.name}
                   </h1>
-                  <h1 className='mt-5 text-xl text-center text-white-500'>{selected?.desc}</h1>
+                  <h1 className='mt-5 text-xl text-center lg:text-left text-white-500'>{selected?.desc}</h1>
                 </div>
                 <div className='flex justify-center mt-10 lg:justify-start'>
                   <Link href='/personality-test' aria-current='page'>
