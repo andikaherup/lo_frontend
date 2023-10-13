@@ -113,14 +113,15 @@ const Home = () => {
       <div className='pt-10 bg-newUIbackground'>
         <HeroSlider
           className='lg:max-h-[500px] max-h-[300px] z-15'
-          autoplay
+          autoplay={{
+            autoplayDuration: 2000
+          }}
           accessibility={{
             shouldDisplayButtons: true
           }}
           controller={{
             initialSlide: 0,
-            slidingDuration: 300,
-
+            slidingDuration: 0,
             onSliding: nextSlide => console.debug('onSliding(nextSlide): ', nextSlide),
             onBeforeSliding: (previousSlide, nextSlide) =>
               console.debug('onBeforeSliding(previousSlide, nextSlide): ', previousSlide, nextSlide),
@@ -132,7 +133,7 @@ const Home = () => {
               <Overlay>
                 <div className='flex items-center justify-center w-full'>
                   <img
-                    className='z-10 object-scale-down max-w-xs transition delay-100 lg:max-w-lg md:max-w-md sm:max-w-sm animate-fade-in-bottom drop-shadow-md'
+                    className='z-10 object-scale-down max-w-xs transition delay-1000 lg:max-w-lg md:max-w-md sm:max-w-sm animate-fade-in-bottom drop-shadow-md'
                     key={index}
                     src={`/assets/characters/${image.image}`}
                     alt={`Image ${index + 1}`}

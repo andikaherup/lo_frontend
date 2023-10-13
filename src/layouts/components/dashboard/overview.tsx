@@ -32,9 +32,9 @@ const Overview = ({ character, gender, changeTab }: Props) => {
     return nams
   }
 
-  // const currentURL = window.location.href
-  // const urlObject = new URL(currentURL)
-  // const domain = urlObject.hostname
+  const currentURL = window.location.href
+  const urlObject = new URL(currentURL)
+  const domain = urlObject.hostname
 
   const downloadImage = () => {
     const imageUrl = `/assets/icon/overview/onepage-m/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
@@ -157,7 +157,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                       <div className='flex -rotate-90 lg:hidden'>
                         <FacebookIcon size={30} round />
                       </div>
-                      <span className={`pl-2 font-bold text-lg lg:text-xl text-white-300 text-left  `}>
+                      <span className={`pl-2 text-md leading-3 lg:text-xl text-white-500 text-left  `}>
                         Share your character <br /> on Facebook
                       </span>
                     </div>
@@ -194,7 +194,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
 
           <div className={`${character.background} flex justify-center w-full `}>
             <div>
-              <h1 className='-mt-3 text-4xl font-extrabold scale-150 lg:-mt-9 scale text-white-500 lg:text-9xl'>
+              <h1 className='-mt-3 text-3xl font-extrabold scale-150 lg:-mt-9 scale text-newUIbackground lg:text-9xl'>
                 Wealth Creation{' '}
               </h1>
             </div>
@@ -362,12 +362,12 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                     </h1>
                   </div>
                 </div>
-                <div className='flex flex-col justify-center lg:px-10'>
+                <div className='flex flex-col items-center justify-center lg:px-10'>
                   {character.motivation_and_aspiration.map((motivation, index) => (
                     <div key={index} className={`mb-6 lg:mb-0 sm:col-start-${2 + index}`}>
                       <div className={`block h-full rounded-lg  `}>
-                        <div className='px-6 text-center border-opacity-100 border-neutral-100 dark:border-opacity-10'>
-                          <p className={`text-left `}>
+                        <div className='text-center border-opacity-100 px-7 border-neutral-100 dark:border-opacity-10'>
+                          <p className={`text-left lg:pb-5 `}>
                             <span className='font-bold'>{motivation.title}</span> {motivation.content}
                           </p>
                         </div>
@@ -568,7 +568,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                     Download
                   </button>
                   <FacebookShareButton
-                    url={`https://newuistaging.thel0.com/api/char=${character.name}&gender=${gender}&onepage=true`}
+                    url={`https://${domain}/api/char=${character.name}&gender=${gender}&onepage=true`}
                     hashtag={'#personality-test'}
                   >
                     <button
