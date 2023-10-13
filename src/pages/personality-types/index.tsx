@@ -1,11 +1,12 @@
 // ** React Imports
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 
 import React from 'react'
 
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { getBackground } from 'src/configs/getBackground'
+import Link from 'next/link'
 
 // import { motion } from 'framer-motion'
 // import getScrollAnimation from 'src/views/pages/utils/getScrollAnimation'
@@ -17,11 +18,21 @@ import { getBackground } from 'src/configs/getBackground'
 // ** Layout Import
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
+interface Character {
+  name: string
+  image1: string
+  image2: string
+  bgColor: string
+  desc: string
+}
+
 // import Header from 'src/layouts/components/header/Header'
 // import ButtonPrimary from 'src/layouts/components/misc/ButtonPrimary'
 
 const PersonalityTypes = () => {
   // const scrollAnimation = useMemo(() => getScrollAnimation(), [])
+  const [detail, setDetail] = useState<boolean>(false)
+  const [selected, setSelected] = useState<Character>()
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -45,7 +56,7 @@ const PersonalityTypes = () => {
       partialVisibilityGutter: 40
     }
   }
-  const heroes = [
+  const heroes: Character[] = [
     {
       name: 'Hero',
       image1: '/assets/characters/HERO_LVL_1(NEW).png',
@@ -86,7 +97,7 @@ const PersonalityTypes = () => {
       image1: '/assets/characters/RULER_LVL_1.png',
       image2: '/assets/characters/Ruler_LVL_1_(F).png',
       bgColor: 'bg-creatorrulerbg-300',
-      desc: 'A ruler personality is characterized by a high level of organization, responsibility, and attention to detail. Rulers are often associated with dependability, consistency, and a strong work ethic.'
+      desc: 'As a Ruler, you possess leadership qualities, a keen sense of organization, and a natural ability to bring order and structure to any situation. You thrive in positions of authority and are driven by a deep desire to create a positive impact on others. Your ability to guide, organize, and empower sets you apart as a natural-born leader.'
     },
     {
       name: 'Protector',
@@ -106,49 +117,118 @@ const PersonalityTypes = () => {
     // Add more objects for additional heroes
   ]
 
-  return (
-    <div className='pt-20'>
-      <div className='pt-20 mx-auto xl:px-16" ' id='about'>
-        <div className='max-w-screen-md mx-auto text-center '>
-          <h2 className='text-2xl font-extrabold tracking-tight text-gray-900 lg:text-4xl text-black-300 dark:text-white'>
-            Personality Types
-          </h2>
-        </div>
-      </div>
+  const selectType = (hero: any) => {
+    console.log('hero', hero)
+    setDetail(true)
+    setSelected(hero)
+  }
 
-      <Carousel
-        swipeable={true}
-        draggable={false}
-        showDots={false}
-        responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={2000}
-        partialVisbile
-        slidesToSlide={1}
-        keyBoardControl={true}
-        customTransition='transform 1000ms ease-in-out '
-        transitionDuration={1000}
-        containerClass='carousel-container'
-        removeArrowOnDeviceType={['tablet', 'mobile']}
-        itemClass='lg:px-10 px-2 mb-20'
-      >
-        {heroes.map((hero, index) => (
-          <div
-            className={` relative flex flex-col justify-center px-4 items-center h-full hover:cursor-pointer hover:scale-125 transition`}
-            key={index}
-          >
-            <div className='px-4 pt-10 pb-20 mt-20 mb-10 rounded-lg lg:py-20 sm:px-8 md:px-12 '></div>
-            <div className={`${getBackground(hero.name)} flex flex-col justify-center lg:pb-10 pb-2  rounded-2xl`}>
-              <img src={hero.image2} alt='Characters' className='lg:mt-[-220px] mt-[-100px]' />
-              <span className='font-bold text-center lg:text-5xl text-md text-white-500'>{hero.name}</span>
-              <span className='mt-2 text-xs text-center lg:text-xl text-white-500'>{'Find Out More >'} </span>
+  const goBack = () => {
+    setDetail(false)
+    setSelected(undefined)
+  }
+
+  if (detail && selected) {
+    return (
+      <div className='pt-20'>
+        <div className='pt-20 mx-auto xl:px-16" ' id='about'>
+          <div className='max-w-screen-md mx-auto text-center '>
+            <h2 className='text-2xl font-extrabold tracking-tight text-gray-900 lg:text-4xl text-black-300 dark:text-white'>
+              Personality Types
+            </h2>
+          </div>
+        </div>
+        <div
+          className={`relative py-10 h-screen max-h-fit flex-col mt-10  flex justify-center items-center lg:ml-[200px] rounded-2xl ${getBackground(
+            selected?.name
+          )}`}
+        >
+          <div className=' lg:-ml-[200px] lg:-mt-[250px] '>
+            <div className='grid lg:grid-cols-4'>
+              <div className='grid grid-cols-2 lg:col-start-1 lg:col-end-3 '>
+                <img className='lg:scale-150' src={selected?.image1} alt='first'></img>
+                <img className='scale-100' src={selected?.image2} alt='second'></img>
+              </div>
+
+              <div className={`lg:col-start-3 lg:col-end-5 `}>
+                <div className='px-5 mt-10 '>
+                  <h1 className='text-3xl font-extrabold text-center lg:text-left lg:text-9xl text-white-500 '>
+                    {selected?.name}
+                  </h1>
+                  <h1 className='mt-5 text-xl text-center text-white-500'>{selected?.desc}</h1>
+                </div>
+                <div className='flex justify-center mt-10 lg:justify-start'>
+                  <Link href='/personality-test' aria-current='page'>
+                    <button className='px-16 py-3 text-xl font-bold text-black-300 bg-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'>
+                      Take Test
+                    </button>
+                  </Link>
+                </div>
+
+                <div className='flex items-center justify-center mt-10 lg:justify-start '>
+                  <button onClick={goBack}>
+                    <span className='mt-2 text-center text-md lg:text-xl text-white-500'>
+                      {'Find Out More Character >'}
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-      </Carousel>
-      {/* {heroes.map((hero, index) => (
+        </div>
+      </div>
+    )
+  }
+  if (!detail) {
+    return (
+      <div className='pt-20'>
+        <div className='pt-20 mx-auto xl:px-16" ' id='about'>
+          <div className='max-w-screen-md mx-auto text-center '>
+            <h2 className='text-2xl font-extrabold tracking-tight text-gray-900 lg:text-4xl text-black-300 dark:text-white'>
+              Personality Types
+            </h2>
+          </div>
+        </div>
+
+        <Carousel
+          swipeable={true}
+          draggable={false}
+          showDots={false}
+          responsive={responsive}
+          ssr={true} // means to render carousel on server-side.
+          infinite={true}
+          autoPlay={true}
+          autoPlaySpeed={2000}
+          partialVisbile
+          slidesToSlide={1}
+          keyBoardControl={true}
+          customTransition='transform 1000ms ease-in-out '
+          transitionDuration={1000}
+          containerClass='carousel-container'
+          removeArrowOnDeviceType={['tablet', 'mobile']}
+          itemClass='lg:px-10 px-2 mb-20'
+        >
+          {heroes.map((hero, index) => (
+            <button
+              onClick={() => {
+                selectType(hero)
+              }}
+              key={index}
+            >
+              <div
+                className={` relative flex flex-col justify-center px-4 items-center h-full hover:cursor-pointer hover:scale-125 transition`}
+              >
+                <div className='px-4 pt-10 pb-20 mt-20 mb-10 rounded-lg lg:py-20 sm:px-8 md:px-12 '></div>
+                <div className={`${getBackground(hero.name)} flex flex-col justify-center lg:pb-10 pb-2  rounded-2xl`}>
+                  <img src={hero.image2} alt='Characters' className='lg:mt-[-220px] mt-[-100px]' />
+                  <span className='font-bold text-center lg:text-5xl text-md text-white-500'>{hero.name}</span>
+                  <span className='mt-2 text-xs text-center lg:text-xl text-white-500'>{'Find Out More >'} </span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </Carousel>
+        {/* {heroes.map((hero, index) => (
         <div key={index} className={`px-8 mx-auto ${hero.bgColor} shadow-md xl:px-16 py-10`} id='about'>
           <div className='max-w-screen-xl mx-auto '>
             <div className='flex justify-center mb-5'>
@@ -165,8 +245,9 @@ const PersonalityTypes = () => {
           </div>
         </div>
       ))} */}
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 PersonalityTypes.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>

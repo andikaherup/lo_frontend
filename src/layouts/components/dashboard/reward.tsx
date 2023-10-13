@@ -72,7 +72,7 @@ const Reward = (props: rewardProps) => {
 
   return (
     <div className='w-full h-full min-h-screen pt-10 lg:pt-20 bg-newUIbackground'>
-      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 lg:items-start lg:px-20'>
+      <div className='flex flex-col items-center justify-start h-full min-h-screen px-5 pt-10 lg:items-start lg:px-20'>
         {auth.user && (
           <h1 className='text-2xl font-bold text-center lg:text-left lg:text-6xl text-black-300'>
             UNLOCK YOUR REWARDS

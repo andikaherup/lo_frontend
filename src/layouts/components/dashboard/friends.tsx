@@ -473,7 +473,7 @@ const Friends = () => {
 
             <div className=''>
               <form onSubmit={handleGuessSubmit(onFormSubmit)}>
-                <div className='grid grid-cols-1 lg:grid-cols-2'>
+                <div className='grid grid-cols-1 lg:gap-5 lg:grid-cols-2'>
                   <div className='grid lg:grid-cols-1'>
                     <FormControl fullWidth>
                       <div className='grid '>
@@ -574,7 +574,7 @@ const Friends = () => {
                 additional points.
               </span>
 
-              <div className='grid grid-cols-1 lg:grid-cols-2'>
+              <div className='grid grid-cols-1 lg:grid-cols-2 lg:gap-5'>
                 <div>
                   <div className='flex justify-center mt-5'>
                     <span className='mb-2 text-xs font-medium text-referralSemiBlack'> copy your personal link</span>
@@ -649,26 +649,33 @@ const Friends = () => {
             </div>
           </div>
 
-          <div className='px-10 pb-20 lg:col-start-3 lg:col-end-13 bg-white-500'>
+          <div className='px-10 pb-20 lg:col-start-3 rounded-3xl lg:col-end-13 bg-white-500'>
             <div className='py-10'>
               <h1 className='text-xl font-bold text-black-300'>Invited Friends</h1>
             </div>
+
             <table className='w-full overflow-auto overflow-x-auto table-auto'>
-              <thead>
+              <thead className='pb-2 border-b-2 border-black-300'>
                 <tr>
                   <th className='text-left'>No</th>
+                  <th className='text-left'>Friend</th>
+
                   <th className='text-left'>Email Address</th>
                   <th className='text-left'>Prediction</th>
                   <th className='text-left'>Status</th>
+                  <th className='text-center'>Referral Points</th>
                 </tr>
               </thead>
               <tbody>
                 {myRefData.map((ref: Myref, index: number) => (
                   <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td>{index + 1}.</td>
+                    <td>{ref.friend_name}</td>
+
                     <td>{ref.email_to_invite}</td>
                     <td>{ref.character_prediction}</td>
-                    <td>{ref.is_completed ? 'Predicted' : 'False Predict'}</td>
+                    <td>{ref.is_completed ? 'Accepted' : 'Pending'}</td>
+                    <td className='text-center'>{ref.referral_points}</td>
                   </tr>
                 ))}
               </tbody>

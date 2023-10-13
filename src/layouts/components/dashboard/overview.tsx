@@ -32,8 +32,12 @@ const Overview = ({ character, gender, changeTab }: Props) => {
     return nams
   }
 
+  // const currentURL = window.location.href
+  // const urlObject = new URL(currentURL)
+  // const domain = urlObject.hostname
+
   const downloadImage = () => {
-    const imageUrl = `/assets/icon/overview/onepage-d/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
+    const imageUrl = `/assets/icon/overview/onepage-m/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`
     const link = document.createElement('a')
     link.href = imageUrl
     link.download = `${character.name}-report`
@@ -200,25 +204,25 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               <div className='px-5 lg:px-20'>
                 <span className={`mb-5 lg:text-3xl text-xl font-bold text-white-500 `}>Path To Wealth Creation:</span>
                 <p className='pt-2 mb-3 text-sm lg:pt-5 lg:text-lg text-white-500'>
-                  Heroes are natural leaders and risk-takers. Heroes are drawn to businesses that allow them to make a
-                  difference in the world and to take charge.
+                  {character.path_to_wealth.first_explanation}
                 </p>
 
-                <p className='mb-5 text-sm lg:text-lg text-white-500'>
-                  Careers that involve entrepreneurship and business ownership can be lucrative for Heroes.
-                </p>
+                <p className='mb-5 text-sm lg:text-lg text-white-500'>{character.path_to_wealth.second_explanation}</p>
                 <div className='grid grid-flow-col grid-cols-1 lg:grid-cols-2'>
-                  <img src='/assets/icon/overview/I1.png' alt='ladder' className='object-scale-down '></img>
+                  <img
+                    src={`/assets/icon/overview/ladder/${character.name}.png`}
+                    alt='ladder'
+                    className='object-scale-down '
+                  ></img>
 
                   <div>
                     <p className='mb-5 text-sm lg:text-lg text-white-500'>
-                      Heroes can also consider investment in socially responsible ventures, such as impact investing or
-                      investing in companies focused on making a positive difference in the world.
+                      {character.path_to_wealth.third_explanation}
                     </p>
                     <ul className='pl-3 list-disc lg:pl-0'>
-                      {character.strengths.map((strength, index) => (
+                      {character.path_to_wealth.list.map((strength, index) => (
                         <li key={index} className={`mb-5 text-sm lg:text-lg ${checkHeroBrightness(character.name)} `}>
-                          {strength.content}
+                          {strength}
                         </li>
                       ))}
                     </ul>
@@ -232,28 +236,19 @@ const Overview = ({ character, gender, changeTab }: Props) => {
               <div className='px-5 py-20 lg:px-14'>
                 <h1 className='mb-10 text-2xl font-bold text-black-300'>Career Path</h1>
 
-                <p className='mb-5'>
-                  Careers in emergency services (such as firefighting or paramedics), military or defense, social work,
-                  nonprofit organizations focused on humanitarian causes, or leadership roles that involve making a
-                  positive impact on society.
-                </p>
-                <div className='flex justify-start w-full '>
-                  <ul className='pl-8 list-disc'>
-                    <li>CEO</li>
-                    <li>Entrepreneur</li>
-                    <li>Firefighter</li>
-                    <li>Paramedic</li>
-                    <li>Police officer</li>
-                    <li>Military personnel</li>
-                    <li>Social worker</li>
-                    <li>Humanitarian aid worker</li>
-                    <li>Non-profit organization manager</li>
-                    <li>Healthcare professional</li>
-                    <li>Emergency medical technician</li>
-                    <li>sad</li>
+                <p className='mb-5'>{character.career.career_text}</p>
+                <div className='grid w-full grid-cols-3 '>
+                  <ul className='w-full pl-3 list-disc lg:col-start-1 lg:col-end-2 '>
+                    {character.career.list_of_career.map((career, index) => (
+                      <li key={index}>{career}</li>
+                    ))}
                   </ul>
 
-                  {/* <img src='/assets/icon/overview/I3.png' alt='career' className='object-scale-down'></img> */}
+                  <img
+                    src={`/assets/icon/overview/career/${character.name}.png`}
+                    alt='career'
+                    className='object-scale-down lg:col-start-2 lg:col-end-4'
+                  ></img>
                 </div>
               </div>
             </div>
@@ -456,7 +451,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                 <p className={`${checkHeroBrightness(character.name)}`}>{character.conclusion}</p>
                 <div className='flex justify-end w-full mt-10'>
                   <Link
-                    href='https://learnpod.clickfunnels.com/foundation-class-registration-page'
+                    href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=level0&utm_campaign=report'
                     aria-current='page'
                     target='_blank'
                   >
@@ -488,8 +483,8 @@ const Overview = ({ character, gender, changeTab }: Props) => {
             </div>
           </div>
 
-          <div className='pb-20 lg:px-20'>
-            <div className='px-10 lg:px-20'>
+          <div className='pb-20 '>
+            <div className=''>
               <div className='flex flex-col items-center justify-center'>
                 <img
                   src={`/assets/icon/overview/onepage-d/${character.name}-${gender == 'male' ? 'm' : 'f'}.jpg`}
@@ -508,13 +503,18 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                   >
                     Download
                   </button>
-                  <button
-                    className={`px-5 ml-2 lg:px-10 py-2 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor  transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
-                      character.name
-                    )} lg:text-xl font-semibold flex rounded-full`}
+                  <FacebookShareButton
+                    url={`https://newuistaging.thel0.com/api/char=${character.name}&gender=${gender}&onepage=true`}
+                    hashtag={'#personality-test'}
                   >
-                    Share
-                  </button>
+                    <button
+                      className={`px-5 ml-2 lg:px-10 py-2 bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor  transition hover:-translate-y-1 hover:scale-110 ${checkHeroBrightness(
+                        character.name
+                      )} lg:text-xl font-semibold flex rounded-full`}
+                    >
+                      Share
+                    </button>
+                  </FacebookShareButton>
                 </div>
               </div>
             </div>

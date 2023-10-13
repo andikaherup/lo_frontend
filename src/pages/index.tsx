@@ -118,7 +118,7 @@ const Home = () => {
             shouldDisplayButtons: true
           }}
           controller={{
-            initialSlide: 1,
+            initialSlide: 0,
             slidingDuration: 300,
 
             onSliding: nextSlide => console.debug('onSliding(nextSlide): ', nextSlide),
@@ -132,7 +132,7 @@ const Home = () => {
               <Overlay>
                 <div className='flex items-center justify-center w-full'>
                   <img
-                    className='z-10 object-scale-down max-w-xs transition delay-500 lg:max-w-lg md:max-w-md sm:max-w-sm animate-fade-in-bottom drop-shadow-md'
+                    className='z-10 object-scale-down max-w-xs transition delay-100 lg:max-w-lg md:max-w-md sm:max-w-sm animate-fade-in-bottom drop-shadow-md'
                     key={index}
                     src={`/assets/characters/${image.image}`}
                     alt={`Image ${index + 1}`}
