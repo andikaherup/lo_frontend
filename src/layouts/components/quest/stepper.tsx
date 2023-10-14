@@ -69,6 +69,9 @@ const NewStepper = (props: QuestProps) => {
 
       case 'LEVEL 1':
         return 'text-textBadgeBlue bg-badgeBlue'
+
+      case 'LEVEL 2':
+        return 'text-black-300 bg-darkHero'
     }
   }
 

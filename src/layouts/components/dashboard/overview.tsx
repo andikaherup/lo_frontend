@@ -283,7 +283,7 @@ const Overview = ({ character, gender, changeTab }: Props) => {
                   className={`object-scale-down `}
                 /> */}
 
-                <div className='grid lg:grid-cols-2 lg:gap-32 lg:px-20 lg:-mt-[500px] lg:pb-[100px]'>
+                <div className='lg:flex lg:justify-between lg:px-20 lg:-mt-[450px] lg:pb-[100px]'>
                   <div className='text-black-300'>
                     <div className='max-w-sm lg:mb-20'>
                       <span className='text-xl font-bold lg:text-2xl'>{character.strengths[0].title} </span>
