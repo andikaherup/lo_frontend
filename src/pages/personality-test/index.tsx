@@ -42,6 +42,10 @@ const PersonalityTest = () => {
   const auth = useAuth()
 
   useEffect(() => {
+    //disable user to retake the test
+    if (auth.user?.character) {
+      router.replace('/dashboard')
+    }
     const initAuth = async () => {
       await axios.get(contentConfig.getQuestion).then(async res => {
         const data: Questions[] = res.data.data
@@ -52,6 +56,7 @@ const PersonalityTest = () => {
     }
 
     initAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [initialLoad, setInitialLoad] = useState(false)
