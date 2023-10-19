@@ -3,7 +3,14 @@ import { useState, Fragment, useEffect } from 'react'
 
 // ** MUI Imports
 // ** MUI Imports
-
+// ** MUI Imports
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
 import React from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -653,33 +660,30 @@ const Friends = () => {
             <div className='py-10'>
               <h1 className='text-xl font-bold text-black-300'>Invited Friends</h1>
             </div>
-
-            <table className='w-full overflow-auto overflow-x-auto table-auto'>
-              <thead className='pb-2 border-b-2 border-black-300'>
-                <tr>
-                  <th className='text-left'>No</th>
-                  <th className='text-left'>Friend</th>
-
-                  <th className='text-left'>Email Address</th>
-                  <th className='text-left'>Prediction</th>
-                  <th className='text-left'>Status</th>
-                  <th className='text-center'>Referral Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {myRefData.map((ref: Myref, index: number) => (
-                  <tr key={index}>
-                    <td>{index + 1}.</td>
-                    <td>{ref.friend_name}</td>
-
-                    <td>{ref.email_to_invite}</td>
-                    <td>{ref.character_prediction}</td>
-                    <td>{ref.is_completed ? 'Accepted' : 'Pending'}</td>
-                    <td className='text-center'>{ref.referral_points}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>No.</TableCell>
+                    <TableCell align='left'>Friend</TableCell>
+                    <TableCell align='left'>Prediction </TableCell>
+                    <TableCell align='left'>Points </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {myRefData.map((ref: Myref, index: number) => (
+                    <TableRow key={index} sx={{ '&:last-of-type  td, &:last-of-type  th': { border: 0 } }}>
+                      <TableCell component='th' scope='row'>
+                        {index + 1}
+                      </TableCell>
+                      <TableCell align='left'>{ref.friend_name}</TableCell>
+                      <TableCell align='left'>{ref.character_prediction}</TableCell>
+                      <TableCell align='left'>{ref.referral_points}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </div>
       </div>

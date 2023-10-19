@@ -294,16 +294,14 @@ const Leaderboard = () => {
                 )
               })}
               {auth.user && myRank > (userList?.length || 0) && (
-                <tr className='bg-yellow-300'>
-                  <td className='p-2 whitespace-nowrap'>
-                    <div className='text-xs text-center lg:text-lg'>{myRank}</div>
-                  </td>
-                  <td className='p-2 whitespace-nowrap'>
+                <div className={`grid w-full grid-cols-3 mb-2  rounded-3xl bg-yellow-300`}>
+                  <div className='flex items-center justify-start col-start-1 col-end-3 pl-5 lg:pl-10'>
+                    <span className='mr-2 text-sm font-bold text-center lg:text-lg text-black-300'>{myRank}</span>
                     <div className='flex items-center'>
                       <div className='flex-shrink-0 '>
                         {auth.user?.character && auth.user?.character != 'Anonymous' && (
                           <img
-                            className='rounded-full'
+                            className='scale-90 rounded-full lg:scale-100'
                             src={`/assets/icon/leaderboard/${
                               auth.user?.character_level == 0
                                 ? auth.user?.gender == 'male'
@@ -315,29 +313,34 @@ const Leaderboard = () => {
                                 ? 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_M
                                 : 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_F
                             }`}
-                            width='60'
-                            height='60'
+                            width='70'
+                            height='70'
                             alt='character'
                           />
                         )}
-                        {!auth.user?.character ||
-                          (auth.user?.character === 'Anonymous' && (
-                            <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
-                          ))}
+                        {(!auth.user?.character || auth.user?.character === 'Anonymous') && (
+                          <img alt='noimage' src='/assets/characters/noimage.png' width={60} height={60}></img>
+                        )}
                       </div>
                       <div className='text-xs font-bold text-gray-800 lg:text-lg '>{auth.user?.name}</div>
                     </div>
-                  </td>
+                  </div>
 
-                  <td className='p-2 whitespace-nowrap'>
-                    <div className='text-xs font-medium text-left text-green-500 lg:text-lg'>
-                      {auth.user?.character_level}
+                  <div className='flex items-center justify-end col-start-3 pr-5 lg:pr-10'>
+                    <div className='grid grid-cols-2 gap-4 lg:gap-10'>
+                      <div className='flex items-center justify-end '>
+                        <Link href={`/reward?level=${auth.user.character_level}`}>
+                          <span className='text-sm text-start'>Lv. {auth.user?.character_level} </span>
+                        </Link>
+                      </div>
+                      <div className='flex items-center justify-start'>
+                        <span className='font-bold text-left text-md lg:text-lg text-purpleText'>
+                          {myData?.user_points}
+                        </span>
+                      </div>
                     </div>
-                  </td>
-                  <td className='p-2 whitespace-nowrap'>
-                    <div className='text-xs text-left lg:text-lg'>{myData?.user_points}</div>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               )}
             </div>
           </div>
