@@ -4,8 +4,10 @@ import Link from 'next/link'
 // Import react scroll
 import { Link as LinkScroll } from 'react-scroll'
 import ButtonOutline from '../misc/ButtonOutline.'
+
 // ** Config
 import contentConfig from 'src/configs/content'
+
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
