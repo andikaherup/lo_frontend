@@ -7,7 +7,7 @@ export default {
   getLeaderBoardData: `${base_url}/api/v1/leaderboard/`,
   getDailyLoginReward: `${base_url}/api/v1/daily_login_reward/`,
   getDailyLoginRewardStatus: `${base_url}/api/v1/daily_login_reward_status/`,
-
+  getBanner: `${base_url}/api/v1/banner/`,
 
   getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
   getSEO: `${base_url}/api/v1/seo/`,
