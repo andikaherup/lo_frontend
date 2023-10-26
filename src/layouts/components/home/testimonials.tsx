@@ -1,5 +1,4 @@
 import EmblaCarousel from './carrousel'
-import { EmblaOptionsType } from 'embla-carousel-react'
 
 const Testimonials = () => {
   const data = [

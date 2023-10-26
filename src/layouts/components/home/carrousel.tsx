@@ -5,6 +5,7 @@ import { gettestimonialRingCOlor } from 'src/configs/getBackground'
 
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
+
 interface Testimonial {
   name: string
   title: string
