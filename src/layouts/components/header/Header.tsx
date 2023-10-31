@@ -44,6 +44,7 @@ interface banner {
   id: number
   image_mobile: string
   image_web: string
+  url: string
   is_active: boolean
   updated_at: string
 }
@@ -93,7 +94,9 @@ const Header: React.FC = () => {
     const initAuth = async () => {
       await axios.get(contentConfig.getBanner).then(res => {
         console.log(res)
-        setBanner(res.data.data[0])
+        if (res.data.data[0]) {
+          setBanner(res.data.data[0])
+        }
       })
     }
 
@@ -168,13 +171,13 @@ const Header: React.FC = () => {
           (scrollActive ? ' shadow-md pt-0 bg-white-300' : '')
         }
       >
-        <Link
-          href='https://www.nextlvlconference.com/unleash2023?utm_source=int&utm_medium=Level0website&utm_campaign=header'
-          target='_blank'
-        >
-          <img className='hidden lg:flex' src={banner?.image_web} alt='banner'></img>
-          <img className='flex lg:hidden' src={banner?.image_mobile} alt='banner'></img>
-        </Link>
+        {banner && (
+          <Link href={banner.url} target='_blank'>
+            <img className='hidden lg:flex' src={banner?.image_web} alt='banner'></img>
+            <img className='flex lg:hidden' src={banner?.image_mobile} alt='banner'></img>
+          </Link>
+        )}
+
         <nav className='grid grid-flow-col px-6 pt-3 pb-2 mx-auto sm:px-8 lg:px-16'>
           <Link href='/' className='flex items-center lg:justify-center '>
             <img src='/images/logo.svg' className='h-8 mr-3' alt='Flowbite Logo' />

@@ -52,12 +52,12 @@ const EmblaCarousel: React.FC<PropType> = props => {
       ssr={true} // means to render carousel on server-side.
       infinite={true}
       autoPlay={true}
-      autoPlaySpeed={2000}
+      autoPlaySpeed={1000}
       partialVisbile
       slidesToSlide={1}
       keyBoardControl={true}
       customTransition='transform 1000ms ease-in-out '
-      transitionDuration={1000}
+      transitionDuration={3000}
       containerClass='carousel-container'
       removeArrowOnDeviceType={['tablet', 'mobile']}
       itemClass='  mb-10'

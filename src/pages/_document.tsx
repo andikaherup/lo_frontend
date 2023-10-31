@@ -23,7 +23,7 @@ class CustomDocument extends Document {
           />
           <link href='https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css' rel='stylesheet' />
           <link rel='apple-touch-icon' sizes='180x180' href='/images/level0tr.png' />
-          <link rel='shortcut icon' href='/images/level0tr.png' />]
+          <link rel='shortcut icon' href='/images/level0tr.png' />
         </Head>
         <body>
           <Main />
