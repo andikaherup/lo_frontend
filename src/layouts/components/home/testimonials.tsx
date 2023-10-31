@@ -1,5 +1,4 @@
 import EmblaCarousel from './carrousel'
-import { EmblaOptionsType } from 'embla-carousel-react'
 
 const Testimonials = () => {
   const data = [
@@ -45,7 +44,6 @@ const Testimonials = () => {
       image: '/assets/testi/Sally.png'
     }
   ]
-  const OPTIONS: EmblaOptionsType = { loop: true }
 
   return (
     <>
@@ -170,7 +168,7 @@ const Testimonials = () => {
       <section className='px-5 mb-20 text-center lg:px-20'>
         <h2 className='mb-5 text-3xl font-bold text-black-300'>See what others have to say</h2>
         <section className='sandbox__carousel'>
-          <EmblaCarousel slides={data} options={OPTIONS}></EmblaCarousel>
+          <EmblaCarousel slides={data}></EmblaCarousel>
         </section>
 
         {/* <Carousel loop>

@@ -157,7 +157,7 @@ const ForgotPassword = () => {
                           </div>
                           <div className='flex justify-center pb-3 '>
                             <button
-                              className='top-0 right-0 h-full px-5 py-3 text-sm font-medium text-white bg-blue-500 border border-blue-500 rounded-xl hover:bg-blue-300 '
+                              className='w-full py-3 font-bold bg-gradient-to-r from-button1stcolor via-button2ndcolor to-button3rdcolor text-white-500 rounded-3xl hover:opacity-80 hover:cursor-pointer'
                               type='submit'
                             >
                               Send Reset Link

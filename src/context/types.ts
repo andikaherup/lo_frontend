@@ -47,6 +47,26 @@ export type RewardData = {
   updated_at: string
 }
 
+export type ThemeData = {
+  uuid: string
+  theme: string,
+  quote: string,
+  author: string,
+  scheduled_date: string,
+  points_reward: number,
+  quote_images: string,
+  created_at: string,
+  updated_at: string
+}
+
+export type Theme = {
+  created_at: string
+  id: number
+  image: string
+  theme: string
+  updated_at: string
+}
+
 export type DailyRewardData = {
   date: string
   day: number

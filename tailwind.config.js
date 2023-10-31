@@ -132,7 +132,9 @@ module.exports = {
       purpleText: '#5900B5',
       dailyRewardDayBG: '#FFCE00',
       questPointText: '#F0C430',
-      grayText: '#AFB5C0'
+      grayText: '#AFB5C0',
+      labelbg: '#c084fc',
+      labeltext: '#3b0764'
     },
     extend: {
       fontFamily: {

@@ -64,14 +64,8 @@ const NewStepper = (props: QuestProps) => {
 
   const determineBadge = (badgeTitle: string) => {
     switch (badgeTitle) {
-      case 'INTRO':
-        return 'text-textBadgeGreen bg-badgeGreen'
-
-      case 'LEVEL 1':
-        return 'text-textBadgeBlue bg-badgeBlue'
-
-      case 'LEVEL 2':
-        return 'text-black-300 bg-darkHero'
+      default:
+        return 'text-labeltext bg-labelbg'
     }
   }
 
