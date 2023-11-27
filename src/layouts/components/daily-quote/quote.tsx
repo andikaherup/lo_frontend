@@ -36,6 +36,10 @@ const Quote = (props: rewardProps) => {
   const [isDetail, setIsDetail] = useState<boolean>(false)
 
   // const [openRef, setOpenRef] = useState<boolean>(false)
+
+  // const [selectedItem, setSelectedItem] = useState()
+
+  // const [openRef, setOpenRef] = useState<boolean>(false)
   // const [urlParam, setUrlParam] = useState<string>()
   // const [selectedItem, setSelectedItem] = useState<ThemeData>()
 
@@ -61,9 +65,17 @@ const Quote = (props: rewardProps) => {
           headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
         })
         .then(async res => {
-          console.log(res.data)
-
           setThemeData(res.data.data)
+        })
+        .catch(() => {
+          // toast.error('Something went wrong, contact Admin33')
+        })
+      await axios
+        .get(contentConfig.getDailyQuote, {
+          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+        })
+        .then(async res => {
+          setDailyQuote(res.data.data)
         })
         .catch(() => {
           // toast.error('Something went wrong, contact Admin33')
@@ -72,9 +84,20 @@ const Quote = (props: rewardProps) => {
       await axios
         .get(contentConfig.getPublicDailyQuote)
         .then(async res => {
-          console.log(res.data)
-
           setDailyQuote(res.data.data)
+        })
+        .catch(() => {
+          // toast.error('Something went wrong, contact Admin33')
+        })
+      const payload = {
+        theme: 11
+      }
+      await axios
+        .post(contentConfig.getDailyQuoteGallery, payload, {
+          headers: { Authorization: 'Bearer ' + window.localStorage.getItem(contentConfig.storageTokenKeyName)! }
+        })
+        .then(async res => {
+          console.log(res.data)
         })
         .catch(() => {
           // toast.error('Something went wrong, contact Admin33')
@@ -100,6 +123,13 @@ const Quote = (props: rewardProps) => {
     //   })
   }
 
+  // const openDialog = (item: any) => {
+  //   setSelectedItem(item)
+  //   setOpenRef(true)
+  // }
+  // const closeRef = () => {
+  //   setOpenRef(false)
+  // }
   return (
     <div className='w-full h-full min-h-screen bg-newUIbackground'>
       <div className='flex flex-col items-center justify-center h-full min-h-screen pt-20 lg:items-center lg:px-20 '>
@@ -133,6 +163,11 @@ const Quote = (props: rewardProps) => {
               })}
             </div>
           )}
+
+          {/* {selectedItem && openRef && (
+            <ClaimPopup load={loading} open={true} close={closeRef} item={selectedItem}></ClaimPopup>
+            <></>
+          )} */}
           {isDetail && (
             <div className='grid w-full grid-cols-1 gap-5 px-5 pt-5 lg:pt-20 lg:gap-5 lg:grid-cols-3'>
               {dailyQuote?.map((items: QuoteData, index: number) => {

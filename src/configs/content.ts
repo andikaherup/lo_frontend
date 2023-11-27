@@ -14,6 +14,7 @@ export default {
   getPublicDailyQuote: `${base_url}/api/v1/public_daily_quote/`,
   getAuthLeaderBoardData: `${base_url}/api/v1/authenticated_leaderboard/`,
   getSEO: `${base_url}/api/v1/seo/`,
+  getBlog: `${base_url}/api/v1/blog/`,
 
   //reward
   getReward: `${base_url}/api/v1/public_reward/`,
