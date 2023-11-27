@@ -2,12 +2,12 @@ import { ReactNode } from 'react'
 
 import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
-import Reward from 'src/layouts/components/daily-quote/quote'
+import Quote from 'src/layouts/components/daily-quote/quote'
 
 const dailyQuote = () => {
   return (
     <div className='mt-10'>
-      <Reward isPublic={true} />
+      <Quote isPublic={true} />
     </div>
   )
 }
