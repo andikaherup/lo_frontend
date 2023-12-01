@@ -45,7 +45,8 @@ const Blog = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const [blogData, setBlogData] = useState<BlogPost[]>()
-  const [selectedTab, setSelectedTab] = useState('All')
+
+  // const [selectedTab, setSelectedTab] = useState('All')
   const [detail, setDetail] = useState(false)
   const [selectedBlog, setSelectedBlog] = useState<BlogPost>()
 
@@ -53,29 +54,29 @@ const Blog = () => {
   //   setSelectedTab(event.target.value)
   // }
 
-  const menu = [
-    {
-      title: 'All'
-    },
-    {
-      title: 'Career'
-    },
-    {
-      title: 'Leadership'
-    },
-    {
-      title: 'Relationship'
-    },
-    {
-      title: 'Self-Discovery'
-    },
-    {
-      title: 'Technology'
-    },
-    {
-      title: 'Wealth'
-    }
-  ]
+  // const menu = [
+  //   {
+  //     title: 'All'
+  //   },
+  //   {
+  //     title: 'Career'
+  //   },
+  //   {
+  //     title: 'Leadership'
+  //   },
+  //   {
+  //     title: 'Relationship'
+  //   },
+  //   {
+  //     title: 'Self-Discovery'
+  //   },
+  //   {
+  //     title: 'Technology'
+  //   },
+  //   {
+  //     title: 'Wealth'
+  //   }
+  // ]
 
   const detailPage = (blog: BlogPost) => {
     setSelectedBlog(blog)
@@ -84,7 +85,7 @@ const Blog = () => {
 
   return (
     <section className='relative  h-full min-h-screen w-full z-5 overflow-hidden pb-12 px-3 lg:pt-20 pt-5  lg:pb-[90px]'>
-      <div className='container w-full pt-10 pb-5 mx-auto lg:px-10'>
+      <div className='container w-full pt-20 pb-5 mx-auto lg:px-10'>
         <div className='w-full'>
           <div className='flex justify-center px-2 pb-5'>
             <h1 className='mb-3 text-xl font-bold text-center text-black-300 lg:text-5xl'>
@@ -144,12 +145,12 @@ const Blog = () => {
           )}
 
           {detail && (
-            <div className='w-full'>
-              <div className='w-full '>
+            <div className='w-full lg:px-20'>
+              <div className='w-full lg:px-20 '>
                 <div className='flex justify-center w-full pb-10'>
                   <img src={selectedBlog?.image} alt='product image' className='object-scale-down' />
                 </div>
-                <div className='flex justify-center w-full'>
+                <div className='flex justify-center w-full text-xs lg:text-lg'>
                   <HTMLDisplayComponent htmlContent={selectedBlog?.description} />
                 </div>
               </div>

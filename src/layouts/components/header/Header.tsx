@@ -289,6 +289,22 @@ const Header: React.FC = () => {
               >
                 Rewards
               </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Quote'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/daily-quote')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm   inline-block relative' +
+                  (activeLink === 'Quote'
+                    ? ' text-blue-500 animation-active  font-semibold  '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Quote
+              </LinkScroll>
             </ul>
           </div>
           <div className='items-center justify-end hidden col-start-6 col-end-12 font-medium md:flex'>
@@ -510,6 +526,22 @@ const Header: React.FC = () => {
                 }
               >
                 Rewards
+              </LinkScroll>
+              <LinkScroll
+                activeClass='active'
+                to='Quote'
+                spy={true}
+                smooth={true}
+                duration={1000}
+                onClick={() => navChange('/daily-quote')}
+                className={
+                  'px-4 py-3 mx-2 cursor-pointer  text-sm    inline-block relative' +
+                  (activeLink === 'Quote'
+                    ? ' text-blue-500 animation-active font-semibold '
+                    : ' text-black-300 hover:text-blue-500 font-normal')
+                }
+              >
+                Quote
               </LinkScroll>
             </div>
             <hr className={`h-[0.2px] w-full  border-t-0 bg-gray-400`} />

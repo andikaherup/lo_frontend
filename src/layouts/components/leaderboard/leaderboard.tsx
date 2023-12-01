@@ -76,19 +76,19 @@ const Leaderboard = () => {
 
   const getCharacter = (level: number, gender: string, name: string): string => {
     if (name) {
-      if (level == 0) {
-        if (gender == 'male') {
-          return 'L0/' + characters.find(character => character.name === name)?.lead_M || ''
-        } else {
-          return 'L0/' + characters.find(character => character.name === name)?.lead_F || ''
-        }
+      // if (level == 0) {
+      if (gender == 'male') {
+        return `L${level}/` + characters.find(character => character.name === name)?.lead_M || ''
       } else {
-        if (gender == 'male') {
-          return 'L1/' + characters.find(character => character.name === name)?.lead_M || ''
-        } else {
-          return 'L1/' + characters.find(character => character.name === name)?.lead_F || ''
-        }
+        return `L${level}/` + characters.find(character => character.name === name)?.lead_F || ''
       }
+      // } else {
+      //   if (gender == 'male') {
+      //     return 'L1/' + characters.find(character => character.name === name)?.lead_M || ''
+      //   } else {
+      //     return 'L1/' + characters.find(character => character.name === name)?.lead_F || ''
+      //   }
+      // }
     } else {
       return 'CREATOR_LVL_0.png'
     }
@@ -255,13 +255,11 @@ const Leaderboard = () => {
                             <img
                               className='scale-90 rounded-full lg:scale-100'
                               src={`/assets/icon/leaderboard/${
-                                data.character_level == 0
-                                  ? data.gender == 'male'
-                                    ? 'L0/' + characters.find(character => character.name === data.character)?.lead_M
-                                    : 'L0/' + characters.find(character => character.name === data.character)?.lead_F
-                                  : data.gender == 'male'
-                                  ? 'L1/' + characters.find(character => character.name === data.character)?.lead_M
-                                  : 'L1/' + characters.find(character => character.name === data.character)?.lead_F
+                                data.gender == 'male'
+                                  ? `L${data.character_level}/` +
+                                    characters.find(character => character.name === data.character)?.lead_M
+                                  : `L${data.character_level}/` +
+                                    characters.find(character => character.name === data.character)?.lead_F
                               }`}
                               width='70'
                               height='70'
@@ -303,15 +301,11 @@ const Leaderboard = () => {
                           <img
                             className='scale-90 rounded-full lg:scale-100'
                             src={`/assets/icon/leaderboard/${
-                              auth.user?.character_level == 0
-                                ? auth.user?.gender == 'male'
-                                  ? 'L0/' +
-                                    characters.find(character => character.name === auth.user?.character)?.lead_M
-                                  : 'L0/' +
-                                    characters.find(character => character.name === auth.user?.character)?.lead_F
-                                : auth.user?.gender == 'male'
-                                ? 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_M
-                                : 'L1/' + characters.find(character => character.name === auth.user?.character)?.lead_F
+                              auth.user?.gender == 'male'
+                                ? `L${auth.user.character_level}/` +
+                                  characters.find(character => character.name === auth.user?.character)?.lead_M
+                                : `L${auth.user.character_level}/` +
+                                  characters.find(character => character.name === auth.user?.character)?.lead_F
                             }`}
                             width='70'
                             height='70'
