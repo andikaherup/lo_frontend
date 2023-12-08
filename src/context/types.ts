@@ -74,6 +74,18 @@ export type DailyRewardData = {
   status: string
 }
 
+export interface QuoteData {
+  author: string
+  created_at: string
+  quote: string
+  quote_images: string
+  theme: number
+  points_reward?: number
+  updated_at: string
+  uuid: string
+}
+
+
 export type UserDataType = {
   age: string;
   character: string;

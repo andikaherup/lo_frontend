@@ -4,16 +4,23 @@ import BlankLayoutLandingPage from 'src/@core/layouts/BlankLayoutLandingPage'
 
 import Quote from 'src/layouts/components/daily-quote/quote'
 
-const dailyQuote = () => {
+// ** Context
+import { useAuth } from 'src/hooks/useAuth'
+import PublicQuote from 'src/layouts/components/daily-quote/public'
+
+const DailyQuote = () => {
+  const auth = useAuth()
+
   return (
     <div className='mt-10'>
-      <Quote isPublic={true} />
+      {auth.user && <Quote isPublic={true} />}
+      {!auth.user && <PublicQuote></PublicQuote>}
     </div>
   )
 }
 
-dailyQuote.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
+DailyQuote.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
 
-dailyQuote.guestGuard = true
+DailyQuote.guestGuard = true
 
-export default dailyQuote
+export default DailyQuote

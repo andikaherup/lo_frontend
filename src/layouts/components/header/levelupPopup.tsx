@@ -73,16 +73,11 @@ const PopupLevelup = (props: RefProps) => {
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel
-                className={`w-full max-w-3xl  overflow-hidden text-left align-middle transition-all transform shadow-xl  rounded-2xl`}
+                className={`w-full max-w-3xl  overflow-hidden text-left align-middle transition-all transform shadow-xl  rounded-2xl bg-transparent`}
               >
                 <div className='w-full max-w-3xl px-5 pt-2 mx-auto mt-5'>
-                  <button onClick={onSkip}>
-                    <img
-                      src={`/assets/icon/levelup/${auth.user?.character}-${
-                        auth.user?.gender == 'male' ? 'B' : 'G'
-                      }-Level-Up-Popup.jpg`}
-                      alt='whole popup'
-                    ></img>
+                  <button onClick={onSkip} className='outline-none bg-none'>
+                    <img src={`/assets/icon/levelup/Level-Up-POPUP.png`} alt='whole popup'></img>
                   </button>
                   {/* <div className='mt-8'>
                     <div className='grid items-center grid-cols-2 gap-5'>
