@@ -43,16 +43,6 @@ const Quote = (props: rewardProps) => {
   // const [selectedItem, setSelectedItem] = useState()
 
   const [openRef, setOpenRef] = useState<boolean>(false)
-  // const [urlParam, setUrlParam] = useState<string>()
-  // const [selectedItem, setSelectedItem] = useState<ThemeData>()
-
-  // const openDialog = (item: ThemeData) => {
-  //   setSelectedItem(item)
-  //   setOpenRef(true)
-  // }
-  // const closeRef = () => {
-  //   setOpenRef(false)
-  // }
 
   useEffect(() => {
     const initData = async () => {
@@ -145,6 +135,7 @@ const Quote = (props: rewardProps) => {
   const closeRef = () => {
     setOpenRef(false)
   }
+
   return (
     <div className='w-full h-full min-h-screen bg-newUIbackground'>
       <div className='flex flex-col items-center justify-start h-full min-h-screen pt-20 lg:items-center lg:px-20 '>

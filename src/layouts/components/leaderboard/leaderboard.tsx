@@ -82,13 +82,6 @@ const Leaderboard = () => {
       } else {
         return `L${level}/` + characters.find(character => character.name === name)?.lead_F || ''
       }
-      // } else {
-      //   if (gender == 'male') {
-      //     return 'L1/' + characters.find(character => character.name === name)?.lead_M || ''
-      //   } else {
-      //     return 'L1/' + characters.find(character => character.name === name)?.lead_F || ''
-      //   }
-      // }
     } else {
       return 'CREATOR_LVL_0.png'
     }

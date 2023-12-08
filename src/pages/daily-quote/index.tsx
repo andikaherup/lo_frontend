@@ -8,7 +8,7 @@ import Quote from 'src/layouts/components/daily-quote/quote'
 import { useAuth } from 'src/hooks/useAuth'
 import PublicQuote from 'src/layouts/components/daily-quote/public'
 
-const dailyQuote = () => {
+const DailyQuote = () => {
   const auth = useAuth()
 
   return (
@@ -19,8 +19,8 @@ const dailyQuote = () => {
   )
 }
 
-dailyQuote.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
+DailyQuote.getLayout = (page: ReactNode) => <BlankLayoutLandingPage>{page}</BlankLayoutLandingPage>
 
-dailyQuote.guestGuard = true
+DailyQuote.guestGuard = true
 
-export default dailyQuote
+export default DailyQuote

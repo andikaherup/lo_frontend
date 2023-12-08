@@ -4,13 +4,13 @@ import { Dialog, Transition } from '@headlessui/react'
 // ** Config
 import { QuoteData } from 'src/context/types'
 import { FacebookIcon, FacebookShareButton } from 'next-share'
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** MUI Imports
 import axios from 'axios'
 
 // ** Configs
 import contentConfig from 'src/configs/content'
+
 interface RefProps {
   open: boolean
   close: () => void
@@ -18,8 +18,6 @@ interface RefProps {
 }
 
 const DailyPopup = (props: RefProps) => {
-  const auth = useAuth()
-
   const { item } = props
   const [shared, setShared] = useState(true)
   const { open, close } = props
